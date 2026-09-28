@@ -8,8 +8,6 @@ import {
   siteCopy,
   type Locale,
 } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
 
 const { frontmatter } = useData();
 
@@ -36,9 +34,6 @@ const grouped = computed(() =>
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <article v-if="project && copy" class="project-page" :data-project="project.slug">
     <p class="project-page__topline">
       <span class="project-page__category">{{ category }} · {{ project.number }}</span>
@@ -121,7 +116,4 @@ const grouped = computed(() =>
       </section>
     </div>
   </article>
-
-    <SiteFooter />
-  </div>
 </template>

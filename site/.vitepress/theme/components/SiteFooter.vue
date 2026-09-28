@@ -3,11 +3,25 @@ import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
 
+/**
+ * The locale is optional so the shell can render the footer without threading a
+ * prop through every layout; when absent it is read from the page itself.
+ */
+const props = defineProps<{
+  locale?: Locale;
+}>();
+
 const { lang } = useData();
 
-const locale = computed<Locale>(() => (lang.value.startsWith('en') ? 'en' : 'pt-BR'));
-const copy = computed(() => siteCopy[locale.value]);
-const root = computed(() => (locale.value === 'en' ? '/en' : ''));
+const activeLocale = computed<Locale>(() => {
+  if (props.locale) {
+    return props.locale;
+  }
+
+  return lang.value.startsWith('en') ? 'en' : 'pt-BR';
+});
+const copy = computed(() => siteCopy[activeLocale.value]);
+const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
 </script>
 
 <template>

@@ -46,9 +46,16 @@ flowchart LR
 - A checagem de dead links do build e a varredura de links da suíte cobrem o custo real de publicação.
 
 ### E. Frontend, UI e Experiência
-- **Semântica e foco**: skip link, `main` com `tabindex`, `aria-label` nos marcos de navegação e contorno de foco visível.
+- **Playwright sobre o build real**: `pnpm test:e2e` sobe o build e um servidor de preview próprios e verifica, em navegador, o que a inspeção do HTML não revela.
+- **Separação editorial/documentação**: páginas editoriais não podem exibir barra lateral, busca nem navegação de documentação; páginas de documentação devem exibir as três.
+- **Sobreposição e geometria**: o título da home não pode se sobrepor ao parágrafo seguinte, e o conteúdo principal não pode ficar comprimido por uma coluna lateral.
+- **Identidade por projeto**: cada seção de documentação aplica o seu `data-project`, inclusive em tema escuro.
+- **Teclado**: o link de pulo recebe foco na primeira tabulação e aponta para o conteúdo principal; os links de navegação têm foco visível.
+- **Responsividade**: nem a home nem a documentação rolam horizontalmente em 1440px, 850px e 390px.
 - **Movimento**: `prefers-reduced-motion` desliga animações e transições.
-- **Revisão em navegador ainda pendente**: este ambiente não tem navegador, então a verificação visual, por teclado e por leitor de tela continua sendo uma limitação declarada em `PROJECT_STATE.md`.
+
+Uma captura de tela por página, tema e viewport é gerada por `pnpm screenshots` para revisão
+visual. Ela é evidência de apoio, não uma asserção: o que reprova a build é a suíte.
 
 ---
 
@@ -57,7 +64,9 @@ flowchart LR
 | Categoria | Comando | Script |
 |-----------|---------|--------|
 | Tipos | `vue-tsc --noEmit` | `pnpm check` |
-| Testes | `vitest run` | `pnpm test` |
+| Testes unitários | `vitest run` | `pnpm test` |
+| Testes em navegador | `playwright test` | `pnpm test:e2e` |
+| Capturas de tela | `playwright test --grep @capture` | `pnpm screenshots` |
 | Build estático | `vitepress build site` | `pnpm build` |
 | Desenvolvimento | `vitepress dev site` | `pnpm dev` |
 | Conteúdo derivado | importação + stubs de rota | `pnpm content` |

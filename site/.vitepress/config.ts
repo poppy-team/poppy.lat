@@ -44,7 +44,35 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
   });
 }
 
+/**
+ * Page kind is decided from the source path so the same answer is available at
+ * build time, in `transformHead`, and at runtime in the theme. Deciding it only
+ * in the component would set the marker after hydration, which is too late for
+ * a stylesheet rule that hides the documentation chrome.
+ */
+function pageKind(relativePath: string): 'documentation' | 'editorial' {
+  return /(^|\/)(en\/)?docs\//u.test(relativePath) ? 'documentation' : 'editorial';
+}
+
 export default defineConfig({
+  transformHead({ pageData }) {
+    const project =
+      typeof pageData.frontmatter.project === 'string' ? pageData.frontmatter.project : '';
+
+    // VitePress offers no build-time hook for attributes on <html>, and the
+    // rules that separate editorial pages from documentation depend on them.
+    // An inline script in the head runs before the body renders, so the marker
+    // is always set in time; the theme sets it again on client navigation.
+    return [
+      [
+        'script',
+        { 'data-page-marker': '' },
+        `document.documentElement.dataset.page=${JSON.stringify(pageKind(pageData.relativePath))};` +
+          `document.documentElement.dataset.project=${JSON.stringify(project)};`,
+      ],
+    ];
+  },
+
   title: 'Poppy Team',
   description: 'Linguagens e ferramentas com atenção à leitura.',
   lang: 'pt-BR',

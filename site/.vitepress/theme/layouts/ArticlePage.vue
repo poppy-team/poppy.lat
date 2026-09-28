@@ -2,8 +2,6 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import type { Locale } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
 
 const { frontmatter } = useData();
 const locale = computed<Locale>(() => (frontmatter.value.locale === 'en' ? 'en' : 'pt-BR'));
@@ -21,9 +19,6 @@ const date = computed(() => {
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <article class="article-page">
     <header class="article-page__header">
       <h1>{{ frontmatter.title }}</h1>
@@ -37,7 +32,4 @@ const date = computed(() => {
       <Content />
     </div>
   </article>
-
-    <SiteFooter />
-  </div>
 </template>

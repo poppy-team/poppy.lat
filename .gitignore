@@ -20,3 +20,8 @@ dist/
 
 # Local Command Code state
 .commandcode/
+
+# Playwright artefacts
+screenshots/
+test-results/
+playwright-report/

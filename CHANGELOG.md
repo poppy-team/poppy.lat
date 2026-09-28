@@ -16,6 +16,8 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - ADR 003 e goal P01-G01, e goal P00-G01 concluído.
 - Scripts de conteúdo derivado: importação da allow-list, geração de stubs de rota, geração do manifesto e publicação da página 404.
 - Suíte Vitest com 20 asserções sobre o HTML emitido, incluindo paridade de idioma, integração bidirecional, identidade por projeto e resolução de todos os links internos.
+- Suíte Playwright com 49 verificações em navegador, sobre um build e um servidor de preview próprios, cobrindo a separação entre páginas editoriais e de documentação, sobreposição de título, identidade por projeto, navegação por teclado e ausência de rolagem horizontal.
+- Geração de capturas de tela de todas as páginas em tema claro e escuro, desktop e celular, por `pnpm screenshots`.
 
 ### Alterado
 - Plataforma do site migrada de Astro + Starlight para VitePress + Vue 3, com saída estática e sem adapter de servidor.
@@ -42,6 +44,13 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - Breakpoint de `1100px` para o rodapé e o hero em telas médias e de `400px` para telas estreitas.
 
 ### Corrigido
+- A home e as páginas de projeto apareciam como páginas de documentação: a barra lateral, a barra de busca e a navegação de docs eram herdadas do tema do VitePress. O tipo de página agora é marcado no HTML durante o build e o chrome de documentação é ocultado nas páginas editoriais.
+- O `h1` da home se sobrepunha ao parágrafo seguinte, porque o tema base define um entrelinhamento baixo para títulos grandes.
+- O rodapé não era renderizado nas páginas de documentação nativas nem na página 404, porque cada tipo de layout do VitePress expõe um conjunto diferente de slots.
+- O seletor de projeto ultrapassava a largura da janela em telas a partir de 1440px, causando rolagem horizontal.
+- No tema escuro, os cartões de documentação mantinham o fundo claro e o título ficava ilegível.
+
+
 - Removida a prop `availableLocales`, que era calculada e repassada sem uso nas páginas de artigo, mantendo `astro check` sem erros.
 
 ### Alterado

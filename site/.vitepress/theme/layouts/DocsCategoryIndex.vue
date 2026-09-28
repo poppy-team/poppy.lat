@@ -7,8 +7,6 @@ import {
   getProjectBySlug,
   type Locale,
 } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
 
 const { frontmatter } = useData();
 
@@ -33,9 +31,6 @@ const otherCategories = computed(() => {
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <div v-if="project && category" class="docs-landing" :data-project="project.slug">
     <header class="docs-landing__hero">
       <p class="eyebrow">{{ project.name }}</p>
@@ -56,8 +51,5 @@ const otherCategories = computed(() => {
         <span class="docs-card__description">{{ sibling.description }}</span>
       </a>
     </nav>
-  </div>
-
-    <SiteFooter />
   </div>
 </template>

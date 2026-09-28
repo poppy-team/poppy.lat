@@ -214,6 +214,28 @@ main {
   align-items: center;
 }
 
+@media (min-width: 960px) {
+  /* The switcher is rendered outside VPContent, so on documentation pages it
+     has to account for the sidebar gutter the content already gets. The width
+     is derived from the space that is actually left, because a fixed width
+     plus a large left margin overflows the viewport. */
+  html[data-page='documentation'] .project-switch {
+    margin-left: calc(var(--vp-sidebar-width) + var(--content-gutter));
+    width: auto;
+    margin-right: var(--content-gutter);
+  }
+}
+
+@media (min-width: 1440px) {
+  html[data-page='documentation'] .project-switch {
+    margin-left: calc(
+      (100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) + var(--content-gutter)
+    );
+    width: auto;
+    margin-right: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--content-gutter));
+  }
+}
+
 .project-switch__label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -249,6 +271,9 @@ main {
 
 .hero__title {
   font-size: clamp(2.5rem, 7vw, 5rem);
+  /* The VitePress base sets a tight line-height on headings; at hero size it
+     collapsed the box and made the following paragraph overlap the title. */
+  line-height: 1.05;
   margin-block: var(--space-2);
 }
 
@@ -387,6 +412,7 @@ main {
 
 .project-page__title {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
   margin-block: var(--space-2);
 }
 
@@ -557,6 +583,7 @@ main {
 
 .docs-landing__hero h1 {
   font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.05;
   margin-block: var(--space-2);
 }
 
@@ -684,4 +711,132 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Separation between editorial pages and documentation.
+
+   The VitePress default Layout is used for both kinds of page, because it is
+   what resolves a page's `layout` frontmatter. Its documentation chrome is
+   hidden here on editorial pages, driven by the `data-page` marker the theme
+   sets, so a home page never shows a docs navbar, search box or sidebar.
+   -------------------------------------------------------------------------- */
+
+html[data-page='editorial'] .VPSidebar,
+html[data-page='editorial'] .VPNav,
+html[data-page='editorial'] .VPLocalNav {
+  display: none;
+}
+
+html[data-page='editorial'] .VPContent.has-sidebar {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+html[data-page='editorial'] .VPContent {
+  padding-top: 0;
+}
+
+html[data-page='editorial'] .project-switch,
+html[data-page='editorial'] .docs-project {
+  display: none;
+}
+
+html[data-page='editorial'] .VPDoc .VPDocAside,
+html[data-page='editorial'] .VPDoc .header-anchor {
+  display: none;
+}
+
+@media (min-width: 1440px) {
+  html[data-page='editorial'] .VPContent.has-sidebar {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Dark theme corrections.
+
+   The docs chrome sits inside a padded content area, so the project switcher
+   and the documentation header need the same gutter the editorial pages use.
+   Cards carry the light paper colour, which inverts badly on a dark page.
+   -------------------------------------------------------------------------- */
+
+.dark .docs-card,
+.dark .code-plate {
+  background: var(--color-ink);
+  border-color: var(--color-rule);
+}
+
+.dark .docs-card__title {
+  color: var(--color-paper);
+}
+
+.dark .docs-card__description,
+.dark .project-page__note,
+.dark .project-docs__description,
+.dark .docs-landing__description {
+  color: var(--color-ink-muted);
+}
+
+.dark .code-plate pre,
+.dark .code-plate__caption {
+  color: var(--color-paper);
+}
+
+.dark .site-header,
+.dark .site-footer {
+  color: var(--color-paper);
+}
+
+.dark .button-link--light {
+  border-color: var(--color-paper);
+  color: var(--color-paper);
+}
+
+.dark .project-page__hero,
+.dark .docs-landing__hero {
+  border-color: var(--color-rule);
+}
+
+/* --------------------------------------------------------------------------
+   Documentation index and category pages carry their own layout, so they are
+   not inside VPDoc and do not get the sidebar gutter the native doc pages get.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Ordering of the shared chrome.
+
+   The site chrome is injected through `layout-top`, which the VitePress Layout
+   emits before its own navbar, sidebar and content. Both sets are children of
+   the same container, so the site chrome is pulled to the end and the
+   documentation chrome to the start, instead of the two overlapping.
+   -------------------------------------------------------------------------- */
+
+.VPNav,
+.VPLocalNav,
+.VPSidebar,
+.VPContent {
+  order: 0;
+}
+
+.site-footer {
+  order: 3;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The content column grows so the footer settles at the bottom of the page. */
+.VPContent {
+  flex: 1 0 auto;
+}
+
+html[data-page='editorial'] .VPContent {
+  padding-top: 0;
 }

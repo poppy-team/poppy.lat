@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useData } from 'vitepress';
-import type { Locale } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
+import { siteCopy, type Locale } from '@poppy/project-data';
 
 const { lang } = useData();
 const locale = computed<Locale>(() => (lang.value.startsWith('en') ? 'en' : 'pt-BR'));
+const copy = computed(() => siteCopy[locale.value]);
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <div class="not-found">
     <p class="eyebrow">404</p>
     <h1>{{ locale === 'en' ? 'This page does not exist.' : 'Esta página não existe.' }}</h1>
@@ -31,8 +27,5 @@ const locale = computed<Locale>(() => (lang.value.startsWith('en') ? 'en' : 'pt-
         {{ locale === 'en' ? 'Projects' : 'Projetos' }} →
       </a>
     </p>
-  </div>
-
-    <SiteFooter />
   </div>
 </template>

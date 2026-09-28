@@ -8,8 +8,6 @@ import {
   projectPageHref,
   type Locale,
 } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
 
 const { frontmatter } = useData();
 
@@ -29,9 +27,6 @@ const grouped = computed(() =>
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <div v-if="project" class="docs-landing" :data-project="project.slug">
     <header class="docs-landing__hero">
       <p class="eyebrow">{{ project.category[locale] }}</p>
@@ -59,8 +54,5 @@ const grouped = computed(() =>
         </li>
       </ul>
     </section>
-  </div>
-
-    <SiteFooter />
   </div>
 </template>

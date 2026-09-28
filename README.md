@@ -38,11 +38,18 @@ pnpm dev
 ```bash
 pnpm check
 pnpm test
+pnpm test:e2e
 pnpm build
 pnpm preview
 ```
 
-A saída de produção estática fica em `site/.vitepress/dist/`. Não é necessário adapter SSR. `pnpm test` valida rotas, proveniência, integração entre projeto e documentação, paridade de idioma, identidade visual e resolução de todos os links internos do HTML gerado.
+`pnpm test:e2e` sobe o build e um servidor de preview próprios antes de rodar, de modo que
+uma execução nunca valide um build antigo. Para gerar capturas de tela de todas as páginas,
+em tema claro e escuro e em desktop e celular, use `pnpm screenshots`.
+
+A saída de produção estática fica em `site/.vitepress/dist/`. Não é necessário adapter SSR.
+
+`pnpm test` valida o HTML gerado: rotas, proveniência, integração entre projeto e documentação, paridade de idioma, identidade visual e resolução de todos os links internos. `pnpm test:e2e` valida o que o HTML sozinho não revela — que a home e as páginas de projeto não herdam a barra lateral, a busca nem a navegação da documentação, que o título da home não se sobrepõe ao texto seguinte, que a identidade por projeto é aplicada, que o link de pulo funciona e que nenhuma página rola horizontalmente.
 
 ## Regenerar conteúdo
 

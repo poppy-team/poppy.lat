@@ -15,9 +15,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:prumo": "prumo validate . && prumo doctor .",
-    "content": "node --experimental-strip-types scripts/import-docs.ts && node --experimental-strip-types scripts/generate-routes.ts"
+    "content": "node --experimental-strip-types scripts/import-docs.ts && node --experimental-strip-types scripts/generate-routes.ts",
+    "test:e2e": "playwright test",
+    "screenshots": "playwright test --grep @capture"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vue/test-utils": "2.5.1",
     "typescript": "6.0.3",
     "vitepress": "1.6.4",

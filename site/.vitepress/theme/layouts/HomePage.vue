@@ -2,8 +2,6 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { projects, type Locale } from '@poppy/project-data';
-import SiteChrome from '../components/SiteChrome.vue';
-import SiteFooter from '../components/SiteFooter.vue';
 
 const { frontmatter } = useData();
 
@@ -14,9 +12,6 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
 </script>
 
 <template>
-  <div class="site-page">
-    <SiteChrome />
-
     <div class="home">
     <section class="hero">
       <div class="hero__copy">
@@ -90,8 +85,5 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
         <span>{{ locale === 'en' ? 'Guides per project, imported from the canonical repositories.' : 'Guias por projeto, importados dos repositórios canônicos.' }}</span>
       </a>
     </section>
-  </div>
-
-    <SiteFooter />
   </div>
 </template>
