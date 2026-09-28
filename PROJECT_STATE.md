@@ -19,6 +19,19 @@
 - The Poppy Team mark lives in `site/public/assets/` in two variants. The dark variant reuses the light geometry exactly, and a test enforces the three allowed fills per variant.
 - Goal `P00-G01` is `DONE`; `P01-G01` is registered at `.ai/goals/P01/P01-G01.goal.json`.
 
+## Deployment
+
+Production is a single VitePress project on the personal `raillen` Vercel account,
+built from this repository with `vercel deploy --prod`. The build command, output
+directory and install command live in `vercel.json` and are mirrored on the project
+settings, because the Astro framework preset inherited from the previous stack
+overrides the committed configuration.
+
+**Automatic deploys are not connected.** A push to a branch does not trigger a
+deployment: the Vercel project has no Git repository linked, so every deploy is
+manual. Connecting it requires access to the repository from the account that owns
+the Vercel project, which is not available from this environment.
+
 ## Limitations and next actions
 
 - The website domain has not been approved, so the build emits no sitemap and no canonical alternates.
