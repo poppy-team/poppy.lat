@@ -1,0 +1,126 @@
+{
+  "ai": {
+    "autonomy": "agentic",
+    "orchestrator": "prumo",
+    "preferred_models": [
+      {
+        "id": "openai/gpt-5.6-sol",
+        "provider": "openai"
+      }
+    ]
+  },
+  "context": {
+    "architecture": "progressive-context-architecture",
+    "budget_profile": "medium",
+    "deep_recursion": {
+      "enabled": false,
+      "experimental": true
+    },
+    "methodology": "lean-progressive-context",
+    "mode": "progressive",
+    "profiles": {
+      "large": {
+        "context_hard_tokens": 32000,
+        "context_target_tokens": 16000,
+        "max_delegation_depth": 1,
+        "max_expansion_rounds": 3,
+        "output_hard_tokens": 6000,
+        "output_target_tokens": 3000
+      },
+      "medium": {
+        "context_hard_tokens": 16000,
+        "context_target_tokens": 8000,
+        "max_delegation_depth": 1,
+        "max_expansion_rounds": 2,
+        "output_hard_tokens": 3000,
+        "output_target_tokens": 1500
+      },
+      "small": {
+        "context_hard_tokens": 6000,
+        "context_target_tokens": 3000,
+        "max_delegation_depth": 0,
+        "max_expansion_rounds": 1,
+        "output_hard_tokens": 1000,
+        "output_target_tokens": 500
+      }
+    },
+    "runtime": {
+      "completed_context_ttl": "0d",
+      "database": ".prumo/runtime/prumo.db",
+      "failed_context_ttl": "7d"
+    }
+  },
+  "documentation": {
+    "audiences": [
+      "user",
+      "developer",
+      "operations",
+      "agent"
+    ],
+    "canonical_format": "markdown",
+    "entrypoint": "docs/PRUMO.md",
+    "site": {
+      "enabled": true,
+      "generated": true,
+      "public_internal_views": true,
+      "source": "docs"
+    },
+    "virtual_chunking": true
+  },
+  "features": [
+    "responsive-design",
+    "accessibility",
+    "seo"
+  ],
+  "framework": {
+    "name": "prumo",
+    "version": "0.6.0"
+  },
+  "goals": {
+    "active_goal": "P00-G01",
+    "active_phase": "P00"
+  },
+  "intelligence": {
+    "distinguish_observed_estimated": true,
+    "enabled": true,
+    "path": ".prumo/history/project-intelligence.json",
+    "task_reports": true,
+    "track_cost": true,
+    "track_input_tokens": true,
+    "track_output_tokens": true
+  },
+  "orchestration": {
+    "autonomy": "agentic",
+    "orchestrator": "prumo",
+    "protocol": "POP"
+  },
+  "project": {
+    "description": "Site estático bilíngue da Poppy Team, com catálogo editorial de projetos e documentação pública selecionada de Ori e Aipo.",
+    "name": "Poppy Team",
+    "type": [
+      "website"
+    ]
+  },
+  "protocol": {
+    "compatible": "\u003e=3 \u003c4",
+    "version": 3
+  },
+  "quality": {
+    "accessibility": true
+  },
+  "risk": [],
+  "stack": {
+    "frameworks": [
+      "astro",
+      "starlight"
+    ],
+    "languages": [
+      "typescript",
+      "markdown"
+    ],
+    "runtimes": [
+      "browser"
+    ]
+  },
+  "version": 3
+}

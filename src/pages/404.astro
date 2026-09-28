@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../components/SiteLayout.astro';
+---
+
+<SiteLayout
+  locale="pt-BR"
+  title="Página não encontrada"
+  description="O endereço solicitado não corresponde a uma página publicada."
+  languageSwitchHref="/en/"
+>
+  <section class="journal-page" aria-labelledby="not-found-title">
+    <p class="eyebrow">404 / página não encontrada</p>
+    <h1 id="not-found-title">Este caminho<br /><em>não existe.</em></h1>
+    <p class="journal-page__intro">O endereço pode ter mudado ou estar incompleto. Volte ao início para continuar explorando.</p>
+    <a class="text-link" href="/">Voltar à página inicial <span aria-hidden="true">↗</span></a>
+  </section>
+</SiteLayout>

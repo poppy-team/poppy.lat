@@ -1,0 +1,9 @@
+
+# Prumo derived/runtime state
+.prumo/runtime/
+.prumo/cache/
+
+# Astro build and local dependencies
+node_modules/
+dist/
+.astro/

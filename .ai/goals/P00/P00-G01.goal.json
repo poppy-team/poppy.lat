@@ -1,0 +1,77 @@
+{
+  "acceptance": [
+    "A home estática existe em português na raiz e em inglês em /en, com Ori e Aipo em destaque e Oride e Prumo em segundo plano.",
+    "Cada projeto possui uma página estática nas duas línguas com propósito, filosofia, links de origem e exemplos identificados claramente como estáticos; nenhum código é executado no navegador.",
+    "Um post Markdown de exemplo aparece no índice e em uma rota de blog nas duas línguas, sem CMS ou backend.",
+    "Starlight oferece documentação em /docs/ e /en/docs/; só conteúdo público explicitamente allow-listed de Ori e Aipo é copiado, com commits fixados, atribuição/licença e links canônicos para as fontes.",
+    "A interface usa HTML semântico, funciona em viewport estreita e com teclado, exibe foco visível e respeita prefers-reduced-motion.",
+    "O projeto tem configuração Astro/TypeScript estrita, lockfile pnpm e scripts locais para diagnóstico e build estático; não adiciona adapter de servidor nem serviços externos.",
+    "README, visão, escopo, arquitetura/ADR, tokens e inventário de fontes refletem a implementação; build, typecheck, prumo validate e prumo doctor passam."
+  ],
+  "constraints": [
+    "Manter as documentações completas de Ori e Aipo canônicas em seus repositórios; não alterar esses repositórios.",
+    "Importar somente os arquivos e as revisões enumerados no manifesto local de fontes; não varrer diretórios inteiros nem publicar conteúdo interno.",
+    "Usar Astro + TypeScript + Starlight e gerar HTML estático.",
+    "Idioma padrão pt-BR sem prefixo e inglês sob /en.",
+    "Não sugerir execução de Ori ou Aipo no browser; exemplos nesta fatia são somente blocos estáticos."
+  ],
+  "context": {
+    "budget_profile": "medium",
+    "max_delegation_depth": 1
+  },
+  "dependencies": [],
+  "evidence": [],
+  "gates": {
+    "build": "required",
+    "documentation_impact": "required",
+    "project_intelligence": "required",
+    "review": "required",
+    "tests": "required"
+  },
+  "history": [
+    {
+      "at": "2026-09-28T07:07:41.363497349Z",
+      "event": "created",
+      "state": "DRAFT"
+    },
+    {
+      "at": "2026-09-28T07:18:20.238236852Z",
+      "event": "state-transition",
+      "from": "DRAFT",
+      "reason": "",
+      "to": "PLANNED"
+    },
+    {
+      "at": "2026-09-28T07:18:20.257984412Z",
+      "event": "state-transition",
+      "from": "PLANNED",
+      "reason": "",
+      "to": "LOCKED"
+    },
+    {
+      "at": "2026-09-28T07:27:33.702644972Z",
+      "event": "state-transition",
+      "from": "LOCKED",
+      "reason": "",
+      "to": "EXECUTING"
+    }
+  ],
+  "id": "P00-G01",
+  "lock": {
+    "digest": "6823426fbe344ab985684078f82317708562b0a9d7b63f7cd018771cd7faed5d",
+    "locked_at": "2026-09-28T07:18:20.257967219Z",
+    "revision": 1
+  },
+  "non_goals": [
+    "Playground, compiler, interpreter, WebAssembly runtime ou qualquer execução de linguagem no navegador.",
+    "CMS, autenticação, formulários de backend, analytics, comentários ou busca remota.",
+    "Adapter SSR, deploy ou alteração de DNS/nameservers.",
+    "Importação automática de todos os diretórios de documentação de Ori ou Aipo.",
+    "Fechar identidade de marca, domínio público, política comercial/Vercel ou conteúdo institucional ainda não confirmado."
+  ],
+  "objective": "Deliver a small static Astro + TypeScript + Starlight proof of concept for the Poppy Team site, with Portuguese at the root and English at /en, an editorial project index, and only locally vendored allow-listed Ori and Aipo public docs pinned to verified commits; preserve both source repositories as canonical and unchanged.",
+  "phase": "P00",
+  "revision": 1,
+  "state": "EXECUTING",
+  "title": "Astro + Starlight bilingual site spike"
+}

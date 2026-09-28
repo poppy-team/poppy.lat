@@ -1,0 +1,113 @@
+{
+  "generated_by": {
+    "prumo": "0.2.0"
+  },
+  "skills": [
+    "accessibility",
+    "architecture-quality",
+    "clean-code",
+    "code-review",
+    "cognitive-clarity",
+    "contrast",
+    "dependency-management",
+    "design-system",
+    "design-tokens",
+    "documentation",
+    "error-handling",
+    "focus-management",
+    "git-workflow",
+    "goal-management",
+    "keyboard-accessibility",
+    "lean-progressive-context",
+    "motion-accessibility",
+    "project-intelligence",
+    "prumo-navigation",
+    "refactoring",
+    "release-engineering",
+    "screen-reader",
+    "testing-quality",
+    "ui-implementation",
+    "zoom-reflow"
+  ],
+  "reasons": {
+    "accessibility": [
+      "feature",
+      "risk",
+      "risk-rule:accessibility-risk"
+    ],
+    "architecture-quality": [
+      "core"
+    ],
+    "clean-code": [
+      "core"
+    ],
+    "code-review": [
+      "core"
+    ],
+    "cognitive-clarity": [
+      "core"
+    ],
+    "contrast": [
+      "feature",
+      "risk-rule:accessibility-risk"
+    ],
+    "dependency-management": [
+      "core"
+    ],
+    "design-system": [
+      "feature"
+    ],
+    "design-tokens": [
+      "dependency:contrast"
+    ],
+    "documentation": [
+      "core"
+    ],
+    "error-handling": [
+      "core"
+    ],
+    "focus-management": [
+      "feature"
+    ],
+    "git-workflow": [
+      "core"
+    ],
+    "goal-management": [
+      "core"
+    ],
+    "keyboard-accessibility": [
+      "feature",
+      "risk-rule:accessibility-risk"
+    ],
+    "lean-progressive-context": [
+      "core"
+    ],
+    "motion-accessibility": [
+      "feature"
+    ],
+    "project-intelligence": [
+      "core"
+    ],
+    "prumo-navigation": [
+      "core"
+    ],
+    "refactoring": [
+      "core"
+    ],
+    "release-engineering": [
+      "core"
+    ],
+    "screen-reader": [
+      "feature"
+    ],
+    "testing-quality": [
+      "core"
+    ],
+    "ui-implementation": [
+      "dependency:motion-accessibility"
+    ],
+    "zoom-reflow": [
+      "feature"
+    ]
+  }
+}

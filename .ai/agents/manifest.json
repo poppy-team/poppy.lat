@@ -1,0 +1,46 @@
+{
+  "generated_by": {
+    "prumo": "0.2.0"
+  },
+  "agents": [
+    "accessibility-reviewer",
+    "architect",
+    "debugger",
+    "documentation-maintainer",
+    "explorer",
+    "implementer",
+    "release-verifier",
+    "reviewer",
+    "tester"
+  ],
+  "reasons": {
+    "accessibility-reviewer": [
+      "feature",
+      "risk"
+    ],
+    "architect": [
+      "core"
+    ],
+    "debugger": [
+      "core"
+    ],
+    "documentation-maintainer": [
+      "core"
+    ],
+    "explorer": [
+      "core"
+    ],
+    "implementer": [
+      "core"
+    ],
+    "release-verifier": [
+      "core"
+    ],
+    "reviewer": [
+      "core"
+    ],
+    "tester": [
+      "core"
+    ]
+  }
+}

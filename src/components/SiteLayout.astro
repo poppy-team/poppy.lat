@@ -1,0 +1,81 @@
+---
+import poppyLogo from '../assets/poppy-logo.svg';
+import type { Locale } from '../data/projects';
+import { siteCopy } from '../data/site-copy';
+import '../styles/site.css';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  languageSwitchHref: string;
+}
+
+const { locale, title, description, languageSwitchHref } = Astro.props;
+const copy = siteCopy[locale];
+const homeHref = locale === 'en' ? '/en/' : '/';
+const projectsHref = locale === 'en' ? '/en/#projects' : '/#projects';
+const docsHref = locale === 'en' ? '/en/docs/' : '/docs/';
+const blogHref = locale === 'en' ? '/en/blog/' : '/blog/';
+const languageCode = locale === 'en' ? 'pt-BR' : 'en';
+const languageLabel = locale === 'en' ? 'Português' : 'English';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f1eddf" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} — Poppy Team`} />
+    <meta property="og:description" content={description} />
+    <title>{title} — Poppy Team</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{copy.skipLink}</a>
+    <header class="site-header">
+      <a class="wordmark" href={homeHref} aria-label="Poppy Team — home">
+        <img
+          class="wordmark__logo"
+          src={poppyLogo.src}
+          width={poppyLogo.width}
+          height={poppyLogo.height}
+          alt=""
+          decoding="async"
+        />
+        <span class="wordmark__text">
+          <span class="wordmark__name">poppy</span>
+          <span class="wordmark__suffix">team / research &amp; tools</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label={copy.navigationLabel}>
+        <a href={projectsHref}>{copy.navigation.projects}</a>
+        <a href={docsHref}>{copy.navigation.docs}</a>
+        <a href={blogHref}>{copy.navigation.blog}</a>
+        <a href="mailto:mail@poppy.lat">{copy.navigation.contact}</a>
+        <a
+          class="language-switch"
+          href={languageSwitchHref}
+          lang={languageCode}
+          aria-label={copy.languageLabel}
+        >
+          {languageLabel}
+        </a>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <a class="site-footer__mark" href={homeHref}>Poppy Team</a>
+      <p>{copy.footerDescription}</p>
+      <div class="site-footer__links">
+        <a href="https://github.com/poppy-team">{copy.githubLabel}</a>
+        <a href="mailto:mail@poppy.lat">{copy.emailLabel}</a>
+      </div>
+      <small>© 2026 Poppy Team</small>
+    </footer>
+  </body>
+</html>

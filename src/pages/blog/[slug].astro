@@ -1,0 +1,49 @@
+---
+import { render, getCollection } from 'astro:content';
+import SiteLayout from '../../components/SiteLayout.astro';
+
+export async function getStaticPaths() {
+  const [posts, translatedPosts] = await Promise.all([
+    getCollection('blog', (entry) => entry.data.locale === 'pt-BR'),
+    getCollection('blog', (entry) => entry.data.locale === 'en'),
+  ]);
+
+  const staticPaths = posts.map((post) => {
+    const translatedPost = translatedPosts.find(
+      (candidate) => candidate.data.translationKey === post.data.translationKey,
+    );
+
+    return {
+      params: { slug: post.id.split('/').at(-1) },
+      props: {
+        post,
+        translatedPostSlug: translatedPost?.id.split('/').at(-1),
+      },
+    };
+  });
+
+  return staticPaths;
+}
+
+const { post, translatedPostSlug } = Astro.props;
+const { Content } = await render(post);
+const formatDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<SiteLayout
+  locale="pt-BR"
+  title={post.data.title}
+  description={post.data.description}
+  languageSwitchHref={translatedPostSlug ? `/en/blog/${translatedPostSlug}/` : '/en/'}
+>
+  <article class="article-page">
+    <a class="back-link" href="/blog/"><span aria-hidden="true">←</span> Voltar ao caderno</a>
+    <header class="article-page__header">
+      <p class="eyebrow">Nota de processo</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-page__description">{post.data.description}</p>
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate.format(post.data.pubDate)}</time>
+    </header>
+    <div class="article-content"><Content /></div>
+  </article>
+</SiteLayout>

@@ -1,0 +1,39 @@
+---
+import SiteLayout from '../../../components/SiteLayout.astro';
+import { getCollection } from 'astro:content';
+
+const locale = 'en' as const;
+const posts = await getCollection('blog', (entry) => entry.data.locale === locale);
+const orderedPosts = posts.sort((first, second) => second.data.pubDate.valueOf() - first.data.pubDate.valueOf());
+const formatDate = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<SiteLayout
+  locale={locale}
+  title="Working notebook"
+  description="Poppy Team notes on languages, documentation, and tools."
+  languageSwitchHref="/blog/"
+>
+  <section class="journal-page" aria-labelledby="journal-title">
+    <p class="eyebrow">Working notebook · process notes</p>
+    <h1 id="journal-title">Small<br /><em>observations.</em></h1>
+    <p class="journal-page__intro">A place to record decisions, experiments, and things we learn while making.</p>
+    <ol class="journal-list">
+      {orderedPosts.map((post) => {
+        const postSlug = post.id.split('/').at(-1);
+        return (
+          <li>
+            <article>
+              <time datetime={post.data.pubDate.toISOString()}>{formatDate.format(post.data.pubDate)}</time>
+              <div>
+                <h2><a href={`/en/blog/${postSlug}/`}>{post.data.title} <span aria-hidden="true">↗</span></a></h2>
+                <p>{post.data.description}</p>
+              </div>
+              <span class="journal-list__index" aria-hidden="true">→</span>
+            </article>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+</SiteLayout>

@@ -1,0 +1,49 @@
+---
+import { render, getCollection } from 'astro:content';
+import SiteLayout from '../../../components/SiteLayout.astro';
+
+export async function getStaticPaths() {
+  const [posts, translatedPosts] = await Promise.all([
+    getCollection('blog', (entry) => entry.data.locale === 'en'),
+    getCollection('blog', (entry) => entry.data.locale === 'pt-BR'),
+  ]);
+
+  const staticPaths = posts.map((post) => {
+    const translatedPost = translatedPosts.find(
+      (candidate) => candidate.data.translationKey === post.data.translationKey,
+    );
+
+    return {
+      params: { slug: post.id.split('/').at(-1) },
+      props: {
+        post,
+        translatedPostSlug: translatedPost?.id.split('/').at(-1),
+      },
+    };
+  });
+
+  return staticPaths;
+}
+
+const { post, translatedPostSlug } = Astro.props;
+const { Content } = await render(post);
+const formatDate = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<SiteLayout
+  locale="en"
+  title={post.data.title}
+  description={post.data.description}
+  languageSwitchHref={translatedPostSlug ? `/blog/${translatedPostSlug}/` : '/'}
+>
+  <article class="article-page">
+    <a class="back-link" href="/en/blog/"><span aria-hidden="true">←</span> Back to the notebook</a>
+    <header class="article-page__header">
+      <p class="eyebrow">Process note</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-page__description">{post.data.description}</p>
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate.format(post.data.pubDate)}</time>
+    </header>
+    <div class="article-content"><Content /></div>
+  </article>
+</SiteLayout>

@@ -1,0 +1,127 @@
+---
+import SiteLayout from '../components/SiteLayout.astro';
+import { projects } from '../data/projects';
+import { getCollection } from 'astro:content';
+
+const locale = 'pt-BR' as const;
+const featuredProjects = projects.filter((project) => project.featured);
+const secondaryProjects = projects.filter((project) => !project.featured);
+const journal = await getCollection('blog', (entry) => entry.data.locale === locale);
+const latestPost = journal.sort((first, second) => second.data.pubDate.valueOf() - first.data.pubDate.valueOf())[0];
+---
+
+<SiteLayout
+  locale={locale}
+  title="Linguagens, ferramentas e caminhos de leitura"
+  description="A Poppy Team pesquisa linguagens de programação e ferramentas pequenas para quem gosta de entender como as coisas funcionam."
+  languageSwitchHref="/en/"
+>
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero__copy">
+      <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span> Caderno de trabalho · Poppy Team · 2026</p>
+      <h1 id="home-title">Ideias que<br />ganham <em>linguagem.</em></h1>
+      <p class="hero__intro">
+        Uma equipe pequena, um campo aberto de experimentos. Criamos linguagens e ferramentas com atenção à leitura, à forma e ao que acontece por baixo da superfície.
+      </p>
+      <a class="text-link" href="#projects">Conheça os projetos <span aria-hidden="true">↘</span></a>
+    </div>
+    <figure class="hero-art" aria-labelledby="hero-art-caption">
+      <span class="hero-art__registration" aria-hidden="true">FIG. 01&nbsp; / &nbsp;P. LAT</span>
+      <svg class="hero-art__flower" viewBox="0 0 440 440" role="img" aria-label="Ilustração geométrica de uma flor vermelha sobre papel claro">
+        <path class="hero-art__stem" d="M218 228 C214 294 238 337 214 414" />
+        <path class="hero-art__leaf" d="M219 331 C168 286 131 304 151 330 C165 347 193 343 219 331Z" />
+        <path class="hero-art__leaf hero-art__leaf--second" d="M220 362 C260 321 295 334 283 354 C273 370 244 371 220 362Z" />
+        <path class="hero-art__petal hero-art__petal--one" d="M221 228 C170 187 157 111 194 83 C228 58 254 94 252 137 C251 176 236 207 221 228Z" />
+        <path class="hero-art__petal hero-art__petal--two" d="M221 228 C224 166 268 105 309 113 C351 122 347 165 318 194 C293 219 254 229 221 228Z" />
+        <path class="hero-art__petal hero-art__petal--three" d="M221 228 C275 202 351 212 362 251 C373 290 335 308 297 289 C266 273 239 247 221 228Z" />
+        <path class="hero-art__petal hero-art__petal--four" d="M221 228 C253 273 250 349 212 366 C174 383 149 347 166 309 C180 278 202 249 221 228Z" />
+        <path class="hero-art__petal hero-art__petal--five" d="M221 228 C174 260 100 257 83 220 C66 183 101 159 140 172 C173 183 201 207 221 228Z" />
+        <circle class="hero-art__heart" cx="221" cy="228" r="28" />
+        <circle class="hero-art__seed" cx="212" cy="222" r="3" />
+        <circle class="hero-art__seed" cx="228" cy="215" r="3" />
+        <circle class="hero-art__seed" cx="232" cy="232" r="3" />
+        <circle class="hero-art__seed" cx="216" cy="239" r="3" />
+        <circle class="hero-art__seed" cx="221" cy="225" r="3" />
+      </svg>
+      <figcaption id="hero-art-caption" class="hero-art__caption">
+        <span>Um atlas em construção</span>
+        <span>Brasil · aberto</span>
+      </figcaption>
+      <span class="hero-art__folio" aria-hidden="true">P.</span>
+    </figure>
+    <p class="hero__margin-note" aria-hidden="true">Anotações<br />sobre software<br />e linguagem.</p>
+  </section>
+
+  <section class="section-heading" id="projects" aria-labelledby="projects-title">
+    <div>
+      <p class="eyebrow">01 / O que estamos fazendo</p>
+      <h2 id="projects-title">Projetos em <em>curso</em></h2>
+    </div>
+    <p>Quatro linhas de pesquisa, cada uma com seu próprio ritmo.</p>
+  </section>
+
+  <section class="featured-projects" aria-label="Projetos em destaque">
+    {featuredProjects.map((project) => (
+      <article class={`project-feature project-feature--${project.slug}`}>
+        <div class="project-feature__header">
+          <span class="project-feature__number">{project.number} / 04</span>
+          <span class="project-feature__category">{project.category[locale]}</span>
+        </div>
+        <div class="project-feature__body">
+          <div>
+            <h3><a href={`/projetos/${project.slug}/`}>{project.name}<span aria-hidden="true"> ↗</span></a></h3>
+            <p>{project.homeSummary[locale]}</p>
+          </div>
+          <a class="project-feature__link" href={`/projetos/${project.slug}/`}>Ver o projeto <span aria-hidden="true">→</span></a>
+        </div>
+        <span class="project-feature__glyph" aria-hidden="true">{project.slug === 'ori' ? 'ᚱ' : '∴'}</span>
+      </article>
+    ))}
+  </section>
+
+  <section class="secondary-section" aria-labelledby="secondary-title">
+    <div class="secondary-section__intro">
+      <p class="eyebrow">02 / Ferramentas e método</p>
+      <h2 id="secondary-title">Ao redor<br />do <em>código.</em></h2>
+      <p>Ferramentas para escrever melhor código e um processo para manter o trabalho legível.</p>
+    </div>
+    <div class="secondary-list">
+      {secondaryProjects.map((project) => (
+        <article class="secondary-project">
+          <span class="secondary-project__number">{project.number}</span>
+          <div>
+            <p class="secondary-project__category">{project.category[locale]}</p>
+            <h3><a href={`/projetos/${project.slug}/`}>{project.name} <span aria-hidden="true">↗</span></a></h3>
+            <p>{project.homeSummary[locale]}</p>
+          </div>
+          <a class="secondary-project__arrow" href={`/projetos/${project.slug}/`} aria-label={`Conheça ${project.name}`}>↗</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="closing-grid" aria-label="Documentação e caderno de notas">
+    <article class="closing-note closing-note--docs">
+      <p class="eyebrow">Arquivo aberto</p>
+      <h2>Documentação<br />com <em>origem.</em></h2>
+      <p>Guias selecionados, com revisões identificadas e os repositórios dos projetos como fontes canônicas.</p>
+      <a class="text-link" href="/docs/">Entrar no arquivo <span aria-hidden="true">↗</span></a>
+    </article>
+    <article class="closing-note closing-note--journal">
+      <p class="eyebrow">Caderno de bordo</p>
+      {latestPost ? (
+        <>
+          <h2>{latestPost.data.title}</h2>
+          <p>{latestPost.data.description}</p>
+          <a class="text-link" href={`/blog/${latestPost.id.split('/').at(-1)}/`}>Ler a nota <span aria-hidden="true">↗</span></a>
+        </>
+      ) : (
+        <>
+          <h2>Notas de<br />processo.</h2>
+          <a class="text-link" href="/blog/">Ler o caderno <span aria-hidden="true">↗</span></a>
+        </>
+      )}
+    </article>
+    <p class="closing-grid__caption">Feito em colaboração aberta · Código e documentação em GitHub</p>
+  </section>
+</SiteLayout>

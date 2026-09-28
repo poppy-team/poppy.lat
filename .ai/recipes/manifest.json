@@ -1,0 +1,25 @@
+{
+  "generated_by": {
+    "prumo": "0.2.0"
+  },
+  "recipes": [
+    "design-system-foundation",
+    "documentation-refactor",
+    "ui-feature",
+    "ui-review"
+  ],
+  "reasons": {
+    "design-system-foundation": [
+      "skill-match"
+    ],
+    "documentation-refactor": [
+      "skill-match"
+    ],
+    "ui-feature": [
+      "skill-match"
+    ],
+    "ui-review": [
+      "skill-match"
+    ]
+  }
+}

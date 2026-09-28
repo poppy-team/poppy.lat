@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Allow-list de documentação pública selecionada para cópia estática no site da Poppy Team.",
+  "canonicality": "Os repositórios de origem são as fontes canônicas; as cópias locais não são atualizadas automaticamente.",
+  "updatedAt": "2026-09-28",
+  "siteRoutes": {
+    "sourceManifest": "/docs/sources.json",
+    "thirdPartyNotices": "/third-party-notices.md"
+  },
+  "sources": [
+    {
+      "project": "ori",
+      "repository": "https://github.com/poppy-team/ori-lang",
+      "revision": "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "pages": [
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/first-project.pt-BR.md",
+          "sourceBlob": "7d9e2b408472e1d5d88e2cfb144007aed3c10396",
+          "localPath": "src/content/docs/docs/ori/first-project.md",
+          "mode": "curated-static-copy"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/first-project.md",
+          "sourceBlob": "541f14bd446fee2df6c2bcc525a44b8f3550365d",
+          "localPath": "src/content/docs/en/docs/ori/first-project.md",
+          "mode": "curated-static-copy"
+        }
+      ]
+    },
+    {
+      "project": "aipo",
+      "repository": "https://github.com/poppy-team/aipo-lang",
+      "revision": "e9ec458cc39c6da005cd81e959360ec89648b8c7",
+      "license": "MIT",
+      "licenseFile": "LICENSE",
+      "pages": [
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/getting-started/what-is-aipo.md",
+          "sourceBlob": "b9417f44d84e5ddddfcd9d4c4af51819b755df75",
+          "localPath": "src/content/docs/docs/aipo/what-is-aipo.md",
+          "mode": "curated-static-copy"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/what-is-aipo.md",
+          "sourceBlob": "d7e78ce87a0d2b39bc7b39966e51077f09f92bd9",
+          "localPath": "src/content/docs/en/docs/aipo/what-is-aipo.md",
+          "mode": "curated-static-copy"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/getting-started/first-program.md",
+          "sourceBlob": "7914f423d7c025d6c935c154276b6786e507beab",
+          "localPath": "src/content/docs/docs/aipo/first-program.md",
+          "mode": "curated-static-copy"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/first-program.md",
+          "sourceBlob": "4ae0190c693fb552243c4d693987240f3479c38b",
+          "localPath": "src/content/docs/en/docs/aipo/first-program.md",
+          "mode": "curated-static-copy"
+        }
+      ]
+    }
+  ],
+  "excludedAreas": [
+    "documentação interna de engenharia e governança",
+    "contracts, conformance, journal, operations, product, security, testing, waves, crates, development, diagnostics e language do Aipo",
+    "specs normativas completas, changelogs, issues e arquivos não listados explicitamente"
+  ]
+}

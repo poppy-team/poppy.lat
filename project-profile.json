@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "project": {
+    "name": "Poppy Team",
+    "type": ["website"],
+    "description": "Site estático bilíngue da Poppy Team, com catálogo editorial de projetos e documentação pública selecionada de Ori e Aipo."
+  },
+  "stack": {
+    "languages": ["typescript", "markdown"],
+    "frameworks": ["astro", "starlight"],
+    "runtimes": ["browser"]
+  },
+  "features": [
+    "responsive-design",
+    "accessibility",
+    "seo"
+  ],
+  "quality": {
+    "accessibility": true
+  },
+  "risk": [],
+  "ai": {
+    "orchestrator": "prumo",
+    "autonomy": "agentic",
+    "preferred_models": [
+      {
+        "id": "openai/gpt-5.6-sol",
+        "provider": "openai"
+      }
+    ]
+  }
+}
