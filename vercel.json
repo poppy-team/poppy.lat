@@ -5,7 +5,7 @@
   "outputDirectory": "site/.vitepress/dist",
   "installCommand": "pnpm install --frozen-lockfile",
   "cleanUrls": true,
-  "trailingSlash": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/projetos/:slug",
