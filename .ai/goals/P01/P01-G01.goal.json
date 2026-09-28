@@ -1,0 +1,68 @@
+{
+  "acceptance": [
+    "O site é gerado por VitePress com saída estática, sem adapter SSR, e sem dependência de Astro ou Starlight.",
+    "Os quatro projetos (Ori, Aipo, Oride, Prumo) têm página editorial em português na raiz e em inglês sob /en.",
+    "Cada projeto tem uma seção de documentação própria, nos dois idiomas, organizada nas categorias de uso, novidades e desenvolvimento.",
+    "A página de cada projeto lista as páginas de sua documentação, e cada página de documentação leva de volta à página do projeto e ao repositório canônico.",
+    "Cada projeto tem identidade visual própria, com cor de destaque, landing e navegação dedicadas, preservada nos temas claro e escuro.",
+    "Toda página importada declara repositório, revisão, blob e licença, e o manifesto serve essas informações com schemaVersion 2.",
+    "Páginas sem tradução em inglês declaram a pendência e apontam a versão em português e a fonte canônica, sem duplicar texto não traduzido.",
+    "A suíte de testes cobre rotas, proveniência, integração bidirecional, paridade de idioma, identidade visual e resolução de todos os links internos.",
+    "README, visão, escopo, arquitetura, ADRs, tokens, inventário de fontes e inventário de componentes refletem a implementação em VitePress.",
+    "Build, verificação de tipos, testes e validação Prumo passam; nenhum exemplo de projeto é executado no navegador."
+  ],
+  "constraints": [
+    "Manter as documentações completas de Ori, Aipo, Oride e Prumo canônicas em seus repositórios; não alterar esses repositórios.",
+    "Importar somente os arquivos e as revisões enumerados no manifesto local de fontes; não varrer diretórios inteiros nem publicar conteúdo interno.",
+    "Usar VitePress + Vue + TypeScript e gerar HTML estático, sem adapter de servidor.",
+    "Idioma padrão pt-BR sem prefixo e inglês sob /en.",
+    "Não sugerir execução de Ori, Aipo, Oride ou Prumo no browser; exemplos nesta fatia são somente blocos estáticos.",
+    "A documentação interna do repositório não é publicada; vive em docs/ e serve agentes e a equipe."
+  ],
+  "context": {
+    "budget_profile": "medium",
+    "max_delegation_depth": 1
+  },
+  "dependencies": [],
+  "evidence": [
+    "pnpm build conclui sem links mortos e publica 404.html a partir de /not-found/.",
+    "pnpm check (vue-tsc --noEmit) conclui sem erros.",
+    "pnpm test executa 20 asserções, incluindo paridade de idioma e integração bidirecional nos dois sentidos.",
+    "As quatro seções de documentação publicam 35 rotas em português e as mesmas 35 em inglês.",
+    "Cada página importada foi conferida contra git rev-parse na revisão fixada antes de ser copiada."
+  ],
+  "gates": {
+    "build": "required",
+    "documentation_impact": "required",
+    "project_intelligence": "required",
+    "review": "required",
+    "tests": "required"
+  },
+  "history": [
+    {
+      "at": "2026-09-28T16:00:00.000000000Z",
+      "event": "created",
+      "reason": "Migração para VitePress registrada na ADR 003; a constraint de plataforma da P00-G01 foi substituída.",
+      "state": "DRAFT"
+    }
+  ],
+  "id": "P01-G01",
+  "lock": {
+    "digest": "",
+    "locked_at": "",
+    "revision": 1
+  },
+  "non_goals": [
+    "Playground, compiler, interpreter, WebAssembly runtime ou qualquer execução de linguagem no navegador.",
+    "CMS, autenticação, formulários de backend, analytics, comentários ou busca remota.",
+    "Adapter SSR, alteração de DNS ou nameservers.",
+    "Importação automática de diretórios inteiros de documentação dos projetos de origem.",
+    "Traduzir para inglês toda a documentação de Prumo ainda sem tradução na origem.",
+    "Fechar identidade de marca, domínio público ou política comercial ainda não confirmada."
+  ],
+  "objective": "Migrate the Poppy Team site to VitePress with a per-project documentation section for all four projects, integrating each project's editorial page with its documentation in both directions, and give every project its own visual identity, while keeping the upstream repositories canonical and the vendored copies pinned to verified revisions.",
+  "phase": "P01",
+  "revision": 1,
+  "state": "DRAFT",
+  "title": "Documentação por projeto em VitePress"
+}

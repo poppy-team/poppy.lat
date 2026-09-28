@@ -10,4 +10,4 @@
 3. **Pull Requests & Merge**:
    - Todo código entra em `main` via PR.
    - Estratégia de merge: `squash` com branch de trabalho deletada após o merge.
-   - Quality gates do CI (`gofmt`, `govet`, `gotest -race`) devem passar 100%.
+   - Quality gates do CI devem passar 100%: `pnpm check` (tipos), `pnpm test` (suíte sobre o build) e `pnpm build` (build estático, que falha em link interno quebrado).

@@ -1,0 +1,12 @@
+{
+  "name": "@poppy/project-data",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./projects": "./src/projects.ts",
+    "./site-copy": "./src/site-copy.ts",
+    "./documentation": "./src/documentation.ts"
+  }
+}
