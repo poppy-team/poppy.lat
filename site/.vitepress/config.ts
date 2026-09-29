@@ -1,7 +1,5 @@
-import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import { importedDocs } from '../imported-docs.ts';
-import { defineConfig, type DefaultTheme } from 'vitepress';
+import { defineConfig, type DefaultTheme, type Plugin } from 'vitepress';
 import {
   docsCategories,
   localeRoot,
@@ -9,47 +7,118 @@ import {
   siteCopy,
   type Locale,
 } from '@poppy/project-data';
+import { docsIndex, docsPageFor, type DocsIndexPage } from './docs-index.ts';
 
 const locales = {
   root: { label: 'Português', lang: 'pt-BR' },
   en: { label: 'English', lang: 'en' },
 } satisfies Record<string, { label: string; lang: string }>;
 
-function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: boolean }): DefaultTheme.SidebarItem[] {
-  const categories = docsCategories[locale];
+/**
+ * A sidebar link in the form VitePress compares against the current page.
+ *
+ * With `cleanUrls`, a page such as `guides/x.md` is served at `guides/x`, and
+ * VitePress marks a sidebar item active, and derives the previous and next
+ * links, by comparing that path with the item's link. A trailing slash never
+ * matches, which left every page without an active item and sent the pager
+ * to the first entry of the whole sidebar.
+ */
+function sidebarLink(route: string): string {
+  return route.replace(/\/$/u, '');
+}
 
-  return projects.map((project) => {
-    // Read from the imported tree, which is the complete set: the declared
-    // list in packages/project-data is empty for the projects whose pages come
-    // from the upstream criterion.
-    const pages = importedDocs[project.slug] ?? [];
-    const localePages = pages.filter((page) => page.locale === locale);
-    void localePages;
+function sectionItems(pages: DocsIndexPage[]): DefaultTheme.SidebarItem[] {
+  const sections = [...new Set(pages.map((page) => page.section))];
+  const link = (page: DocsIndexPage): DefaultTheme.SidebarItem => ({
+    text: page.title,
+    link: sidebarLink(page.route),
+  });
 
-    const items: DefaultTheme.SidebarItem[] = categories
-      .map((category) => {
-        const categoryPages = localePages.filter((page) => page.category === category.slug);
-        const base = `${localeRoot(locale)}/${project.slug}/docs/${category.slug}`;
+  // A category with a single folder, or none, reads better as a flat list.
+  if (sections.length <= 1) {
+    return pages.map(link);
+  }
 
-        return {
-          text: category.label,
-          items: categoryPages.map((page) => ({
-            text: page.title,
-            link: page.route,
-          })),
-        };
-      })
-      .filter((group) => group.items.length > 0);
+  return sections.map((section) => {
+    const sectionPages = pages.filter((page) => page.section === section);
 
     return {
-      text: project.name,
+      text: sectionPages[0]?.sectionLabel ?? section,
       collapsed: true,
-      link: `${localeRoot(locale)}/${project.slug}/docs/`,
-      items: includeLanding
-        ? [{ text: siteCopy[locale].navigation.docs, link: `${localeRoot(locale)}/${project.slug}/docs/` }, ...items]
-        : items,
+      items: sectionPages.map(link),
     };
   });
+}
+
+/**
+ * One sidebar per project, keyed by its documentation root. Each project is
+ * its own documentation subsite, so the sidebar and the previous and next
+ * links stay inside it rather than running into the next project.
+ */
+function projectSidebars(locale: Locale): DefaultTheme.SidebarMulti {
+  const categories = docsCategories[locale];
+  const copy = siteCopy[locale];
+
+  return Object.fromEntries(
+    projects.map((project) => {
+      const base = `${localeRoot(locale)}/${project.slug}/docs/`;
+      const pages = (docsIndex[project.slug] ?? []).filter((page) => page.locale === locale);
+
+      const groups: DefaultTheme.SidebarItem[] = categories
+        .map((category) => ({
+          text: category.label,
+          link: `${base}${category.slug}/`,
+          items: sectionItems(pages.filter((page) => page.category === category.slug)),
+        }))
+        .filter((group) => group.items.length > 0);
+
+      return [
+        base,
+        [{ text: copy.overviewLabel, link: base }, ...groups],
+      ];
+    }),
+  );
+}
+
+/**
+ * Serves the enriched documentation index to the theme, which renders in the
+ * browser and cannot read the page files itself.
+ */
+function importedDocsModule(): Plugin {
+  const id = 'virtual:imported-docs';
+
+  return {
+    name: 'poppy:imported-docs',
+    resolveId(source) {
+      return source === id ? `\0${id}` : undefined;
+    },
+    load(resolved) {
+      return resolved === `\0${id}`
+        ? `export const importedDocs = ${JSON.stringify(docsIndex)};`
+        : undefined;
+    },
+  };
+}
+
+/** Labels of the documentation chrome, which VitePress ships in English. */
+function themeLabels(locale: Locale): DefaultTheme.Config {
+  return locale === 'en'
+    ? {
+        docFooter: { prev: 'Previous', next: 'Next' },
+        outline: { level: [2, 3], label: 'On this page' },
+        lastUpdated: { text: 'Last updated', formatOptions: { dateStyle: 'long', forceLocale: true } },
+      }
+    : {
+        docFooter: { prev: 'Anterior', next: 'Próxima' },
+        outline: { level: [2, 3], label: 'Nesta página' },
+        lastUpdated: { text: 'Atualizado em', formatOptions: { dateStyle: 'long', forceLocale: true } },
+        sidebarMenuLabel: 'Menu',
+        returnToTopLabel: 'Voltar ao topo',
+        darkModeSwitchLabel: 'Aparência',
+        lightModeSwitchTitle: 'Mudar para o tema claro',
+        darkModeSwitchTitle: 'Mudar para o tema escuro',
+        langMenuLabel: 'Mudar idioma',
+      };
 }
 
 /**
@@ -65,73 +134,20 @@ function pageKind(relativePath: string): 'documentation' | 'editorial' {
     : 'editorial';
 }
 
-/**
- * Documentation pages read from the imported tree, handed to the theme as site
- * data. The theme renders in the browser, so the filesystem read happens here,
- * at build time, where the import has already run.
- */
-function collectImportedDocs(): Record<string, unknown[]> {
-  const siteRoot = path.resolve(import.meta.dirname, '..');
-  const collected: Record<string, unknown[]> = {};
-
-  for (const project of projects) {
-    const entries: unknown[] = [];
-
-    const walk = (directory: string, prefix = ''): void => {
-      let items;
-      try {
-        items = readdirSync(directory, { withFileTypes: true });
-      } catch {
-        return;
-      }
-
-      for (const item of items) {
-        const itemPath = path.join(directory, item.name);
-
-        if (item.isDirectory()) {
-          walk(itemPath, `${prefix}${item.name}/`);
-          continue;
-        }
-
-        if (!item.name.endsWith('.md') || item.name === 'index.md') {
-          continue;
-        }
-
-        const source = readFileSync(itemPath, 'utf8');
-        const read = (field: string): string => {
-          const match = source.match(new RegExp(`^${field}:\\s*(.+)$`, 'mu'));
-
-          if (!match?.[1]) {
-            return '';
-          }
-
-          try {
-            return JSON.parse(match[1].trim()) as string;
-          } catch {
-            return match[1].trim();
-          }
-        };
-
-        const route = `${prefix}${item.name.replace(/\.md$/u, '')}`;
-
-        entries.push({
-          route: `/${project.slug}/docs/${route}/`,
-          slug: route.split('/').pop(),
-          category: read('category') || 'development',
-          title: read('title'),
-          description: read('description'),
-        });
-      }
-    };
-
-    walk(path.join(siteRoot, project.slug, 'docs'));
-    collected[project.slug] = entries;
-  }
-
-  return collected;
-}
-
 export default defineConfig({
+  transformPageData(pageData) {
+    // Imported pages carry a title made from their file name; the heading the
+    // page opens with is the real one, and it is what the tab should show.
+    const indexed = docsPageFor(pageData.relativePath);
+
+    if (indexed) {
+      pageData.title = indexed.title;
+      pageData.frontmatter.title = indexed.title;
+      pageData.description = indexed.description;
+      pageData.frontmatter.description = indexed.description;
+    }
+  },
+
   transformHead({ pageData }) {
     const project =
       typeof pageData.frontmatter.project === 'string' ? pageData.frontmatter.project : '';
@@ -170,11 +186,11 @@ export default defineConfig({
         i18nRouting: false,
         nav: [
           { text: siteCopy['pt-BR'].navigation.projects, link: '/#projects' },
-          { text: siteCopy['pt-BR'].navigation.docs, link: '/#projects' },
+          { text: siteCopy['pt-BR'].navigation.docs, link: '/#docs' },
           { text: siteCopy['pt-BR'].navigation.blog, link: '/blog/' },
         ],
-        sidebar: projectSidebar('pt-BR', { includeLanding: false }),
-        outline: { level: [2, 3] },
+        sidebar: projectSidebars('pt-BR'),
+        ...themeLabels('pt-BR'),
       },
     },
     en: {
@@ -185,24 +201,35 @@ export default defineConfig({
         i18nRouting: false,
         nav: [
           { text: siteCopy.en.navigation.projects, link: '/en/#projects' },
-          { text: siteCopy.en.navigation.docs, link: '/en/#projects' },
+          { text: siteCopy.en.navigation.docs, link: '/en/#docs' },
           { text: siteCopy.en.navigation.blog, link: '/en/blog/' },
         ],
-        sidebar: projectSidebar('en', { includeLanding: false }),
-        outline: { level: [2, 3] },
+        sidebar: projectSidebars('en'),
+        ...themeLabels('en'),
       },
     },
   },
 
   themeConfig: {
-    logo: '/assets/poppy-logo.svg',
-    search: { provider: 'local' },
-    docFooter: { prev: 'Anterior', next: 'Próxima' },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/poppy-team' }],
-    footer: {
-      message: 'Documentação publicada pela Poppy Team.',
-      copyright: '© 2026 Poppy Team',
+    logo: { light: '/assets/poppy-logo.svg', dark: '/assets/poppy-logo-dark.svg', alt: '' },
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          root: {
+            translations: {
+              button: { buttonText: 'Buscar', buttonAriaLabel: 'Buscar na documentação' },
+              modal: {
+                noResultsText: 'Nenhum resultado para',
+                resetButtonTitle: 'Limpar a busca',
+                footer: { selectText: 'abrir', navigateText: 'navegar', closeText: 'fechar' },
+              },
+            },
+          },
+        },
+      },
     },
+    socialLinks: [{ icon: 'github', link: 'https://github.com/poppy-team' }],
   },
 
   markdown: {
@@ -210,15 +237,13 @@ export default defineConfig({
   },
 
   vite: {
+    plugins: [importedDocsModule()],
     resolve: {
       alias: {
         '@poppy/project-data': path.resolve(
           import.meta.dirname,
           '../../packages/project-data/src/index.ts',
         ),
-        // Generated here so the theme can list the imported pages without
-        // reading the filesystem in the browser.
-        'virtual:imported-docs': path.resolve(import.meta.dirname, '..', 'imported-docs.ts'),
       },
     },
   },

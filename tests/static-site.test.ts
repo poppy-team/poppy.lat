@@ -386,8 +386,13 @@ describe('branding', () => {
       const route = routeForOutputFile(page);
 
       expect(html, `${route} is missing the site header`).toContain('site-header');
-      expect(html, `${route} is missing the project switcher`).toContain('project-switch__link');
       expect(html, `${route} is missing the site footer`).toContain('site-footer');
+
+      // The project switcher belongs to the documentation; editorial pages
+      // link to the projects from their own content instead.
+      if (/\/(ori|aipo|oride|prumo)\/docs\//u.test(route)) {
+        expect(html, `${route} is missing the project switcher`).toContain('project-switch__link');
+      }
     }
   });
 });

@@ -1,37 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useData } from 'vitepress';
-import { getProjectBySlug, projects, siteCopy, type Locale } from '@poppy/project-data';
+import type { Locale } from '@poppy/project-data';
 import SiteHeader from './SiteHeader.vue';
-import ProjectSwitcher from './ProjectSwitcher.vue';
-import DocsProjectHeader from './DocsProjectHeader.vue';
 import { importedDocs } from 'virtual:imported-docs';
 
 const { frontmatter, lang, page } = useData();
 
 const locale = computed<Locale>(() => (lang.value.startsWith('en') ? 'en' : 'pt-BR'));
-const copy = computed(() => siteCopy[locale.value]);
-const root = computed(() => (locale.value === 'en' ? '/en' : ''));
-
-/**
- * The active project drives the visual identity of every documentation page.
- * It is read from frontmatter so a page states its own project explicitly
- * rather than the chrome guessing from the URL.
- */
-const activeProject = computed(() => {
-  const declared = frontmatter.value.project;
-
-  return typeof declared === 'string' ? getProjectBySlug(declared) : undefined;
-});
-
-const projectLinks = computed(() =>
-  projects.map((project) => ({
-    slug: project.slug,
-    name: project.name,
-    href: `${root.value}/${project.slug}/docs/`,
-    colorToken: project.colorToken,
-  })),
-);
 
 /**
  * Slugs of the counterpart pages, keyed by translationKey. Journal posts are
@@ -133,12 +109,4 @@ const counterpartHref = computed(() => {
 
 <template>
   <SiteHeader :locale="locale" :language-href="counterpartHref" />
-
-  <ProjectSwitcher :links="projectLinks" :locale="locale" />
-
-  <DocsProjectHeader
-    v-if="activeProject"
-    :project="activeProject.slug"
-    :locale="locale"
-  />
 </template>

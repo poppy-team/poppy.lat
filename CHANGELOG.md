@@ -3,6 +3,23 @@
 Todas as alterações notáveis deste projeto são documentadas neste arquivo.
 O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [Não publicado]
+
+### Alterado
+- A documentação de cada projeto tem barra lateral própria, agrupada por categoria e por pasta, com os títulos e resumos lidos das próprias páginas em vez de derivados do nome do arquivo.
+- A home foi reorganizada em seções numeradas (projetos, equipe, documentação e caderno), com cards de destaque inteiramente clicáveis e um trecho de código de cada linguagem.
+- Tipografia única para o site e a documentação: Newsreader nos títulos, Inter no texto e JetBrains Mono no código, servidas pelo próprio site.
+- Cabeçalho, rodapé, páginas de projeto, caderno, artigo e 404 passam a usar os mesmos tokens de cor, espaço e tipo, com um tema escuro definido em um só lugar.
+
+### Corrigido
+- Os botões anterior e próxima da documentação levam às páginas vizinhas do mesmo projeto; antes, nenhuma página era reconhecida como ativa e “próxima” sempre levava ao Ori.
+- A página de projeto listava cards vazios e as páginas dos dois idiomas; agora lista os títulos no idioma da página.
+- O título do caderno e dos artigos se sobrepunha ao cabeçalho, e os parágrafos do artigo não tinham espaçamento.
+- O rodapé ficava sob a barra lateral da documentação e o cabeçalho do site ficava escondido sob a barra de documentação.
+- O link “Pular para o conteúdo” apontava para um alvo que não existia.
+- A identidade de cada projeto no tema escuro nunca era aplicada, por um seletor que não casava.
+- `pnpm check` verificava uma pasta inexistente e passa a verificar o tema do site.
+
 ## [0.3.0] - 2026-09-28
 
 ### Adicionado

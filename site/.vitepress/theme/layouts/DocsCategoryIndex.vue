@@ -1,53 +1,50 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Content, useData } from 'vitepress';
-import { docsCategories, getProjectBySlug, type Locale } from '@poppy/project-data';
+import { useData } from 'vitepress';
+import { docsCategories, getProjectBySlug, localeRoot, type Locale } from '@poppy/project-data';
 import { importedDocs } from 'virtual:imported-docs';
+import ProjectSwitcher from '../components/ProjectSwitcher.vue';
+import { groupDocs } from '../docs-groups';
 
 const { frontmatter } = useData();
 
 const locale = computed<Locale>(() => (frontmatter.value.locale === 'en' ? 'en' : 'pt-BR'));
 const project = computed(() => getProjectBySlug(String(frontmatter.value.project ?? '')));
+const groups = computed(() =>
+  project.value ? groupDocs(importedDocs[project.value.slug] ?? [], project.value.slug, locale.value) : [],
+);
+const group = computed(() => groups.value.find((item) => item.slug === frontmatter.value.category));
 const category = computed(() => docsCategories[locale.value].find((item) => item.slug === frontmatter.value.category));
-
-/** Only categories that actually have pages get an index route. */
-const otherCategories = computed(() => {
-  if (!project.value) {
-    return [];
-  }
-
-  // A sibling category is only linked when it has pages in this locale.
-  const populated = new Set(
-    (importedDocs[project.value.slug] ?? [])
-      .filter((page) => page.locale === locale.value)
-      .map((page) => page.category),
-  );
-
-  return docsCategories[locale.value].filter(
-    (item) => item.slug !== category.value?.slug && populated.has(item.slug),
-  );
-});
+const siblings = computed(() => groups.value.filter((item) => item.slug !== group.value?.slug));
 </script>
 
 <template>
-    <div v-if="project && category" class="docs-landing" :data-project="project.slug">
-    <header class="docs-landing__hero">
-      <p class="eyebrow">{{ project.name }}</p>
-      <h1>{{ category.label }}</h1>
-      <p class="docs-landing__summary">{{ category.description }}</p>
+  <div v-if="project && category" id="main-content" class="docs-landing" :data-project="project.slug" tabindex="-1">
+    <header class="docs-hero docs-hero--compact">
+      <ProjectSwitcher :locale="locale" :current="project.slug" />
+      <p class="eyebrow">
+        <a :href="`${localeRoot(locale)}/${project.slug}/docs/`">{{ project.name }}</a>
+      </p>
+      <h1 class="docs-hero__title">{{ category.label }}</h1>
+      <p class="docs-hero__summary">{{ category.description }}</p>
     </header>
 
-    <Content />
+    <section v-for="section in group?.sections ?? []" :id="section.slug" :key="section.slug" class="docs-group">
+      <h2 v-if="(group?.sections.length ?? 0) > 1" class="docs-group__title">{{ section.label }}</h2>
+      <ul class="docs-page-list">
+        <li v-for="page in section.pages" :key="page.route" class="docs-page-list__item">
+          <a class="docs-page-list__link" :href="page.route">
+            <span class="docs-page-list__title">{{ page.title }}</span>
+            <span v-if="page.description" class="docs-page-list__description">{{ page.description }}</span>
+          </a>
+        </li>
+      </ul>
+    </section>
 
-    <nav class="docs-landing__siblings" :aria-label="category.label">
-      <a
-        v-for="sibling in otherCategories"
-        :key="sibling.slug"
-        class="docs-card docs-card--compact"
-        :href="`../${sibling.slug}/`"
-      >
-        <span class="docs-card__title">{{ sibling.label }}</span>
-        <span class="docs-card__description">{{ sibling.description }}</span>
+    <nav v-if="siblings.length" class="docs-siblings" :aria-label="category.label">
+      <a v-for="sibling in siblings" :key="sibling.slug" class="docs-siblings__link" :href="sibling.href">
+        <span class="docs-siblings__title">{{ sibling.label }} →</span>
+        <span class="docs-siblings__description">{{ sibling.description }}</span>
       </a>
     </nav>
   </div>

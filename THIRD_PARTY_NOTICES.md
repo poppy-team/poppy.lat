@@ -57,3 +57,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Fontes tipográficas
+
+O site serve três famílias tipográficas, empacotadas pelo projeto Fontsource e licenciadas sob a [SIL Open Font License, versão 1.1](https://openfontlicense.org/open-font-license-official-text/):
+
+- Newsreader — Copyright 2020 The Newsreader Project Authors (https://github.com/productiontype/Newsreader)
+- Inter — Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
+- JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
