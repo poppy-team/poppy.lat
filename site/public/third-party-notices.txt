@@ -1,6 +1,6 @@
 # Avisos de terceiros
 
-Este site contém cópias estáticas selecionadas e adaptações de páginas públicas das documentações de Ori e Aipo. A lista exata de páginas, revisões, hashes de blobs e destinos locais está em [`docs/sources.json`](docs/sources.json).
+Este site contém cópias estáticas selecionadas e adaptações de páginas públicas das documentações de Ori e Aipo. A gramática de realce de Ori (`site/.vitepress/grammars/ori.tmLanguage.json`) é cópia da extensão VS Code do ori-lang, na mesma revisão listada abaixo. A lista exata de páginas, revisões, hashes de blobs e destinos locais está em [`docs/sources.json`](docs/sources.json).
 
 As cópias incluem avisos de origem em cada página. As licenças completas abaixo preservam os avisos exigidos pelas fontes.
 

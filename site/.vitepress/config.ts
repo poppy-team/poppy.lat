@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { importedDocs } from '../imported-docs.ts';
-import { defineConfig, type DefaultTheme, type HeadConfig } from 'vitepress';
+import { defineConfig, type DefaultTheme, type HeadConfig, type MarkdownOptions } from 'vitepress';
 import {
   docsCategories,
   localeRoot,
@@ -91,6 +91,22 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
         : items,
     };
   });
+}
+
+type LanguageInput = NonNullable<MarkdownOptions['languages']>[number];
+
+/**
+ * Shiki ships no grammar for Poppy's own languages, so the fences in the
+ * imported docs would render uncoloured. The Ori grammar is the one from the
+ * ori-lang VS Code extension, at the revision pinned in sources.json; the Aipo
+ * grammar is written here from the keyword table in aipo-lexer.
+ */
+function poppyGrammar(file: string, name: string, displayName: string): LanguageInput {
+  const grammar = JSON.parse(
+    readFileSync(path.resolve(import.meta.dirname, 'grammars', file), 'utf8'),
+  ) as Record<string, unknown>;
+
+  return { ...grammar, name, displayName } as unknown as LanguageInput;
 }
 
 /**
@@ -256,6 +272,10 @@ export default defineConfig({
 
   markdown: {
     lineNumbers: false,
+    languages: [
+      poppyGrammar('aipo.tmLanguage.json', 'aipo', 'Aipo'),
+      poppyGrammar('ori.tmLanguage.json', 'ori', 'Ori'),
+    ],
   },
 
   vite: {
