@@ -1,7 +1,7 @@
 ---
 layout: docs-landing
 title: "Aipo"
-description: "A dynamic, strongly typed language with optional contracts."
+description: "Aipo — documentação"
 project: aipo
 locale: en
 ---

@@ -6,6 +6,11 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 ## [0.3.0] - 2026-09-28
 
 ### Adicionado
+- A documentação de Aipo e Prumo passa a ser derivada do critério de publicação que cada projeto declara: o `srcExclude` do config do site próprio deles. A allow-list deixou de ser uma escolha e passou a ser o conjunto que o autor do projeto decidiu publicar, o que leva a cobertura de 1,2% e 3,4% para 100% do que é publicável.
+- A árvore em inglês é percorrida separadamente, de modo que uma página publicada apenas em português não é duplicada em inglês, e o comutador de idioma oferece a página equivalente quando ela existe.
+- O manifesto de fontes é gerado a partir dos arquivos importados, com `schemaVersion` 3, e passa a declarar o critério de cada projeto.
+
+
 - Badge de status nos cards de destaque e nas páginas de projeto, no espírito do que o site do Ori traz: uma etapa de maturidade e duas ou três palavras de posicionamento, por projeto.
 - A placa de amostra de código passa a mostrar também a saída do programa, como uma linha de terminal sob o código, para que a amostra se leia como entrada e resultado.
 - A ação primária do card de destaque — ler a documentação — passa a ser um botão sólido, e o link para a página do projeto permanece um link discreto.

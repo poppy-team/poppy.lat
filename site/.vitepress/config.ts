@@ -1,8 +1,9 @@
+import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
+import { importedDocs } from '../imported-docs.ts';
 import { defineConfig, type DefaultTheme } from 'vitepress';
 import {
   docsCategories,
-  getDocsForProject,
   localeRoot,
   projects,
   siteCopy,
@@ -18,18 +19,23 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
   const categories = docsCategories[locale];
 
   return projects.map((project) => {
-    const pages = getDocsForProject(project.slug);
+    // Read from the imported tree, which is the complete set: the declared
+    // list in packages/project-data is empty for the projects whose pages come
+    // from the upstream criterion.
+    const pages = importedDocs[project.slug] ?? [];
+    const localePages = pages.filter((page) => page.locale === locale);
+    void localePages;
 
     const items: DefaultTheme.SidebarItem[] = categories
       .map((category) => {
-        const categoryPages = pages.filter((page) => page.category === category.slug);
+        const categoryPages = localePages.filter((page) => page.category === category.slug);
         const base = `${localeRoot(locale)}/${project.slug}/docs/${category.slug}`;
 
         return {
           text: category.label,
           items: categoryPages.map((page) => ({
-            text: page.title[locale],
-            link: `${base}/${page.slug}`,
+            text: page.title,
+            link: page.route,
           })),
         };
       })
@@ -57,6 +63,72 @@ function pageKind(relativePath: string): 'documentation' | 'editorial' {
   return /(^|\/)(en\/)?(ori|aipo|oride|prumo)\/docs\//u.test(relativePath)
     ? 'documentation'
     : 'editorial';
+}
+
+/**
+ * Documentation pages read from the imported tree, handed to the theme as site
+ * data. The theme renders in the browser, so the filesystem read happens here,
+ * at build time, where the import has already run.
+ */
+function collectImportedDocs(): Record<string, unknown[]> {
+  const siteRoot = path.resolve(import.meta.dirname, '..');
+  const collected: Record<string, unknown[]> = {};
+
+  for (const project of projects) {
+    const entries: unknown[] = [];
+
+    const walk = (directory: string, prefix = ''): void => {
+      let items;
+      try {
+        items = readdirSync(directory, { withFileTypes: true });
+      } catch {
+        return;
+      }
+
+      for (const item of items) {
+        const itemPath = path.join(directory, item.name);
+
+        if (item.isDirectory()) {
+          walk(itemPath, `${prefix}${item.name}/`);
+          continue;
+        }
+
+        if (!item.name.endsWith('.md') || item.name === 'index.md') {
+          continue;
+        }
+
+        const source = readFileSync(itemPath, 'utf8');
+        const read = (field: string): string => {
+          const match = source.match(new RegExp(`^${field}:\\s*(.+)$`, 'mu'));
+
+          if (!match?.[1]) {
+            return '';
+          }
+
+          try {
+            return JSON.parse(match[1].trim()) as string;
+          } catch {
+            return match[1].trim();
+          }
+        };
+
+        const route = `${prefix}${item.name.replace(/\.md$/u, '')}`;
+
+        entries.push({
+          route: `/${project.slug}/docs/${route}/`,
+          slug: route.split('/').pop(),
+          category: read('category') || 'development',
+          title: read('title'),
+          description: read('description'),
+        });
+      }
+    };
+
+    walk(path.join(siteRoot, project.slug, 'docs'));
+    collected[project.slug] = entries;
+  }
+
+  return collected;
 }
 
 export default defineConfig({
@@ -144,6 +216,9 @@ export default defineConfig({
           import.meta.dirname,
           '../../packages/project-data/src/index.ts',
         ),
+        // Generated here so the theme can list the imported pages without
+        // reading the filesystem in the browser.
+        'virtual:imported-docs': path.resolve(import.meta.dirname, '..', 'imported-docs.ts'),
       },
     },
   },

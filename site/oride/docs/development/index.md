@@ -1,7 +1,11 @@
 ---
 layout: docs-category
-title: "Desenvolvimento"
+title: "development"
+description: "Oride — development"
 project: oride
 category: development
 locale: pt-BR
 ---
+
+- [Keymap](./keymap)
+- [Layout](./layout)

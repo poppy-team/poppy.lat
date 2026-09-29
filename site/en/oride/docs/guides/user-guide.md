@@ -9,10 +9,10 @@ sourceBlob: "16d1b9ce1f74dc22e8b8d7f01f18297368199892"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Static copy
-Copied from `docs/guides/en/user-guide.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `16d1b9ce1f74dc22e8b8d7f01f18297368199892`.
-The upstream repository stays canonical; this copy is not updated automatically.
+::: info Cópia estática
+Copiado de `docs/guides/en/user-guide.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `16d1b9ce1f74dc22e8b8d7f01f18297368199892`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
 :::
 # User Guide — Oride
 
@@ -54,7 +54,7 @@ oride --version
 
 ## 2. Interface Layout
 
-![Oride Interface](https://github.com/poppy-team/oride/tree/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/assets/oride-interface.png)
+![Oride Interface](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/assets/oride-interface.png)
 
 Oride's user interface is crafted for optimal terminal ergonomics using the Ratatui library:
 
@@ -216,7 +216,7 @@ Oride includes over 10 built-in themes (`tokyo-night`, `dracula`, `nord`, `one-d
 
 - **Switching Themes:** Open the Command Palette (`Ctrl+Shift+P`), type *Theme*, and scroll to see **Live Preview** in real time.
 - **Creating Custom Themes:**
-  Save your theme in `~/.config/oride/themes/my-theme.toml`. Oride discovers it automatically. See the [Theme Development Guide](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/themes.md)) for theme structure details.
+  Save your theme in `~/.config/oride/themes/my-theme.toml`. Oride discovers it automatically. See the [Theme Development Guide](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/en/themes.md) for theme structure details.
 
 ---
 

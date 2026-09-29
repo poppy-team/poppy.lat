@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useData } from 'vitepress';
-import {
-  docsCategories,
-  getDocsForProject,
-  getProjectBySlug,
-  siteCopy,
-  type Locale,
-} from '@poppy/project-data';
+import { docsCategories } from '@poppy/project-data';
+import { importedDocs } from 'virtual:imported-docs';
+import { getProjectBySlug, siteCopy, type Locale } from '@poppy/project-data';
 import ProjectBadge from '../components/ProjectBadge.vue';
 
 const { frontmatter } = useData();
@@ -21,17 +17,29 @@ const locale = computed<Locale>(() => {
 const project = computed(() => getProjectBySlug(String(frontmatter.value.project ?? '')));
 const copy = computed(() => project.value?.copy[locale.value]);
 const category = computed(() => project.value?.category[locale.value]);
-const categories = computed(() => docsCategories[locale.value]);
-const pages = computed(() => (project.value ? getDocsForProject(project.value.slug) : []));
-
-const grouped = computed(() =>
-  categories.value
-    .map((categoryDefinition) => ({
-      ...categoryDefinition,
-      pages: pages.value.filter((page) => page.category === categoryDefinition.slug),
-    }))
-    .filter((group) => group.pages.length > 0),
+const pages = computed(() =>
+  project.value ? (importedDocs[project.value.slug] ?? []) : [],
 );
+
+interface ImportedPage {
+  route: string;
+  category: string;
+  title: string;
+  description: string;
+}
+
+const grouped = computed(() => {
+  const copy = docsCategories[locale.value];
+
+  return copy
+    .map((category) => ({
+      slug: category.slug,
+      label: category.label,
+      description: category.description,
+      pages: pages.value.filter((page) => page.category === category.slug),
+    }))
+    .filter((group) => group.pages.length > 0);
+});
 </script>
 
 <template>
@@ -107,7 +115,7 @@ const grouped = computed(() =>
             <li v-for="page in group.pages" :key="page.slug" class="docs-card">
               <a
                 class="docs-card__link"
-                :href="`/${locale === 'en' ? 'en/' : ''}${project.slug}/docs/${group.slug}/${page.slug}`"
+                :href="page.route"
               >
                 <span class="docs-card__title">{{ page.title[locale] }}</span>
                 <span class="docs-card__description">{{ page.description[locale] }}</span>

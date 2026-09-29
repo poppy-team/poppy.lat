@@ -9,10 +9,10 @@ sourceBlob: "02b6110a00098b491a1620a9fbd5b78ad69e7b11"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Static copy
-Copied from `docs/ui-ux/layout.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `02b6110a00098b491a1620a9fbd5b78ad69e7b11`.
-The upstream repository stays canonical; this copy is not updated automatically.
+::: info Cópia estática
+Copiado de `docs/ui-ux/layout.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `02b6110a00098b491a1620a9fbd5b78ad69e7b11`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
 :::
 # Layout e classes de largura
 

@@ -1,7 +1,10 @@
 ---
 layout: docs-category
-title: "User guide"
+title: "guides"
+description: "Ori — guides"
 project: ori
 category: guides
 locale: en
 ---
+
+- [First Project](./first-project)

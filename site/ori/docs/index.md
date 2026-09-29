@@ -1,7 +1,7 @@
 ---
 layout: docs-landing
 title: "Ori"
-description: "Uma linguagem de leitura cuidadosa, tipos explícitos e compilação nativa."
+description: "Ori — documentação"
 project: ori
 locale: pt-BR
 ---

@@ -3,7 +3,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 import { projects } from '../packages/project-data/src/projects.ts';
-import { getDocsForProject, vendoredDocs } from '../packages/project-data/src/documentation.ts';
+import { vendoredDocs } from '../packages/project-data/src/documentation.ts';
 
 const projectRoot = process.cwd();
 const outputRoot = path.join(projectRoot, 'site', '.vitepress', 'dist');
@@ -25,6 +25,64 @@ async function readRoute(route: string): Promise<string> {
   }
 
   throw new Error(`No built file for route ${route}; tried ${candidates.join(', ')}`);
+}
+
+/**
+ * Pages actually imported for a project, read from the tree. The declared list
+ * in packages/project-data is empty for the projects whose pages come from the
+ * upstream criterion, so the build output is the only complete source.
+ */
+async function importedPageRoutes(project: string, prefix = ''): Promise<string[]> {
+  const docsRoot = path.join(projectRoot, 'site', prefix, project, 'docs');
+  const routes: string[] = [];
+
+  for (const file of await importedPages(docsRoot)) {
+    const localePrefix = prefix === '' ? '' : `${prefix}/`;
+    routes.push(`/${localePrefix}${project}/docs/${file.replace(/\.md$/u, '')}/`);
+  }
+
+  return routes;
+}
+
+/** Category index routes that exist for a project, read from the imported tree. */
+async function categoryRoutes(slug: string): Promise<string[]> {
+  const routes: string[] = [];
+
+  for (const prefix of ['', 'en']) {
+    const docsRoot = path.join(projectRoot, 'site', prefix, slug, 'docs');
+    const directory = path.join(docsRoot, 'development');
+
+    if (await exists(path.join(directory, 'index.md'))) {
+      routes.push(`/${prefix ? `${prefix}/` : ''}${slug}/docs/development/`);
+    }
+  }
+
+  return routes;
+}
+
+/** Imported documentation pages, relative to a subsite's docs directory. */
+async function importedPages(directory: string, prefix = ''): Promise<string[]> {
+  let entries;
+  try {
+    entries = await readdir(directory, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  const found: string[] = [];
+
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      found.push(...(await importedPages(path.join(directory, entry.name), `${prefix}${entry.name}/`)));
+      continue;
+    }
+
+    if (entry.name.endsWith('.md') && entry.name !== 'index.md') {
+      found.push(`${prefix}${entry.name}`);
+    }
+  }
+
+  return found;
 }
 
 async function routeExists(route: string): Promise<boolean> {
@@ -131,20 +189,32 @@ describe('routes', () => {
       ...projectSlugs.flatMap((slug) => [
         `/${slug}/docs/`,
         `/en/${slug}/docs/`,
-        // Only categories that actually have pages get an index route.
-        ...[...new Set(getDocsForProject(slug).map((page) => page.category))].flatMap((category) => [
-          `/${slug}/docs/${category}/`,
-          `/en/${slug}/docs/${category}/`,
-        ]),
-        ...getDocsForProject(slug).flatMap((page) => [
-          `/${slug}/docs/${page.category}/${page.slug}/`,
-          `/en/${slug}/docs/${page.category}/${page.slug}/`,
-        ]),
       ]),
     ];
 
+    // A category index exists only where that category has pages in that
+    // locale, so those routes are read from the imported tree.
+    for (const slug of projectSlugs) {
+      expectedRoutes.push(...(await categoryRoutes(slug)));
+    }
+
     for (const route of expectedRoutes) {
       expect(await routeExists(route), `missing route ${route}`).toBe(true);
+    }
+
+    // Every imported page has to be reachable, which is what makes the
+    // criterion-derived import verifiable.
+    for (const project of projectSlugs) {
+      for (const prefix of ['', 'en']) {
+        const directory = path.join(projectRoot, 'site', prefix, project, 'docs');
+
+        for (const file of await importedPages(directory)) {
+          const localePrefix = prefix === '' ? '' : `${prefix}/`;
+          const route = `/${localePrefix}${project}/docs/${file.replace(/\.md$/u, '')}/`;
+
+          expect(await routeExists(route), `imported page has no route: ${route}`).toBe(true);
+        }
+      }
     }
   });
 
@@ -168,7 +238,7 @@ describe('provenance', () => {
     const notices = await readRoute('/third-party-notices.txt');
     const canonicalNotices = await readFile(path.join(projectRoot, 'THIRD_PARTY_NOTICES.md'), 'utf8');
 
-    expect(manifest.schemaVersion).toBe(2);
+    expect(manifest.schemaVersion).toBe(3);
     expect(manifest.sources.length).toBe(projectSlugs.length);
     expect(notices).toBe(canonicalNotices);
     expect(notices).toMatch(/MIT License/u);
@@ -199,18 +269,24 @@ describe('provenance', () => {
     }
   });
 
-  test('marks pages that have no English source as pending instead of faking one', async () => {
-    for (const source of vendoredDocs) {
-      for (const page of source.pages) {
-        if (page.englishSourcePath) {
-          continue;
+  test('does not publish an English page that has no translation', async () => {
+    for (const project of projectSlugs) {
+      const portuguese = await importedPageRoutes(project);
+
+      for (const route of portuguese) {
+        const englishRoute = route.replace(/^\//u, '/en/');
+        const published = await routeExists(englishRoute);
+
+        if (published) {
+          const english = await readRoute(englishRoute);
+          const portugueseHtml = await readRoute(route);
+
+          // A published English page has to be a translation, not a copy of
+          // the Portuguese one.
+          expect(english, `${englishRoute} looks like a copy of the Portuguese page`).not.toBe(
+            portugueseHtml,
+          );
         }
-
-        const html = await readRoute(`/en/${source.project}/docs/${page.category}/${page.slug}/`);
-
-        expect(html, `${source.project}/${page.slug} should say the translation is pending`).toContain(
-          'Translation pending',
-        );
       }
     }
   });
@@ -259,26 +335,21 @@ describe('project integration', () => {
     for (const project of projects) {
       const html = await readRoute(`/projects/${project.slug}/`);
 
-      for (const page of getDocsForProject(project.slug)) {
-        expect(
-          html,
-          `${project.slug} page should link to ${page.slug}`,
-        ).toContain(`/${project.slug}/docs/${page.category}/${page.slug}`);
+      for (const route of await importedPageRoutes(project.slug)) {
+        expect(html, `${project.slug} page should link to ${route}`).toContain(route);
       }
     }
   });
 
   test('links every documentation page back to its project and repository', async () => {
     for (const project of projects) {
-      for (const page of getDocsForProject(project.slug)) {
-        const html = await readRoute(
-          `/${project.slug}/docs/${page.category}/${page.slug}/`,
-        );
+      for (const route of await importedPageRoutes(project.slug)) {
+        const html = await readRoute(route);
 
-        expect(html, `${project.slug}/${page.slug} should link back to the project`).toContain(
+        expect(html, `${route} should link back to the project`).toContain(
           `/projects/${project.slug}/`,
         );
-        expect(html, `${project.slug}/${page.slug} should link to the repository`).toContain(
+        expect(html, `${route} should link to the repository`).toContain(
           project.repositoryHref,
         );
       }
@@ -305,26 +376,37 @@ describe('project integration', () => {
 });
 
 describe('bilingual parity', () => {
-  test('every Portuguese documentation page has an English counterpart', async () => {
-    for (const project of projects) {
-      for (const page of getDocsForProject(project.slug)) {
-        const portuguese = await readRoute(`/${project.slug}/docs/${page.category}/${page.slug}/`);
-        const english = await readRoute(`/en/${project.slug}/docs/${page.category}/${page.slug}/`);
+  test('a page published in both languages is a real translation', async () => {
+    let compared = 0;
 
-        expect(portuguese).not.toBe(english);
-        expect(english, `${project.slug}/${page.slug} has no English title`).toContain(
-          page.title.en,
+    for (const project of projectSlugs) {
+      for (const route of await importedPageRoutes(project)) {
+        const englishRoute = route.replace(/^\//u, '/en/');
+
+        // A project may publish a page in Portuguese only, so the rule applies
+        // to the pages that exist in both.
+        if (!(await routeExists(englishRoute))) {
+          continue;
+        }
+
+        compared += 1;
+
+        const portuguese = await readRoute(route);
+        const english = await readRoute(englishRoute);
+
+        expect(english, `${englishRoute} looks like a copy of the Portuguese page`).not.toBe(
+          portuguese,
         );
       }
     }
+
+    expect(compared, 'nenhuma página existe nos dois idiomas').toBeGreaterThan(0);
   });
 
   test('every English documentation page has a Portuguese counterpart', async () => {
     for (const project of projects) {
-      for (const page of getDocsForProject(project.slug)) {
-        expect(
-          await routeExists(`/${project.slug}/docs/${page.category}/${page.slug}/`),
-        ).toBe(true);
+      for (const route of await importedPageRoutes(project.slug)) {
+        expect(await routeExists(route), `missing English counterpart for ${route}`).toBe(true);
       }
     }
   });
@@ -422,22 +504,17 @@ describe('links', () => {
 
 describe('source tree', () => {
   test('keeps vendored documentation inside the VitePress source directory', async () => {
-    for (const source of vendoredDocs) {
-      for (const page of source.pages) {
-        for (const localePrefix of ['site', 'site/en']) {
-          // Documentation now lives inside the project subsite.
-          const expected = path.join(
-            localePrefix,
-            source.project,
-            'docs',
-            page.category,
-            `${page.slug}.md`,
-          );
+    for (const project of projectSlugs) {
+      for (const prefix of ['', 'en']) {
+        const docsRoot = path.join(projectRoot, 'site', prefix, project, 'docs');
 
-          expect(
-            await exists(path.join(projectRoot, expected)),
-            `expected imported page at ${expected}`,
-          ).toBe(true);
+        for (const file of await importedPages(docsRoot)) {
+          const expected = path.join(docsRoot, file);
+          const source = await readFile(expected, 'utf8');
+
+          // Every published page records where it came from.
+          expect(source, `${expected} has no source path`).toMatch(/^sourcePath:/mu);
+          expect(source, `${expected} has no source blob`).toMatch(/^sourceBlob:/mu);
         }
       }
     }

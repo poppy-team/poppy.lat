@@ -3,17 +3,21 @@ import { computed } from 'vue';
 import { useData } from 'vitepress';
 import {
   docsCategories,
-  getDocsForProject,
   getProjectBySlug,
   projectPageHref,
   type Locale,
 } from '@poppy/project-data';
+import { importedDocs } from 'virtual:imported-docs';
 
 const { frontmatter } = useData();
 
 const locale = computed<Locale>(() => (frontmatter.value.locale === 'en' ? 'en' : 'pt-BR'));
 const project = computed(() => getProjectBySlug(String(frontmatter.value.project ?? '')));
-const pages = computed(() => (project.value ? getDocsForProject(project.value.slug) : []));
+const pages = computed(() =>
+  project.value
+    ? (importedDocs[project.value.slug] ?? []).filter((page) => page.locale === locale.value)
+    : [],
+);
 const categories = computed(() => docsCategories[locale.value]);
 
 const grouped = computed(() =>
@@ -47,9 +51,9 @@ const grouped = computed(() =>
       <p class="docs-landing__description">{{ group.description }}</p>
       <ul class="docs-card-list">
         <li v-for="page in group.pages" :key="page.slug" class="docs-card">
-          <a class="docs-card__link" :href="`./${group.slug}/${page.slug}`">
-            <span class="docs-card__title">{{ page.title[locale] }}</span>
-            <span class="docs-card__description">{{ page.description[locale] }}</span>
+          <a class="docs-card__link" :href="page.route">
+            <span class="docs-card__title">{{ page.title }}</span>
+            <span class="docs-card__description">{{ page.description }}</span>
           </a>
         </li>
       </ul>

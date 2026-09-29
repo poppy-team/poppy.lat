@@ -29,14 +29,21 @@ is measured against that criterion by `pnpm derive:allowlist`.
 
 Current coverage against the projects' own criterion:
 
-| Project | Publishable | In the allow-list | Coverage |
-|---|---|---|---|
-| Aipo | 166 | 2 | 1.2% |
-| Prumo | 320 | 11 | 3.4% |
-| Oride | 72 | 7 | unknown, no site config upstream |
+| Project | Criterion | Published |
+|---|---|---|
+| Aipo | `srcExclude`, 18 patterns | 151 pages, 71 in English |
+| Prumo | `srcExclude`, 74 patterns | 30 pages |
+| Ori | none upstream | 2 pages |
+| Oride | none upstream | 12 pages, 5 in English |
 
-Oride publishes no site config, so it has no author-declared criterion; its
-allow-list is a hand-picked set until that is mapped.
+Aipo and Prumo are imported by walking their documentation tree and keeping what
+their own site config publishes, so the coverage is complete by construction
+rather than by selection. The English tree is walked separately, so a page
+published only in Portuguese is not duplicated in English.
+
+Ori and Oride still ship no site config, so their pages come from the explicit
+list in packages/project-data. Ori has one page because the site the project
+publishes is not in this repository.
 
 Two pages were removed on this basis: the Oride changelog and roadmap, and the
 Prumo changelog. All three live at their repository root, outside the

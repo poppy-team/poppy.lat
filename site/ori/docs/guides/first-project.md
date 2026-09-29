@@ -9,16 +9,17 @@ sourceBlob: "7d9e2b408472e1d5d88e2cfb144007aed3c10396"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Static copy
-Copied from `docs/guides/first-project.pt-BR.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `7d9e2b408472e1d5d88e2cfb144007aed3c10396`.
-The upstream repository stays canonical; this copy is not updated automatically.
+::: info Cópia estática
+Copiado de `docs/guides/first-project.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `7d9e2b408472e1d5d88e2cfb144007aed3c10396`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
 :::
 # Primeiro projeto e pacotes locais
 
 > Status: guia prático Ori **S3 + inferência B / workspace 0.3.8-dev**
-> **English:** [first-project.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/first-project.md))  
-> Layout: raiz-first (`ori.proj` + `main.orl`) — [spec/17](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/17-project-and-docs.md))
+> **English:** [first-project.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/first-project.md)  
+> Layout: raiz-first (`ori.proj` + `main.orl`) — [spec/17](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/17-project-and-docs.md)
+
 ## Criar um projeto
 
 ```bash
@@ -82,14 +83,14 @@ ori publish . --registry /caminho/registry
 ori install outro.pkg@0.1.0
 ```
 
-Contrato: [registry-v1.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/planning/registry-v1.md)) (planejamento; sem push
+Contrato: [registry-v1.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/planning/registry-v1.md) (planejamento; sem push
 de loja).
 
 ## Após atualizar o Ori
 
-1. Leia o [CHANGELOG.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/CHANGELOG.md)).
+1. Leia o [CHANGELOG.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/CHANGELOG.md).
 2. `ori check` / `ori test`.
 3. Pré-S3: `ori migrate-syntax .`
 
-Próximo: [Cookbook](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/cookbook.pt-BR.md)) · [Tour](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/language/tour.pt-BR.md)) ·
-[Instalação](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/install.pt-BR.md)) · [Exemplos](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/))
+Próximo: [Cookbook](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/cookbook.pt-BR.md) · [Tour](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/language/tour.pt-BR.md) ·
+[Instalação](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/install.pt-BR.md) · [Exemplos](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/)

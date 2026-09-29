@@ -9,10 +9,10 @@ sourceBlob: "32674e6bce232e6ca8fc039177f3f6e6cac07446"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Static copy
-Copied from `docs/guides/pt/markdown.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `32674e6bce232e6ca8fc039177f3f6e6cac07446`.
-The upstream repository stays canonical; this copy is not updated automatically.
+::: info Cópia estática
+Copiado de `docs/guides/pt/markdown.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `32674e6bce232e6ca8fc039177f3f6e6cac07446`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
 :::
 # Markdown no Oride
 
@@ -64,10 +64,10 @@ Atalho: `Ctrl+Shift+V` / `Alt+P`. Painel read-only ao lado do editor; **segue o 
 | Blockquote | `│` + itálico/quote |
 | Code fence | Bloco `┌ lang` … `│` … `└` |
 | Inline `code` **bold** *italic* ~~strike~~ | Estilos dedicados |
-| Links `[t](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/url))` | `t → url` (url truncada) |
+| Links `[t](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/url)` | `t → url` (url truncada) |
 | Tabelas `\|` | Linhas com `│` |
 | Frontmatter `---` | Bloco dim no topo |
-| **Imagens** `![alt](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/path))` | **Placeholder** (não bitmap) |
+| **Imagens** `![alt](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/path)` | **Placeholder** (não bitmap) |
 
 ### Imagens (placeholder)
 
@@ -97,7 +97,7 @@ Linha só com imagem vira card:
 
 ## Roadmap MD (normativo)
 
-Ver **[docs/planning/alpha6-roadmap.md](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/planning/alpha6-roadmap.md))** seções **M1** / **M2**.
+Ver **[`docs/planning/alpha6-roadmap.md`](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/planning/alpha6-roadmap.md)** seções **M1** / **M2**.
 
 | Item | Descrição | Status |
 |------|-----------|--------|

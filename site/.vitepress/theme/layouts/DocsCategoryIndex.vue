@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Content, useData } from 'vitepress';
-import {
-  docsCategories,
-  getDocsForProject,
-  getProjectBySlug,
-  type Locale,
-} from '@poppy/project-data';
+import { docsCategories, getProjectBySlug, type Locale } from '@poppy/project-data';
+import { importedDocs } from 'virtual:imported-docs';
 
 const { frontmatter } = useData();
 
@@ -20,8 +16,11 @@ const otherCategories = computed(() => {
     return [];
   }
 
+  // A sibling category is only linked when it has pages in this locale.
   const populated = new Set(
-    getDocsForProject(project.value.slug).map((page) => page.category),
+    (importedDocs[project.value.slug] ?? [])
+      .filter((page) => page.locale === locale.value)
+      .map((page) => page.category),
   );
 
   return docsCategories[locale.value].filter(

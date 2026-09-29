@@ -5,6 +5,7 @@ import { getProjectBySlug, projects, siteCopy, type Locale } from '@poppy/projec
 import SiteHeader from './SiteHeader.vue';
 import ProjectSwitcher from './ProjectSwitcher.vue';
 import DocsProjectHeader from './DocsProjectHeader.vue';
+import { importedDocs } from 'virtual:imported-docs';
 
 const { frontmatter, lang, page } = useData();
 
@@ -44,6 +45,31 @@ const counterpartSlugs: Record<string, Record<Locale, string>> = {
   },
 };
 
+/**
+ * Counterpart route for a documentation page, matched on the page slug rather
+ * than on the route, because a project may publish a page in one language and
+ * not the other, and the route differs by the locale prefix.
+ */
+function documentationCounterpart(currentRoute: string, locale: Locale): string | undefined {
+  for (const pages of Object.values(importedDocs)) {
+    for (const page of pages) {
+      if (page.locale !== locale || page.route !== currentRoute) {
+        continue;
+      }
+
+      const counterpart = pages.find(
+        (other) => other.locale !== locale && other.slug === page.slug,
+      );
+
+      if (counterpart) {
+        return counterpart.route;
+      }
+    }
+  }
+
+  return undefined;
+}
+
 function counterpartFor(page: { frontmatter: Record<string, unknown> }): string | undefined {
   const key = page.frontmatter.translationKey;
 
@@ -64,6 +90,28 @@ const counterpartHref = computed(() => {
   // would land on a page that does not exist.
   if (stripped.startsWith('not-found')) {
     return locale.value === 'en' ? '/' : '/en/';
+  }
+
+  const isDocumentationPage = typeof frontmatter.value.project === 'string';
+  const currentRoute = page.value.relativePath
+    .replace(/(^|\/)index\.md$/u, '$1')
+    .replace(/\.md$/u, '/');
+  const documentationMatch = documentationCounterpart(`/${currentRoute}`, locale.value);
+
+  if (isDocumentationPage && documentationMatch) {
+    return documentationMatch;
+  }
+
+  // A documentation page without a counterpart has no other-language route,
+  // so the switch offers the project landing instead of a dead link.
+  if (isDocumentationPage) {
+    const projectSlug = typeof frontmatter.value.project === 'string' ? frontmatter.value.project : '';
+
+    return projectSlug
+      ? `${locale.value === 'en' ? '' : '/en'}/${projectSlug}/docs/`
+      : locale.value === 'en'
+        ? '/'
+        : '/en/';
   }
 
   const otherSlug = counterpartFor(page.value);

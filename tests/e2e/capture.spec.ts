@@ -12,6 +12,8 @@ const routes = [
   { name: 'docs-ori', path: '/ori/docs/' },
   { name: 'docs-oride', path: '/oride/docs/' },
   { name: 'docs-prumo', path: '/prumo/docs/' },
+  { name: 'aipo-landing', path: '/aipo/docs/' },
+  { name: 'aipo-manual', path: '/aipo/docs/guides/manual/syntax-and-types/' },
   { name: 'not-found', path: '/not-found/' },
 ];
 

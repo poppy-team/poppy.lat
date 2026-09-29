@@ -9,10 +9,10 @@ sourceBlob: "5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Static copy
-Copied from `docs/guides/en/config.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5`.
-The upstream repository stays canonical; this copy is not updated automatically.
+::: info Cópia estática
+Copiado de `docs/guides/en/config.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
 :::
 # Configuration Reference
 
@@ -22,7 +22,7 @@ Oride loads configuration in a layered hierarchy (later layers override earlier 
 2. **User global configuration:** `~/.config/oride/config.toml` (XDG standard).
 3. **Workspace local configuration:** The first `.oride/config.toml` found walking up from the opened file or CWD.
 
-Full example: [`assets/config.example.toml`](https://github.com/poppy-team/oride/tree/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/assets/config.example.toml).
+Full example: [`assets/config.example.toml`](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/assets/config.example.toml).
 
 ---
 
