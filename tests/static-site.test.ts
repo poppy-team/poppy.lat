@@ -175,6 +175,32 @@ async function localTargetExists(routePath: string): Promise<boolean> {
 
 const projectSlugs = projects.map((project) => project.slug);
 
+describe('share metadata', () => {
+  test('every locale gets the favicon and its own Open Graph and Twitter tags', async () => {
+    const cases = [
+      { route: '/', locale: 'pt_BR', description: 'Linguagens e ferramentas com atenção à leitura.' },
+      { route: '/en/', locale: 'en_US', description: 'Languages and tools with care for the reader.' },
+    ];
+
+    for (const { route, locale, description } of cases) {
+      const html = await readRoute(route);
+
+      expect(html).toContain('<link rel="icon" type="image/svg+xml" href="/favicon.svg">');
+      expect(html).toContain(`<meta property="og:locale" content="${locale}">`);
+      expect(html).toContain(`<meta property="og:description" content="${description}">`);
+      expect(html).toContain('<meta property="og:title" content="Poppy Team">');
+      expect(html).toContain('<meta property="og:image" content="/assets/og-image.png">');
+      expect(html).toContain('<meta name="twitter:card" content="summary_large_image">');
+      // The domain is not approved yet, so nothing may point at it.
+      expect(html).not.toMatch(/rel="canonical"|property="og:url"/u);
+    }
+
+    for (const asset of ['favicon.svg', 'assets/og-image.png', 'assets/apple-touch-icon.png']) {
+      expect(await exists(path.join(outputRoot, asset)), `${asset} is not published`).toBe(true);
+    }
+  });
+});
+
 describe('routes', () => {
   test('builds the home, project, blog, and documentation routes in both locales', async () => {
     const expectedRoutes = [
@@ -230,7 +256,69 @@ describe('routes', () => {
     expect(await readRoute('/blog/um-arquivo-com-origem/')).toMatch('Um arquivo com origem');
     expect(await readRoute('/en/blog/a-source-aware-archive/')).toMatch('An archive with provenance');
   });
+
+  test('redirects every old /docs/<project>/ link to the page that replaced it', async () => {
+    const redirects = await vercelRedirects();
+
+    for (const slug of projectSlugs) {
+      for (const prefix of ['', 'en']) {
+        const localePrefix = prefix === '' ? '' : `/${prefix}`;
+        const directory = path.join(projectRoot, 'site', prefix, slug, 'docs');
+        const pages = (await importedPages(directory)).map((file) => file.replace(/\.md$/u, ''));
+
+        for (const page of ['', ...pages]) {
+          const oldRoute = `${localePrefix}/docs/${slug}${page === '' ? '' : `/${page}`}`;
+          const newRoute = `${localePrefix}/${slug}/docs${page === '' ? '' : `/${page}`}`;
+
+          expect(applyRedirects(redirects, oldRoute), `redirect for ${oldRoute}`).toBe(newRoute);
+          expect(await routeExists(`${newRoute}/`), `redirect target for ${oldRoute}`).toBe(true);
+        }
+      }
+    }
+
+    // Only known projects move; an unknown name must not become /<name>/docs.
+    expect(applyRedirects(redirects, '/docs/unknown/page')).toBeUndefined();
+  });
 });
+
+interface Redirect {
+  source: string;
+  destination: string;
+}
+
+async function vercelRedirects(): Promise<Redirect[]> {
+  const config = JSON.parse(await readFile(path.join(projectRoot, 'vercel.json'), 'utf8'));
+
+  return config.redirects;
+}
+
+/**
+ * Resolves a path against vercel.json redirects, first match wins. Supports the
+ * subset of Vercel's path-to-regexp syntax the file uses: `:name`,
+ * `:name(a|b)` and a trailing `:name*`.
+ */
+function applyRedirects(redirects: Redirect[], route: string): string | undefined {
+  for (const { source, destination } of redirects) {
+    const names: string[] = [];
+    const pattern = source.replace(
+      /\/:(\w+)(\([^)]*\))?(\*)?/gu,
+      (_match, name: string, group: string | undefined, star: string | undefined) => {
+        names.push(name);
+
+        return star ? '(?:/(.*))?' : `/(${group ? group.slice(1, -1) : '[^/]+'})`;
+      },
+    );
+    const match = new RegExp(`^${pattern}$`, 'u').exec(route);
+
+    if (match) {
+      return names
+        .reduce((result, name, index) => result.replace(`:${name}*`, match[index + 1] ?? '').replace(`:${name}`, match[index + 1] ?? ''), destination)
+        .replace(/\/$/u, '');
+    }
+  }
+
+  return undefined;
+}
 
 describe('provenance', () => {
   test('serves the pinned source manifest and complete third-party notices', async () => {
