@@ -396,7 +396,7 @@ export function localeRoot(locale: Locale): string {
 
 /** Documentation section for a project in a given locale. */
 export function documentationHref(project: Project, locale: Locale): string {
-  return `${localeRoot(locale)}/docs/${project.slug}/`;
+  return `${localeRoot(locale)}/${project.slug}/docs/`;
 }
 
 /** Editorial project page for a project in a given locale. */
