@@ -29,8 +29,14 @@ overrides the committed configuration.
 
 **Automatic deploys are not connected.** A push to a branch does not trigger a
 deployment: the Vercel project has no Git repository linked, so every deploy is
-manual. Connecting it requires access to the repository from the account that owns
-the Vercel project, which is not available from this environment.
+manual. The cause is the Vercel account, not the repository. `GET /v2/user` reports
+`linkedAccounts: null` for `raillen`, so there is no GitHub identity on the account
+that owns the project, and connecting a private repository requires one. The GitHub
+credentials available here are fine — the `gh` token carries `repo` and reads the
+private repository without trouble, and Vercel can already build from a ref it reads
+through the API. What is missing is the interactive link step, which has to be done
+once, by hand, in the Vercel dashboard or `vercel git connect` from a session where
+the account is signed in.
 
 ## Limitations and next actions
 

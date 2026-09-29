@@ -765,9 +765,12 @@ html[data-page='editorial'] .VPDoc .header-anchor {
    -------------------------------------------------------------------------- */
 
 .dark .docs-card,
-.dark .code-plate {
+.dark .code-plate,
+.dark .closing-note,
+.dark .language-switch {
   background: var(--color-ink);
   border-color: var(--color-rule);
+  color: var(--color-paper);
 }
 
 .dark .docs-card__title {
@@ -794,6 +797,34 @@ html[data-page='editorial'] .VPDoc .header-anchor {
 .dark .button-link--light {
   border-color: var(--color-paper);
   color: var(--color-paper);
+}
+
+/* The soft and muted inks were chosen for the light paper; on the dark plane
+   they fall below the 4.5:1 minimum, so the dark theme maps them to the same
+   greys the VitePress text ramp already uses. */
+.dark .project-feature__summary,
+.dark .secondary-project__summary,
+.dark .hero__intro,
+.dark .site-footer__description,
+.dark .docs-card__description,
+.dark .project-page__summary,
+.dark .docs-landing__summary,
+.dark .article-page__description,
+.dark .journal-page__intro p {
+  color: #b8bdb2;
+}
+
+.dark .project-page__note,
+.dark .project-docs__description,
+.dark .docs-landing__description,
+.dark .eyebrow,
+.dark .code-plate__caption,
+.dark .project-feature__header,
+.dark .secondary-project__number,
+.dark .secondary-project__category,
+.dark .project-section__index,
+.dark .principle-list__number {
+  color: #8b9188;
 }
 
 .dark .project-page__hero,
@@ -826,6 +857,18 @@ html[data-page='editorial'] .VPDoc .header-anchor {
   order: 3;
 }
 
+/* On narrow screens the project switcher follows the documentation content
+   rather than preceding the docs navbar, so the reader meets the page title
+   first and the switcher acts as a footer-level navigation. */
+@media (max-width: 959px) {
+  .project-switch,
+  .docs-project {
+    order: 1;
+    width: auto;
+    margin: 0 var(--content-gutter) var(--space-3);
+  }
+}
+
 .Layout {
   display: flex;
   flex-direction: column;
@@ -839,4 +882,23 @@ html[data-page='editorial'] .VPDoc .header-anchor {
 
 html[data-page='editorial'] .VPContent {
   padding-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens.
+
+   The documentation navbar already carries the site name and the language
+   switch, so the Poppy header repeats both. It is hidden there and the chrome
+   reduces to what the docs navbar does not provide: the project switcher and
+   the footer.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 959px) {
+  html[data-page='documentation'] .site-header {
+    display: none;
+  }
+
+  html[data-page='documentation'] .site-nav {
+    display: none;
+  }
 }

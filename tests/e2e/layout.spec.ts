@@ -125,6 +125,93 @@ test.describe('a home nao parece uma pagina de documentacao', () => {
   });
 });
 
+test.describe('chrome em telas estreitas', () => {
+  test('a documentacao nao empilha dois cabecarios no celular', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/docs/oride/');
+
+    // A navbar da documentacao ja carrega o nome e o comutador de idioma, entao
+    // o cabecario da marca e oculto nessa faixa e a pagina comeca pela navbar.
+    await expect(page.locator('.site-header')).toBeHidden();
+
+    const [chrome, docsNavbar] = await Promise.all([
+      page.locator('.project-switch').boundingBox(),
+      page.locator('.VPNavBar').boundingBox(),
+    ]);
+
+    expect(chrome, 'o chrome do site deveria estar no fim da pagina').not.toBeNull();
+    expect(docsNavbar, 'a navbar de documentacao deveria estar no topo').not.toBeNull();
+    expect(chrome!.y).toBeGreaterThan(docsNavbar!.y);
+  });
+
+  test('a home nao repete cabecalho no celular', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    await expect(page.locator('.site-header')).toBeVisible();
+    await expect(page.locator('.VPNavBar')).toBeHidden();
+  });
+
+  test('o contraste do texto sobrevive ao tema escuro', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto('/');
+
+    const results = await page.evaluate(() => {
+      const out: { selector: string; ratio: number }[] = [];
+
+      for (const selector of ['.closing-note', '.project-feature__summary', '.secondary-project__summary']) {
+        const element = document.querySelector(selector) as HTMLElement | null;
+
+        if (!element) {
+          continue;
+        }
+
+        const parse = (value: string): number[] => {
+          const parts = (value.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
+
+          return [parts[0] ?? 0, parts[1] ?? 0, parts[2] ?? 0];
+        };
+        const luminance = (rgb: number[]) => {
+          const linear = rgb.map((channel) => {
+            const c = (channel ?? 0) / 255;
+
+            return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+          });
+
+          return (
+            0.2126 * (linear[0] ?? 0) + 0.7152 * (linear[1] ?? 0) + 0.0722 * (linear[2] ?? 0)
+          );
+        };
+        const fg = luminance(parse(getComputedStyle(element).color));
+        let bg = 1;
+        let node: HTMLElement | null = element;
+
+        while (node) {
+          const background = getComputedStyle(node).backgroundColor;
+
+          if (background && !background.includes('rgba(0, 0, 0, 0)')) {
+            bg = luminance(parse(background));
+            break;
+          }
+
+          node = node.parentElement;
+        }
+
+        const ratio = (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05);
+
+        out.push({ selector, ratio: Math.round(ratio * 100) / 100 });
+      }
+
+      return out;
+    });
+
+    for (const { selector, ratio } of results) {
+      // WCAG 2.1 AA para texto normal.
+      expect(ratio, `contraste insuficiente em ${selector}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+});
+
 test.describe('identidade visual por projeto', () => {
   const projects = ['ori', 'aipo', 'oride', 'prumo'];
 
