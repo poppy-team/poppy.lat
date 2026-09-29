@@ -383,3 +383,52 @@ test.describe('responsividade', () => {
     });
   }
 });
+
+test.describe('navegacao da documentacao', () => {
+  test('o pager leva a pagina anterior e a proxima do mesmo projeto', async ({ page }) => {
+    await page.goto('/aipo/docs/guides/getting-started/installation');
+
+    // O pager era derivado de uma barra lateral com todos os projetos e links
+    // com barra final, entao nenhuma pagina era reconhecida como ativa e o
+    // "proxima" sempre levava ao primeiro projeto da lista.
+    await expect(page.locator('.pager-link.prev')).toHaveAttribute(
+      'href',
+      /\/aipo\/docs\/guides\/getting-started\/what-is-aipo/u,
+    );
+    await expect(page.locator('.pager-link.next')).toHaveAttribute(
+      'href',
+      /\/aipo\/docs\/guides\/getting-started\/first-program/u,
+    );
+
+    await page.locator('.pager-link.next').click();
+    await expect(page).toHaveURL(/first-program/u);
+    await expect(page.locator('.pager-link.prev')).toHaveAttribute('href', /installation/u);
+  });
+
+  test('a barra lateral marca a pagina atual e mostra so o projeto aberto', async ({ page }) => {
+    await page.goto('/aipo/docs/guides/getting-started/installation');
+
+    await expect(page.locator('.VPSidebarItem.is-active')).toHaveCount(1);
+    await expect(page.locator('.VPSidebar a[href*="/ori/docs/"]')).toHaveCount(0);
+  });
+});
+
+test.describe('cards clicaveis na home', () => {
+  for (const slug of ['ori', 'aipo']) {
+    test(`o card de ${slug} inteiro abre a pagina do projeto`, async ({ page }) => {
+      await page.goto('/');
+      // A point on the card away from its title: the title link's hit area
+      // covers the whole card.
+      await page.locator(`.project-feature--${slug}`).click({ position: { x: 24, y: 220 } });
+
+      await expect(page).toHaveURL(new RegExp(`/projects/${slug}`, 'u'));
+    });
+  }
+
+  test('o link de documentacao do card continua sendo seu proprio destino', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.project-feature--aipo .project-feature__docs').click();
+
+    await expect(page).toHaveURL(/\/aipo\/docs\//u);
+  });
+});

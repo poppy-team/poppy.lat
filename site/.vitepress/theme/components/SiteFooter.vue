@@ -26,15 +26,22 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
 
 <template>
   <footer class="site-footer">
-    <a class="site-footer__mark" :href="`${root}/`">
-      <img src="/assets/poppy-logo.svg" alt="" width="28" height="28" decoding="async" />
-      <span>poppy team</span>
-    </a>
-    <p class="site-footer__description">{{ copy.footerDescription }}</p>
-    <nav class="site-footer__links" :aria-label="copy.navigationLabel">
-      <a href="https://github.com/poppy-team">{{ copy.githubLabel }}</a>
-      <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
-    </nav>
-    <small>© 2026 Poppy Team</small>
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <a class="site-footer__mark" :href="`${root}/`">
+          <img class="wordmark__logo wordmark__logo--light" src="/assets/poppy-logo.svg" alt="" width="24" height="24" decoding="async" />
+          <img class="wordmark__logo wordmark__logo--dark" src="/assets/poppy-logo-dark.svg" alt="" width="24" height="24" decoding="async" />
+          <span>Poppy Team</span>
+        </a>
+        <p class="site-footer__description">{{ copy.footerDescription }}</p>
+      </div>
+      <nav class="site-footer__links" :aria-label="copy.navigationLabel">
+        <a :href="`${root}/#projects`">{{ copy.navigation.projects }}</a>
+        <a :href="`${root}/blog/`">{{ copy.navigation.blog }}</a>
+        <a href="https://github.com/poppy-team">{{ copy.githubLabel }}</a>
+        <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
+      </nav>
+      <small class="site-footer__legal">© 2026 Poppy Team</small>
+    </div>
   </footer>
 </template>

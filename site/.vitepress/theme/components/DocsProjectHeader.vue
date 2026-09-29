@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { getProjectBySlug, localeRoot, projectPageHref, siteCopy, type Locale } from '@poppy/project-data';
+import { getProjectBySlug, projectPageHref, type Locale } from '@poppy/project-data';
 
 const props = defineProps<{
   project: string;
@@ -8,20 +8,22 @@ const props = defineProps<{
 }>();
 
 const project = computed(() => getProjectBySlug(props.project));
-const copy = computed(() => siteCopy[props.locale]);
 </script>
 
 <template>
-  <aside v-if="project" class="docs-project" :data-project="project.slug">
-    <a class="docs-project__back" :href="projectPageHref(project, locale)">
-      <span class="docs-project__eyebrow">{{ project.name }}</span>
-      <span class="docs-project__label">{{ project.category[locale] }}</span>
+  <div v-if="project" class="docs-project" :data-project="project.slug">
+    <a class="docs-project__identity" :href="projectPageHref(project, locale)">
+      <span class="docs-project__swatch" aria-hidden="true" />
+      <span class="docs-project__name">{{ project.name }}</span>
+      <span class="docs-project__category">{{ project.category[locale] }}</span>
     </a>
-    <a class="docs-project__source" :href="project.repositoryHref" rel="noopener">
-      {{ copy.navigation.projects }} ↗
-    </a>
-    <a class="docs-project__switch" :href="`${localeRoot(locale)}/#projects`">
-      {{ copy.navigation.projects }}
-    </a>
-  </aside>
+    <span class="docs-project__links">
+      <a :href="projectPageHref(project, locale)">
+        {{ locale === 'en' ? 'About the project' : 'Sobre o projeto' }}
+      </a>
+      <a :href="project.repositoryHref" rel="noopener">
+        {{ locale === 'en' ? 'Repository' : 'Repositório' }} ↗
+      </a>
+    </span>
+  </div>
 </template>

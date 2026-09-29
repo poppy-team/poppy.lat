@@ -60,6 +60,11 @@ export interface Project {
   colorToken: string;
   /** Status line, shared across locales. */
   badge: ProjectBadge;
+  /**
+   * A few lines of the language, taken from its documentation, shown on the
+   * home card so a featured project is recognisable by its code.
+   */
+  excerpt?: string;
   copy: Record<Locale, ProjectCopy>;
 }
 
@@ -80,6 +85,7 @@ export const projects = [
     repositoryHref: 'https://github.com/poppy-team/ori-lang',
     colorToken: 'var(--color-leaf-pale)',
     badge: { stage: 'S3', positioning: 'READING-FIRST', note: 'ND-FRIENDLY' },
+    excerpt: 'module demo.main\n\nimport ori.test as test\n\n@test\nmath_is_stable()\n    test.assert(1 + 1 == 2, "math should work")\nend',
     copy: {
       'pt-BR': {
         eyebrow: 'Linguagem compilada para código nativo',
@@ -159,6 +165,7 @@ export const projects = [
     repositoryHref: 'https://github.com/poppy-team/aipo-lang',
     colorToken: 'var(--color-blue-pale)',
     badge: { stage: 'S2', positioning: 'CONTRACTS-FIRST' },
+    excerpt: 'struct Temperature {\n    var celsius = 0.0\n}\n\nimpl Temperature {\n    invariant {\n        self.celsius >= -273.15\n    }\n}',
     copy: {
       'pt-BR': {
         eyebrow: 'Linguagem dinâmica com contratos opcionais',

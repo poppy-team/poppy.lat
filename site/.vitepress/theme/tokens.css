@@ -2,7 +2,9 @@
  * Poppy Team design tokens.
  *
  * Shared by the site shell and the documentation theme so both read from one
- * palette. Values are a prototype direction, not a final brand identity.
+ * palette. Components read the semantic tokens (`--surface`, `--text`, …),
+ * which the dark theme redefines once here instead of in a correction per
+ * component.
  */
 
 :root {
@@ -13,8 +15,8 @@
   --color-paper-light: #f8f5eb;
   --color-ink: #262a25;
   --color-ink-soft: #4b4e46;
-  --color-ink-muted: #707166;
-  --color-rule: #c9c5b8;
+  --color-ink-muted: #6b6c62;
+  --color-rule: #d3cfc1;
   --color-accent: #a33b2c;
   --color-accent-deep: #7e2d23;
 
@@ -25,10 +27,31 @@
   --color-oride-pale: #e3dccd;
   --color-prumo-pale: #dcd8e0;
 
-  /* Typography */
-  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  --font-body: "Avenir Next", Avenir, "Segoe UI", sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  /* Semantic colours */
+  --surface: var(--color-paper);
+  --surface-raised: var(--color-paper-light);
+  --surface-sunken: #e9e4d4;
+  --text: var(--color-ink);
+  --text-soft: var(--color-ink-soft);
+  --text-muted: var(--color-ink-muted);
+  --rule: var(--color-rule);
+  --rule-strong: #b5b0a1;
+  --accent: var(--color-accent);
+  --accent-ink: var(--color-accent-deep);
+
+  /* Typography: one serif for display, one sans for reading, one mono. */
+  --font-display: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter Variable', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: clamp(1.625rem, 2.6vw, 2rem);
+  --text-2xl: clamp(2rem, 4vw, 2.75rem);
+  --text-3xl: clamp(2.5rem, 6vw, 4.25rem);
 
   /* Space */
   --space-1: 0.5rem;
@@ -38,61 +61,84 @@
   --space-5: 3rem;
   --space-6: 4rem;
   --space-7: 6rem;
+  --section-gap: clamp(3.5rem, 7vw, 5.5rem);
 
   /* Layout */
-  --content-width: 76rem;
-  --content-gutter: clamp(1.25rem, 4.5vw, 4.5rem);
-  --focus-ring: 3px solid var(--color-accent);
+  --content-width: 72rem;
+  --content-gutter: clamp(1rem, 4vw, 3rem);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --focus-ring: 2px solid var(--accent);
+  --header-height: 4.5rem;
 
   /* Active project identity, overridden per documentation section. */
-  --project-plane: var(--color-leaf-pale);
-  --project-plane-ink: var(--color-ink);
-}
-
-/*
- * Project identity inside the documentation theme.
- *
- * Scoped to `data-project` on the document element, which the theme sets from
- * the current route. Dark values are declared alongside the light ones so the
- * identity survives a theme switch.
- */
-
-html[data-project='ori'] {
   --project-plane: var(--color-leaf-pale);
   --project-ink: var(--color-leaf);
 }
 
-html[data-project='aipo'] {
-  --project-plane: var(--color-blue-pale);
-  --project-ink: #3a4a55;
+.dark {
+  color-scheme: dark;
+
+  --surface: #1b1e1b;
+  --surface-raised: #232723;
+  --surface-sunken: #161916;
+  --text: #f1eddf;
+  --text-soft: #c3c6bb;
+  --text-muted: #9a9f95;
+  --rule: #363c36;
+  --rule-strong: #4a514a;
+  --accent: #e08a74;
+  --accent-ink: #eea08c;
 }
 
-html[data-project='oride'] {
+/*
+ * Project identity.
+ *
+ * Scoped to `data-project`, which the theme sets on the document element for
+ * documentation and which cards set on themselves. The dark theme class sits
+ * on the same `<html>` element, so its selectors combine both on one element.
+ */
+
+[data-project='ori'] {
+  --project-plane: var(--color-leaf-pale);
+  --project-ink: var(--color-leaf);
+}
+
+[data-project='aipo'] {
+  --project-plane: var(--color-blue-pale);
+  --project-ink: #34505f;
+}
+
+[data-project='oride'] {
   --project-plane: var(--color-oride-pale);
   --project-ink: #5a4f3a;
 }
 
-html[data-project='prumo'] {
+[data-project='prumo'] {
   --project-plane: var(--color-prumo-pale);
   --project-ink: #4a4356;
 }
 
-.dark html[data-project='ori'] {
-  --project-plane: color-mix(in srgb, var(--color-leaf) 42%, #1b1f1c);
-  --project-ink: #9fb8a8;
+.dark[data-project='ori'],
+.dark [data-project='ori'] {
+  --project-plane: #26332c;
+  --project-ink: #a9c4b3;
 }
 
-.dark html[data-project='aipo'] {
-  --project-plane: color-mix(in srgb, #5d7280 40%, #1c2024);
+.dark[data-project='aipo'],
+.dark [data-project='aipo'] {
+  --project-plane: #26303a;
   --project-ink: #a8c2d1;
 }
 
-.dark html[data-project='oride'] {
-  --project-plane: color-mix(in srgb, #6b5c3e 38%, #201e1a);
+.dark[data-project='oride'],
+.dark [data-project='oride'] {
+  --project-plane: #332e24;
   --project-ink: #cdbb92;
 }
 
-.dark html[data-project='prumo'] {
-  --project-plane: color-mix(in srgb, #5a5070 38%, #1c1a20);
+.dark[data-project='prumo'],
+.dark [data-project='prumo'] {
+  --project-plane: #2d2936;
   --project-ink: #bdb0d4;
 }

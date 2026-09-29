@@ -1,8 +1,10 @@
 import { defineComponent, h } from 'vue';
 import { useData, type Theme } from 'vitepress';
+import { siteCopy } from '@poppy/project-data';
 import DefaultTheme from 'vitepress/theme';
 import ProjectSwitcher from './components/ProjectSwitcher.vue';
 import DocsProjectHeader from './components/DocsProjectHeader.vue';
+import DocsBar from './components/DocsBar.vue';
 import HomePage from './layouts/HomePage.vue';
 import ProjectPage from './layouts/ProjectPage.vue';
 import DocsLanding from './layouts/DocsLanding.vue';
@@ -12,6 +14,10 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import SiteFooter from './components/SiteFooter.vue';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/inter/index.css';
+import '@fontsource-variable/jetbrains-mono/index.css';
 import './tokens.css';
 import './custom.css';
 
@@ -40,7 +46,7 @@ function pageKind(relativePath: string): 'documentation' | 'editorial' {
 const RoutedLayout = defineComponent({
   name: 'RoutedLayout',
   setup() {
-    const { frontmatter, page } = useData();
+    const { frontmatter, page, lang } = useData();
 
     return () => {
       const kind = pageKind(page.value.relativePath);
@@ -56,10 +62,18 @@ const RoutedLayout = defineComponent({
         // they fire for the built-in doc layout, for a custom one, and for the
         // not-found page alike. The other slots each cover only one of those.
         'layout-top': () => [
-          h('a', { class: 'skip-link', href: '#main-content' }, 'Pular para o conteúdo'),
+          h(
+            'a',
+            { class: 'skip-link', href: '#main-content' },
+            siteCopy[lang.value.startsWith('en') ? 'en' : 'pt-BR'].skipLink,
+          ),
           h(SiteChrome),
           h(SiteFooter),
         ],
+        // Imported pages get the project bar at the top of the content column,
+        // so it lines up with the text instead of spanning the sidebar. The
+        // landing and category pages render it themselves.
+        'doc-before': () => (kind === 'documentation' ? [h(DocsBar)] : []),
       });
     };
   },
