@@ -125,6 +125,53 @@ test.describe('a home nao parece uma pagina de documentacao', () => {
   });
 });
 
+test.describe('destaque dos projetos na home', () => {
+  const featured = ['ori', 'aipo'];
+  const secondary = ['oride', 'prumo'];
+
+  for (const slug of [...featured, ...secondary]) {
+    test(`${slug} tem o nome visivel na home`, async ({ page }) => {
+      await page.goto('/');
+
+      const name = await page.locator(`.secondary-project__name, .project-feature__title`)
+        .filter({ hasText: new RegExp(`^${slug === 'ori' ? 'Ori' : slug === 'aipo' ? 'Aipo' : slug === 'oride' ? 'Oride' : 'Prumo'}$`, 'u') })
+        .count();
+
+      expect(name, `${slug} deveria ter o nome visível na home`).toBeGreaterThan(0);
+    });
+  }
+
+  for (const slug of featured) {
+    test(`${slug} tem um card de destaque com area propria`, async ({ page }) => {
+      await page.goto('/');
+
+      const card = page.locator(`.project-feature--${slug}`);
+      const box = await card.boundingBox();
+
+      // Um destaque espremido numa faixa de lista não comunica的项目 importance,
+      // and a card that carries no colour reads as a generic panel.
+      expect(box!.height, `${slug} deveria ter altura de destaque`).toBeGreaterThan(220);
+      expect(box!.width, `${slug} deveria ter largura de destaque`).toBeGreaterThan(300);
+    });
+  }
+
+  test('os cartoes de destaque tem planos de cor distintos', async ({ page }) => {
+    await page.goto('/');
+
+    const ori = await page.locator('.project-feature--ori').evaluate((el) => getComputedStyle(el).backgroundColor);
+    const aipo = await page.locator('.project-feature--aipo').evaluate((el) => getComputedStyle(el).backgroundColor);
+
+    expect(ori).not.toBe(aipo);
+  });
+
+  test('a home destaca exatamente os dois projetos principais', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('.project-feature')).toHaveCount(2);
+    await expect(page.locator('.secondary-project')).toHaveCount(2);
+  });
+});
+
 test.describe('chrome em telas estreitas', () => {
   test('a documentacao nao empilha dois cabecarios no celular', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });

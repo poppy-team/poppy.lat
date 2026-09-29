@@ -16,7 +16,7 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - ADR 003 e goal P01-G01, e goal P00-G01 concluído.
 - Scripts de conteúdo derivado: importação da allow-list, geração de stubs de rota, geração do manifesto e publicação da página 404.
 - Suíte Vitest com 20 asserções sobre o HTML emitido, incluindo paridade de idioma, integração bidirecional, identidade por projeto e resolução de todos os links internos.
-- Suíte Playwright com 52 verificações em navegador, sobre um build e um servidor de preview próprios, cobrindo a separação entre páginas editoriais e de documentação, sobreposição de título, identidade por projeto, navegação por teclado, chrome em telas estreitas, contraste de texto no tema escuro e ausência de rolagem horizontal.
+- Suíte Playwright com 60 verificações em navegador, sobre um build e um servidor de preview próprios, cobrindo a separação entre páginas editoriais e de documentação, o destaque dos projetos na home, sobreposição de título, identidade por projeto, navegação por teclado, chrome em telas estreitas, contraste de texto no tema escuro e ausência de rolagem horizontal.
 - Geração de capturas de tela de todas as páginas em tema claro e escuro, desktop e celular, por `pnpm screenshots`.
 
 ### Alterado
@@ -44,6 +44,12 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - Breakpoint de `1100px` para o rodapé e o hero em telas médias e de `400px` para telas estreitas.
 
 ### Corrigido
+- O rótulo do botão de documentação foi reescrito na migração para VitePress. Ori e Aipo mantinham a frase original; Oride e Prumo, que antes apontavam para o repositório porque não tinham documentação, receberam a mesma frase dos outros dois, já que agora têm. A formulação do autor original volta a ser a dos quatro.
+- Os dois projetos principais perderam o destaque de card na home: viraram faixas de lista, sem altura, sem cor por projeto e sem área própria. O grid assimétrico e os planos de cor de Ori e Aipo foram restaurados, com um link direto para a documentação de cada um.
+- Oride e Prumo apareciam na home sem nome, só com número e categoria. Os dois têm agora o nome como título e link para a página do projeto.
+- A seção secundária da home não tinha título próprio, o que a deixava indistinguível do rodapé do catálogo.
+
+
 - Na documentação em telas estreitas, o cabeçalho da marca era empilhado acima da navbar de documentação, empurrando o título da página para baixo. O cabeçalho é ocultado nessa faixa, onde a navbar já carrega o nome e o comutador de idioma, e o seletor de projeto passa a funcionar como navegação de rodapé.
 - No tema escuro, os textos secundários usavam tintas claras escolhidas para o papel claro e ficavam abaixo da relação mínima de 4.5:1. As tintas suave e apagada são remapeadas para a mesma escala de cinzas que a documentação já usa.
 - O cartão de fechamento da home mantinha o fundo claro no tema escuro, deixando o texto ilegível.

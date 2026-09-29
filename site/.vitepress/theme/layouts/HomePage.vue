@@ -12,12 +12,10 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
 </script>
 
 <template>
-    <div class="home">
+  <div class="home">
     <section class="hero">
       <div class="hero__copy">
-        <p class="eyebrow">
-          {{ locale === 'en' ? 'Poppy Team' : 'Poppy Team' }}
-        </p>
+        <p class="eyebrow">Poppy Team</p>
         <h1 class="hero__title">
           {{ locale === 'en' ? 'Ideas that stay readable.' : 'Ideias que continuam legíveis.' }}
         </h1>
@@ -31,32 +29,46 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
       </div>
     </section>
 
-    <section id="projects" class="featured-projects" aria-labelledby="projects-title">
+    <section class="featured-projects" aria-labelledby="projects-title">
       <h2 id="projects-title" class="section-heading">
         {{ locale === 'en' ? 'Featured projects' : 'Projetos em destaque' }}
       </h2>
 
-      <article
-        v-for="project in featured"
-        :key="project.slug"
-        class="project-feature"
-        :class="`project-feature--${project.slug}`"
-        :data-project="project.slug"
-      >
-        <p class="project-feature__header">
-          <span class="project-feature__number">{{ project.number }} / 04</span>
-          <span class="project-feature__category">{{ project.category[locale] }}</span>
-        </p>
-        <div class="project-feature__body">
-          <h3 class="project-feature__title">
-            <a :href="`${root}/projects/${project.slug}/`">{{ project.name }}</a>
-          </h3>
-          <p class="project-feature__summary">{{ project.homeSummary[locale] }}</p>
-          <a class="text-link" :href="`${root}/projects/${project.slug}/`">
-            {{ locale === 'en' ? 'View the project' : 'Ver o projeto' }} →
-          </a>
-        </div>
-      </article>
+      <div class="featured-grid">
+        <article
+          v-for="project in featured"
+          :key="project.slug"
+          class="project-feature"
+          :class="`project-feature--${project.slug}`"
+          :data-project="project.slug"
+        >
+          <p class="project-feature__header">
+            <span class="project-feature__number">{{ project.number }} / 04</span>
+            <span class="project-feature__category">{{ project.category[locale] }}</span>
+          </p>
+
+          <div class="project-feature__body">
+            <h3 class="project-feature__title">
+              <a :href="`${root}/projects/${project.slug}/`">{{ project.name }}</a>
+            </h3>
+            <p class="project-feature__summary">{{ project.homeSummary[locale] }}</p>
+            <p class="project-feature__links">
+              <a class="project-feature__link" :href="`${root}/projects/${project.slug}/`">
+                {{ locale === 'en' ? 'View the project' : 'Ver o projeto' }} →
+              </a>
+              <a class="project-feature__link" :href="`${root}/docs/${project.slug}/`">
+                {{ locale === 'en' ? 'Read the documentation' : 'Ler a documentação' }} →
+              </a>
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="secondary-section" aria-labelledby="others-title">
+      <h2 id="others-title" class="section-heading">
+        {{ locale === 'en' ? 'Also from the team' : 'Também da equipe' }}
+      </h2>
 
       <ul class="secondary-list">
         <li
@@ -66,8 +78,15 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
           :data-project="project.slug"
         >
           <p class="secondary-project__number">{{ project.number }}</p>
-          <p class="secondary-project__category">{{ project.category[locale] }}</p>
-          <p class="secondary-project__summary">{{ project.homeSummary[locale] }}</p>
+
+          <div class="secondary-project__body">
+            <h3 class="secondary-project__name">
+              <a :href="`${root}/projects/${project.slug}/`">{{ project.name }}</a>
+            </h3>
+            <p class="secondary-project__category">{{ project.category[locale] }}</p>
+            <p class="secondary-project__summary">{{ project.homeSummary[locale] }}</p>
+          </div>
+
           <a
             class="secondary-project__arrow"
             :href="`${root}/projects/${project.slug}/`"
@@ -81,8 +100,16 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
 
     <section class="closing-grid">
       <a class="closing-note closing-note--docs" :href="`${root}/docs/`">
-        <span class="closing-grid__caption">{{ locale === 'en' ? 'Documentation' : 'Documentação' }}</span>
-        <span>{{ locale === 'en' ? 'Guides per project, imported from the canonical repositories.' : 'Guias por projeto, importados dos repositórios canônicos.' }}</span>
+        <span class="closing-grid__caption">
+          {{ locale === 'en' ? 'Documentation' : 'Documentação' }}
+        </span>
+        <span>
+          {{
+            locale === 'en'
+              ? 'Guides per project, imported from the canonical repositories.'
+              : 'Guias por projeto, importados dos repositórios canônicos.'
+          }}
+        </span>
       </a>
     </section>
   </div>
