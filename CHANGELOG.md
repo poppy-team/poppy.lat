@@ -3,6 +3,34 @@
 Todas as alterações notáveis deste projeto são documentadas neste arquivo.
 O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [0.3.0] - 2026-09-28
+
+### Adicionado
+- Seção de documentação própria para cada um dos quatro projetos, em `/docs/<projeto>/` e `/en/docs/<projeto>/`, com landing, índice por categoria e navegação dedicada.
+- Taxonomia documental de três categorias: guia de uso, novidades e planos, e desenvolvimento.
+- Integração nos dois sentidos: a página de cada projeto lista suas páginas de documentação, e cada página de documentação leva de volta à página do projeto e ao repositório canônico.
+- Comutador global de projeto no cabeçalho da documentação, com a cor de cada projeto.
+- Identidade visual por projeto, com planos próprios para Oride (`--color-oride-pale`) e Prumo (`--color-prumo-pale`) e variantes para o tema escuro.
+- Documentação importada de Oride e Prumo, com allow-list ampliada de dois para quatro projetos e `schemaVersion` 2 no manifesto, incluindo a categoria de cada página.
+- Stub explícito, com aviso de pendência e links para a versão em português e a fonte canônica, para páginas cuja origem ainda não tem tradução em inglês.
+- ADR 003 e goal P01-G01, e goal P00-G01 concluído.
+- Scripts de conteúdo derivado: importação da allow-list, geração de stubs de rota, geração do manifesto e publicação da página 404.
+- Suíte Vitest com 20 asserções sobre o HTML emitido, incluindo paridade de idioma, integração bidirecional, identidade por projeto e resolução de todos os links internos.
+- Suíte Playwright com 49 verificações em navegador, sobre um build e um servidor de preview próprios, cobrindo a separação entre páginas editoriais e de documentação, sobreposição de título, identidade por projeto, navegação por teclado e ausência de rolagem horizontal.
+- Geração de capturas de tela de todas as páginas em tema claro e escuro, desktop e celular, por `pnpm screenshots`.
+
+### Alterado
+- Plataforma do site migrada de Astro + Starlight para VitePress + Vue 3, com saída estática e sem adapter de servidor.
+- `packages/project-data/` passou a ser a fonte única de dados de projeto, copy i18n e taxonomia documental, consumida pelo tema e pelos scripts.
+- A rota `/projetos/<slug>/` passou a ser `/projects/<slug>/`; as rotas `/en/` e de documentação mantêm o esquema anterior.
+- Manifesto de fontes publicado em `/sources.json` e avisos de licença em `/third-party-notices.txt`, ambos gerados a partir do registro tipado.
+- Estratégia de testes e governança de repositório reescritas para as ferramentas reais do projeto, removendo referências herdadas a ferramentas Go.
+- Build habilitando a checagem de links mortos do VitePress, que reprova a publicação quando um link interno não resolve.
+
+### Removido
+- Componentes Astro, coleção de conteúdo, `astro.config.mjs` e o tema Starlight.
+- Documentação interna do repositório saiu da árvore publicada e passou a viver em `docs/`.
+
 ## [0.2.0] - 2026-09-28
 
 ### Adicionado
@@ -16,6 +44,13 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - Breakpoint de `1100px` para o rodapé e o hero em telas médias e de `400px` para telas estreitas.
 
 ### Corrigido
+- A home e as páginas de projeto apareciam como páginas de documentação: a barra lateral, a barra de busca e a navegação de docs eram herdadas do tema do VitePress. O tipo de página agora é marcado no HTML durante o build e o chrome de documentação é ocultado nas páginas editoriais.
+- O `h1` da home se sobrepunha ao parágrafo seguinte, porque o tema base define um entrelinhamento baixo para títulos grandes.
+- O rodapé não era renderizado nas páginas de documentação nativas nem na página 404, porque cada tipo de layout do VitePress expõe um conjunto diferente de slots.
+- O seletor de projeto ultrapassava a largura da janela em telas a partir de 1440px, causando rolagem horizontal.
+- No tema escuro, os cartões de documentação mantinham o fundo claro e o título ficava ilegível.
+
+
 - Removida a prop `availableLocales`, que era calculada e repassada sem uso nas páginas de artigo, mantendo `astro check` sem erros.
 
 ### Alterado

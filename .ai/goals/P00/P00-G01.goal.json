@@ -20,7 +20,12 @@
     "max_delegation_depth": 1
   },
   "dependencies": [],
-  "evidence": [],
+  "evidence": [
+    "pnpm build gerou as rotas bilíngues de home, projetos, caderno e documentação sem adapter SSR.",
+    "pnpm test validou as rotas esperadas, o manifesto de fontes com revisão e blob fixados, e os avisos de licença.",
+    "Documentação pública de Ori e Aipo importada com provenance e links internos resolvendo para arquivos emitidos.",
+    "Paridade de idioma verificada nas rotas /docs e /en/docs."
+  ],
   "gates": {
     "build": "required",
     "documentation_impact": "required",
@@ -54,6 +59,13 @@
       "from": "LOCKED",
       "reason": "",
       "to": "EXECUTING"
+    },
+    {
+      "at": "2026-09-28T16:00:00.000000000Z",
+      "event": "state-transition",
+      "from": "EXECUTING",
+      "reason": "Spike concluído; a plataforma foi substituída pela ADR 003 e o trabalho continua em P01-G01.",
+      "to": "DONE"
     }
   ],
   "id": "P00-G01",
@@ -72,6 +84,6 @@
   "objective": "Deliver a small static Astro + TypeScript + Starlight proof of concept for the Poppy Team site, with Portuguese at the root and English at /en, an editorial project index, and only locally vendored allow-listed Ori and Aipo public docs pinned to verified commits; preserve both source repositories as canonical and unchanged.",
   "phase": "P00",
   "revision": 1,
-  "state": "EXECUTING",
+  "state": "DONE",
   "title": "Astro + Starlight bilingual site spike"
 }

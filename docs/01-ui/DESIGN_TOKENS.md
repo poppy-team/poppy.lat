@@ -1,6 +1,6 @@
 # Tokens de interface — Poppy Team
 
-Tokens iniciais em `src/styles/site.css` e `src/styles/docs.css`. São uma direção de protótipo, não uma identidade de marca final.
+Tokens iniciais em `site/.vitepress/theme/tokens.css` e `site/.vitepress/theme/custom.css`. São uma direção de protótipo, não uma identidade de marca final.
 
 ## Cor
 
@@ -13,10 +13,20 @@ Tokens iniciais em `src/styles/site.css` e `src/styles/docs.css`. São uma dire�
 | `--color-ink-muted` | `#707166` | Metadados e notas |
 | `--color-rule` | `#c9c5b8` | Divisores e contornos |
 | `--color-accent` | `#a33b2c` | Destaque editorial ferrugem |
+| `--color-leaf` | `#33483f` | Plano visual de Ori no tema escuro |
 | `--color-leaf-pale` | `#d9e0d3` | Plano visual de Ori |
 | `--color-blue-pale` | `#d8dfe3` | Plano visual de Aipo |
+| `--color-oride-pale` | `#e3dccd` | Plano visual de Oride |
+| `--color-prumo-pale` | `#dcd8e0` | Plano visual de Prumo |
 
-Starlight deriva tokens compatíveis em `src/styles/docs.css`.
+Cada plano tem uma cor de tinta própria (`--project-ink`) usada para marcar
+links e acentos da seção, e uma variante escura derivada com `color-mix`, para
+que a identidade sobreviva à troca de tema.
+
+A identidade é ativada por `html[data-project='<slug>']` em
+`site/.vitepress/theme/tokens.css`, a partir do `project` declarado no frontmatter
+da página. Os tokens `--vp-*` do VitePress são mapeados para essa paleta em
+`site/.vitepress/theme/custom.css`.
 
 ## Tipografia
 

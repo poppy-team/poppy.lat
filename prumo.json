@@ -77,8 +77,8 @@
     "version": "0.6.0"
   },
   "goals": {
-    "active_goal": "P00-G01",
-    "active_phase": "P00"
+    "active_goal": "P01-G01",
+    "active_phase": "P01"
   },
   "intelligence": {
     "distinguish_observed_estimated": true,
@@ -95,14 +95,14 @@
     "protocol": "POP"
   },
   "project": {
-    "description": "Site estático bilíngue da Poppy Team, com catálogo editorial de projetos e documentação pública selecionada de Ori e Aipo.",
+    "description": "Site est\u00e1tico bil\u00edngue da Poppy Team, com cat\u00e1logo editorial de projetos e documenta\u00e7\u00e3o p\u00fablica selecionada de Ori, Aipo, Oride e Prumo.",
     "name": "Poppy Team",
     "type": [
       "website"
     ]
   },
   "protocol": {
-    "compatible": "\u003e=3 \u003c4",
+    "compatible": ">=3 <4",
     "version": 3
   },
   "quality": {
@@ -111,8 +111,8 @@
   "risk": [],
   "stack": {
     "frameworks": [
-      "astro",
-      "starlight"
+      "vitepress",
+      "vue"
     ],
     "languages": [
       "typescript",

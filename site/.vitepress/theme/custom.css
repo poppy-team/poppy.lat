@@ -1,0 +1,842 @@
+/*
+ * Site shell and documentation styling.
+ *
+ * The VitePress theme supplies layout, search, and the table of contents; this
+ * file restores the Poppy palette, the brand typography, and the per-project
+ * identity planes defined in tokens.css.
+ */
+
+:root {
+  --vp-c-bg: var(--color-paper);
+  --vp-c-bg-alt: var(--color-paper-light);
+  --vp-c-bg-soft: var(--color-paper-light);
+  --vp-c-bg-elv: #fbf9f2;
+  --vp-c-divider: var(--color-rule);
+  --vp-c-gutter: var(--color-rule);
+  --vp-c-text-1: var(--color-ink);
+  --vp-c-text-2: var(--color-ink-soft);
+  --vp-c-text-3: var(--color-ink-muted);
+  --vp-c-brand-1: var(--color-accent);
+  --vp-c-brand-2: var(--color-accent);
+  --vp-c-brand-3: var(--color-accent);
+  --vp-c-brand-soft: color-mix(in srgb, var(--color-accent) 14%, var(--color-paper));
+  --vp-font-family-base: var(--font-body);
+  --vp-font-family-mono: var(--font-mono);
+  --vp-font-family-button: var(--font-body);
+  --vp-font-family-heading: var(--font-display);
+  --vp-layout-max-width: var(--content-width);
+}
+
+.dark {
+  --vp-c-bg: #1c1f1c;
+  --vp-c-bg-alt: #232723;
+  --vp-c-bg-soft: #232723;
+  --vp-c-bg-elv: #2a2f2a;
+  --vp-c-divider: #3d443d;
+  --vp-c-gutter: #3d443d;
+  --vp-c-text-1: var(--color-paper);
+  --vp-c-text-2: #b8bdb2;
+  --vp-c-text-3: #8b9188;
+  --vp-c-brand-1: #d97a66;
+  --vp-c-brand-2: #d97a66;
+  --vp-c-brand-3: #d97a66;
+  --vp-c-brand-soft: color-mix(in srgb, #d97a66 18%, #1c1f1c);
+}
+
+/* The active project tints the documentation accent. */
+html[data-project] {
+  --vp-c-brand-1: var(--project-ink);
+  --vp-c-brand-2: var(--project-ink);
+  --vp-c-brand-3: var(--project-ink);
+  --vp-c-brand-soft: color-mix(in srgb, var(--project-plane) 70%, var(--vp-c-bg));
+}
+
+.VPNavBarTitle .title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.VPDoc h1,
+.VPDoc h2,
+.VPDoc h3,
+.VPHero .name,
+.VPHero .text {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.vp-doc a {
+  text-underline-offset: 0.2em;
+}
+
+*:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- shell -- */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.site-header,
+.site-footer,
+.hero,
+.section-heading,
+.featured-projects,
+.secondary-section,
+.closing-grid,
+.project-page,
+.journal-page,
+.article-page,
+.not-found,
+.docs-landing {
+  width: min(100% - (var(--content-gutter) * 2), var(--content-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.wordmark__logo {
+  width: 32px;
+  height: 32px;
+}
+
+.wordmark__text {
+  display: grid;
+}
+
+.wordmark__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.wordmark__suffix {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.site-nav__link {
+  text-decoration: none;
+}
+
+.site-nav__link:hover {
+  text-decoration: underline;
+}
+
+.language-switch {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  text-decoration: none;
+}
+
+main {
+  padding-block: var(--space-6);
+}
+
+.site-footer {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-rule);
+  font-size: 0.9rem;
+}
+
+.site-footer__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  text-decoration: none;
+}
+
+.site-footer__description {
+  max-width: 52ch;
+  color: var(--color-ink-soft);
+}
+
+.site-footer__links {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* ----------------------------------------------------- project switcher -- */
+
+.project-switch {
+  width: min(100% - (var(--content-gutter) * 2), var(--content-width));
+  margin: var(--space-4) auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  /* The switcher is rendered outside VPContent, so on documentation pages it
+     has to account for the sidebar gutter the content already gets. The width
+     is derived from the space that is actually left, because a fixed width
+     plus a large left margin overflows the viewport. */
+  html[data-page='documentation'] .project-switch {
+    margin-left: calc(var(--vp-sidebar-width) + var(--content-gutter));
+    width: auto;
+    margin-right: var(--content-gutter);
+  }
+}
+
+@media (min-width: 1440px) {
+  html[data-page='documentation'] .project-switch {
+    margin-left: calc(
+      (100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) + var(--content-gutter)
+    );
+    width: auto;
+    margin-right: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--content-gutter));
+  }
+}
+
+.project-switch__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--vp-c-text-3);
+}
+
+.project-switch__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-switch__link {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-rule);
+  text-decoration: none;
+  font-size: 0.85rem;
+  background: var(--switch-color, transparent);
+}
+
+/* ------------------------------------------------------------ home page -- */
+
+.hero {
+  padding-block: var(--space-6);
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  /* The VitePress base sets a tight line-height on headings; at hero size it
+     collapsed the box and made the following paragraph overlap the title. */
+  line-height: 1.05;
+  margin-block: var(--space-2);
+}
+
+.hero__intro {
+  font-size: 1.15rem;
+  color: var(--color-ink-soft);
+  max-width: 52ch;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: var(--space-4);
+}
+
+.project-feature {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-rule);
+  border-left: 4px solid var(--project-plane, transparent);
+  padding-left: var(--space-3);
+}
+
+.project-feature__header {
+  display: flex;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.project-feature__title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin: 0;
+}
+
+.project-feature__title a {
+  text-decoration: none;
+}
+
+.project-feature__summary {
+  color: var(--color-ink-soft);
+  max-width: 60ch;
+}
+
+.secondary-list {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.secondary-project {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  padding: var(--space-3) 0 var(--space-3) var(--space-3);
+  border-top: 1px solid var(--color-rule);
+  border-left: 4px solid var(--project-plane, transparent);
+}
+
+.secondary-project__number,
+.secondary-project__category {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+.secondary-project__summary {
+  grid-column: 1 / -1;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.secondary-project__arrow {
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+
+.closing-grid {
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.closing-note {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  text-decoration: none;
+  background: var(--color-paper-light);
+  border: 1px solid var(--color-rule);
+}
+
+.closing-grid__caption {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
+}
+
+.text-link {
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------- project page -- */
+
+.project-page__topline {
+  display: flex;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  padding-top: var(--space-4);
+}
+
+.project-page__hero {
+  padding-block: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-rule);
+  border-left: 4px solid var(--project-plane, transparent);
+  padding-left: var(--space-3);
+}
+
+.project-page__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  margin-block: var(--space-2);
+}
+
+.project-page__period {
+  color: var(--color-accent);
+}
+
+.project-page__summary {
+  font-size: 1.1rem;
+  color: var(--color-ink-soft);
+  max-width: 58ch;
+}
+
+.project-page__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.button-link {
+  display: inline-block;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-ink);
+}
+
+.button-link--dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.button-link--light {
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.project-page__body {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-5);
+}
+
+.project-section__index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-1);
+}
+
+.principle-list {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.principle-list__number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.principle-list h3 {
+  margin-block: var(--space-1);
+  font-size: 1.15rem;
+}
+
+.code-plate {
+  margin: var(--space-3) 0;
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper-light);
+}
+
+.code-plate__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-rule);
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+.code-plate__language {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.code-plate pre {
+  margin: 0;
+  padding: var(--space-3);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.project-page__note {
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+  max-width: 62ch;
+}
+
+/* ----------------------------------------------------------- docs cards -- */
+
+.project-docs__group,
+.docs-landing__group {
+  margin-top: var(--space-4);
+}
+
+.project-docs__category,
+.docs-landing__category {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: var(--space-1);
+}
+
+.project-docs__description,
+.docs-landing__description {
+  color: var(--color-ink-soft);
+  max-width: 62ch;
+  margin-bottom: var(--space-3);
+}
+
+.docs-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+.docs-card {
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper-light);
+}
+
+.docs-card__link,
+.docs-card--compact {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  text-decoration: none;
+  height: 100%;
+}
+
+.docs-card__title {
+  font-weight: 600;
+}
+
+.docs-card__description {
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+}
+
+.docs-landing__hero {
+  padding-block: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-rule);
+  border-left: 4px solid var(--project-plane, transparent);
+  padding-left: var(--space-3);
+}
+
+.docs-landing__hero h1 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  margin-block: var(--space-2);
+}
+
+.docs-landing__summary {
+  font-size: 1.1rem;
+  color: var(--color-ink-soft);
+  max-width: 58ch;
+}
+
+.docs-landing__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.docs-landing__siblings {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  margin-top: var(--space-5);
+}
+
+/* ----------------------------------------------------- docs page header -- */
+
+.docs-project {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-rule);
+  font-size: 0.85rem;
+}
+
+.docs-project__back {
+  display: grid;
+  text-decoration: none;
+  border-left: 3px solid var(--project-plane, transparent);
+  padding-left: var(--space-2);
+}
+
+.docs-project__eyebrow {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.docs-project__label,
+.docs-project__source,
+.docs-project__switch {
+  color: var(--color-ink-muted);
+}
+
+/* ------------------------------------------------------------- journal --- */
+
+.journal-page__intro h1,
+.article-page__header h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-bottom: var(--space-2);
+}
+
+.article-page__date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.article-content {
+  margin-top: var(--space-4);
+  max-width: 68ch;
+}
+
+.not-found {
+  padding-block: var(--space-6);
+  max-width: 60ch;
+}
+
+.not-found__links {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ------------------------------------------------------------- responsive - */
+
+@media (max-width: 850px) {
+  .site-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .site-nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  .secondary-project {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__title {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .docs-card-list,
+  .docs-landing__siblings {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Separation between editorial pages and documentation.
+
+   The VitePress default Layout is used for both kinds of page, because it is
+   what resolves a page's `layout` frontmatter. Its documentation chrome is
+   hidden here on editorial pages, driven by the `data-page` marker the theme
+   sets, so a home page never shows a docs navbar, search box or sidebar.
+   -------------------------------------------------------------------------- */
+
+html[data-page='editorial'] .VPSidebar,
+html[data-page='editorial'] .VPNav,
+html[data-page='editorial'] .VPLocalNav {
+  display: none;
+}
+
+html[data-page='editorial'] .VPContent.has-sidebar {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+html[data-page='editorial'] .VPContent {
+  padding-top: 0;
+}
+
+html[data-page='editorial'] .project-switch,
+html[data-page='editorial'] .docs-project {
+  display: none;
+}
+
+html[data-page='editorial'] .VPDoc .VPDocAside,
+html[data-page='editorial'] .VPDoc .header-anchor {
+  display: none;
+}
+
+@media (min-width: 1440px) {
+  html[data-page='editorial'] .VPContent.has-sidebar {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Dark theme corrections.
+
+   The docs chrome sits inside a padded content area, so the project switcher
+   and the documentation header need the same gutter the editorial pages use.
+   Cards carry the light paper colour, which inverts badly on a dark page.
+   -------------------------------------------------------------------------- */
+
+.dark .docs-card,
+.dark .code-plate {
+  background: var(--color-ink);
+  border-color: var(--color-rule);
+}
+
+.dark .docs-card__title {
+  color: var(--color-paper);
+}
+
+.dark .docs-card__description,
+.dark .project-page__note,
+.dark .project-docs__description,
+.dark .docs-landing__description {
+  color: var(--color-ink-muted);
+}
+
+.dark .code-plate pre,
+.dark .code-plate__caption {
+  color: var(--color-paper);
+}
+
+.dark .site-header,
+.dark .site-footer {
+  color: var(--color-paper);
+}
+
+.dark .button-link--light {
+  border-color: var(--color-paper);
+  color: var(--color-paper);
+}
+
+.dark .project-page__hero,
+.dark .docs-landing__hero {
+  border-color: var(--color-rule);
+}
+
+/* --------------------------------------------------------------------------
+   Documentation index and category pages carry their own layout, so they are
+   not inside VPDoc and do not get the sidebar gutter the native doc pages get.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Ordering of the shared chrome.
+
+   The site chrome is injected through `layout-top`, which the VitePress Layout
+   emits before its own navbar, sidebar and content. Both sets are children of
+   the same container, so the site chrome is pulled to the end and the
+   documentation chrome to the start, instead of the two overlapping.
+   -------------------------------------------------------------------------- */
+
+.VPNav,
+.VPLocalNav,
+.VPSidebar,
+.VPContent {
+  order: 0;
+}
+
+.site-footer {
+  order: 3;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The content column grows so the footer settles at the bottom of the page. */
+.VPContent {
+  flex: 1 0 auto;
+}
+
+html[data-page='editorial'] .VPContent {
+  padding-top: 0;
+}

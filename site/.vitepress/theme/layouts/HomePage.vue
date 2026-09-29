@@ -1,0 +1,89 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useData } from 'vitepress';
+import { projects, type Locale } from '@poppy/project-data';
+
+const { frontmatter } = useData();
+
+const locale = computed<Locale>(() => (frontmatter.value.locale === 'en' ? 'en' : 'pt-BR'));
+const featured = computed(() => projects.filter((project) => project.featured));
+const secondary = computed(() => projects.filter((project) => !project.featured));
+const root = computed(() => (locale.value === 'en' ? '/en' : ''));
+</script>
+
+<template>
+    <div class="home">
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow">
+          {{ locale === 'en' ? 'Poppy Team' : 'Poppy Team' }}
+        </p>
+        <h1 class="hero__title">
+          {{ locale === 'en' ? 'Ideas that stay readable.' : 'Ideias que continuam legíveis.' }}
+        </h1>
+        <p class="hero__intro">
+          {{
+            locale === 'en'
+              ? 'We build languages and tools for people who read code as carefully as they write it.'
+              : 'Construímos linguagens e ferramentas para quem lê código com o mesmo cuidado com que escreve.'
+          }}
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="featured-projects" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="section-heading">
+        {{ locale === 'en' ? 'Featured projects' : 'Projetos em destaque' }}
+      </h2>
+
+      <article
+        v-for="project in featured"
+        :key="project.slug"
+        class="project-feature"
+        :class="`project-feature--${project.slug}`"
+        :data-project="project.slug"
+      >
+        <p class="project-feature__header">
+          <span class="project-feature__number">{{ project.number }} / 04</span>
+          <span class="project-feature__category">{{ project.category[locale] }}</span>
+        </p>
+        <div class="project-feature__body">
+          <h3 class="project-feature__title">
+            <a :href="`${root}/projects/${project.slug}/`">{{ project.name }}</a>
+          </h3>
+          <p class="project-feature__summary">{{ project.homeSummary[locale] }}</p>
+          <a class="text-link" :href="`${root}/projects/${project.slug}/`">
+            {{ locale === 'en' ? 'View the project' : 'Ver o projeto' }} →
+          </a>
+        </div>
+      </article>
+
+      <ul class="secondary-list">
+        <li
+          v-for="project in secondary"
+          :key="project.slug"
+          class="secondary-project"
+          :data-project="project.slug"
+        >
+          <p class="secondary-project__number">{{ project.number }}</p>
+          <p class="secondary-project__category">{{ project.category[locale] }}</p>
+          <p class="secondary-project__summary">{{ project.homeSummary[locale] }}</p>
+          <a
+            class="secondary-project__arrow"
+            :href="`${root}/projects/${project.slug}/`"
+            :aria-label="locale === 'en' ? `Learn about ${project.name}` : `Conheça ${project.name}`"
+          >
+            →
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="closing-grid">
+      <a class="closing-note closing-note--docs" :href="`${root}/docs/`">
+        <span class="closing-grid__caption">{{ locale === 'en' ? 'Documentation' : 'Documentação' }}</span>
+        <span>{{ locale === 'en' ? 'Guides per project, imported from the canonical repositories.' : 'Guias por projeto, importados dos repositórios canônicos.' }}</span>
+      </a>
+    </section>
+  </div>
+</template>

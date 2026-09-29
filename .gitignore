@@ -3,9 +3,25 @@
 .prumo/runtime/
 .prumo/cache/
 
-# Astro build and local dependencies
+# Dependencies
 node_modules/
+
+# Build output
+site/.vitepress/cache/
+site/.vitepress/dist/
+
+# Retired Astro toolchain leftovers
 dist/
 .astro/
+
+# Vercel
 .vercel
 .env*
+
+# Local Command Code state
+.commandcode/
+
+# Playwright artefacts
+screenshots/
+test-results/
+playwright-report/

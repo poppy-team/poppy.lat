@@ -5,16 +5,17 @@ Ponto de entrada para pessoas e agentes que trabalham no site Poppy Team. A docu
 ## Estado atual
 
 - [Estado do projeto](../PROJECT_STATE.md)
-- [Goal ativo P00-G01](../.ai/goals/P00/P00-G01.goal.json) — prova estática Astro + Starlight
+- [Goal ativo P01-G01](../.ai/goals/P01/P01-G01.goal.json) — documentação por projeto em VitePress
 - [Manifesto Prumo](../prumo.json)
 
 ## Produto e conteúdo
 
 - [Visão de produto](product/vision.md)
 - [Escopo e limites](product/scope.md)
-- [Arquitetura Astro/Starlight](architecture/overview.md)
+- [Arquitetura VitePress](architecture/overview.md)
+- [ADR-003 — plataforma de documentação](architecture/adr/003-vitepress-documentation-platform.md)
 - [ADR-002 — site estático e allow-list](architecture/adr/002-static-bilingual-site.md)
-- [Manifesto de fontes públicas](sources.json)
+- [Manifesto de fontes públicas](../site/public/sources.json)
 - [Avisos de terceiros e licenças](../THIRD_PARTY_NOTICES.md)
 
 ## Interface
@@ -39,7 +40,7 @@ prumo validate .
 prumo doctor .
 ```
 
-O build é estático. Não há adapter de servidor, CMS, execução de código no browser ou importação recursiva de docs. A busca de domínio/hostname canônico não foi definida; por isso, o plugin de sitemap integrado ao Starlight é ignorado no build até essa decisão.
+O build é estático. Não há adapter de servidor, CMS, execução de código no browser ou importação recursiva de docs. A busca de domínio/hostname canônico não foi definida; por isso, o build não emite sitemap até essa decisão.
 
 ## Para agentes
 

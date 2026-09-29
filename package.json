@@ -1,6 +1,6 @@
 {
   "name": "poppy-website",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.17.0",
@@ -8,17 +8,27 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "check": "astro check",
-    "test": "node --test",
-    "build": "astro build",
-    "preview": "astro preview",
-    "validate:prumo": "prumo validate . && prumo doctor ."
+    "dev": "vitepress dev site",
+    "build": "vitepress build site && node --experimental-strip-types scripts/publish-404.ts",
+    "preview": "vitepress preview site",
+    "check": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:prumo": "prumo validate . && prumo doctor .",
+    "content": "node --experimental-strip-types scripts/import-docs.ts && node --experimental-strip-types scripts/generate-routes.ts",
+    "test:e2e": "playwright test",
+    "screenshots": "playwright test --grep @capture"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.10",
-    "@astrojs/starlight": "0.42.4",
-    "astro": "7.3.5",
-    "typescript": "6.0.3"
+    "@playwright/test": "^1.63.0",
+    "@vue/test-utils": "2.5.1",
+    "typescript": "6.0.3",
+    "vitepress": "1.6.4",
+    "vitest": "5.0.2",
+    "vue": "3.5.43",
+    "vue-tsc": "3.3.11"
+  },
+  "dependencies": {
+    "@poppy/project-data": "workspace:*"
   }
 }

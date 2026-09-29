@@ -2,13 +2,13 @@
 
 ## Landmarks
 
-O layout `SiteLayout.astro` fornece `header`, `nav`, `main` com link de pulo para conteúdo e `footer`. Páginas têm um `h1` e agrupam o conteúdo por `section`, `article`, `aside`, `figure`, `ol` e `time` conforme o significado.
+O componente `SiteChrome` fornece o link de pulo, `header` e `nav`; `SiteFooter` fornece o `footer`. O `main` e o conteúdo vêm do tema. Páginas têm um `h1` e agrupam o conteúdo por `section`, `article`, `aside`, `figure`, `ol` e `time` conforme o significado.
 
 ## Marca
 
-O cabeçalho abre com `a.wordmark` apontando para a home do idioma. Dentro dele, `img.wordmark__logo` (`src/assets/poppy-logo.svg`) mostra a marca e `span.wordmark__text` mantém o wordmark tipográfico (`poppy` + `team / research & tools`), porque o desenho ainda não inclui texto nem fonte. A imagem é decorativa (`alt=""`): o link já tem nome acessível em `aria-label`.
+O cabeçalho abre com `a.wordmark` apontando para a home do idioma. Dentro dele, `img.wordmark__logo` (`site/public/assets/poppy-logo.svg`) mostra a marca e `span.wordmark__text` mantém o wordmark tipográfico (`poppy` + `team / research & tools`), porque o desenho ainda não inclui texto nem fonte. A imagem é decorativa (`alt=""`): o link já tem nome acessível em `aria-label`.
 
-A documentação Starlight reaproveita as mesmas variantes em `logo.light` e `logo.dark`, e o Starlight só renderiza a imagem do tema ativo.
+A navegação de documentação do VitePress reaproveita a variante clara. A variante escura é mantida no repositório e verificada por teste, para que a marca permaneça consistente caso o tema passe a ter um logo próprio.
 
 As duas variantes têm exatamente a mesma geometria; a escura troca apenas os preenchimentos:
 
@@ -25,9 +25,10 @@ O `viewBox` inclui o desenho inteiro e nada além dele: a tinta alcança as quat
 ## Fluxo de leitura
 
 - A home apresenta introdução, projetos em destaque, iniciativas secundárias e links de documentação/caderno.
-- A página de projeto apresenta retorno ao catálogo, propósito, princípios, exemplo estático e fonte.
-- O caderno tem um índice cronológico e páginas individuais renderizadas de Markdown.
-- Starlight controla landmarks, navegação de docs, índice de página e blocos de código. A página 404 do site usa o mesmo layout principal; a rota 404 padrão de Starlight é desativada para evitar conflito.
+- A página de projeto apresenta propósito, princípios, exemplo estático, fonte e a lista das páginas de documentação daquele projeto.
+- O caderno tem um índice e páginas individuais renderizadas de Markdown.
+- A página de documentação abre com o cabeçalho do projeto, que leva de volta à página editorial e ao repositório canônico.
+- O tema nativo do VitePress controla a navegação de docs, o índice de página e os blocos de código. A página 404 do site é o layout `not-found`, autorada em `/not-found/` e publicada como `404.html` por script, porque o VitePress reserva `404.md` e não pré-renderiza seu corpo.
 
 ## Interação
 

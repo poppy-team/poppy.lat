@@ -1,18 +1,51 @@
 # Catálogo de componentes
 
-## Componentes compartilhados
+## Componentes Vue
 
-| Componente | Responsabilidade | Estados/interação |
+| Componente | Responsabilidade | Interação |
 | --- | --- | --- |
-| `SiteLayout` | Metadados, navegação, idioma e rodapé | Links nativos, foco visível |
-| `ProjectPage` | Propósito, princípios, código estático e origem | Links para GitHub/docs |
-| `project-feature` | Apresentar Ori/Aipo em destaque | Hover e foco nos links |
-| `secondary-project` | Apresentar Oride/Prumo de forma secundária | Hover e foco nos links |
-| `journal-list` | Índice de artigos Markdown com data | Link de leitura |
-| `code-plate` | Mostrar texto de exemplo com linguagem e aviso | Sem execução ou controle interativo |
+| `SiteShell` | Layout raiz: registra o tema e injeta o chrome nas páginas de layouts nativos | nenhum |
+| `SiteChrome` | Skip link, cabeçalho de marca, navegação primária, comutador de idioma e de projeto, e o cabeçalho do projeto em páginas de documentação | links nativos com foco visível |
+| `SiteFooter` | Rodapé com marca, descrição, links externos e copyright | links nativos |
+| `ProjectSwitcher` | Navegação entre as seções de documentação dos quatro projetos | links nativos, cor por projeto |
+| `DocsProjectHeader` | Cabeçalho de uma página de documentação: nome do projeto, link de volta à página do projeto e ao repositório | links nativos |
 
-## Conteúdo
+## Layouts
 
-Projetos e textos compartilhados estão tipados em `src/data/projects.ts` e `src/data/site-copy.ts`. Blog é uma coleção Markdown com schema em `src/content.config.ts`. Docs são servidos por Starlight.
+| Layout | Rota | Responsabilidade |
+| --- | --- | --- |
+| `site-home` | `/` e `/en/` | Hero, projetos em destaque e secundários, e chamada para a documentação |
+| `project-page` | `/projects/<slug>/` | Propósito, princípios, exemplo estático e a lista de páginas de documentação do projeto |
+| `docs-landing` | `/docs/<slug>/` | Identificação do projeto e suas páginas, agrupadas por categoria |
+| `docs-category` | `/docs/<slug>/<categoria>/` | Índice de uma categoria e navegação para as outras categorias que têm páginas |
+| `blog-index` | `/blog/` e `/en/blog/` | Índice do caderno |
+| `article` | `/blog/<slug>/` | Nota do caderno com data e descrição |
+| `not-found` | `/not-found/` | Página de erro, publicada também como `404.html` |
 
-O catálogo é específico desta fatia; componentes adicionais só devem ser extraídos quando existir um segundo uso real.
+O tema nativo do VitePress cobre a navegação lateral, a busca local, a tabela de
+conteúdo e os temas claro e escuro das páginas de documentação.
+
+## Blocos de estilo
+
+Os componentes abaixo existem como classes em `site/.vitepress/theme/custom.css`,
+não como arquivos próprios. Estão listados aqui porque têm responsabilidade
+própria e mais de um uso.
+
+| Bloco | Responsabilidade |
+| --- | --- |
+| `project-feature` | Projeto em destaque na home |
+| `secondary-project` | Projeto secundário na home |
+| `project-page` | Página editorial de projeto |
+| `code-plate` | Amostra de código estática com rótulo e linguagem |
+| `docs-card` | Ligação para uma página de documentação, com título e descrição |
+| `docs-landing` | Seção de documentação de um projeto |
+| `journal-page` / `article-page` | Caderno e nota individual |
+| `site-header` / `site-footer` | Chrome do site |
+
+## Regras
+
+- O catálogo é específico desta fatia; componentes adicionais só devem ser
+  extraídos quando existir um segundo uso real.
+- O texto editorial vem de `packages/project-data`; um layout não escreve copy.
+- Nenhum layout declara `data-project`: ele é lido do frontmatter e aplicado pelo
+  shell, para que a identidade não dependa da URL.

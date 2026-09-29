@@ -1,0 +1,98 @@
+/*
+ * Poppy Team design tokens.
+ *
+ * Shared by the site shell and the documentation theme so both read from one
+ * palette. Values are a prototype direction, not a final brand identity.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand palette */
+  --color-paper: #f1eddf;
+  --color-paper-light: #f8f5eb;
+  --color-ink: #262a25;
+  --color-ink-soft: #4b4e46;
+  --color-ink-muted: #707166;
+  --color-rule: #c9c5b8;
+  --color-accent: #a33b2c;
+  --color-accent-deep: #7e2d23;
+
+  /* Per-project identity planes */
+  --color-leaf: #33483f;
+  --color-leaf-pale: #d9e0d3;
+  --color-blue-pale: #d8dfe3;
+  --color-oride-pale: #e3dccd;
+  --color-prumo-pale: #dcd8e0;
+
+  /* Typography */
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-body: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  /* Layout */
+  --content-width: 76rem;
+  --content-gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --focus-ring: 3px solid var(--color-accent);
+
+  /* Active project identity, overridden per documentation section. */
+  --project-plane: var(--color-leaf-pale);
+  --project-plane-ink: var(--color-ink);
+}
+
+/*
+ * Project identity inside the documentation theme.
+ *
+ * Scoped to `data-project` on the document element, which the theme sets from
+ * the current route. Dark values are declared alongside the light ones so the
+ * identity survives a theme switch.
+ */
+
+html[data-project='ori'] {
+  --project-plane: var(--color-leaf-pale);
+  --project-ink: var(--color-leaf);
+}
+
+html[data-project='aipo'] {
+  --project-plane: var(--color-blue-pale);
+  --project-ink: #3a4a55;
+}
+
+html[data-project='oride'] {
+  --project-plane: var(--color-oride-pale);
+  --project-ink: #5a4f3a;
+}
+
+html[data-project='prumo'] {
+  --project-plane: var(--color-prumo-pale);
+  --project-ink: #4a4356;
+}
+
+.dark html[data-project='ori'] {
+  --project-plane: color-mix(in srgb, var(--color-leaf) 42%, #1b1f1c);
+  --project-ink: #9fb8a8;
+}
+
+.dark html[data-project='aipo'] {
+  --project-plane: color-mix(in srgb, #5d7280 40%, #1c2024);
+  --project-ink: #a8c2d1;
+}
+
+.dark html[data-project='oride'] {
+  --project-plane: color-mix(in srgb, #6b5c3e 38%, #201e1a);
+  --project-ink: #cdbb92;
+}
+
+.dark html[data-project='prumo'] {
+  --project-plane: color-mix(in srgb, #5a5070 38%, #1c1a20);
+  --project-ink: #bdb0d4;
+}
