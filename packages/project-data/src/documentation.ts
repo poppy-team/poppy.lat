@@ -191,28 +191,6 @@ export const vendoredDocs: VendoredDocSource[] = [
           en: 'How the editor surface is organised into panels.',
         },
       },
-      {
-        slug: 'changelog',
-        category: 'roadmap',
-        sourcePath: 'CHANGELOG.md',
-        sourceBlob: '19d03cdd5e8ace8edefc1db20690dbfe0a5127c3',
-        title: { 'pt-BR': 'Histórico de versões', en: 'Changelog' },
-        description: {
-          'pt-BR': 'O que mudou em cada versão publicada do editor.',
-          en: 'What changed in each released version of the editor.',
-        },
-      },
-      {
-        slug: 'roadmap',
-        category: 'roadmap',
-        sourcePath: 'ROADMAP.md',
-        sourceBlob: 'e00fbfc109aca046ac4cefef74afb68887e8db9a',
-        title: { 'pt-BR': 'Planos', en: 'Roadmap' },
-        description: {
-          'pt-BR': 'O que está previsto para as próximas versões.',
-          en: 'What is planned for upcoming versions.',
-        },
-      },
     ],
   },
   {
@@ -330,17 +308,6 @@ export const vendoredDocs: VendoredDocSource[] = [
         description: {
           'pt-BR': 'Os comandos, sinalizadores e códigos de saída do prumo.',
           en: 'The commands, flags, and exit codes of prumo.',
-        },
-      },
-      {
-        slug: 'changelog',
-        category: 'roadmap',
-        sourcePath: 'CHANGELOG.md',
-        sourceBlob: '30101bd314b663e1b46670a34079cab95d8abc57',
-        title: { 'pt-BR': 'Histórico de versões', en: 'Changelog' },
-        description: {
-          'pt-BR': 'O que mudou em cada versão publicada do protocolo.',
-          en: 'What changed in each released version of the protocol.',
         },
       },
     ],

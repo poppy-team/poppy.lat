@@ -10,6 +10,7 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - A placa de amostra de código passa a mostrar também a saída do programa, como uma linha de terminal sob o código, para que a amostra se leia como entrada e resultado.
 - A ação primária do card de destaque — ler a documentação — passa a ser um botão sólido, e o link para a página do projeto permanece um link discreto.
 - Script `map-upstream-docs.ts`, que mapeia a árvore de documentação de cada repositório de projeto e mostra quanto dela está na allow-list.
+- Script `derive-allowlist.ts`, que compara a allow-list com o `srcExclude` declarado pelo próprio projeto no config do site dele, e reporta a cobertura.
 
 
 - Seção de documentação própria para cada um dos quatro projetos, em `/docs/<projeto>/` e `/en/docs/<projeto>/`, com landing, índice por categoria e navegação dedicada.
@@ -50,6 +51,10 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - Breakpoint de `1100px` para o rodapé e o hero em telas médias e de `400px` para telas estreitas.
 
 ### Corrigido
+- A allow-list alcançava arquivos fora da árvore de documentação: o changelog do Oride, o roadmap do Oride e o changelog do Prumo ficam na raiz dos repositórios, e nenhum dos três projetos publica esses arquivos no site próprio. As três páginas foram removidas, porque reach outside the documentation tree is what the curation rule exists to prevent.
+- A escolha das páginas importadas não tinha critério declarado. Os repositórios de Aipo e Prumo publicam a configuração do site próprio, e a lista `srcExclude` dela é exatamente o conjunto que o projeto decidiu não publicar. Dois scripts medem a allow-list contra esse critério e tornam a lacuna visível.
+
+
 - A documentação saiu de `/docs/<projeto>/` para `/<projeto>/docs/`, para que cada projeto tenha um subsite próprio e o índice compartilhado, que só repetia o que a seção de projetos já mostra, deixasse de existir.
 - Os valores do badge de status são propostas, não dados verificados: `S3` do Ori vem do site do Ori, os demais foram sugeridos e precisam de confirmação.
 

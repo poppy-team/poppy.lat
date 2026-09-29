@@ -17,7 +17,9 @@
     "validate:prumo": "prumo validate . && prumo doctor .",
     "content": "node --experimental-strip-types scripts/import-docs.ts && node --experimental-strip-types scripts/generate-routes.ts",
     "test:e2e": "playwright test",
-    "screenshots": "playwright test --grep @capture"
+    "screenshots": "playwright test --grep @capture",
+    "derive:allowlist": "node --experimental-strip-types scripts/derive-allowlist.ts",
+    "map:upstream": "node --experimental-strip-types scripts/map-upstream-docs.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

@@ -198,38 +198,6 @@
           "localPath": "site/en/oride/docs/development/layout.md",
           "category": "development",
           "status": "translation-pending"
-        },
-        {
-          "locale": "pt-BR",
-          "sourcePath": "CHANGELOG.md",
-          "sourceBlob": "19d03cdd5e8ace8edefc1db20690dbfe0a5127c3",
-          "localPath": "site/oride/docs/roadmap/changelog.md",
-          "category": "roadmap",
-          "status": "vendored"
-        },
-        {
-          "locale": "en",
-          "sourcePath": "CHANGELOG.md",
-          "sourceBlob": "19d03cdd5e8ace8edefc1db20690dbfe0a5127c3",
-          "localPath": "site/en/oride/docs/roadmap/changelog.md",
-          "category": "roadmap",
-          "status": "translation-pending"
-        },
-        {
-          "locale": "pt-BR",
-          "sourcePath": "ROADMAP.md",
-          "sourceBlob": "e00fbfc109aca046ac4cefef74afb68887e8db9a",
-          "localPath": "site/oride/docs/roadmap/roadmap.md",
-          "category": "roadmap",
-          "status": "vendored"
-        },
-        {
-          "locale": "en",
-          "sourcePath": "ROADMAP.md",
-          "sourceBlob": "e00fbfc109aca046ac4cefef74afb68887e8db9a",
-          "localPath": "site/en/oride/docs/roadmap/roadmap.md",
-          "category": "roadmap",
-          "status": "translation-pending"
         }
       ]
     },
@@ -398,22 +366,6 @@
           "sourceBlob": "d942879dda78a7de3aff9ca5621679d8b3ec1c43",
           "localPath": "site/en/prumo/docs/guides/cli-reference.md",
           "category": "guides",
-          "status": "translation-pending"
-        },
-        {
-          "locale": "pt-BR",
-          "sourcePath": "CHANGELOG.md",
-          "sourceBlob": "30101bd314b663e1b46670a34079cab95d8abc57",
-          "localPath": "site/prumo/docs/roadmap/changelog.md",
-          "category": "roadmap",
-          "status": "vendored"
-        },
-        {
-          "locale": "en",
-          "sourcePath": "CHANGELOG.md",
-          "sourceBlob": "30101bd314b663e1b46670a34079cab95d8abc57",
-          "localPath": "site/en/prumo/docs/roadmap/changelog.md",
-          "category": "roadmap",
           "status": "translation-pending"
         }
       ]

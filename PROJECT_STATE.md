@@ -19,6 +19,34 @@
 - The Poppy Team mark lives in `site/public/assets/` in two variants. The dark variant reuses the light geometry exactly, and a test enforces the three allowed fills per variant.
 - Goal `P00-G01` is `DONE`; `P01-G01` is registered at `.ai/goals/P01/P01-G01.goal.json`.
 
+## Documentation coverage
+
+The documentation under each project subsite is a curated copy, and the curation
+now has a declared source rather than a judgement made here. The Aipo and Prumo
+repositories ship the VitePress config for their own site, and its `srcExclude`
+list is the set of paths those projects decided not to publish. The allow-list
+is measured against that criterion by `pnpm derive:allowlist`.
+
+Current coverage against the projects' own criterion:
+
+| Project | Publishable | In the allow-list | Coverage |
+|---|---|---|---|
+| Aipo | 166 | 2 | 1.2% |
+| Prumo | 320 | 11 | 3.4% |
+| Oride | 72 | 7 | unknown, no site config upstream |
+
+Oride publishes no site config, so it has no author-declared criterion; its
+allow-list is a hand-picked set until that is mapped.
+
+Two pages were removed on this basis: the Oride changelog and roadmap, and the
+Prumo changelog. All three live at their repository root, outside the
+documentation tree, and none of the three projects publishes them on its own
+site. The allow-list had been reaching outside the documentation tree to reach
+them, which is the thing the curation rule exists to prevent.
+
+Closing the gap means importing the publishable set rather than a sample of it,
+which is a decision about scope and repository size, not about tooling.
+
 ## Deployment
 
 Production is a single VitePress project on the personal `raillen` Vercel account,
