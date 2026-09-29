@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { importedDocs } from '../imported-docs.ts';
-import { defineConfig, type DefaultTheme } from 'vitepress';
+import { defineConfig, type DefaultTheme, type HeadConfig } from 'vitepress';
 import {
   docsCategories,
   localeRoot,
@@ -11,9 +11,50 @@ import {
 } from '@poppy/project-data';
 
 const locales = {
-  root: { label: 'Português', lang: 'pt-BR' },
-  en: { label: 'English', lang: 'en' },
-} satisfies Record<string, { label: string; lang: string }>;
+  root: {
+    label: 'Português',
+    lang: 'pt-BR',
+    ogLocale: 'pt_BR',
+    description: 'Linguagens e ferramentas com atenção à leitura.',
+  },
+  en: {
+    label: 'English',
+    lang: 'en',
+    ogLocale: 'en_US',
+    description: 'Languages and tools with care for the reader.',
+  },
+} satisfies Record<string, { label: string; lang: string; ogLocale: string; description: string }>;
+
+/**
+ * Open Graph and Twitter card tags for one page. The image path stays relative
+ * until the domain is approved; at that point it, `og:url`, and the canonical
+ * link can be made absolute together.
+ */
+function shareTags(relativePath: string, title: string, description: string): HeadConfig[] {
+  const locale = relativePath.startsWith('en/') ? locales.en : locales.root;
+  const alternate = locale === locales.en ? locales.root : locales.en;
+  const image = '/assets/og-image.png';
+  const imageAlt = 'Poppy Team';
+
+  return [
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Poppy Team' }],
+    ['meta', { property: 'og:locale', content: locale.ogLocale }],
+    ['meta', { property: 'og:locale:alternate', content: alternate.ogLocale }],
+    ['meta', { property: 'og:title', content: title }],
+    ['meta', { property: 'og:description', content: description }],
+    ['meta', { property: 'og:image', content: image }],
+    ['meta', { property: 'og:image:type', content: 'image/png' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { property: 'og:image:alt', content: imageAlt }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: title }],
+    ['meta', { name: 'twitter:description', content: description }],
+    ['meta', { name: 'twitter:image', content: image }],
+    ['meta', { name: 'twitter:image:alt', content: imageAlt }],
+  ];
+}
 
 function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: boolean }): DefaultTheme.SidebarItem[] {
   const categories = docsCategories[locale];
@@ -132,7 +173,7 @@ function collectImportedDocs(): Record<string, unknown[]> {
 }
 
 export default defineConfig({
-  transformHead({ pageData }) {
+  transformHead({ pageData, title, description }) {
     const project =
       typeof pageData.frontmatter.project === 'string' ? pageData.frontmatter.project : '';
 
@@ -147,13 +188,19 @@ export default defineConfig({
         `document.documentElement.dataset.page=${JSON.stringify(pageKind(pageData.relativePath))};` +
           `document.documentElement.dataset.project=${JSON.stringify(project)};`,
       ],
+      ...shareTags(pageData.relativePath, title, description),
     ];
   },
 
   title: 'Poppy Team',
-  description: 'Linguagens e ferramentas com atenção à leitura.',
+  description: locales.root.description,
   lang: 'pt-BR',
   cleanUrls: true,
+
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/apple-touch-icon.png' }],
+  ],
   lastUpdated: true,
   ignoreDeadLinks: false,
 
@@ -163,6 +210,7 @@ export default defineConfig({
     root: {
       label: locales.root.label,
       lang: locales.root.lang,
+      description: locales.root.description,
       link: '/',
       themeConfig: {
         // The built-in language menu assumes both locales share a path, which
@@ -180,6 +228,7 @@ export default defineConfig({
     en: {
       label: locales.en.label,
       lang: locales.en.lang,
+      description: locales.en.description,
       link: '/en/',
       themeConfig: {
         i18nRouting: false,
