@@ -175,6 +175,32 @@ async function localTargetExists(routePath: string): Promise<boolean> {
 
 const projectSlugs = projects.map((project) => project.slug);
 
+describe('share metadata', () => {
+  test('every locale gets the favicon and its own Open Graph and Twitter tags', async () => {
+    const cases = [
+      { route: '/', locale: 'pt_BR', description: 'Linguagens e ferramentas com atenção à leitura.' },
+      { route: '/en/', locale: 'en_US', description: 'Languages and tools with care for the reader.' },
+    ];
+
+    for (const { route, locale, description } of cases) {
+      const html = await readRoute(route);
+
+      expect(html).toContain('<link rel="icon" type="image/svg+xml" href="/favicon.svg">');
+      expect(html).toContain(`<meta property="og:locale" content="${locale}">`);
+      expect(html).toContain(`<meta property="og:description" content="${description}">`);
+      expect(html).toContain('<meta property="og:title" content="Poppy Team">');
+      expect(html).toContain('<meta property="og:image" content="/assets/og-image.png">');
+      expect(html).toContain('<meta name="twitter:card" content="summary_large_image">');
+      // The domain is not approved yet, so nothing may point at it.
+      expect(html).not.toMatch(/rel="canonical"|property="og:url"/u);
+    }
+
+    for (const asset of ['favicon.svg', 'assets/og-image.png', 'assets/apple-touch-icon.png']) {
+      expect(await exists(path.join(outputRoot, asset)), `${asset} is not published`).toBe(true);
+    }
+  });
+});
+
 describe('routes', () => {
   test('builds the home, project, blog, and documentation routes in both locales', async () => {
     const expectedRoutes = [

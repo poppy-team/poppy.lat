@@ -1,0 +1,174 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Ori",
+  "scopeName": "source.ori",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#keywords" },
+    { "include": "#types" },
+    { "include": "#numbers" },
+    { "include": "#functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.ori",
+          "begin": "--\\|",
+          "end": "\\|--"
+        },
+        {
+          "name": "comment.line.double-dash.ori",
+          "match": "--.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.interpolated.ori",
+          "begin": "\\bf(\\\"\\\"\\\")",
+          "beginCaptures": {
+            "0": { "name": "storage.type.string.ori" },
+            "1": { "name": "punctuation.definition.string.begin.ori" }
+          },
+          "end": "(\\\"\\\"\\\")",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.ori" }
+          },
+          "patterns": [
+            { "name": "constant.character.escape.ori", "match": "\\\\." },
+            { "name": "constant.character.escape.brace.ori", "match": "\\{\\{|\\}\\}" },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.interpolated.ori",
+          "begin": "\\bf(\\\")",
+          "beginCaptures": {
+            "0": { "name": "storage.type.string.ori" },
+            "1": { "name": "punctuation.definition.string.begin.ori" }
+          },
+          "end": "(\\\")",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.ori" }
+          },
+          "patterns": [
+            { "name": "constant.character.escape.ori", "match": "\\\\." },
+            { "name": "constant.character.escape.brace.ori", "match": "\\{\\{|\\}\\}" },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.bytes.ori",
+          "begin": "\\bb(\\\")",
+          "beginCaptures": {
+            "0": { "name": "storage.type.string.ori" },
+            "1": { "name": "punctuation.definition.string.begin.ori" }
+          },
+          "end": "(\\\")",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.ori" }
+          },
+          "patterns": [{ "name": "constant.character.escape.ori", "match": "\\\\." }]
+        },
+        {
+          "name": "string.quoted.triple.ori",
+          "begin": "(\\\"\\\"\\\")",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.ori" }
+          },
+          "end": "(\\\"\\\"\\\")",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.string.end.ori" }
+          },
+          "patterns": [{ "name": "constant.character.escape.ori", "match": "\\\\." }]
+        },
+        {
+          "name": "string.quoted.double.ori",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.ori", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "interpolation": {
+      "name": "meta.interpolation.ori",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.interpolation.begin.ori" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.interpolation.end.ori" }
+      },
+      "contentName": "source.ori.embedded",
+      "patterns": [
+        { "include": "#nested-interpolation-braces" },
+        { "include": "$self" }
+      ]
+    },
+    "nested-interpolation-braces": {
+      "name": "meta.brace.ori",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.braces.begin.ori" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.braces.end.ori" }
+      },
+      "patterns": [
+        { "include": "#nested-interpolation-braces" },
+        { "include": "$self" }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.ori",
+          "match": "\\b(async|await|as|try|return|end|if|else|elif|while|for|in|repeat|loop|break|continue|match|case|using|check|with|then|and|or|not|import|public|module|struct|trait|apply|use|enum|where|is|alias|newtype|mut|self|attr|extern|handle|lazy|tuple|void|true|false|none|ok|err|some)\\b"
+        },
+        {
+          "name": "invalid.deprecated.ori",
+          "match": "\\b(namespace|implement|imports|only|success|error)\\b"
+        },
+        {
+          "name": "keyword.operator.ori",
+          "match": "=>|->|\\|>"
+        },
+        {
+          "name": "storage.type.ori",
+          "match": "\\b(const|var|func|any|optional|result|list|array|simd|buffer|slice|map|set|range|tuple|lazy|void|bool|int|int8|int16|int32|int64|u8|u16|u32|u64|float|float32|float64|string|bytes|never|future)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "entity.name.type.ori",
+          "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.ori",
+          "match": "\\b(?:0[xX][0-9a-fA-F][0-9a-fA-F_]*|0[bB][01][01_]*|0[oO][0-7][0-7_]*|[0-9][0-9_]*(?:\\.[0-9][0-9_]*)?)(?:i(?:8|16|32|64)|u(?:8|16|32|64)|f(?:32|64))?\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.ori",
+          "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(?=(?:\\[[^\\]]*\\])?\\s*\\()"
+        }
+      ]
+    }
+  }
+}
