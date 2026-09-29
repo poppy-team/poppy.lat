@@ -27,7 +27,7 @@ const projectLinks = computed(() =>
   projects.map((project) => ({
     slug: project.slug,
     name: project.name,
-    href: `${root.value}/docs/${project.slug}/`,
+    href: `${root.value}/${project.slug}/docs/`,
     colorToken: project.colorToken,
   })),
 );

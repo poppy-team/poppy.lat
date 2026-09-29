@@ -20,7 +20,7 @@ const copy = computed(() => siteCopy[locale.value]);
       }}
     </p>
     <p class="not-found__links">
-      <a class="text-link" :href="locale === 'en' ? '/en/docs/' : '/docs/'">
+      <a class="text-link" :href="locale === 'en' ? '/en/#projects' : '/#projects'">
         {{ locale === 'en' ? 'Documentation' : 'Documentação' }} →
       </a>
       <a class="text-link" :href="locale === 'en' ? '/en/#projects' : '/#projects'">

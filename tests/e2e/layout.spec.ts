@@ -21,11 +21,10 @@ const editorialPages = [
 ];
 
 const documentationPages = [
-  { name: 'indice de documentacao', path: '/docs/' },
-  { name: 'secao de projeto', path: '/docs/oride/' },
-  { name: 'categoria', path: '/docs/oride/guides/' },
-  { name: 'pagina de documentacao', path: '/docs/oride/guides/user-guide' },
-  { name: 'documentacao em ingles', path: '/en/docs/prumo/' },
+  { name: 'secao de projeto', path: '/oride/docs/' },
+  { name: 'categoria', path: '/oride/docs/guides/' },
+  { name: 'pagina de documentacao', path: '/oride/docs/guides/user-guide' },
+  { name: 'documentacao em ingles', path: '/en/prumo/docs/' },
 ];
 
 test.describe('paginas editoriais nao herdam chrome de documentacao', () => {
@@ -125,6 +124,48 @@ test.describe('a home nao parece uma pagina de documentacao', () => {
   });
 });
 
+test.describe('badge e amostra de saida', () => {
+  // The badge belongs to the featured cards; the secondary list carries the
+  // name and category instead, so it has no room for a status line.
+  for (const slug of ['ori', 'aipo']) {
+    test(`${slug} mostra o badge de status no card de destaque`, async ({ page }) => {
+      await page.goto('/');
+      const badge = page.locator(`.project-feature--${slug} .project-badge`);
+
+      // The badge carries a stage and a positioning, and must be readable
+      // rather than decorative.
+      await expect(badge).toBeVisible();
+      await expect(badge.locator('.project-badge__stage')).toHaveText(/^S\d$/u);
+      await expect(badge.locator('.project-badge__text').first()).not.toBeEmpty();
+    });
+  }
+
+  for (const slug of ['ori', 'aipo', 'oride', 'prumo']) {
+    test(`${slug} mostra o badge na pagina do projeto`, async ({ page }) => {
+      await page.goto(`/projects/${slug}`);
+
+      await expect(page.locator('.project-badge')).toBeVisible();
+    });
+
+    test(`${slug} mostra a saida da amostra`, async ({ page }) => {
+      await page.goto(`/projects/${slug}`);
+      const output = page.locator('.code-plate__output');
+
+      await expect(output).toBeVisible();
+      await expect(output).not.toBeEmpty();
+    });
+  }
+
+  test('a saida da amostra e marcada como ilustrativa', async ({ page }) => {
+    await page.goto('/projects/ori');
+
+    // The line under the code is typed output, but nothing runs in the
+    // browser; the page has to say so.
+    const note = page.locator('.project-page__note');
+    await expect(note).toContainText(/não compila nem executa|does not compile or run/u);
+  });
+});
+
 test.describe('destaque dos projetos na home', () => {
   const featured = ['ori', 'aipo'];
   const secondary = ['oride', 'prumo'];
@@ -175,7 +216,7 @@ test.describe('destaque dos projetos na home', () => {
 test.describe('chrome em telas estreitas', () => {
   test('a documentacao nao empilha dois cabecarios no celular', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/docs/oride/');
+    await page.goto('/oride/docs/');
 
     // A navbar da documentacao ja carrega o nome e o comutador de idioma, entao
     // o cabecario da marca e oculto nessa faixa e a pagina comeca pela navbar.
@@ -264,14 +305,14 @@ test.describe('identidade visual por projeto', () => {
 
   for (const project of projects) {
     test(`${project} aplica sua identidade na pagina de documentacao`, async ({ page }) => {
-      await page.goto(`/docs/${project}/`);
+      await page.goto(`/${project}/docs/`);
 
       await expect(page.locator('html')).toHaveAttribute('data-project', project);
     });
   }
 
   test('a identidade e aplicada tambem em tema escuro', async ({ page }) => {
-    await page.goto('/docs/oride/');
+    await page.goto('/oride/docs/');
     await page.evaluate(() => document.documentElement.classList.add('dark'));
 
     await expect(page.locator('html')).toHaveAttribute('data-project', 'oride');
@@ -332,7 +373,7 @@ test.describe('responsividade', () => {
 
     test(`a documentacao nao rola horizontalmente em ${viewport.name}`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto('/docs/oride/guides/user-guide');
+      await page.goto('/oride/docs/guides/user-guide');
 
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,

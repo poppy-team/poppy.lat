@@ -9,9 +9,9 @@ const routes = [
   { name: 'home-pt', path: '/' },
   { name: 'home-en', path: '/en/' },
   { name: 'project-ori', path: '/projects/ori' },
-  { name: 'docs-index', path: '/docs/' },
-  { name: 'docs-oride', path: '/docs/oride/' },
-  { name: 'docs-prumo', path: '/docs/prumo/' },
+  { name: 'docs-ori', path: '/ori/docs/' },
+  { name: 'docs-oride', path: '/oride/docs/' },
+  { name: 'docs-prumo', path: '/prumo/docs/' },
   { name: 'not-found', path: '/not-found/' },
 ];
 

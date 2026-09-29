@@ -30,7 +30,7 @@ const sources = vendoredDocs.map((source) => ({
         locale: 'pt-BR',
         sourcePath: page.sourcePath,
         sourceBlob: page.sourceBlob,
-        localPath: `site/docs/${source.project}/${page.category}/${page.slug}.md`,
+        localPath: `site/${source.project}/docs/${page.category}/${page.slug}.md`,
         category: page.category,
         status: 'vendored',
       },
@@ -41,7 +41,7 @@ const sources = vendoredDocs.map((source) => ({
         locale: 'en',
         sourcePath: page.englishSourcePath,
         sourceBlob: page.englishSourceBlob,
-        localPath: `site/en/docs/${source.project}/${page.category}/${page.slug}.md`,
+        localPath: `site/en/${source.project}/docs/${page.category}/${page.slug}.md`,
         category: page.category,
         status: 'vendored',
       });
@@ -50,7 +50,7 @@ const sources = vendoredDocs.map((source) => ({
         locale: 'en',
         sourcePath: page.sourcePath,
         sourceBlob: page.sourceBlob,
-        localPath: `site/en/docs/${source.project}/${page.category}/${page.slug}.md`,
+        localPath: `site/en/${source.project}/docs/${page.category}/${page.slug}.md`,
         category: page.category,
         status: 'translation-pending',
       });

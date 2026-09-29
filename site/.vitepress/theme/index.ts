@@ -31,7 +31,10 @@ const { Layout } = DefaultTheme;
  * correct after client-side navigation.
  */
 function pageKind(relativePath: string): 'documentation' | 'editorial' {
-  return /(^|\/)(en\/)?docs\//u.test(relativePath) ? 'documentation' : 'editorial';
+  // A documentation page is any page under `<project>/docs/`, in either locale.
+  return /(^|\/)(en\/)?(ori|aipo|oride|prumo)\/docs\//u.test(relativePath)
+    ? 'documentation'
+    : 'editorial';
 }
 
 const RoutedLayout = defineComponent({

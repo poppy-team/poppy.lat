@@ -126,34 +126,11 @@ for (const locale of ['pt-BR', 'en'] as const) {
   }
 
   await write(
-    path.join(root, 'docs', 'index.md'),
-    [
-      '---',
-      'title: "Documentação"',
-      'description: "Guias, novidades e material de desenvolvimento de cada projeto."',
-      `locale: ${languageTag}`,
-      '---',
-      '',
-      '::: info Cópias estáticas',
-      'As páginas abaixo são cópias estáticas selecionadas dos repositórios canônicos,',
-      'fixadas em revisões identificadas. As fontes originais permanecem canônicas e as',
-      'cópias locais não são atualizadas automaticamente.',
-      ':::',
-      '',
-      ...projects.map(
-        (project) =>
-          `- [${project.name}](/${root ? `${root}/` : ''}docs/${project.slug}/) — ${project.homeSummary[locale]}`,
-      ),
-      '',
-    ],
-  );
-
-  await write(
     path.join(root, 'blog', 'index.md'),
     [
       '---',
       'layout: blog-index',
-      'title: "Caderno"',
+      `title: ${JSON.stringify(locale === 'en' ? 'Journal' : 'Caderno')}`,
       `locale: ${languageTag}`,
       '---',
       '',
@@ -163,6 +140,10 @@ for (const locale of ['pt-BR', 'en'] as const) {
       '',
     ],
   );
+
+  // The shared /docs index is gone: each project owns its documentation
+  // subsite, so a list of them would only repeat what the projects section
+  // already shows. Nothing is written under /docs.
 }
 
 console.log('route stubs written');

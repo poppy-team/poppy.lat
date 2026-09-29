@@ -6,6 +6,12 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 ## [0.3.0] - 2026-09-28
 
 ### Adicionado
+- Badge de status nos cards de destaque e nas páginas de projeto, no espírito do que o site do Ori traz: uma etapa de maturidade e duas ou três palavras de posicionamento, por projeto.
+- A placa de amostra de código passa a mostrar também a saída do programa, como uma linha de terminal sob o código, para que a amostra se leia como entrada e resultado.
+- A ação primária do card de destaque — ler a documentação — passa a ser um botão sólido, e o link para a página do projeto permanece um link discreto.
+- Script `map-upstream-docs.ts`, que mapeia a árvore de documentação de cada repositório de projeto e mostra quanto dela está na allow-list.
+
+
 - Seção de documentação própria para cada um dos quatro projetos, em `/docs/<projeto>/` e `/en/docs/<projeto>/`, com landing, índice por categoria e navegação dedicada.
 - Taxonomia documental de três categorias: guia de uso, novidades e planos, e desenvolvimento.
 - Integração nos dois sentidos: a página de cada projeto lista suas páginas de documentação, e cada página de documentação leva de volta à página do projeto e ao repositório canônico.
@@ -44,6 +50,10 @@ O formato baseia-se no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0
 - Breakpoint de `1100px` para o rodapé e o hero em telas médias e de `400px` para telas estreitas.
 
 ### Corrigido
+- A documentação saiu de `/docs/<projeto>/` para `/<projeto>/docs/`, para que cada projeto tenha um subsite próprio e o índice compartilhado, que só repetia o que a seção de projetos já mostra, deixasse de existir.
+- Os valores do badge de status são propostas, não dados verificados: `S3` do Ori vem do site do Ori, os demais foram sugeridos e precisam de confirmação.
+
+
 - O rótulo do botão de documentação foi reescrito na migração para VitePress. Ori e Aipo mantinham a frase original; Oride e Prumo, que antes apontavam para o repositório porque não tinham documentação, receberam a mesma frase dos outros dois, já que agora têm. A formulação do autor original volta a ser a dos quatro.
 - Os dois projetos principais perderam o destaque de card na home: viraram faixas de lista, sem altura, sem cor por projeto e sem área própria. O grid assimétrico e os planos de cor de Ori e Aipo foram restaurados, com um link direto para a documentação de cada um.
 - Oride e Prumo apareciam na home sem nome, só com número e categoria. Os dois têm agora o nome como título e link para a página do projeto.

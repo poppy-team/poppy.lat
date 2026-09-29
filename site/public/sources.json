@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Allow-list de documentação pública selecionada para cópia estática no site da Poppy Team.",
   "canonicality": "Os repositórios de origem são as fontes canônicas; as cópias locais não são atualizadas automaticamente.",
-  "updatedAt": "2026-09-28",
+  "updatedAt": "2026-09-29",
   "generator": "scripts/generate-manifest.ts",
   "documentationCategories": {
     "guides": "Conceitos, primeiros passos e referência de uso.",
@@ -25,7 +25,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/first-project.pt-BR.md",
           "sourceBlob": "7d9e2b408472e1d5d88e2cfb144007aed3c10396",
-          "localPath": "site/docs/ori/guides/first-project.md",
+          "localPath": "site/ori/docs/guides/first-project.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -33,7 +33,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/first-project.md",
           "sourceBlob": "541f14bd446fee2df6c2bcc525a44b8f3550365d",
-          "localPath": "site/en/docs/ori/guides/first-project.md",
+          "localPath": "site/en/ori/docs/guides/first-project.md",
           "category": "guides",
           "status": "vendored"
         }
@@ -50,7 +50,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/getting-started/what-is-aipo.md",
           "sourceBlob": "b9417f44d84e5ddddfcd9d4c4af51819b755df75",
-          "localPath": "site/docs/aipo/guides/what-is-aipo.md",
+          "localPath": "site/aipo/docs/guides/what-is-aipo.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -58,7 +58,7 @@
           "locale": "en",
           "sourcePath": "docs/en/getting-started/what-is-aipo.md",
           "sourceBlob": "d7e78ce87a0d2b39bc7b39966e51077f09f92bd9",
-          "localPath": "site/en/docs/aipo/guides/what-is-aipo.md",
+          "localPath": "site/en/aipo/docs/guides/what-is-aipo.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -66,7 +66,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/getting-started/first-program.md",
           "sourceBlob": "7914f423d7c025d6c935c154276b6786e507beab",
-          "localPath": "site/docs/aipo/guides/first-program.md",
+          "localPath": "site/aipo/docs/guides/first-program.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -74,7 +74,7 @@
           "locale": "en",
           "sourcePath": "docs/en/getting-started/first-program.md",
           "sourceBlob": "4ae0190c693fb552243c4d693987240f3479c38b",
-          "localPath": "site/en/docs/aipo/guides/first-program.md",
+          "localPath": "site/en/aipo/docs/guides/first-program.md",
           "category": "guides",
           "status": "vendored"
         }
@@ -91,7 +91,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/pt/guia-de-uso.md",
           "sourceBlob": "a036731bf3aa33027b2e1de7744ef7750c3f3b74",
-          "localPath": "site/docs/oride/guides/user-guide.md",
+          "localPath": "site/oride/docs/guides/user-guide.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -99,7 +99,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/en/user-guide.md",
           "sourceBlob": "16d1b9ce1f74dc22e8b8d7f01f18297368199892",
-          "localPath": "site/en/docs/oride/guides/user-guide.md",
+          "localPath": "site/en/oride/docs/guides/user-guide.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -107,7 +107,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/pt/syntax.md",
           "sourceBlob": "56ff14947f010361ec7b89f3e2b6f9f2dd4fbaac",
-          "localPath": "site/docs/oride/guides/syntax.md",
+          "localPath": "site/oride/docs/guides/syntax.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -115,7 +115,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/en/syntax.md",
           "sourceBlob": "dc54fbc644d4e80bd6bde923c4db79bb29c233f5",
-          "localPath": "site/en/docs/oride/guides/syntax.md",
+          "localPath": "site/en/oride/docs/guides/syntax.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -123,7 +123,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/pt/config.md",
           "sourceBlob": "cb14e550722e237f746d2ce16fea63645b704355",
-          "localPath": "site/docs/oride/guides/config.md",
+          "localPath": "site/oride/docs/guides/config.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -131,7 +131,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/en/config.md",
           "sourceBlob": "5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5",
-          "localPath": "site/en/docs/oride/guides/config.md",
+          "localPath": "site/en/oride/docs/guides/config.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -139,7 +139,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/pt/themes.md",
           "sourceBlob": "6cae80573e8f8d72ccc04835af23dfb1cd3093a3",
-          "localPath": "site/docs/oride/guides/themes.md",
+          "localPath": "site/oride/docs/guides/themes.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -147,7 +147,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/en/themes.md",
           "sourceBlob": "e7108264230de59ed952d0eab5b0b9a28ed557ed",
-          "localPath": "site/en/docs/oride/guides/themes.md",
+          "localPath": "site/en/oride/docs/guides/themes.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -155,7 +155,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/guides/pt/markdown.md",
           "sourceBlob": "32674e6bce232e6ca8fc039177f3f6e6cac07446",
-          "localPath": "site/docs/oride/guides/markdown.md",
+          "localPath": "site/oride/docs/guides/markdown.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -163,7 +163,7 @@
           "locale": "en",
           "sourcePath": "docs/guides/en/markdown.md",
           "sourceBlob": "c871b2d50535ddf415ec663012a35b6ef559cbd8",
-          "localPath": "site/en/docs/oride/guides/markdown.md",
+          "localPath": "site/en/oride/docs/guides/markdown.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -171,7 +171,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/ui-ux/keymap.md",
           "sourceBlob": "f16663fac7fadb5278b214dcaa607d29ef93fa2f",
-          "localPath": "site/docs/oride/development/keymap.md",
+          "localPath": "site/oride/docs/development/keymap.md",
           "category": "development",
           "status": "vendored"
         },
@@ -179,7 +179,7 @@
           "locale": "en",
           "sourcePath": "docs/ui-ux/keymap.md",
           "sourceBlob": "f16663fac7fadb5278b214dcaa607d29ef93fa2f",
-          "localPath": "site/en/docs/oride/development/keymap.md",
+          "localPath": "site/en/oride/docs/development/keymap.md",
           "category": "development",
           "status": "translation-pending"
         },
@@ -187,7 +187,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/ui-ux/layout.md",
           "sourceBlob": "02b6110a00098b491a1620a9fbd5b78ad69e7b11",
-          "localPath": "site/docs/oride/development/layout.md",
+          "localPath": "site/oride/docs/development/layout.md",
           "category": "development",
           "status": "vendored"
         },
@@ -195,7 +195,7 @@
           "locale": "en",
           "sourcePath": "docs/ui-ux/layout.md",
           "sourceBlob": "02b6110a00098b491a1620a9fbd5b78ad69e7b11",
-          "localPath": "site/en/docs/oride/development/layout.md",
+          "localPath": "site/en/oride/docs/development/layout.md",
           "category": "development",
           "status": "translation-pending"
         },
@@ -203,7 +203,7 @@
           "locale": "pt-BR",
           "sourcePath": "CHANGELOG.md",
           "sourceBlob": "19d03cdd5e8ace8edefc1db20690dbfe0a5127c3",
-          "localPath": "site/docs/oride/roadmap/changelog.md",
+          "localPath": "site/oride/docs/roadmap/changelog.md",
           "category": "roadmap",
           "status": "vendored"
         },
@@ -211,7 +211,7 @@
           "locale": "en",
           "sourcePath": "CHANGELOG.md",
           "sourceBlob": "19d03cdd5e8ace8edefc1db20690dbfe0a5127c3",
-          "localPath": "site/en/docs/oride/roadmap/changelog.md",
+          "localPath": "site/en/oride/docs/roadmap/changelog.md",
           "category": "roadmap",
           "status": "translation-pending"
         },
@@ -219,7 +219,7 @@
           "locale": "pt-BR",
           "sourcePath": "ROADMAP.md",
           "sourceBlob": "e00fbfc109aca046ac4cefef74afb68887e8db9a",
-          "localPath": "site/docs/oride/roadmap/roadmap.md",
+          "localPath": "site/oride/docs/roadmap/roadmap.md",
           "category": "roadmap",
           "status": "vendored"
         },
@@ -227,7 +227,7 @@
           "locale": "en",
           "sourcePath": "ROADMAP.md",
           "sourceBlob": "e00fbfc109aca046ac4cefef74afb68887e8db9a",
-          "localPath": "site/en/docs/oride/roadmap/roadmap.md",
+          "localPath": "site/en/oride/docs/roadmap/roadmap.md",
           "category": "roadmap",
           "status": "translation-pending"
         }
@@ -244,7 +244,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/getting-started/index.md",
           "sourceBlob": "46eedc9bcb6bc5e3b429d288ab57bd711b2d1544",
-          "localPath": "site/docs/prumo/guides/getting-started.md",
+          "localPath": "site/prumo/docs/guides/getting-started.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -252,7 +252,7 @@
           "locale": "en",
           "sourcePath": "docs/getting-started/index.md",
           "sourceBlob": "46eedc9bcb6bc5e3b429d288ab57bd711b2d1544",
-          "localPath": "site/en/docs/prumo/guides/getting-started.md",
+          "localPath": "site/en/prumo/docs/guides/getting-started.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -260,7 +260,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/getting-started/concepts.md",
           "sourceBlob": "c2bd213a172779d82160bdcca3996588a19585db",
-          "localPath": "site/docs/prumo/guides/concepts.md",
+          "localPath": "site/prumo/docs/guides/concepts.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -268,7 +268,7 @@
           "locale": "en",
           "sourcePath": "docs/getting-started/concepts.md",
           "sourceBlob": "c2bd213a172779d82160bdcca3996588a19585db",
-          "localPath": "site/en/docs/prumo/guides/concepts.md",
+          "localPath": "site/en/prumo/docs/guides/concepts.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -276,7 +276,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/getting-started/first-project.md",
           "sourceBlob": "b136dfffaa8a2f602a0c110d1a20611a98030afb",
-          "localPath": "site/docs/prumo/guides/first-project.md",
+          "localPath": "site/prumo/docs/guides/first-project.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -284,7 +284,7 @@
           "locale": "en",
           "sourcePath": "docs/getting-started/first-project.md",
           "sourceBlob": "b136dfffaa8a2f602a0c110d1a20611a98030afb",
-          "localPath": "site/en/docs/prumo/guides/first-project.md",
+          "localPath": "site/en/prumo/docs/guides/first-project.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -292,7 +292,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/manual/installation.md",
           "sourceBlob": "1ba1749b36a918f2873f12da5e1e82e745a7c71c",
-          "localPath": "site/docs/prumo/guides/installation.md",
+          "localPath": "site/prumo/docs/guides/installation.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -300,7 +300,7 @@
           "locale": "en",
           "sourcePath": "docs/manual/installation.md",
           "sourceBlob": "1ba1749b36a918f2873f12da5e1e82e745a7c71c",
-          "localPath": "site/en/docs/prumo/guides/installation.md",
+          "localPath": "site/en/prumo/docs/guides/installation.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -308,7 +308,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/manual/usage.md",
           "sourceBlob": "eafa2f658fb115867068fd90d178cf5d6e628918",
-          "localPath": "site/docs/prumo/guides/usage.md",
+          "localPath": "site/prumo/docs/guides/usage.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -316,7 +316,7 @@
           "locale": "en",
           "sourcePath": "docs/manual/usage.md",
           "sourceBlob": "eafa2f658fb115867068fd90d178cf5d6e628918",
-          "localPath": "site/en/docs/prumo/guides/usage.md",
+          "localPath": "site/en/prumo/docs/guides/usage.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -324,7 +324,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/manual/connectors.md",
           "sourceBlob": "dcb24fbe2b89ac10ce32d5fec97d26a69bb6f7dc",
-          "localPath": "site/docs/prumo/guides/connectors.md",
+          "localPath": "site/prumo/docs/guides/connectors.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -332,7 +332,7 @@
           "locale": "en",
           "sourcePath": "docs/manual/connectors.md",
           "sourceBlob": "dcb24fbe2b89ac10ce32d5fec97d26a69bb6f7dc",
-          "localPath": "site/en/docs/prumo/guides/connectors.md",
+          "localPath": "site/en/prumo/docs/guides/connectors.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -340,7 +340,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/user-guide/goals.md",
           "sourceBlob": "a7c329caf1fd40df896163ce8d11be6e6406e0a5",
-          "localPath": "site/docs/prumo/guides/goals.md",
+          "localPath": "site/prumo/docs/guides/goals.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -348,7 +348,7 @@
           "locale": "en",
           "sourcePath": "docs/user-guide/goals.md",
           "sourceBlob": "a7c329caf1fd40df896163ce8d11be6e6406e0a5",
-          "localPath": "site/en/docs/prumo/guides/goals.md",
+          "localPath": "site/en/prumo/docs/guides/goals.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -356,7 +356,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/user-guide/goals-101.md",
           "sourceBlob": "de2a80e10243df4b323088421b69463e07e881cc",
-          "localPath": "site/docs/prumo/guides/goals-101.md",
+          "localPath": "site/prumo/docs/guides/goals-101.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -364,7 +364,7 @@
           "locale": "en",
           "sourcePath": "docs/user-guide/goals-101.md",
           "sourceBlob": "de2a80e10243df4b323088421b69463e07e881cc",
-          "localPath": "site/en/docs/prumo/guides/goals-101.md",
+          "localPath": "site/en/prumo/docs/guides/goals-101.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -372,7 +372,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/user-guide/troubleshooting.md",
           "sourceBlob": "475c140de7e604ca26f2a988515ce9e80feb4a2a",
-          "localPath": "site/docs/prumo/guides/troubleshooting.md",
+          "localPath": "site/prumo/docs/guides/troubleshooting.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -380,7 +380,7 @@
           "locale": "en",
           "sourcePath": "docs/user-guide/troubleshooting.md",
           "sourceBlob": "475c140de7e604ca26f2a988515ce9e80feb4a2a",
-          "localPath": "site/en/docs/prumo/guides/troubleshooting.md",
+          "localPath": "site/en/prumo/docs/guides/troubleshooting.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -388,7 +388,7 @@
           "locale": "pt-BR",
           "sourcePath": "docs/tools/cli-reference.md",
           "sourceBlob": "d942879dda78a7de3aff9ca5621679d8b3ec1c43",
-          "localPath": "site/docs/prumo/guides/cli-reference.md",
+          "localPath": "site/prumo/docs/guides/cli-reference.md",
           "category": "guides",
           "status": "vendored"
         },
@@ -396,7 +396,7 @@
           "locale": "en",
           "sourcePath": "docs/tools/cli-reference.md",
           "sourceBlob": "d942879dda78a7de3aff9ca5621679d8b3ec1c43",
-          "localPath": "site/en/docs/prumo/guides/cli-reference.md",
+          "localPath": "site/en/prumo/docs/guides/cli-reference.md",
           "category": "guides",
           "status": "translation-pending"
         },
@@ -404,7 +404,7 @@
           "locale": "pt-BR",
           "sourcePath": "CHANGELOG.md",
           "sourceBlob": "30101bd314b663e1b46670a34079cab95d8abc57",
-          "localPath": "site/docs/prumo/roadmap/changelog.md",
+          "localPath": "site/prumo/docs/roadmap/changelog.md",
           "category": "roadmap",
           "status": "vendored"
         },
@@ -412,7 +412,7 @@
           "locale": "en",
           "sourcePath": "CHANGELOG.md",
           "sourceBlob": "30101bd314b663e1b46670a34079cab95d8abc57",
-          "localPath": "site/en/docs/prumo/roadmap/changelog.md",
+          "localPath": "site/en/prumo/docs/roadmap/changelog.md",
           "category": "roadmap",
           "status": "translation-pending"
         }

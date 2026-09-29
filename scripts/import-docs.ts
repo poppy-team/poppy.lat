@@ -38,7 +38,7 @@ function cloneFor(source: VendoredDocSource): string {
 }
 
 function localeDirectory(locale: Locale): string {
-  return locale === 'en' ? 'en/docs' : 'docs';
+  return locale === 'en' ? 'en' : '';
 }
 
 function englishPendingStub(source: VendoredDocSource, page: VendoredDocPage): string {
@@ -60,7 +60,7 @@ function englishPendingStub(source: VendoredDocSource, page: VendoredDocPage): s
     `and the canonical source are both available upstream.`,
     ':::',
     '',
-    `- [Read it in Portuguese](/docs/${source.project}/${page.category}/${page.slug})`,
+    `- [Read it in Portuguese](/${source.project}/docs/${page.category}/${page.slug})`,
     `- [Read the canonical source](${source.repository}/blob/${source.revision}/${page.sourcePath})`,
     '',
   ].join('\n');
@@ -133,10 +133,13 @@ async function importPage(
   const upstreamPath = locale === 'en' ? page.englishSourcePath : page.sourcePath;
   const blob = locale === 'en' ? page.englishSourceBlob : page.sourceBlob;
 
+  // Each project owns a subsite: the project slug comes first, so the
+  // documentation lives inside the project rather than in a shared /docs.
   const destination = path.join(
     'site',
     localeDirectory(locale),
     source.project,
+    'docs',
     page.category,
     `${page.slug}.md`,
   );
@@ -243,7 +246,7 @@ async function writeLanding(source: VendoredDocSource, locale: Locale): Promise<
     '',
   ].join('\n');
 
-  const destination = path.join('site', localeDirectory(locale), source.project, 'index.md');
+  const destination = path.join('site', localeDirectory(locale), source.project, 'docs', 'index.md');
 
   await mkdir(path.dirname(destination), { recursive: true });
   await writeFile(destination, frontmatter, 'utf8');
@@ -270,7 +273,7 @@ async function writeCategoryIndexes(source: VendoredDocSource, locale: Locale): 
       '',
     ].join('\n');
 
-    const destination = path.join('site', localeDirectory(locale), source.project, category, 'index.md');
+    const destination = path.join('site', localeDirectory(locale), source.project, 'docs', category, 'index.md');
 
     await mkdir(path.dirname(destination), { recursive: true });
     await writeFile(destination, frontmatter, 'utf8');

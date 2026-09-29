@@ -33,7 +33,7 @@ const root = computed(() => (props.locale === 'en' ? '/en' : ''));
 
     <nav class="site-nav" :aria-label="copy.navigationLabel">
       <a class="site-nav__link" :href="`${root}/#projects`">{{ copy.navigation.projects }}</a>
-      <a class="site-nav__link" :href="`${root}/docs/`">{{ copy.navigation.docs }}</a>
+      <a class="site-nav__link" :href="`${root}/#projects`">{{ copy.navigation.docs }}</a>
       <a class="site-nav__link" :href="`${root}/blog/`">{{ copy.navigation.blog }}</a>
       <a class="site-nav__link" href="mailto:mail@poppy.lat">{{ copy.navigation.contact }}</a>
       <a

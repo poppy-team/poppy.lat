@@ -15,6 +15,56 @@
       "source": "/en/projetos/:slug",
       "destination": "/en/projects/:slug",
       "permanent": true
+    },
+    {
+      "source": "/docs/ori",
+      "destination": "/ori/docs",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/ori",
+      "destination": "/en/ori/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs/aipo",
+      "destination": "/aipo/docs",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/aipo",
+      "destination": "/en/aipo/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs/oride",
+      "destination": "/oride/docs",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/oride",
+      "destination": "/en/oride/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs/prumo",
+      "destination": "/prumo/docs",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs/prumo",
+      "destination": "/en/prumo/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/docs",
+      "destination": "/en/",
+      "permanent": true
     }
   ],
   "headers": [

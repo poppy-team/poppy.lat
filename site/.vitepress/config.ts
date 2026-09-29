@@ -23,7 +23,7 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
     const items: DefaultTheme.SidebarItem[] = categories
       .map((category) => {
         const categoryPages = pages.filter((page) => page.category === category.slug);
-        const base = `${localeRoot(locale)}/docs/${project.slug}/${category.slug}`;
+        const base = `${localeRoot(locale)}/${project.slug}/docs/${category.slug}`;
 
         return {
           text: category.label,
@@ -38,8 +38,10 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
     return {
       text: project.name,
       collapsed: true,
-      link: `${localeRoot(locale)}/docs/${project.slug}/`,
-      items: includeLanding ? [{ text: siteCopy[locale].navigation.docs, link: `${localeRoot(locale)}/docs/${project.slug}/` }, ...items] : items,
+      link: `${localeRoot(locale)}/${project.slug}/docs/`,
+      items: includeLanding
+        ? [{ text: siteCopy[locale].navigation.docs, link: `${localeRoot(locale)}/${project.slug}/docs/` }, ...items]
+        : items,
     };
   });
 }
@@ -51,7 +53,10 @@ function projectSidebar(locale: Locale, { includeLanding }: { includeLanding: bo
  * a stylesheet rule that hides the documentation chrome.
  */
 function pageKind(relativePath: string): 'documentation' | 'editorial' {
-  return /(^|\/)(en\/)?docs\//u.test(relativePath) ? 'documentation' : 'editorial';
+  // A documentation page is any page under `<project>/docs/`, in either locale.
+  return /(^|\/)(en\/)?(ori|aipo|oride|prumo)\/docs\//u.test(relativePath)
+    ? 'documentation'
+    : 'editorial';
 }
 
 export default defineConfig({
@@ -93,7 +98,7 @@ export default defineConfig({
         i18nRouting: false,
         nav: [
           { text: siteCopy['pt-BR'].navigation.projects, link: '/#projects' },
-          { text: siteCopy['pt-BR'].navigation.docs, link: '/docs/' },
+          { text: siteCopy['pt-BR'].navigation.docs, link: '/#projects' },
           { text: siteCopy['pt-BR'].navigation.blog, link: '/blog/' },
         ],
         sidebar: projectSidebar('pt-BR', { includeLanding: false }),
@@ -108,7 +113,7 @@ export default defineConfig({
         i18nRouting: false,
         nav: [
           { text: siteCopy.en.navigation.projects, link: '/en/#projects' },
-          { text: siteCopy.en.navigation.docs, link: '/en/docs/' },
+          { text: siteCopy.en.navigation.docs, link: '/en/#projects' },
           { text: siteCopy.en.navigation.blog, link: '/en/blog/' },
         ],
         sidebar: projectSidebar('en', { includeLanding: false }),

@@ -129,16 +129,16 @@ describe('routes', () => {
       '/404.html',
       ...projectSlugs.flatMap((slug) => [`/projects/${slug}/`, `/en/projects/${slug}/`]),
       ...projectSlugs.flatMap((slug) => [
-        `/docs/${slug}/`,
-        `/en/docs/${slug}/`,
+        `/${slug}/docs/`,
+        `/en/${slug}/docs/`,
         // Only categories that actually have pages get an index route.
         ...[...new Set(getDocsForProject(slug).map((page) => page.category))].flatMap((category) => [
-          `/docs/${slug}/${category}/`,
-          `/en/docs/${slug}/${category}/`,
+          `/${slug}/docs/${category}/`,
+          `/en/${slug}/docs/${category}/`,
         ]),
         ...getDocsForProject(slug).flatMap((page) => [
-          `/docs/${slug}/${page.category}/${page.slug}/`,
-          `/en/docs/${slug}/${page.category}/${page.slug}/`,
+          `/${slug}/docs/${page.category}/${page.slug}/`,
+          `/en/${slug}/docs/${page.category}/${page.slug}/`,
         ]),
       ]),
     ];
@@ -153,8 +153,8 @@ describe('routes', () => {
     expect(await readRoute('/en/')).toMatch('Ideas that');
 
     for (const slug of projectSlugs) {
-      expect(await readRoute(`/projects/${slug}/`)).toContain(`/docs/${slug}/`);
-      expect(await readRoute(`/en/projects/${slug}/`)).toContain(`/en/docs/${slug}/`);
+      expect(await readRoute(`/projects/${slug}/`)).toContain(`/${slug}/docs/`);
+      expect(await readRoute(`/en/projects/${slug}/`)).toContain(`/en/${slug}/docs/`);
     }
 
     expect(await readRoute('/blog/um-arquivo-com-origem/')).toMatch('Um arquivo com origem');
@@ -206,7 +206,7 @@ describe('provenance', () => {
           continue;
         }
 
-        const html = await readRoute(`/en/docs/${source.project}/${page.category}/${page.slug}/`);
+        const html = await readRoute(`/en/${source.project}/docs/${page.category}/${page.slug}/`);
 
         expect(html, `${source.project}/${page.slug} should say the translation is pending`).toContain(
           'Translation pending',
@@ -235,7 +235,7 @@ describe('branding', () => {
     expect(fills(lightLogo), 'Light variant fills changed').toEqual(['#141313', '#d4b893', '#fefefe']);
     expect(fills(darkLogo), 'Dark variant fills changed').toEqual(['#262a25', '#d4b893', '#f1eddf']);
 
-    const documentationHtml = await readRoute('/docs/ori/');
+    const documentationHtml = await readRoute('/ori/docs/');
     expect(documentationHtml).toMatch(/poppy-logo\.svg/u);
     expect(await readRoute('/')).toMatch(/poppy-logo\.svg/u);
   });
@@ -263,7 +263,7 @@ describe('project integration', () => {
         expect(
           html,
           `${project.slug} page should link to ${page.slug}`,
-        ).toContain(`/docs/${project.slug}/${page.category}/${page.slug}`);
+        ).toContain(`/${project.slug}/docs/${page.category}/${page.slug}`);
       }
     }
   });
@@ -272,7 +272,7 @@ describe('project integration', () => {
     for (const project of projects) {
       for (const page of getDocsForProject(project.slug)) {
         const html = await readRoute(
-          `/docs/${project.slug}/${page.category}/${page.slug}/`,
+          `/${project.slug}/docs/${page.category}/${page.slug}/`,
         );
 
         expect(html, `${project.slug}/${page.slug} should link back to the project`).toContain(
@@ -287,7 +287,7 @@ describe('project integration', () => {
 
   test('gives every project documentation page its own visual identity', async () => {
     for (const project of projects) {
-      const html = await readRoute(`/docs/${project.slug}/`);
+      const html = await readRoute(`/${project.slug}/docs/`);
 
       expect(html, `${project.slug} is missing its identity attribute`).toContain(
         `data-project="${project.slug}"`,
@@ -296,10 +296,10 @@ describe('project integration', () => {
   });
 
   test('offers the project switcher on documentation pages', async () => {
-    const html = await readRoute('/docs/oride/guides/user-guide/');
+    const html = await readRoute('/oride/docs/guides/user-guide/');
 
     for (const project of projects) {
-      expect(html, `switcher is missing ${project.name}`).toContain(`/docs/${project.slug}/`);
+      expect(html, `switcher is missing ${project.name}`).toContain(`/${project.slug}/docs/`);
     }
   });
 });
@@ -308,8 +308,8 @@ describe('bilingual parity', () => {
   test('every Portuguese documentation page has an English counterpart', async () => {
     for (const project of projects) {
       for (const page of getDocsForProject(project.slug)) {
-        const portuguese = await readRoute(`/docs/${project.slug}/${page.category}/${page.slug}/`);
-        const english = await readRoute(`/en/docs/${project.slug}/${page.category}/${page.slug}/`);
+        const portuguese = await readRoute(`/${project.slug}/docs/${page.category}/${page.slug}/`);
+        const english = await readRoute(`/en/${project.slug}/docs/${page.category}/${page.slug}/`);
 
         expect(portuguese).not.toBe(english);
         expect(english, `${project.slug}/${page.slug} has no English title`).toContain(
@@ -323,7 +323,7 @@ describe('bilingual parity', () => {
     for (const project of projects) {
       for (const page of getDocsForProject(project.slug)) {
         expect(
-          await routeExists(`/docs/${project.slug}/${page.category}/${page.slug}/`),
+          await routeExists(`/${project.slug}/docs/${page.category}/${page.slug}/`),
         ).toBe(true);
       }
     }
@@ -341,8 +341,8 @@ describe('bilingual parity', () => {
         .sort();
     }
 
-    const portuguese = await routesUnder('docs');
-    const english = await routesUnder(path.join('en', 'docs'));
+    const portuguese = await routesUnder('ori/docs');
+    const english = await routesUnder(path.join('en', 'ori', 'docs'));
 
     expect(portuguese.length).toBeGreaterThan(0);
     expect(english).toEqual(portuguese);
@@ -424,10 +424,12 @@ describe('source tree', () => {
   test('keeps vendored documentation inside the VitePress source directory', async () => {
     for (const source of vendoredDocs) {
       for (const page of source.pages) {
-        for (const localePrefix of ['site/docs', 'site/en/docs']) {
+        for (const localePrefix of ['site', 'site/en']) {
+          // Documentation now lives inside the project subsite.
           const expected = path.join(
             localePrefix,
             source.project,
+            'docs',
             page.category,
             `${page.slug}.md`,
           );

@@ -5,6 +5,19 @@ export type ProjectSlug = 'ori' | 'aipo' | 'oride' | 'prumo';
 /** Editorial audience a documentation page belongs to. */
 export type DocsCategory = 'guides' | 'roadmap' | 'development';
 
+/**
+ * Short status line shown on the home cards and the project pages, in the
+ * spirit of the maturity and positioning badge the Ori site carries.
+ */
+export interface ProjectBadge {
+  /** Maturity or release stage, for example `S3`. */
+  stage: string;
+  /** Two or three words naming what defines the project. */
+  positioning: string;
+  /** Optional third marker; omitted when the project has nothing to claim. */
+  note?: string;
+}
+
 export interface ProjectPrinciple {
   title: string;
   description: string;
@@ -14,6 +27,12 @@ export interface ProjectDemo {
   label: string;
   language: string;
   code: string;
+  /**
+   * What running the sample prints. Shown as a terminal line under the code so
+   * the sample reads as input and outcome rather than input alone. It is
+   * illustrative text: nothing is executed in the browser.
+   */
+  output: string;
   note: string;
 }
 
@@ -39,6 +58,8 @@ export interface Project {
   repositoryHref: string;
   /** Token name that carries this project's visual identity. */
   colorToken: string;
+  /** Status line, shared across locales. */
+  badge: ProjectBadge;
   copy: Record<Locale, ProjectCopy>;
 }
 
@@ -58,6 +79,7 @@ export const projects = [
     },
     repositoryHref: 'https://github.com/poppy-team/ori-lang',
     colorToken: 'var(--color-leaf-pale)',
+    badge: { stage: 'S3', positioning: 'READING-FIRST', note: 'ND-FRIENDLY' },
     copy: {
       'pt-BR': {
         eyebrow: 'Linguagem compilada para código nativo',
@@ -84,6 +106,7 @@ export const projects = [
           label: 'Exemplo estático da documentação de Ori',
           language: 'ori',
           code: 'module app.hello\nimport ori.io as io\nmain()\nio.println("Hello, Ori!")\nend',
+          output: 'Hello, Ori!',
           note: 'Este bloco é apenas uma amostra de código. Esta página não compila nem executa Ori no navegador.',
         },
         documentationLabel: 'Abrir documentação selecionada de Ori',
@@ -113,6 +136,7 @@ export const projects = [
           label: 'Static example from Ori documentation',
           language: 'ori',
           code: 'module app.hello\nimport ori.io as io\nmain()\nio.println("Hello, Ori!")\nend',
+          output: 'Hello, Ori!',
           note: 'This block is a code sample only. This page does not compile or run Ori in the browser.',
         },
         documentationLabel: 'Open the selected Ori documentation',
@@ -134,6 +158,7 @@ export const projects = [
     },
     repositoryHref: 'https://github.com/poppy-team/aipo-lang',
     colorToken: 'var(--color-blue-pale)',
+    badge: { stage: 'S2', positioning: 'CONTRACTS-FIRST' },
     copy: {
       'pt-BR': {
         eyebrow: 'Linguagem dinâmica com contratos opcionais',
@@ -160,6 +185,7 @@ export const projects = [
           label: 'Exemplo estático da documentação de Aipo',
           language: 'aipo',
           code: 'io.println("Olá do Aipo!")',
+          output: 'Olá do Aipo!',
           note: 'Este bloco é apenas uma amostra de código. Esta página não compila nem executa Aipo no navegador.',
         },
         documentationLabel: 'Abrir documentação selecionada de Aipo',
@@ -189,6 +215,7 @@ export const projects = [
           label: 'Static example from Aipo documentation',
           language: 'aipo',
           code: 'io.println("Hello from Aipo!")',
+          output: 'Hello from Aipo!',
           note: 'This block is a code sample only. This page does not compile or run Aipo in the browser.',
         },
         documentationLabel: 'Open the selected Aipo documentation',
@@ -210,6 +237,7 @@ export const projects = [
     },
     repositoryHref: 'https://github.com/poppy-team/oride',
     colorToken: 'var(--color-oride-pale)',
+    badge: { stage: 'S1', positioning: 'TERMINAL-FIRST', note: 'IN PROGRESS' },
     copy: {
       'pt-BR': {
         eyebrow: 'Editor de código e IDE para terminal',
@@ -236,6 +264,7 @@ export const projects = [
           label: 'Diagrama estático; não é uma captura da interface',
           language: 'text',
           code: '┌─ Oride · workspace\n│  ├─ project tree\n│  ├─ editor surface\n│  └─ integrated terminal\n└─ tasks · diagnostics',
+          output: 'workspace ready',
           note: 'Composição editorial para explicar áreas citadas no repositório. Não representa uma captura de tela, e nada é executado no navegador.',
         },
         documentationLabel: 'Abrir documentação selecionada de Oride',
@@ -265,6 +294,7 @@ export const projects = [
           label: 'Static diagram; not a screenshot of the interface',
           language: 'text',
           code: '┌─ Oride · workspace\n│  ├─ project tree\n│  ├─ editor surface\n│  └─ integrated terminal\n└─ tasks · diagnostics',
+          output: 'workspace ready',
           note: 'Editorial composition describing areas named by the repository. It is not a screenshot, and nothing runs in the browser.',
         },
         documentationLabel: 'Open the selected Oride documentation',
@@ -286,6 +316,7 @@ export const projects = [
     },
     repositoryHref: 'https://github.com/poppy-team/prumo',
     colorToken: 'var(--color-prumo-pale)',
+    badge: { stage: 'S2', positioning: 'GIT-NATIVE' },
     copy: {
       'pt-BR': {
         eyebrow: 'Protocolo e CLI Git-native',
@@ -312,6 +343,7 @@ export const projects = [
           label: 'Exemplo de comandos; a saída não é executada nesta página',
           language: 'sh',
           code: 'prumo goal list\nprumo validate .\nprumo doctor .',
+          output: 'P00-G01  EXECUTING\nvalidation passed\ndoctor: clean',
           note: 'Os comandos são mostrados como texto para explicar o fluxo. Não há execução de comandos nem do Prumo no navegador.',
         },
         documentationLabel: 'Abrir documentação selecionada de Prumo',
@@ -341,6 +373,7 @@ export const projects = [
           label: 'Command example; output is not executed here',
           language: 'sh',
           code: 'prumo goal list\nprumo validate .\nprumo doctor .',
+          output: 'P00-G01  EXECUTING\nvalidation passed\ndoctor: clean',
           note: 'Commands are shown as text to explain a workflow. No commands, and no Prumo itself, run in the browser.',
         },
         documentationLabel: 'Open the selected Prumo documentation',

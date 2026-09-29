@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { projects, type Locale } from '@poppy/project-data';
+import ProjectBadge from '../components/ProjectBadge.vue';
 
 const { frontmatter } = useData();
 
@@ -47,17 +48,19 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
             <span class="project-feature__category">{{ project.category[locale] }}</span>
           </p>
 
+          <ProjectBadge :badge="project.badge" />
+
           <div class="project-feature__body">
             <h3 class="project-feature__title">
               <a :href="`${root}/projects/${project.slug}/`">{{ project.name }}</a>
             </h3>
             <p class="project-feature__summary">{{ project.homeSummary[locale] }}</p>
             <p class="project-feature__links">
+              <a class="button-link button-link--dark" :href="`${root}/${project.slug}/docs/`">
+                {{ locale === 'en' ? 'Read the documentation' : 'Ler a documentação' }}
+              </a>
               <a class="project-feature__link" :href="`${root}/projects/${project.slug}/`">
                 {{ locale === 'en' ? 'View the project' : 'Ver o projeto' }} →
-              </a>
-              <a class="project-feature__link" :href="`${root}/docs/${project.slug}/`">
-                {{ locale === 'en' ? 'Read the documentation' : 'Ler a documentação' }} →
               </a>
             </p>
           </div>
@@ -99,7 +102,7 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
     </section>
 
     <section class="closing-grid">
-      <a class="closing-note closing-note--docs" :href="`${root}/docs/`">
+      <a class="closing-note closing-note--docs" :href="`${root}/#projects`">
         <span class="closing-grid__caption">
           {{ locale === 'en' ? 'Documentation' : 'Documentação' }}
         </span>

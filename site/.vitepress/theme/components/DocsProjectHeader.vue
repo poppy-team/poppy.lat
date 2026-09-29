@@ -20,8 +20,8 @@ const copy = computed(() => siteCopy[props.locale]);
     <a class="docs-project__source" :href="project.repositoryHref" rel="noopener">
       {{ copy.navigation.projects }} ↗
     </a>
-    <a class="docs-project__switch" :href="`${localeRoot(locale)}/docs/`">
-      {{ copy.navigation.docs }}
+    <a class="docs-project__switch" :href="`${localeRoot(locale)}/#projects`">
+      {{ copy.navigation.projects }}
     </a>
   </aside>
 </template>

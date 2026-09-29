@@ -8,6 +8,7 @@ import {
   siteCopy,
   type Locale,
 } from '@poppy/project-data';
+import ProjectBadge from '../components/ProjectBadge.vue';
 
 const { frontmatter } = useData();
 
@@ -40,7 +41,7 @@ const grouped = computed(() =>
     </p>
 
     <header class="project-page__hero">
-      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <ProjectBadge :badge="project.badge" />
       <h1 id="project-title" class="project-page__title">
         {{ project.name }}<span class="project-page__period">.</span>
       </h1>
@@ -50,7 +51,7 @@ const grouped = computed(() =>
         <a class="button-link button-link--dark" :href="project.repositoryHref" rel="noopener">
           {{ locale === 'en' ? 'Project repository' : 'Repositório do projeto' }} ↗
         </a>
-        <a class="button-link button-link--light" :href="`/${locale === 'en' ? 'en/' : ''}docs/${project.slug}/`">
+        <a class="button-link button-link--light" :href="`/${locale === 'en' ? 'en/' : ''}${project.slug}/docs/`">
           {{ copy.documentationLabel }}
         </a>
       </div>
@@ -87,6 +88,7 @@ const grouped = computed(() =>
             <span class="code-plate__language">{{ copy.demo.language }}</span>
           </figcaption>
           <pre><code :class="`language-${copy.demo.language}`">{{ copy.demo.code }}</code></pre>
+          <p class="code-plate__output">{{ copy.demo.output }}</p>
         </figure>
         <p class="project-page__note">{{ copy.demo.note }}</p>
       </section>
@@ -105,7 +107,7 @@ const grouped = computed(() =>
             <li v-for="page in group.pages" :key="page.slug" class="docs-card">
               <a
                 class="docs-card__link"
-                :href="`/${locale === 'en' ? 'en/' : ''}docs/${project.slug}/${group.slug}/${page.slug}`"
+                :href="`/${locale === 'en' ? 'en/' : ''}${project.slug}/docs/${group.slug}/${page.slug}`"
               >
                 <span class="docs-card__title">{{ page.title[locale] }}</span>
                 <span class="docs-card__description">{{ page.description[locale] }}</span>
