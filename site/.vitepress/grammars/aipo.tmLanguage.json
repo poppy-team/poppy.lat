@@ -1,0 +1,169 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "aipo",
+  "displayName": "Aipo",
+  "scopeName": "source.aipo",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#keywords" },
+    { "include": "#constants" },
+    { "include": "#types" },
+    { "include": "#numbers" },
+    { "include": "#functions" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.aipo",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.interpolated.aipo",
+          "begin": "\\b(?:fr|rf|f)(\"\"\")",
+          "end": "\"\"\"",
+          "patterns": [
+            { "include": "#escapes" },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.interpolated.aipo",
+          "begin": "\\b(?:fr|rf|f)(\")",
+          "end": "\"",
+          "patterns": [
+            { "include": "#escapes" },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.triple.raw.aipo",
+          "begin": "\\br\"\"\"",
+          "end": "\"\"\""
+        },
+        {
+          "name": "string.quoted.double.raw.aipo",
+          "begin": "\\br\"",
+          "end": "\""
+        },
+        {
+          "name": "string.quoted.triple.aipo",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [{ "include": "#escapes" }]
+        },
+        {
+          "name": "string.quoted.double.aipo",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [{ "include": "#escapes" }]
+        }
+      ]
+    },
+    "escapes": {
+      "name": "constant.character.escape.aipo",
+      "match": "\\\\(?:u\\{[0-9A-Fa-f]+\\}|.)"
+    },
+    "interpolation": {
+      "name": "meta.interpolation.aipo",
+      "begin": "\\{",
+      "beginCaptures": { "0": { "name": "punctuation.section.interpolation.begin.aipo" } },
+      "end": "\\}",
+      "endCaptures": { "0": { "name": "punctuation.section.interpolation.end.aipo" } },
+      "patterns": [{ "include": "$self" }]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.aipo",
+          "match": "\\b(if|elif|else|then|match|when|loop|while|repeat|each|in|break|continue|return|fail|or_else|attempt|failed|do|end|await)\\b"
+        },
+        {
+          "name": "keyword.control.import.aipo",
+          "match": "\\b(import|export|as)\\b"
+        },
+        {
+          "name": "storage.type.aipo",
+          "match": "\\b(let|var|fixed|fn|struct|impl|interface|satisfy|init|invariant)\\b"
+        },
+        {
+          "name": "storage.modifier.aipo",
+          "match": "\\basync\\b"
+        },
+        {
+          "name": "keyword.operator.word.aipo",
+          "match": "\\b(and|or|not|is|div)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.aipo",
+          "match": "\\b(true|false|none)\\b"
+        },
+        {
+          "name": "variable.language.self.aipo",
+          "match": "\\bself\\b!?"
+        }
+      ]
+    },
+    "types": {
+      "name": "entity.name.type.aipo",
+      "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.aipo",
+          "match": "\\b0[xX][0-9A-Fa-f_]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.aipo",
+          "match": "\\b0[bB][01_]+\\b"
+        },
+        {
+          "name": "constant.numeric.octal.aipo",
+          "match": "\\b0[oO][0-7_]+\\b"
+        },
+        {
+          "name": "constant.numeric.aipo",
+          "match": "\\b[0-9][0-9_]*(?:\\.[0-9][0-9_]*)?(?:[eE][+-]?[0-9_]+)?\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "match": "\\b(fn)\\s+([a-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.aipo" },
+            "2": { "name": "entity.name.function.aipo" }
+          }
+        },
+        {
+          "name": "entity.name.function.call.aipo",
+          "match": "\\b[a-z_][A-Za-z0-9_]*(?=\\s*\\()"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arrow.aipo",
+          "match": "=>|->"
+        },
+        {
+          "name": "keyword.operator.aipo",
+          "match": "==|!=|<=|>=|\\+=|-=|\\*=|/=|//=?|%=|\\*\\*|[+\\-*/%<>=!|&?]"
+        }
+      ]
+    }
+  }
+}
