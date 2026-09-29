@@ -230,7 +230,69 @@ describe('routes', () => {
     expect(await readRoute('/blog/um-arquivo-com-origem/')).toMatch('Um arquivo com origem');
     expect(await readRoute('/en/blog/a-source-aware-archive/')).toMatch('An archive with provenance');
   });
+
+  test('redirects every old /docs/<project>/ link to the page that replaced it', async () => {
+    const redirects = await vercelRedirects();
+
+    for (const slug of projectSlugs) {
+      for (const prefix of ['', 'en']) {
+        const localePrefix = prefix === '' ? '' : `/${prefix}`;
+        const directory = path.join(projectRoot, 'site', prefix, slug, 'docs');
+        const pages = (await importedPages(directory)).map((file) => file.replace(/\.md$/u, ''));
+
+        for (const page of ['', ...pages]) {
+          const oldRoute = `${localePrefix}/docs/${slug}${page === '' ? '' : `/${page}`}`;
+          const newRoute = `${localePrefix}/${slug}/docs${page === '' ? '' : `/${page}`}`;
+
+          expect(applyRedirects(redirects, oldRoute), `redirect for ${oldRoute}`).toBe(newRoute);
+          expect(await routeExists(`${newRoute}/`), `redirect target for ${oldRoute}`).toBe(true);
+        }
+      }
+    }
+
+    // Only known projects move; an unknown name must not become /<name>/docs.
+    expect(applyRedirects(redirects, '/docs/unknown/page')).toBeUndefined();
+  });
 });
+
+interface Redirect {
+  source: string;
+  destination: string;
+}
+
+async function vercelRedirects(): Promise<Redirect[]> {
+  const config = JSON.parse(await readFile(path.join(projectRoot, 'vercel.json'), 'utf8'));
+
+  return config.redirects;
+}
+
+/**
+ * Resolves a path against vercel.json redirects, first match wins. Supports the
+ * subset of Vercel's path-to-regexp syntax the file uses: `:name`,
+ * `:name(a|b)` and a trailing `:name*`.
+ */
+function applyRedirects(redirects: Redirect[], route: string): string | undefined {
+  for (const { source, destination } of redirects) {
+    const names: string[] = [];
+    const pattern = source.replace(
+      /\/:(\w+)(\([^)]*\))?(\*)?/gu,
+      (_match, name: string, group: string | undefined, star: string | undefined) => {
+        names.push(name);
+
+        return star ? '(?:/(.*))?' : `/(${group ? group.slice(1, -1) : '[^/]+'})`;
+      },
+    );
+    const match = new RegExp(`^${pattern}$`, 'u').exec(route);
+
+    if (match) {
+      return names
+        .reduce((result, name, index) => result.replace(`:${name}*`, match[index + 1] ?? '').replace(`:${name}`, match[index + 1] ?? ''), destination)
+        .replace(/\/$/u, '');
+    }
+  }
+
+  return undefined;
+}
 
 describe('provenance', () => {
   test('serves the pinned source manifest and complete third-party notices', async () => {
