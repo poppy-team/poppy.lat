@@ -23,14 +23,16 @@ VITE_ACCOUNTS=1 pnpm dev --host 127.0.0.1 # site em http://127.0.0.1:5173, /api 
 
 | Variável | Para quê |
 | --- | --- |
-| `SITE_URL` | Endereço público, com `https://`, sem barra no fim (`https://poppy.lat`). Serve para cookies, links do e-mail e a checagem de Origin. |
+| `SITE_URL` | Endereço público, com `https://`, sem barra no fim. Aqui é `https://www.poppy.lat`, porque o apex `poppy.lat` redireciona para o `www`. Serve para cookies, links do e-mail e a checagem de Origin. |
 | `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | O banco. |
 | `AUTH_SECRET` | 32 caracteres ou mais, aleatório (`openssl rand -base64 32`). Diferente em cada ambiente. |
-| `RESEND_API_KEY`, `MAIL_FROM` | Envio do link de login. O domínio do remetente precisa estar verificado na Resend. |
+| `RESEND_API_KEY`, `MAIL_FROM` | Envio do link de login. O domínio do remetente precisa estar verificado na Resend: hoje é `noreply.poppy.lat`, com `MAIL_FROM=Poppy Team <login@noreply.poppy.lat>` e o rastreio de cliques desligado (ele reescreveria o link de login). |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | Opcional: liga o “Entrar com GitHub”. Callback: `https://poppy.lat/api/auth/callback/github`. |
 | `VITE_ACCOUNTS` | `1` para ligar a interface de contas no build. |
 
 4. **Primeiro admin:** entre uma vez pelo site e rode no Turso `UPDATE user SET role='admin' WHERE email='...'`. Depois disso, papéis se mudam pela página de Moderação.
+**Estado atual (2026-09-30):** já estão no projeto `poppy-website` da Vercel, só em Production, `SITE_URL`, `MAIL_FROM`, `RESEND_API_KEY` (sensível, só envio) e `AUTH_SECRET` (sensível). Faltam `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` e, por último, `VITE_ACCOUNTS=1`. Não ligue `VITE_ACCOUNTS` antes do Turso, senão a interface aparece sem API. Os Previews ainda não têm variáveis: como o `SITE_URL` é fixo, um Preview precisaria do próprio endereço.
+
 5. **Confirmar em um Preview antes do Production:** o formato do handler em `api/[...route].ts` (exports `GET/POST/PUT/DELETE` com Hono) segue a documentação da Vercel, mas só um deploy real confirma. Teste `/api/health`, o login completo e o envio de foto.
 
 ## O que está e o que não está pronto
