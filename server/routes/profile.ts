@@ -30,6 +30,19 @@ const deleteInput = z.object({ confirm: z.string().min(1).max(40) }).strict();
 export function profileRoutes() {
   const app = new Hono<AppEnv>();
 
+  /** Like /me, but "nobody is logged in" is an answer, not an error, so the browser console stays quiet for visitors. */
+  app.get('/whoami', async (c) => {
+    const user = c.get('user');
+
+    if (!user) {
+      return c.json({ me: null });
+    }
+
+    const profile = await loadProfile(deps(c).db, user.id, { loggedIn: true });
+
+    return c.json({ me: { user: { id: user.id, name: user.name, email: user.email, role: user.role }, profile } });
+  });
+
   app.get('/me', async (c) => {
     const user = requireUser(c);
     const { db } = deps(c);

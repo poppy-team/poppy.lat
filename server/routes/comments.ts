@@ -60,7 +60,7 @@ export function commentRoutes() {
               WHERE c.target_type = ? AND c.target_id = ? AND c.parent_id IS NULL
                 AND (c.status = 'visible' OR ? = 1
                      OR EXISTS (SELECT 1 FROM comments r WHERE r.parent_id = c.id AND r.status = 'visible'))
-              ORDER BY c.is_pinned DESC, c.created_at DESC, c.id DESC LIMIT ? OFFSET ?`,
+              ORDER BY c.is_pinned DESC, c.created_at DESC, c.rowid DESC LIMIT ? OFFSET ?`,
         args: [query.targetType, query.targetId, viewer.isModerator ? 1 : 0, query.limit + 1, query.offset],
       })
     ).rows;
@@ -70,7 +70,7 @@ export function commentRoutes() {
       ? (
           await client.execute({
             sql: `${commentSelect} WHERE c.parent_id IN (${placeholders(page.length)}) AND (c.status = 'visible' OR ? = 1)
-                  ORDER BY c.created_at ASC, c.id ASC LIMIT 500`,
+                  ORDER BY c.created_at ASC, c.rowid ASC LIMIT 500`,
             args: [...page.map((row) => String(row.id)), viewer.isModerator ? 1 : 0],
           })
         ).rows

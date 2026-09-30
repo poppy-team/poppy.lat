@@ -74,6 +74,11 @@ const counterpartHref = computed(() => {
     return locale.value === 'en' ? '/aprender/' : '/en/learn/';
   }
 
+  // Account pages exist only in Portuguese; the switch leads to the English learning notice.
+  if (/^\/?conta\//u.test(stripped)) {
+    return '/en/learn/';
+  }
+
   const isDocumentationPage = typeof frontmatter.value.project === 'string';
   const currentRoute = page.value.relativePath
     .replace(/(^|\/)index\.md$/u, '$1')

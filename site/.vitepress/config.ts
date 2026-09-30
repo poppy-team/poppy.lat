@@ -352,6 +352,9 @@ export default defineConfig({
 
   vite: {
     plugins: [importedDocsModule()],
+    // In development the API runs on its own port (`pnpm api`); the site talks
+    // to it through the same address, so cookies and the Origin check behave as in production.
+    server: { proxy: { '/api': { target: 'http://127.0.0.1:8787' } } },
     resolve: {
       alias: {
         '@poppy/project-data': path.resolve(

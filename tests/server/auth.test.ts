@@ -40,6 +40,17 @@ describe('login por link no e-mail', () => {
     expect(second.headers.getSetCookie().length).toBe(0);
   });
 
+  it('/api/whoami responde 200 com null para visitantes e com a pessoa para quem entrou', async () => {
+    const visitor = await h.request('/api/whoami');
+
+    expect(visitor.status).toBe(200);
+    expect(visitor.data.me).toBeNull();
+
+    const cookie = await h.signIn('ana@example.com');
+
+    expect((await h.request('/api/whoami', { cookie })).data.me.user.role).toBe('student');
+  });
+
   it('sem sessão, /api/me responde 401', async () => {
     const me = await h.request('/api/me');
 

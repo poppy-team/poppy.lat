@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CommentsSection from '../accounts/CommentsSection.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { lessonAt, lessonRoute } from '../data/courses';
@@ -35,5 +36,6 @@ const feedbackHref = computed(() => {
       Algo ficou confuso? <a :href="feedbackHref" target="_blank" rel="noreferrer">Conte para a gente</a>. Cada
       lição é revisada a partir dessas mensagens.
     </p>
+    <CommentsSection />
   </section>
 </template>

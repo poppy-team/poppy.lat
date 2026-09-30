@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NotesPanel from '../accounts/NotesPanel.vue';
 import { computed, onMounted, watch } from 'vue';
 import { onContentUpdated, useRoute } from 'vitepress';
 import { coursesRoot, lessonAt, lessonRoute } from '../data/courses';
@@ -76,5 +77,6 @@ const moduleProgress = computed(() => {
     </div>
 
     <ReadingPreferences />
+    <NotesPanel />
   </div>
 </template>

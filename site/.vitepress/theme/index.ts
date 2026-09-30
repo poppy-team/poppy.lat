@@ -16,6 +16,11 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs } from './course-state';
+import AccountMenu from './accounts/AccountMenu.vue';
+import LoginPage from './accounts/LoginPage.vue';
+import ProfilePage from './accounts/ProfilePage.vue';
+import NotesPage from './accounts/NotesPage.vue';
+import ModerationPage from './accounts/ModerationPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import '@fontsource-variable/newsreader/opsz.css';
@@ -27,6 +32,7 @@ import '@fontsource/atkinson-hyperlegible/700.css';
 import './tokens.css';
 import './custom.css';
 import './courses.css';
+import './accounts/accounts.css';
 
 const { Layout } = DefaultTheme;
 
@@ -88,6 +94,9 @@ const RoutedLayout = defineComponent({
         'doc-before': () =>
           kind === 'documentation' ? [h(DocsBar)] : kind === 'course' ? [h(LessonBar)] : [],
         'doc-after': () => (kind === 'course' ? [h(LessonFooter)] : []),
+        // The header of editorial pages carries the account menu itself.
+        'nav-bar-content-after': () => (kind === 'editorial' || lang.value.startsWith('en') ? [] : [h(AccountMenu)]),
+        'nav-screen-content-after': () => (kind === 'editorial' || lang.value.startsWith('en') ? [] : [h(AccountMenu)]),
       });
     };
   },
@@ -107,6 +116,10 @@ export default {
     app.component('article', ArticlePage);
     app.component('not-found', NotFound);
     app.component('courses-landing', CoursesLanding);
+    app.component('LoginPage', LoginPage);
+    app.component('ProfilePage', ProfilePage);
+    app.component('NotesPage', NotesPage);
+    app.component('ModerationPage', ModerationPage);
     rememberCodeTabs();
   },
 } satisfies Theme;

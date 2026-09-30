@@ -131,6 +131,18 @@ describe('progresso', () => {
     expect((await h.request('/api/me/progress', { method: 'PUT', json: { lessons: [{ id: lesson, status: 'quase' }] }, cookie })).status).toBe(422);
   });
 
+  it('desmarcar uma aula tem rota própria e só mexe no que é da pessoa', async () => {
+    const ana = await h.signIn('ana@example.com');
+    const bia = await h.signIn('bia@example.com');
+
+    await h.request('/api/me/progress', { method: 'PUT', json: { lessons: [{ id: lesson, status: 'completed' }] }, cookie: ana });
+    await h.request('/api/me/progress', { method: 'PUT', json: { lessons: [{ id: lesson, status: 'completed' }] }, cookie: bia });
+    await h.request(`/api/me/progress?lesson=${lesson}`, { method: 'DELETE', cookie: ana });
+
+    expect((await h.request('/api/me/progress', { cookie: ana })).data.lessons).toEqual([]);
+    expect((await h.request('/api/me/progress', { cookie: bia })).data.lessons).toHaveLength(1);
+  });
+
   it('o progresso é de cada pessoa', async () => {
     const ana = await h.signIn('ana@example.com');
     const bia = await h.signIn('bia@example.com');

@@ -115,6 +115,9 @@ export function isCompleted(route: string): boolean {
 export function setCompleted(route: string, done: boolean): void {
   const others = courseState.value.completed.filter((item) => item !== route);
   courseState.value.completed = done ? [...others, route] : others;
+
+  // Lets the account layer (when it is on) keep the server in step.
+  globalThis.dispatchEvent?.(new CustomEvent('poppy:completed', { detail: { route, done } }));
 }
 
 /**

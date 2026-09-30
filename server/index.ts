@@ -23,7 +23,10 @@ export function buildApp(parts: ServerParts): App {
   const auth = createAuth({ db: parts.db, env: parts.env, mailer: parts.mailer ?? createMailer(parts.env) });
 
   return createApp({ db: parts.db, client: parts.client, env: parts.env, auth }, (app) => {
-    app.get('/health', (c) => c.json({ ok: true }));
+    app.get('/health', (c) =>
+      // What the page needs to know before it draws the login options.
+      c.json({ ok: true, github: Boolean(parts.env.GITHUB_CLIENT_ID && parts.env.GITHUB_CLIENT_SECRET) }),
+    );
     app.route('/', publicRoutes());
     app.route('/', profileRoutes());
     app.route('/', progressRoutes());

@@ -61,5 +61,15 @@ export function progressRoutes() {
     });
   });
 
+  /** Unmarking a lesson is the one thing a merge cannot do, so it has its own route. */
+  app.delete('/me/progress', async (c) => {
+    const user = requireUser(c);
+    const lesson = z.string().max(200).refine(isLessonId, 'Essa aula não existe.').parse(c.req.query('lesson'));
+
+    await deps(c).client.execute({ sql: 'DELETE FROM lesson_progress WHERE user_id = ? AND lesson_id = ?', args: [user.id, lesson] });
+
+    return c.json({ removed: true });
+  });
+
   return app;
 }

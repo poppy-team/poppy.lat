@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
+import AccountMenu from '../accounts/AccountMenu.vue';
 
 const props = defineProps<{
   locale: Locale;
@@ -79,6 +80,8 @@ const links = computed(() => [
           {{ link.label }}
         </a>
       </nav>
+
+      <AccountMenu v-if="locale !== 'en'" />
 
       <a
         class="language-switch"
