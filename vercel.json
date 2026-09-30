@@ -7,6 +7,16 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/ori/docs/guides/first-project",
+      "destination": "/ori/docs/guides/getting-started/first-project",
+      "permanent": true
+    },
+    {
+      "source": "/en/ori/docs/guides/first-project",
+      "destination": "/en/ori/docs/guides/getting-started/first-project",
+      "permanent": true
+    },
+    {
       "source": "/projetos/:slug",
       "destination": "/projects/:slug",
       "permanent": true

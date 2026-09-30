@@ -7,4 +7,16 @@ category: guides
 locale: en
 ---
 
-- [First Project](./first-project)
+- [Install](./getting-started/install)
+- [First Project](./getting-started/first-project)
+- [Tour](./getting-started/tour)
+- [Advanced](./language/advanced)
+- [Concurrency](./language/concurrency)
+- [Interop](./language/interop)
+- [Cookbook](./manual/cookbook)
+- [Errors Null Void](./manual/errors-null-void)
+- [Testing](./manual/testing)
+- [Debugging](./manual/debugging)
+- [Performance](./manual/performance)
+- [Cli Reference](./reference/cli-reference)
+- [Stdlib Reference](./reference/stdlib-reference)

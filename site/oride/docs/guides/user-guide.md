@@ -215,7 +215,7 @@ O Oride vem com mais de 10 temas integrados de alta qualidade (`tokyo-night`, `d
 
 - **Trocar de Tema:** Abra a Command Palette (`Ctrl+Shift+P`), busque por *Theme* e navegue com as setas para ver o **Live Preview** imediato.
 - **Criar Tema Personalizado:**
-  Coloque um arquivo `.toml` em `~/.config/oride/themes/meu-tema.toml`. O editor detecta o arquivo automaticamente na próxima inicialização. Consulte o [Guia de Temas](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/themes.md) para a especificação completa de paleta e tokens de syntax.
+  Coloque um arquivo `.toml` em `~/.config/oride/themes/meu-tema.toml`. O editor detecta o arquivo automaticamente na próxima inicialização. Consulte o [Guia de Temas](/oride/docs/guides/themes) para a especificação completa de paleta e tokens de syntax.
 
 ---
 

@@ -1,0 +1,389 @@
+---
+title: "Tour da linguagem"
+description: "Um passeio pela superfície S3: módulos, funções, tipos, result, match, pipe e traits."
+project: ori
+category: guides
+locale: pt-BR
+sourcePath: "docs/language/tour.pt-BR.md"
+sourceBlob: "25f82a033a7b8e9e56e069791624f1f58a82ddfb"
+revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
+license: "MIT"
+---
+::: info Cópia estática
+Copiado de `docs/language/tour.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `25f82a033a7b8e9e56e069791624f1f58a82ddfb`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+:::
+# Tour da linguagem Ori (S3)
+
+> **Público:** quem quer aprender a ler e escrever Ori  
+> **English:** [tour.md](/en/ori/docs/guides/getting-started/tour)  
+> **Detalhe normativo:** [../spec/01-overview.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/01-overview.md)  
+> **Superfície:** S3 `0.3.0` + inferência B `0.3.1` · construtores `ok`/`err`
+
+Este tour reflete **o que o compilador aceita hoje**. Formas pré-S3 são erros
+duros (`ori migrate-syntax` reescreve várias delas).
+
+---
+
+## 1. Programa completo e pequeno
+
+```ori
+module app.hello
+
+import ori.io as io
+
+main()
+    io.println("Hello, Ori!")
+    const answer: int = 21 * 2
+    io.println(f"The answer is {answer}")
+end
+```
+
+```bash
+ori run main.orl
+```
+
+| Ideia | Forma |
+|-------|--------|
+| Arquivo em um namespace | `module app.hello` na primeira linha |
+| Import com nome curto | `import ori.io as io` (ou `= io`) |
+| Entrada | `main()` — sem keyword `func` |
+| Blocos | terminam com `end` |
+| Tipos | explícitos na API pública / quando a inferência não basta |
+
+---
+
+## 2. Módulos e imports
+
+```ori
+import ori.fs (read_text, write_text)   -- seletivo
+import ori.string as str                -- alias (`as` ou `=`)
+import ori.math                         -- só ori.math.…
+```
+
+- `import ori.io` **não** cria o nome local `io`.
+- Prefira pais canônicos `ori.fs`, `ori.string` (não ensinar `.utils` como API nova).
+- Aliases de domínio: `import ori.fs (TextResult)`.
+
+---
+
+## 3. Tipos do dia a dia
+
+| Tipo | Significado |
+|------|-------------|
+| `int`, `float`, `bool`, `string`, `bytes` | primitivos / texto / binário |
+| `list[T]`, `map[K, V]`, `set[T]` | coleções |
+| `simd[float32, 4]` | vetor SIMD de largura fixa (veja [recursos avançados](/ori/docs/guides/language/advanced)) |
+| `optional[T]` | valor ou `none` (sem null) |
+| `result[T, E]` | `ok(T)` ou `err(E)` |
+| `void` | sem valor útil |
+
+Tipos compostos só com **`[]`**.
+
+`alias` dá nome a um tipo existente (transparente); `newtype` cria um tipo
+distinto com a mesma representação e custo zero:
+
+```ori
+alias UserMap = map[int, string]   -- intercambiável com o alvo
+newtype UserId = int               -- NÃO é int: UserId(7) entra, int(id) sai
+```
+
+Ligue vários campos de uma struct de uma vez:
+
+```ori
+const Point { x, y } = get_pos()   -- tipo escrito
+const { x, y } = get_pos()         -- tipo inferido
+const Point { x: px } = get_pos()  -- renomeando
+```
+
+Só campos de struct — tuplas não são desestruturadas.
+
+### Inferência local (opção B)
+
+Em `const`/`var` **locais**, pode omitir o tipo se o lado direito for campo,
+índice, chamada com retorno conhecido ou pipe `|>`.
+
+---
+
+## 4. Fluxo de controle
+
+- `if` / **`elif`** / `else` (não `else if`)
+- `while`, `for … in`
+- `match` com `case ok(x):` / `case err(m):` (sem `.` em variantes de enum)
+- `case padrão if condição:` — guard: se falso, cai para o próximo case;
+  `case else:` é o fallback explícito
+- `case a or b:` — alternativas no mesmo braço (palavra `or`, não `|`); não
+  ligam valores e, juntas, contam como cobertura completa
+
+```ori
+match score
+    case n if n >= 90:
+        io.println("A")
+    case n if n >= 80:
+        io.println("B")
+    case else:
+        io.println("C")
+end
+
+-- `match` também funciona como expressão: cada braço é um único valor
+const nota: string = match score
+    case n if n >= 90: "A"
+    case else: "C"
+end
+```
+
+---
+
+## 5. Result e optional
+
+```ori
+load(path: string) -> result[string, string]
+    return ori.fs.read_text(path)
+end
+
+main() -> result[void, string]
+    const text: string = try load("notes.txt")
+    io.println(text)
+    return ok()
+end
+```
+
+| Forma | Papel |
+|-------|--------|
+| `ok` / `err` | construir `result` |
+| `some` / `none` | construir `optional` |
+| `try expr` | propagar (única forma; sem `?`) |
+| `if some(x) = expr` | ramificar na presença, ligando o valor |
+| `if ok(v) = expr` / `if err(e) = expr` | ramificar num `result`, ligando qualquer um dos lados |
+
+```ori
+if some(user) = find_user(id)
+    greet(user)
+else
+    io.println("não encontrado")
+end
+
+if ok(valor) = divide(10, 2)
+    io.println(string(valor))
+end
+
+if err(motivo) = divide(1, 0)
+    io.println(motivo)   -- entra quando o result NÃO deu ok
+end
+```
+
+---
+
+## 6. Structs, enums, traits
+
+```ori
+struct Point
+    x: int
+    y: int
+end
+
+const p: Point = Point { x: 1, y: 2 }
+
+-- derivação: valor novo a partir de `p`; `p` fica intacto
+const movido: Point = p with { x: 10 } end
+```
+
+Traits: **`apply Type: Trait`** (ou `apply Type use Trait`).
+Importe o módulo do trait (`import ori.core as core`) e use
+`apply Type: core.Displayable`. Conversão: `string(value)`, não método solto
+`value.display()` fora do trait.
+
+```ori
+import ori.core as core
+import ori.io as io
+
+struct Point
+    x: int
+    y: int
+end
+
+apply Point: core.Displayable
+    display(self) -> string
+        return f"({self.x}, {self.y})"
+    end
+end
+
+main()
+    const p: Point = Point { x: 1, y: 2 }
+    io.println(string(p))
+end
+```
+
+Quase todo código dispensa manipulação manual de memória. No caso incomum em
+que um valor possui algo fora do heap gerenciado de Ori, ele pode implementar
+`core.Destructor`:
+
+```ori
+apply NativeHandle: core.Destructor
+    mut destroy(self)
+        close_external(self.id)
+    end
+end
+```
+
+`destroy` roda automaticamente quando a última referência morre. Um ciclo de
+referências pode atrasar esse momento; use `using` + `core.Disposable` quando
+arquivo, socket ou recurso semelhante precisar fechar no fim de um escopo
+específico.
+
+---
+
+## 7. Funções
+
+```ori
+add(a: int, b: int) -> int
+    return a + b
+end
+
+double(n: int) -> int => n * 2
+```
+
+Pipe `|>` permanece e é tipado como `f(value)`.
+
+Em closures o tipo do parâmetro pode ser omitido quando uma anotação fornece o
+tipo da função: `const double: func(int) -> int = (x) => x * 2`. Sem contexto,
+escreva o tipo: `(x: int) => x + 1`.
+
+Geradores — `iter` + `suspend`:
+
+```ori
+iter counter(stop: int) -> int
+    var i: int = 0
+    while i < stop
+        suspend i        -- entrega um valor ao laço e retoma daqui no próximo passo
+        i = i + 1
+    end
+end
+
+for n in counter(4)
+    io.println(f"{n}")   -- 0, 1, 2, 3
+end
+```
+
+O corpo é colado dentro do `for` — sem alocação, sem máquina de estados. Um
+iterador só pode ser consumido por um `for` (funções livres, mesmo módulo,
+sem genéricos por enquanto).
+
+---
+
+## 8. Genéricos
+
+```ori
+identity[T](value: T) -> T
+    return value
+end
+
+struct Pair[A, B]
+    first: A
+    second: B
+end
+```
+
+Restrições usam a cláusula `for` no lugar da lista em colchetes — as duas
+formas nunca se combinam:
+
+```ori
+max for T: Comparable (a: T, b: T) -> T
+    if a.compare(b) > 0
+        return a
+    end
+    return b
+end
+```
+
+Const generics deixam um número de tempo de compilação fazer parte do tipo. O
+argumento é **nomeado**, porque um `Buffer[8]` puro seria lido como o índice
+`frutas[8]`:
+
+```ori
+struct Buffer[const size: int]
+    used: int
+end
+
+const pequeno: Buffer[size: 8]  = Buffer { used: 0 }
+const grande: Buffer[size: 16] = Buffer { used: 0 }   -- outro tipo
+```
+
+Dois limites que valem saber: um **trait genérico** pode ser declarado mas não
+aplicado, e tipos de ordem superior (um parâmetro que representa `list` ou
+`optional` em si) estão deliberadamente fora de escopo. Veja
+[spec/11-generics.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/11-generics.md).
+
+---
+
+## 9. Projetos
+
+```text
+my_app/
+  ori.proj     -- obrigatório
+  main.orl     -- entrada recomendada
+  docs/
+```
+
+```bash
+ori new my_app
+ori run main.orl
+```
+
+Guia: [Primeiro projeto](/ori/docs/guides/getting-started/first-project).
+
+---
+
+## 10. O que não escrever (pré-S3)
+
+| Evite | Use |
+|-------|-----|
+| `namespace` | `module` |
+| `func name()` | `name()` |
+| `import path only (…)` | `import path (…)` / `(item as alias)` |
+| `list of T` / `Foo<T>` | `list[T]` / `Foo[T]` |
+| `success` / `error` | `ok` / `err` |
+| `else if` | `elif` |
+| `expr?` | `try expr` |
+| `implement Trait for T` | `apply T: Trait` |
+
+```bash
+ori migrate-syntax caminho/
+```
+
+---
+
+## 11. Async (nativo)
+
+```ori
+module app.main
+
+import ori.io as io
+import ori.task as task
+
+async main()
+    await task.sleep(10)
+    io.println("pronto")
+end
+```
+
+- `async main()` + `await` só dentro de funções `async`.
+- Helpers: `fs.read_text_async`, `net.connect_async`, …
+- Exemplo: [`examples/async_demo`](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/async_demo/).
+- AOT/JIT nativo suporta o [subconjunto async documentado](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/14-backend-support.md#native-async-subset); formas não suportadas são rejeitadas explicitamente.
+
+---
+
+## 12. Próximos passos
+
+| Objetivo | Doc |
+|----------|------|
+| Instalar package (Linux principal) | [../install.pt-BR.md](/ori/docs/guides/getting-started/install) |
+| Receitas | [../guides/cookbook.pt-BR.md](/ori/docs/guides/manual/cookbook) |
+| Erros | [../guides/errors-null-void.pt-BR.md](/ori/docs/guides/manual/errors-null-void) |
+| Exemplos | [../../examples/](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/) |
+| Spec completa | [../spec/](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/README.md) (EN) |
+| Tipos e generics avançados | [advanced.pt-BR.md](/ori/docs/guides/language/advanced) |
+| Async, tasks e channels | [concurrency.pt-BR.md](/ori/docs/guides/language/concurrency) |
+| ABI C e FFI | [interop.pt-BR.md](/ori/docs/guides/language/interop) |

@@ -26,6 +26,8 @@ const sectionLabels: Record<string, Record<Locale, string>> = {
   '': { 'pt-BR': 'Geral', en: 'General' },
   'getting-started': { 'pt-BR': 'Primeiros passos', en: 'Getting started' },
   manual: { 'pt-BR': 'Manual', en: 'Manual' },
+  language: { 'pt-BR': 'Linguagem', en: 'Language' },
+  reference: { 'pt-BR': 'Referência', en: 'Reference' },
   packages: { 'pt-BR': 'Pacotes', en: 'Packages' },
   trajectory: { 'pt-BR': 'Trajetória', en: 'Trajectory' },
   tools: { 'pt-BR': 'Ferramentas', en: 'Tools' },
@@ -45,7 +47,9 @@ const sectionLabels: Record<string, Record<Locale, string>> = {
 const sectionOrder = [
   '',
   'getting-started',
+  'language',
   'manual',
+  'reference',
   'tools',
   'packages',
   'trajectory',
@@ -62,7 +66,7 @@ const sectionOrder = [
 ];
 
 /** Pages a newcomer reads first, ahead of the alphabetical rest. */
-const leadingSlugs = [/^what-is/u, /^overview$/u, /^installation$/u, /^getting-started$/u, /^first-/u];
+const leadingSlugs = [/^what-is/u, /^overview$/u, /^installation$/u, /^getting-started$/u, /^install$/u, /^first-/u, /^tour$/u];
 
 function titleCase(slug: string): string {
   return slug.replace(/[-_]+/gu, ' ').replace(/\b\p{L}/gu, (letter) => letter.toUpperCase());

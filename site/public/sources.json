@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "purpose": "Allow-list da documentação pública copiada para os subsites de cada projeto.",
   "canonicality": "Os repositórios de origem são as fontes canônicas; as cópias locais não são atualizadas automaticamente.",
-  "updatedAt": "2026-09-29",
+  "updatedAt": "2026-09-30",
   "generator": "scripts/generate-manifest.ts",
   "documentationCategories": {
     "guides": "Conceitos, primeiros passos e referência de uso.",
@@ -20,21 +20,245 @@
       "revision": "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f",
       "license": "MIT",
       "licenseFile": "LICENSE",
-      "criterion": "lista explícita em packages/project-data (1 páginas)",
+      "criterion": "lista explícita em packages/project-data (15 páginas)",
       "pages": [
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/bootstrapping.pt-BR.md",
+          "sourceBlob": "c3e1d5a5a1aa4e9525ad9890b2d04c81a5776716",
+          "localPath": "site/ori/docs/development/bootstrapping.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/report-bugs.pt-BR.md",
+          "sourceBlob": "5dab081bda91830eb7eb10f363466f3508762519",
+          "localPath": "site/ori/docs/development/report-bugs.md",
+          "category": "development",
+          "status": "vendored"
+        },
         {
           "locale": "pt-BR",
           "sourcePath": "docs/guides/first-project.pt-BR.md",
           "sourceBlob": "7d9e2b408472e1d5d88e2cfb144007aed3c10396",
-          "localPath": "site/ori/docs/guides/first-project.md",
+          "localPath": "site/ori/docs/guides/getting-started/first-project.md",
           "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/install.pt-BR.md",
+          "sourceBlob": "1589150d9727ea0f8184cf3ee513054ba188de17",
+          "localPath": "site/ori/docs/guides/getting-started/install.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/language/tour.pt-BR.md",
+          "sourceBlob": "25f82a033a7b8e9e56e069791624f1f58a82ddfb",
+          "localPath": "site/ori/docs/guides/getting-started/tour.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/language/advanced.pt-BR.md",
+          "sourceBlob": "a1b0cc2f291db9883114b3e0e81ccd878b7f1471",
+          "localPath": "site/ori/docs/guides/language/advanced.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/language/concurrency.pt-BR.md",
+          "sourceBlob": "1b76a0ac25c67cfeed2b46d5e62cf6c927ae6a2d",
+          "localPath": "site/ori/docs/guides/language/concurrency.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/language/interop.pt-BR.md",
+          "sourceBlob": "efcb44a731016fc7e600f9321bf66a1f991852fe",
+          "localPath": "site/ori/docs/guides/language/interop.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/cookbook.pt-BR.md",
+          "sourceBlob": "0b0f473949bfe6249969d1b3eee4368705b3667a",
+          "localPath": "site/ori/docs/guides/manual/cookbook.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/debugging.pt-BR.md",
+          "sourceBlob": "3ae26de8d8b8d3d28b2fe5af0603586b2c54b044",
+          "localPath": "site/ori/docs/guides/manual/debugging.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/errors-null-void.pt-BR.md",
+          "sourceBlob": "6eb0e01507a8b7faa312428716b07218cb25abb4",
+          "localPath": "site/ori/docs/guides/manual/errors-null-void.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/performance.pt-BR.md",
+          "sourceBlob": "3c04954ce944e49ad3b4031c22b541b325b1f4e4",
+          "localPath": "site/ori/docs/guides/manual/performance.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/testing.pt-BR.md",
+          "sourceBlob": "c96448f2e2e6fe0c5a93f20408eda21a00fdd7e5",
+          "localPath": "site/ori/docs/guides/manual/testing.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/cli-reference.pt-BR.md",
+          "sourceBlob": "74251452b8b97874816e8bcc7cbae9f251f78ae0",
+          "localPath": "site/ori/docs/guides/reference/cli-reference.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "pt-BR",
+          "sourcePath": "docs/guides/stdlib-reference.pt-BR.md",
+          "sourceBlob": "71529b3cf8eab2a85fab0b74147b19eff06672bd",
+          "localPath": "site/ori/docs/guides/reference/stdlib-reference.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/bootstrapping.md",
+          "sourceBlob": "61fbc09badecf171536acbf74f6114c796b700b5",
+          "localPath": "site/en/ori/docs/development/bootstrapping.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/report-bugs.md",
+          "sourceBlob": "deda484d1a6ab4c06e3f342256bb4d3373b9d2ce",
+          "localPath": "site/en/ori/docs/development/report-bugs.md",
+          "category": "development",
           "status": "vendored"
         },
         {
           "locale": "en",
           "sourcePath": "docs/guides/first-project.md",
           "sourceBlob": "541f14bd446fee2df6c2bcc525a44b8f3550365d",
-          "localPath": "site/en/ori/docs/guides/first-project.md",
+          "localPath": "site/en/ori/docs/guides/getting-started/first-project.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/install.md",
+          "sourceBlob": "642c5537a76a2c7e2e3d11d3af2d13ed49092126",
+          "localPath": "site/en/ori/docs/guides/getting-started/install.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/language/tour.md",
+          "sourceBlob": "2a6b04b97c4cd087bf433e45116feea420c92ac4",
+          "localPath": "site/en/ori/docs/guides/getting-started/tour.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/language/advanced.md",
+          "sourceBlob": "233f8aa829fa408e30a0cf5e4b56baca1b05708d",
+          "localPath": "site/en/ori/docs/guides/language/advanced.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/language/concurrency.md",
+          "sourceBlob": "51978bdb2cda3d032b69118e9e791ffaf577ec10",
+          "localPath": "site/en/ori/docs/guides/language/concurrency.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/language/interop.md",
+          "sourceBlob": "915d88cb3788d013c7ce36ac1638e8ca973ee5fa",
+          "localPath": "site/en/ori/docs/guides/language/interop.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/cookbook.md",
+          "sourceBlob": "4059814082934e4c1bc3d837497b1f58cc1a9c9a",
+          "localPath": "site/en/ori/docs/guides/manual/cookbook.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/debugging.md",
+          "sourceBlob": "5f86c74a893e230f8f10a39eee25c96bb7f2b845",
+          "localPath": "site/en/ori/docs/guides/manual/debugging.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/errors-null-void.md",
+          "sourceBlob": "f729d2e9d568f384f5e0c5d5e20ff1bb4ef8b532",
+          "localPath": "site/en/ori/docs/guides/manual/errors-null-void.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/performance.md",
+          "sourceBlob": "b8b4d793fb1f09d84679481d7429477e339fe180",
+          "localPath": "site/en/ori/docs/guides/manual/performance.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/testing.md",
+          "sourceBlob": "2c9ba86c2efae69496088e9b4443383b13808e38",
+          "localPath": "site/en/ori/docs/guides/manual/testing.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/cli-reference.md",
+          "sourceBlob": "54b8d066327607dde1c4b6536a00a5bba2dcf649",
+          "localPath": "site/en/ori/docs/guides/reference/cli-reference.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/guides/stdlib-reference.md",
+          "sourceBlob": "66961a01ae4be925c6138e5374195477db6390fa",
+          "localPath": "site/en/ori/docs/guides/reference/stdlib-reference.md",
           "category": "guides",
           "status": "vendored"
         }

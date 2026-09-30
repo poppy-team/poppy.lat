@@ -17,7 +17,7 @@ O repositório de origem permanece canônico; esta cópia não é atualizada aut
 # First project and local packages
 
 > Status: practical guide for Ori **S3 + inference B / workspace 0.3.8-dev**
-> **Portuguese:** [first-project.pt-BR.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/first-project.pt-BR.md)  
+> **Portuguese:** [first-project.pt-BR.md](/ori/docs/guides/getting-started/first-project)  
 > Layout: root-first (`ori.proj` + `main.orl`) — see [spec/17](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/17-project-and-docs.md)
 
 ## Create a project
@@ -166,5 +166,5 @@ marketplace product push).
 
 ---
 
-Next: [Cookbook](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/guides/cookbook.md) · [Language tour](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/language/tour.md) ·
-[Install](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/install.md) · [Examples](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/)
+Next: [Cookbook](/en/ori/docs/guides/manual/cookbook) · [Language tour](/en/ori/docs/guides/getting-started/tour) ·
+[Install](/en/ori/docs/guides/getting-started/install) · [Examples](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/examples/)
