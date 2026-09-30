@@ -10,6 +10,7 @@ import type { Env } from './env.ts';
 import { deps as getDeps, type AppEnv, type Deps } from './context.ts';
 import { clientIp, describeError, errorBody, HttpError } from './lib/http.ts';
 import { hasConsented } from './lib/consent.ts';
+import { ensureProfile } from './lib/profile-row.ts';
 import { rateLimit } from './lib/rate-limit.ts';
 
 /**
@@ -23,6 +24,7 @@ const authAllowlist = new Set([
   'GET /magic-link/verify',
   'POST /sign-in/social',
   'GET /callback/github',
+  'GET /callback/google',
   'POST /sign-out',
   'GET /list-sessions',
   'POST /revoke-session',
@@ -107,6 +109,12 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
         });
         const row = consent.rows[0];
 
+        if (!row) {
+          // An account whose sign-up failed halfway has no profile; make it now instead of failing every request.
+          // It has not consented either, so the request carries on as someone who still has to.
+          await ensureProfile(parts.db, user.id);
+        }
+
         c.set('user', {
           id: user.id,
           role,
@@ -127,6 +135,12 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
 
     if (!authAllowlist.has(key)) {
       throw new HttpError(404, 'not_found', 'Não encontrado.');
+    }
+
+    if (key === 'POST /sign-in/social') {
+      const { client } = getDeps(c);
+
+      await rateLimit(client, 'login-social-ip', createHmac('sha256', parts.env.AUTH_SECRET).update(clientIp(c)).digest('hex').slice(0, 32), 30, 3600);
     }
 
     if (key === 'POST /sign-in/magic-link') {

@@ -6,14 +6,14 @@ import { me, refreshMe } from './session';
 
 /**
  * Login has no password: the person types an e-mail address, gets a link
- * that works once for ten minutes, and clicks it. GitHub is offered when the
- * server has it set up.
+ * that works once for ten minutes, and clicks it. GitHub and Google are
+ * offered when the server has them set up.
  */
 const email = ref('');
 const sending = ref(false);
 const sent = ref(false);
 const error = ref('');
-const github = ref(false);
+const providers = ref<{ github: boolean; google: boolean }>({ github: false, google: false });
 const back = ref('/aprender/');
 
 onMounted(async () => {
@@ -36,9 +36,9 @@ onMounted(async () => {
     return;
   }
 
-  github.value = await api<{ github?: boolean }>('/api/health')
-    .then((health) => Boolean(health.github))
-    .catch(() => false);
+  providers.value = await api<{ github?: boolean; google?: boolean }>('/api/health')
+    .then((health) => ({ github: Boolean(health.github), google: Boolean(health.google) }))
+    .catch(() => ({ github: false, google: false }));
 });
 
 async function submit(): Promise<void> {
@@ -68,17 +68,19 @@ async function submit(): Promise<void> {
   }
 }
 
-async function withGithub(): Promise<void> {
+const providerName = { github: 'GitHub', google: 'Google' } as const;
+
+async function withProvider(provider: keyof typeof providerName): Promise<void> {
   try {
     const result = await api<{ url?: string }>('/api/auth/sign-in/social', {
-      json: { provider: 'github', callbackURL: back.value },
+      json: { provider, callbackURL: back.value },
     });
 
     if (result.url) {
       location.assign(result.url);
     }
   } catch {
-    error.value = 'Não foi possível abrir o GitHub agora.';
+    error.value = `Não foi possível abrir o ${providerName[provider]} agora.`;
   }
 }
 </script>
@@ -145,9 +147,10 @@ async function withGithub(): Promise<void> {
 
           <p v-if="error" class="acct-error" role="alert">{{ error }}</p>
 
-          <div v-if="github" class="acct-alt">
+          <div v-if="providers.google || providers.github" class="acct-alt">
             <p class="acct-muted">ou</p>
-            <button type="button" class="acct-btn" @click="withGithub">Entrar com GitHub</button>
+            <button v-if="providers.google" type="button" class="acct-btn" @click="withProvider('google')">Entrar com Google</button>
+            <button v-if="providers.github" type="button" class="acct-btn" @click="withProvider('github')">Entrar com GitHub</button>
           </div>
 
           <p class="acct-muted acct-fine">

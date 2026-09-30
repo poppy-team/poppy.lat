@@ -30,12 +30,27 @@ A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, 
 | `AUTH_SECRET` | 32 caracteres ou mais, aleatório (`openssl rand -base64 32`). Diferente em cada ambiente. |
 | `RESEND_API_KEY`, `MAIL_FROM` | Envio do link de login. O domínio do remetente precisa estar verificado na Resend: hoje é `noreply.poppy.lat`, com `MAIL_FROM=Poppy Team <login@noreply.poppy.lat>` e o rastreio de cliques desligado (ele reescreveria o link de login). |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | Opcional: liga o “Entrar com GitHub”. Callback: `https://poppy.lat/api/auth/callback/github`. |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Opcional: liga o “Entrar com Google”. Redirecionamento autorizado: `https://www.poppy.lat/api/auth/callback/google` (o endereço canônico, com `www`). Passo a passo abaixo. |
 | `VITE_ACCOUNTS` | `1` para ligar a interface de contas no build. |
 
 4. **Primeiro admin:** entre uma vez pelo site e rode no Turso `UPDATE user SET role='admin' WHERE email='...'`. Depois disso, papéis se mudam pela página de Moderação.
 **Estado atual (2026-09-30):** já estão no projeto `poppy-website` da Vercel, só em Production, `SITE_URL`, `MAIL_FROM`, `RESEND_API_KEY` (sensível, só envio) e `AUTH_SECRET` (sensível). Faltam `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` e, por último, `VITE_ACCOUNTS=1`. Não ligue `VITE_ACCOUNTS` antes do Turso, senão a interface aparece sem API. Os Previews ainda não têm variáveis: como o `SITE_URL` é fixo, um Preview precisaria do próprio endereço.
 
 5. **Confirmar em um Preview antes do Production:** o formato do handler em `api/index.js` (exports `GET/POST/PUT/DELETE` com Hono, mais o rewrite de `/api/:path*`) só se confirma com um deploy real. Teste `/api/health`, `/api/auth/ok`, o login completo e o envio de foto.
+
+## Ligar o “Entrar com Google” e o “Entrar com GitHub”
+
+Cada botão só aparece na tela de entrada quando as duas variáveis do provedor existem na Vercel (Production). Sem elas, a tela segue só com o link por e-mail. As chaves entram só no painel da Vercel, nunca no chat nem no repositório.
+
+**Google** (console.cloud.google.com):
+1. Crie um projeto (ou use um existente) e abra **APIs e serviços › Tela de permissão OAuth**. Tipo de usuário: **Externo**. Preencha o nome do app (Poppy Team), o e-mail de suporte e os links `https://www.poppy.lat/privacidade` e `https://www.poppy.lat/termos`. Escopos: só `openid`, `email` e `profile`.
+2. Em **Credenciais › Criar credenciais › ID do cliente OAuth**, tipo **Aplicativo da Web**. Em **Origens JavaScript autorizadas**: `https://www.poppy.lat`. Em **URIs de redirecionamento autorizados**: `https://www.poppy.lat/api/auth/callback/google`.
+3. Copie o ID do cliente e a chave secreta para `GOOGLE_CLIENT_ID` e `GOOGLE_CLIENT_SECRET` na Vercel e faça um deploy novo.
+4. Enquanto o app estiver em modo de teste, só os e-mails cadastrados como usuários de teste entram. Para abrir ao público, clique em **Publicar app** na tela de permissão (para os escopos acima, a verificação do Google não é exigida).
+
+**GitHub** (github.com/settings/developers › New OAuth App): URL da página inicial `https://www.poppy.lat`; URL de callback `https://www.poppy.lat/api/auth/callback/github`. Copie o Client ID e gere um Client secret para `GITHUB_CLIENT_ID` e `GITHUB_CLIENT_SECRET`.
+
+Quem já tem conta por e-mail e entra com Google é ligado à mesma conta, mas só quando o Google confirma que o e-mail é verificado. A foto do provedor nunca é guardada, e a confirmação de 18 anos e os Termos valem igual para qualquer forma de entrar.
 
 ## O que está e o que não está pronto
 

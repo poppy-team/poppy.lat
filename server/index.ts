@@ -27,7 +27,11 @@ export function buildApp(parts: ServerParts): App {
   return createApp({ db: parts.db, client: parts.client, env: parts.env, auth }, (app) => {
     app.get('/health', (c) =>
       // What the page needs to know before it draws the login options.
-      c.json({ ok: true, github: Boolean(parts.env.GITHUB_CLIENT_ID && parts.env.GITHUB_CLIENT_SECRET) }),
+      c.json({
+        ok: true,
+        github: Boolean(parts.env.GITHUB_CLIENT_ID && parts.env.GITHUB_CLIENT_SECRET),
+        google: Boolean(parts.env.GOOGLE_CLIENT_ID && parts.env.GOOGLE_CLIENT_SECRET),
+      }),
     );
     app.route('/', publicRoutes());
     app.route('/', profileRoutes());

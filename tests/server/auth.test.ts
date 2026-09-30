@@ -114,3 +114,26 @@ describe('login por link no e-mail', () => {
     expect(me.data.profile.badge).toBe('contributor');
   });
 });
+
+describe('conta sem perfil (cadastro que parou no meio)', () => {
+  it('o perfil é recriado sozinho e a pessoa segue como quem ainda precisa aceitar os Termos', async () => {
+    const harness = await createHarness();
+    const cookie = await harness.signIn('ana@example.com', { consent: false });
+
+    await harness.client.execute('DELETE FROM profiles');
+
+    const who = await harness.request('/api/whoami', { cookie });
+
+    expect(who.status).toBe(200);
+    expect(who.data.me.consented).toBe(false);
+    expect(who.data.me.profile.handle).toMatch(/^aluno-/u);
+    expect((await harness.client.execute('SELECT count(*) AS n FROM profiles')).rows[0]?.n).toBe(1);
+  });
+
+  it('health diz quais entradas sociais estão ligadas', async () => {
+    const harness = await createHarness();
+    const health = await harness.request('/api/health');
+
+    expect(health.data).toMatchObject({ ok: true, github: false, google: false });
+  });
+});

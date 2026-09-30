@@ -4,13 +4,14 @@ import { admin, magicLink } from 'better-auth/plugins';
 import type { Db } from './db/client.ts';
 import * as schema from './db/schema.ts';
 import type { Env } from './env.ts';
-import { generateHandle, nameFromEmail } from './lib/handle.ts';
+import { nameFromEmail } from './lib/handle.ts';
 import { loginMail, type Mailer } from './lib/mail.ts';
+import { ensureProfile } from './lib/profile-row.ts';
 
 export const sessionDays = 30;
 
 /**
- * Login by e-mail link (and GitHub when configured). There are no passwords,
+ * Login by e-mail link (and GitHub or Google when configured). There are no passwords,
  * so there is nothing to leak or reuse. Roles come from the `user.role`
  * column and start as "student"; nobody can pick their own.
  */
@@ -21,6 +22,10 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
   const github =
     env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET
       ? { github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET } }
+      : {};
+  const google =
+    env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+      ? { google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET } }
       : {};
 
   return betterAuth({
@@ -43,8 +48,10 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
       // ban or a role change takes effect at once.
       cookieCache: { enabled: false },
     },
+    // Google is not in the trusted list on purpose: an existing account is only linked when Google
+    // itself says the address is verified.
     account: { accountLinking: { enabled: true, trustedProviders: ['github'] } },
-    socialProviders: github,
+    socialProviders: { ...github, ...google },
     advanced: {
       useSecureCookies: secure,
       defaultCookieAttributes: { httpOnly: true, sameSite: 'lax', secure },
@@ -58,17 +65,7 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
           }),
           after: async (user) => {
             // A profile row always exists, private and with a generated name.
-            for (let attempt = 0; attempt < 5; attempt += 1) {
-              try {
-                await db.insert(schema.profiles).values({ userId: user.id, handle: generateHandle() });
-
-                return;
-              } catch (error) {
-                if (attempt === 4) {
-                  throw error;
-                }
-              }
-            }
+            await ensureProfile(db, user.id);
           },
         },
       },

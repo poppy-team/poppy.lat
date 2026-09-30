@@ -24,7 +24,7 @@ O controlador dos dados é a **Poppy Team**, projeto mantido por Raillen Santos.
 
 | Dado | Para quê | Base legal (LGPD) |
 | --- | --- | --- |
-| E-mail e nome | Criar a conta, enviar o link de entrada e identificar você | Execução do serviço que você pediu (art. 7º, V) |
+| E-mail e nome | Criar a conta, enviar o link de entrada e identificar você. Se você entrar com Google, recebemos os dois pela sua conta Google; a foto do Google não é guardada | Execução do serviço que você pediu (art. 7º, V) |
 | Confirmação de maioridade e aceite dos Termos (data e versão) | Cumprir a regra de que a conta é só para adultos e provar o aceite | Cumprimento de obrigação legal e exercício de direitos (art. 7º, II e VI) |
 | Perfil: apelido, bio, foto e links | Mostrar quem você é na comunidade, do jeito que você escolher | Execução do serviço (art. 7º, V) |
 | Anotações e progresso nas aulas | Guardar o seu estudo entre aparelhos | Execução do serviço (art. 7º, V) |
@@ -38,13 +38,14 @@ O IP usado para limitar tentativas de login é guardado só como um código emba
 
 ## Quem mais tem acesso
 
-Usamos três empresas para o site funcionar. Elas tratam os dados só para prestar o serviço, conforme os contratos delas:
+Usamos estas empresas para o site funcionar. Elas tratam os dados só para prestar o serviço, conforme os contratos delas:
 
 - **Vercel** (hospedagem do site e do servidor);
 - **Turso** (banco de dados);
-- **Resend** (envio do e-mail com o link de entrada).
+- **Resend** (envio do e-mail com o link de entrada);
+- **Google** (só se você escolher "Entrar com Google": o login acontece no Google, que nos informa o seu e-mail e o seu nome. Não recebemos a sua senha nem acessamos outros dados da conta Google).
 
-As três ficam nos Estados Unidos, então os seus dados podem ser **transferidos para fora do Brasil** (LGPD, art. 33). Nunca vendemos nem compartilhamos dados para publicidade.
+Essas empresas ficam nos Estados Unidos, então os seus dados podem ser **transferidos para fora do Brasil** (LGPD, art. 33). Nunca vendemos nem compartilhamos dados para publicidade.
 
 Na comunidade, o que você publica em comentários fica visível para quem visita a aula. O perfil começa **fechado**: só aparece para outras pessoas se você marcar "perfil público". A foto só aparece para quem está logado. O seu e-mail de login nunca é mostrado.
 
