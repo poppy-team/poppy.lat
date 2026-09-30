@@ -17,7 +17,9 @@ VITE_ACCOUNTS=1 pnpm dev --host 127.0.0.1 # site em http://127.0.0.1:5173, /api 
 
 ## Publicar (Vercel + Turso)
 
-1. **Turso:** criar o banco (`turso db create poppy-aprender`), pegar a URL (`turso db show poppy-aprender --url`) e um token só deste banco (`turso db tokens create poppy-aprender`).
+A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, que junta `server/` em `server-dist/handler.mjs` (esbuild, dependências de fora ficam em `node_modules`). `api/[...route].js` só reexporta esse arquivo. Não volte a apontar a função para um `.ts`: a Vercel não empacota os outros arquivos `.ts` de `server/` e a função cai com `ERR_MODULE_NOT_FOUND`.
+
+1. **Turso:** criar o banco na nuvem com a CLI oficial (`~/.turso/turso db create poppy-aprender`; o comando `turso` de algumas instalações é o motor local `tursodb` e não conhece `db create`), pegar a URL (`turso db show poppy-aprender --url`) e um token só deste banco (`turso db tokens create poppy-aprender`).
 2. **Migrações:** `TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... pnpm db:migrate` antes de cada publicação que traga um arquivo novo em `server/db/migrations/`. Elas nunca rodam sozinhas em produção.
 3. **Variáveis na Vercel** (Production e Preview, valores diferentes em cada um):
 

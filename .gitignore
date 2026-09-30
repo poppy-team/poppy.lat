@@ -26,6 +26,9 @@ screenshots/
 test-results/
 playwright-report/
 
+# Bundled Vercel function (made by `pnpm build:api`)
+server-dist/
+
 # Local database (development)
 local.db
 local.db-*

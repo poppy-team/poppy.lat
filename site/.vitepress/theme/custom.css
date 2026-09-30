@@ -260,6 +260,75 @@ body {
   background: var(--surface-sunken);
 }
 
+/* "Aprender" stands out from the other links: a leaf-green pill with a small
+   accent dot, on the site header and on the documentation and course navbar. */
+.site-nav__link--feature,
+.VPNavBarMenuLink[href='/aprender/'] span,
+.VPNavBarMenuLink[href='/en/learn/'] span {
+  gap: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--feature-ink) 28%, transparent);
+  background: var(--feature-plane);
+  color: var(--feature-ink);
+  font-weight: 600;
+}
+
+.site-nav__link--feature::before,
+.VPNavBarMenuLink[href='/aprender/'] span::before,
+.VPNavBarMenuLink[href='/en/learn/'] span::before,
+.VPNavScreenMenuLink[href='/aprender/']::before,
+.VPNavScreenMenuLink[href='/en/learn/']::before {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-inline-end: 0.45rem;
+  border-radius: 50%;
+  background: var(--accent);
+  content: '';
+}
+
+.site-nav__link--feature::before {
+  margin-inline-end: 0;
+}
+
+.VPNavBarMenuLink[href='/aprender/'] span,
+.VPNavBarMenuLink[href='/en/learn/'] span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  /* The default menu link sets its line height to the navbar's height. */
+  line-height: 1.5;
+  transition: background-color 0.15s;
+}
+
+.site-nav__link--feature:hover,
+.VPNavBarMenuLink[href='/aprender/']:hover span,
+.VPNavBarMenuLink[href='/en/learn/']:hover span {
+  background: color-mix(in srgb, var(--feature-plane) 82%, var(--feature-ink));
+  color: var(--feature-ink);
+}
+
+.site-nav__link--feature[aria-current='page'],
+.VPNavBarMenuLink[href='/aprender/'].active span,
+.VPNavBarMenuLink[href='/en/learn/'].active span {
+  background: var(--feature-ink);
+  color: var(--feature-plane);
+}
+
+.site-nav__link--feature[aria-current='page']::before,
+.VPNavBarMenuLink[href='/aprender/'].active span::before,
+.VPNavBarMenuLink[href='/en/learn/'].active span::before {
+  background: var(--feature-plane);
+}
+
+.VPNavScreenMenuLink[href='/aprender/'],
+.VPNavScreenMenuLink[href='/en/learn/'] {
+  display: flex;
+  align-items: center;
+  color: var(--feature-ink);
+  font-weight: 600;
+}
+
 .language-switch {
   display: inline-flex;
   align-items: center;

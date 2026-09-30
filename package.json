@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vitepress dev site",
-    "build": "vitepress build site && node --experimental-strip-types scripts/publish-404.ts",
+    "build": "pnpm build:api && vitepress build site && node --experimental-strip-types scripts/publish-404.ts",
     "preview": "vitepress preview site",
     "check": "vue-tsc --noEmit",
     "test": "vitest run",
@@ -20,6 +20,7 @@
     "screenshots": "playwright test --grep @capture",
     "derive:allowlist": "node --experimental-strip-types scripts/derive-allowlist.ts",
     "map:upstream": "node --experimental-strip-types scripts/map-upstream-docs.ts",
+    "build:api": "esbuild server/vercel.ts --bundle --platform=node --target=node22 --format=esm --packages=external --outfile=server-dist/handler.mjs --log-level=warning",
     "api": "node --experimental-strip-types server/dev.ts",
     "db:migrate": "node --experimental-strip-types scripts/db-migrate.ts"
   },
@@ -33,6 +34,7 @@
     "@types/markdown-it": "^14.2.0",
     "@vue/test-utils": "2.5.1",
     "drizzle-kit": "^0.31.11",
+    "esbuild": "^0.28.2",
     "typescript": "6.0.3",
     "vitepress": "1.6.4",
     "vitest": "5.0.2",
