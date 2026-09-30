@@ -68,6 +68,12 @@ const counterpartHref = computed(() => {
     return locale.value === 'en' ? '/' : '/en/';
   }
 
+  // The courses are written in Portuguese first; the English route is a
+  // single page that says so, and it links back to the Portuguese landing.
+  if (/^\/?(cursos|courses)\//u.test(stripped)) {
+    return locale.value === 'en' ? '/cursos/' : '/en/courses/';
+  }
+
   const isDocumentationPage = typeof frontmatter.value.project === 'string';
   const currentRoute = page.value.relativePath
     .replace(/(^|\/)index\.md$/u, '$1')

@@ -21,6 +21,10 @@ const section = computed(() => {
     return 'projects';
   }
 
+  if (path.startsWith('/cursos') || path.startsWith('/courses')) {
+    return 'courses';
+  }
+
   if (path.startsWith('/blog')) {
     return 'blog';
   }
@@ -31,6 +35,11 @@ const section = computed(() => {
 const links = computed(() => [
   { key: 'projects', href: `${root.value}/#projects`, label: copy.value.navigation.projects },
   { key: 'docs', href: `${root.value}/#docs`, label: copy.value.navigation.docs },
+  {
+    key: 'courses',
+    href: props.locale === 'en' ? '/en/courses/' : '/cursos/',
+    label: copy.value.navigation.courses,
+  },
   { key: 'blog', href: `${root.value}/blog/`, label: copy.value.navigation.blog },
   { key: 'contact', href: 'mailto:mail@poppy.lat', label: copy.value.navigation.contact },
 ]);
