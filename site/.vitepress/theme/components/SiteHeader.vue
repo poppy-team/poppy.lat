@@ -74,6 +74,7 @@ const links = computed(() => [
           v-for="link in links"
           :key="link.key"
           class="site-nav__link"
+          :class="{ 'site-nav__link--feature': link.key === 'learn' }"
           :href="link.href"
           :aria-current="section === link.key ? 'page' : undefined"
         >

@@ -294,7 +294,7 @@ export default defineConfig({
         nav: [
           { text: siteCopy['pt-BR'].navigation.projects, link: '/#projects' },
           { text: siteCopy['pt-BR'].navigation.docs, link: '/#docs' },
-          { text: siteCopy['pt-BR'].navigation.learn, link: '/aprender/' },
+          { text: siteCopy['pt-BR'].navigation.learn, link: '/aprender/', activeMatch: '^/aprender/' },
           { text: siteCopy['pt-BR'].navigation.blog, link: '/blog/' },
         ],
         sidebar: { ...projectSidebars('pt-BR'), ...courseSidebar() },
@@ -311,7 +311,7 @@ export default defineConfig({
         nav: [
           { text: siteCopy.en.navigation.projects, link: '/en/#projects' },
           { text: siteCopy.en.navigation.docs, link: '/en/#docs' },
-          { text: siteCopy.en.navigation.learn, link: '/en/learn/' },
+          { text: siteCopy.en.navigation.learn, link: '/en/learn/', activeMatch: '^/en/learn/' },
           { text: siteCopy.en.navigation.blog, link: '/en/blog/' },
         ],
         sidebar: projectSidebars('en'),

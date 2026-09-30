@@ -74,6 +74,11 @@
   /* Active project identity, overridden per documentation section. */
   --project-plane: var(--color-leaf-pale);
   --project-ink: var(--color-leaf);
+
+  /* The featured navigation link ("Aprender"): the leaf plane the course
+     pages already use, so the highlight reads as part of the palette. */
+  --feature-plane: var(--color-leaf-pale);
+  --feature-ink: var(--color-leaf);
 }
 
 .dark {
@@ -89,6 +94,8 @@
   --rule-strong: #4a514a;
   --accent: #e08a74;
   --accent-ink: #eea08c;
+  --feature-plane: #26332c;
+  --feature-ink: #a9c4b3;
 }
 
 /*
