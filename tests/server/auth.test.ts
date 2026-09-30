@@ -78,6 +78,10 @@ describe('login por link no e-mail', () => {
     }
 
     expect(last).toBe(429);
+
+    const keys = (await h.client.execute('SELECT key FROM rate_limits')).rows.map((row) => String(row.key));
+
+    expect(keys.some((key) => key.includes('spam@example.com'))).toBe(false);
   });
 
   it('recusa escritas que não vêm do site', async () => {

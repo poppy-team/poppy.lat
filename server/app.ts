@@ -1,3 +1,4 @@
+import { createHmac } from 'node:crypto';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { ZodError } from 'zod';
@@ -120,10 +121,13 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
       const body = (await c.req.raw.clone().json().catch(() => ({}))) as { email?: unknown };
       const email = typeof body.email === 'string' ? body.email.trim().toLowerCase().slice(0, 254) : '';
 
-      await rateLimit(client, 'login-ip', clientIp(c), 10, 3600);
+      // The limiter table keeps a keyed hash, never the address or the IP itself.
+      const pseudonym = (value: string) => createHmac('sha256', parts.env.AUTH_SECRET).update(value).digest('hex').slice(0, 32);
+
+      await rateLimit(client, 'login-ip', pseudonym(clientIp(c)), 10, 3600);
 
       if (email) {
-        await rateLimit(client, 'login-email', email, 5, 3600);
+        await rateLimit(client, 'login-email', pseudonym(email), 5, 3600);
       }
     }
 
