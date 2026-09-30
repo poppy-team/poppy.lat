@@ -8,7 +8,7 @@ import type { Db } from './db/client.ts';
 import type { Client } from '@libsql/client';
 import type { Env } from './env.ts';
 import { deps as getDeps, type AppEnv, type Deps } from './context.ts';
-import { clientIp, errorBody, HttpError } from './lib/http.ts';
+import { clientIp, describeError, errorBody, HttpError } from './lib/http.ts';
 import { hasConsented } from './lib/consent.ts';
 import { rateLimit } from './lib/rate-limit.ts';
 
@@ -171,8 +171,8 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
       return c.json({ error: { code: 'invalid_input', message: fields[0]?.message ?? 'Dados inválidos.', fields } }, 422);
     }
 
-    // Never echo the cause: it may hold SQL or user text.
-    console.error('[api]', c.req.method, c.req.path, error instanceof Error ? error.name : 'unknown');
+    // Never echo the wrapper: it may hold SQL or user text (see describeError).
+    console.error('[api]', c.req.method, c.req.path, describeError(error));
 
     return c.json({ error: { code: 'internal', message: 'Algo deu errado do nosso lado. Tente de novo em instantes.' } }, 500);
   });

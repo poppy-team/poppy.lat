@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { badgeFor, can, outranks, type Action, type Actor, type Role } from '../../server/lib/can.ts';
 import { handleSchema, nameFromEmail } from '../../server/lib/handle.ts';
-import { HttpError } from '../../server/lib/http.ts';
+import { describeError, HttpError } from '../../server/lib/http.ts';
 import { linkHref, normalizeLink } from '../../server/lib/links.ts';
 import { rateLimit } from '../../server/lib/rate-limit.ts';
 import { cleanText, likePattern, text } from '../../server/lib/text.ts';
@@ -164,5 +164,23 @@ describe('limite de requisições', () => {
     await expect(rateLimit(client, 'x', 'ana', 3, 60, t0 + 10)).rejects.toMatchObject({ status: 429, code: 'rate_limited' });
     await expect(rateLimit(client, 'x', 'bia', 3, 60, t0 + 10)).resolves.toBeUndefined();
     await expect(rateLimit(client, 'x', 'ana', 3, 60, t0 + 61_000)).resolves.toBeUndefined();
+  });
+});
+
+describe('describeError', () => {
+  it('diz o código e a mensagem do motor do banco, sem o SQL nem os parâmetros', () => {
+    const engine = Object.assign(new Error('SQLITE_UNKNOWN: S3 error: failed to list objects'), { name: 'LibsqlError', code: 'SQLITE_UNKNOWN' });
+    const wrapped = new Error('Failed query: select * from user where email = ? params: ana@example.com', { cause: engine });
+
+    wrapped.name = 'DrizzleQueryError';
+
+    expect(describeError(wrapped)).toBe('DrizzleQueryError SQLITE_UNKNOWN: SQLITE_UNKNOWN: S3 error: failed to list objects');
+    expect(describeError(wrapped)).not.toContain('ana@example.com');
+    expect(describeError(engine)).toContain('LibsqlError SQLITE_UNKNOWN');
+  });
+
+  it('para outros erros, só o nome', () => {
+    expect(describeError(new TypeError('segredo'))).toBe('TypeError');
+    expect(describeError('texto')).toBe('unknown');
   });
 });

@@ -33,3 +33,25 @@ export function clientIp(c: Context): string {
 
   return c.req.header('x-real-ip') ?? forwarded ?? 'unknown';
 }
+
+/**
+ * What the log may say about an unexpected error. Only the name and, for a
+ * database failure, the engine's own code and message: Drizzle wraps those in
+ * an error that also carries the SQL and its parameters (user text), so the
+ * wrapper's message is never printed, only its cause's.
+ */
+export function describeError(error: unknown): string {
+  if (!(error instanceof Error)) {
+    return 'unknown';
+  }
+
+  const cause = error.cause instanceof Error ? error.cause : error;
+
+  if (cause.name !== 'LibsqlError') {
+    return error.name;
+  }
+
+  const { code } = cause as Error & { code?: unknown };
+
+  return `${error.name} ${typeof code === 'string' ? code : 'no-code'}: ${cause.message.replace(/\s+/gu, ' ').slice(0, 240)}`;
+}
