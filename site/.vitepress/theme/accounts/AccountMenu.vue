@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vitepress';
 import { accountsEnabled, isStaff } from './api';
 import Avatar from './Avatar.vue';
+import NotificationBell from './NotificationBell.vue';
 import { me, sessionStatus, signOut, startSession } from './session';
 
 /**
@@ -44,6 +45,7 @@ function onKeydown(event: KeyboardEvent): void {
     </a>
 
     <template v-else>
+      <NotificationBell />
       <button
         type="button"
         class="account-menu__button"

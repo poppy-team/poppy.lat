@@ -7,7 +7,7 @@ import { isLessonId } from '../lib/catalog.ts';
 import { commentSelect, placeholders, reactionEmojis, toViews, type Viewer } from '../lib/comments.ts';
 import { HttpError } from '../lib/http.ts';
 import { rateLimit } from '../lib/rate-limit.ts';
-import { hasMarkdownImage, looksLikeLink, text } from '../lib/text.ts';
+import { hasMarkdownImage, containsAddress, text } from '../lib/text.ts';
 
 const bodyField = text(1, 2000, { multiline: true });
 
@@ -109,7 +109,7 @@ export function commentRoutes() {
     await rateLimit(client, 'comment-min', user.id, 5, 60);
     await rateLimit(client, 'comment-hour', user.id, 30, 3600);
 
-    if (user.role === 'student' && looksLikeLink.test(input.bodyMd)) {
+    if (user.role === 'student' && containsAddress(input.bodyMd)) {
       const [earlier] = (
         await client.execute({ sql: "SELECT count(*) AS n FROM comments WHERE author_id = ? AND status = 'visible'", args: [user.id] })
       ).rows;

@@ -93,8 +93,18 @@ function completedCount(course: Course): number {
       </p>
       <p v-if="invite" class="courses-invite">
         <a class="courses-invite__link" href="/conta/entrar?voltar=/aprender/">Entrar ou criar conta</a>
-        <span>para guardar seu progresso, fazer anotações e comentar. Para ler, não precisa de conta.</span>
+        <span>para guardar seu progresso e suas anotações. Para ler, não precisa de conta.</span>
       </p>
+      <ul v-if="invite" class="community-points" aria-label="O que a conta abre">
+        <li>
+          <strong>Tire dúvidas nos comentários.</strong>
+          Cada aula tem uma conversa no fim da página: pergunte, responda e aprenda com quem está no mesmo ponto.
+        </li>
+        <li>
+          <strong>Faça amizades no fórum.</strong>
+          Em breve, um espaço para trocar ideias e projetos com quem também está aprendendo a programar.
+        </li>
+      </ul>
       <a v-if="resume" class="courses-resume" :href="resume.href">
         <span class="courses-resume__label">Continue de onde parou</span>
         <span class="courses-resume__title">{{ resume.title }} · {{ resume.course }}</span>

@@ -130,3 +130,20 @@ export interface CommentView {
 }
 
 export const reactionEmojis = ['👍', '❤️', '🎉', '💡', '🤔', '😅'] as const;
+
+export interface DashboardView {
+  comments: {
+    written: number;
+    repliesReceived: number;
+    recent: { id: string; lessonId: string; excerpt: string; createdAt: string | null; replies: number }[];
+  };
+}
+
+export interface NotificationItem {
+  id: string;
+  lessonId: string;
+  excerpt: string;
+  createdAt: string | null;
+  isNew: boolean;
+  by: { name: string; handle: string | null };
+}
