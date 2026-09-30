@@ -19,6 +19,8 @@ export interface SiteCopy {
   footerDescription: string;
   githubLabel: string;
   emailLabel: string;
+  privacyLabel: string;
+  termsLabel: string;
   /** First sidebar entry of a project's documentation. */
   overviewLabel: string;
 }
@@ -41,6 +43,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     footerDescription: 'Uma equipe pequena construindo linguagens e ferramentas com atenção à leitura.',
     githubLabel: 'GitHub da Poppy Team',
     emailLabel: 'Escreva para a equipe',
+    privacyLabel: 'Privacidade',
+    termsLabel: 'Termos de Uso',
     overviewLabel: 'Visão geral',
   },
   en: {
@@ -60,6 +64,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     footerDescription: 'A small team building languages and tools with care for the reader.',
     githubLabel: 'Poppy Team on GitHub',
     emailLabel: 'Write to the team',
+    privacyLabel: 'Privacy (in Portuguese)',
+    termsLabel: 'Terms of Use (in Portuguese)',
     overviewLabel: 'Overview',
   },
 };

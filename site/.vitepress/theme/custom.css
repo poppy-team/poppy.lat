@@ -556,6 +556,12 @@ body {
   font-size: var(--text-xs);
 }
 
+.site-footer__legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 /* ------------------------------------------------------------ home page -- */
 
 .hero {

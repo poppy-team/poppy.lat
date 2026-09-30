@@ -9,6 +9,7 @@ import type { Client } from '@libsql/client';
 import type { Env } from './env.ts';
 import { deps as getDeps, type AppEnv, type Deps } from './context.ts';
 import { clientIp, errorBody, HttpError } from './lib/http.ts';
+import { hasConsented } from './lib/consent.ts';
 import { rateLimit } from './lib/rate-limit.ts';
 
 /**
@@ -100,12 +101,19 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
       const role = creator ? 'creator' : base;
 
       if (!banned) {
+        const consent = await parts.client.execute({
+          sql: 'SELECT adult_confirmed_at, terms_version FROM profiles WHERE user_id = ?',
+          args: [user.id],
+        });
+        const row = consent.rows[0];
+
         c.set('user', {
           id: user.id,
           role,
           name: user.name,
           email: user.email,
           sessionStartedAt: new Date(session.createdAt).getTime(),
+          consented: hasConsented(row ? { adultConfirmedAt: row.adult_confirmed_at, termsVersion: row.terms_version } : undefined),
         });
       }
     }
@@ -134,6 +142,9 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
       if (email) {
         await rateLimit(client, 'login-email', pseudonym(email), 5, 3600);
       }
+
+      // Expired login codes keep the e-mail they were sent to, so they go as soon as they are useless.
+      await client.execute({ sql: 'DELETE FROM verification WHERE expires_at < ?', args: [Date.now()] });
     }
 
     return parts.auth.handler(c.req.raw);

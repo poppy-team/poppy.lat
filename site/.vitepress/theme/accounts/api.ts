@@ -93,6 +93,8 @@ export interface ProfileView {
 export interface Me {
   user: { id: string; name: string; email: string; role: Role };
   profile: ProfileView;
+  /** Confirmed being 18 or older and accepted the current Terms. Until then the account asks for it on every page. */
+  consented: boolean;
 }
 
 export type Role = 'student' | 'contributor' | 'creator' | 'admin';

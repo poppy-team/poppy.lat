@@ -151,8 +151,10 @@ async function withGithub(): Promise<void> {
           </div>
 
           <p class="acct-muted acct-fine">
-            Ao entrar você concorda com as <a href="/aprender/regras">regras da comunidade</a>. Guardamos só o que
-            você escreve aqui e o seu e-mail. Você pode baixar ou apagar tudo quando quiser, no seu perfil.
+            As contas são para maiores de 18 anos. Ao criar a sua, você confirma a idade e aceita os
+            <a href="/termos">Termos de Uso</a>, a <a href="/privacidade">Política de Privacidade</a> e as
+            <a href="/aprender/regras">regras da comunidade</a>. Você pode baixar ou apagar os seus dados quando
+            quiser, no seu perfil.
           </p>
         </div>
 

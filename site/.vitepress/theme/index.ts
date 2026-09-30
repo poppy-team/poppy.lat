@@ -10,6 +10,7 @@ import LessonTopBar from './components/LessonTopBar.vue';
 import LessonFooter from './components/LessonFooter.vue';
 import MobileTabBar from './components/MobileTabBar.vue';
 import NotesFab from './accounts/NotesFab.vue';
+import ConsentGate from './accounts/ConsentGate.vue';
 import HomePage from './layouts/HomePage.vue';
 import ProjectPage from './layouts/ProjectPage.vue';
 import DocsLanding from './layouts/DocsLanding.vue';
@@ -114,6 +115,7 @@ const RoutedLayout = defineComponent({
         // and on lessons the round button that opens the lesson's notes.
         'layout-bottom': () => [
           h(MobileTabBar),
+          h(ConsentGate),
           ...(kind === 'course' && !lang.value.startsWith('en') ? [h(NotesFab)] : []),
         ],
         // The default theme's language menu leads to the other locale's home

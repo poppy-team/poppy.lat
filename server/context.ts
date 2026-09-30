@@ -19,6 +19,13 @@ export interface CurrentUser extends Actor {
   email: string;
   /** When this login started, in milliseconds. Admin actions ask for a recent one. */
   sessionStartedAt: number;
+  /** Confirmed being 18 or older and accepted the current Terms. Everything else waits for it. */
+  consented: boolean;
+}
+
+export interface RequireOptions {
+  /** For the few routes that must work before the age and Terms step: reading, exporting and deleting the account, and the step itself. */
+  beforeConsent?: boolean;
 }
 
 export interface AppEnv {
@@ -33,18 +40,22 @@ export type Ctx = Context<AppEnv>;
 /** A login this recent counts as "just now" for actions that are hard to undo. */
 export const recentLoginMs = 15 * 60 * 1000;
 
-export function requireUser(c: Ctx): CurrentUser {
+export function requireUser(c: Ctx, options: RequireOptions = {}): CurrentUser {
   const user = c.get('user');
 
   if (!user) {
     throw new HttpError(401, 'login_required', 'Entre na sua conta para continuar.');
   }
 
+  if (!user.consented && !options.beforeConsent) {
+    throw new HttpError(403, 'consent_required', 'Confirme sua idade e aceite os Termos de Uso para continuar.');
+  }
+
   return user;
 }
 
-export function requireRecentLogin(c: Ctx): CurrentUser {
-  const user = requireUser(c);
+export function requireRecentLogin(c: Ctx, options: RequireOptions = {}): CurrentUser {
+  const user = requireUser(c, options);
 
   if (Date.now() - user.sessionStartedAt > recentLoginMs) {
     throw new HttpError(403, 'recent_login_required', 'Por segurança, entre de novo para fazer isto.');

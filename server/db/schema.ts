@@ -87,6 +87,9 @@ export const profiles = sqliteTable('profiles', {
   showInRankings: integer('show_in_rankings', { mode: 'boolean' }).notNull().default(false),
   notificationsSeenAt: text('notifications_seen_at'),
   notificationsClearedAt: text('notifications_cleared_at'),
+  adultConfirmedAt: text('adult_confirmed_at'),
+  termsVersion: text('terms_version'),
+  termsAcceptedAt: text('terms_accepted_at'),
   createdAt: text('created_at').notNull().default(now),
 });
 
