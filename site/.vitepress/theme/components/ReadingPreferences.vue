@@ -41,7 +41,7 @@ function onKeydown(event: KeyboardEvent): void {
 }
 
 function reset(): void {
-  Object.assign(state.value.preferences, { size: 'normal', spacing: 'normal', font: 'default', codeWrap: false });
+  Object.assign(state.value.preferences, { size: 'normal', spacing: 'normal', font: 'default', codeWrap: false, focusRuler: true });
 }
 
 onMounted(() => document.addEventListener('click', onDocumentClick));
@@ -114,6 +114,14 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
         <label>
           <input v-model="state.preferences.codeWrap" type="checkbox" />
           Quebrar linhas longas
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Modo foco</legend>
+        <label>
+          <input v-model="state.preferences.focusRuler" type="checkbox" />
+          Destacar só o trecho que estou lendo
         </label>
       </fieldset>
 

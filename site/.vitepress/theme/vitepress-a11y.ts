@@ -7,6 +7,8 @@
  *   the role and the keyboard behaviour; the caret becomes decoration. The
  *   group's open or closed state is now announced.
  * - The caret's label is English on every page; it is translated.
+ * - The copy button of code blocks is titled in English on every page; it is
+ *   titled in the page's language and given an accessible name.
  * - The page footer of the documentation (previous and next) is a second
  *   "contentinfo" landmark next to the site footer; it stops being one (the
  *   pager inside it is already a navigation) and the edit and last-updated
@@ -40,6 +42,13 @@ export function patchVitepressAccessibility(): void {
       caret.setAttribute('aria-expanded', expanded);
       caret.setAttribute('aria-label', portuguese() ? 'Abrir ou fechar a seção' : 'Open or close the section');
     }
+  }
+
+  for (const button of document.querySelectorAll<HTMLElement>('.vp-doc button.copy')) {
+    const label = portuguese() ? 'Copiar código' : 'Copy code';
+
+    button.setAttribute('title', label);
+    button.setAttribute('aria-label', label);
   }
 
   for (const footer of document.querySelectorAll<HTMLElement>('footer.VPDocFooter')) {

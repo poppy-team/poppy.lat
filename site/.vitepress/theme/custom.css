@@ -203,6 +203,15 @@ body {
 
 /* ---------------------------------------------------------------- shell -- */
 
+/* The "copied" note of the code button, in the page's language. */
+:root {
+  --vp-code-copy-copied-text-content: 'Copiado';
+}
+
+:root:lang(en) {
+  --vp-code-copy-copied-text-content: 'Copied';
+}
+
 /* The site has its own skip link, in the reader's language and aimed at the main text; the
    default theme's English one would be a second, redundant stop. */
 .VPSkipLink {

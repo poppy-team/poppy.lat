@@ -22,6 +22,8 @@ export interface ReadingPreferences {
   focus: boolean;
   /** Wrap long lines in code blocks instead of scrolling sideways. */
   codeWrap: boolean;
+  /** In focus mode, dim everything except the passage being read. */
+  focusRuler: boolean;
 }
 
 interface CourseState {
@@ -34,7 +36,7 @@ interface CourseState {
 
 const defaults: CourseState = {
   completed: [],
-  preferences: { size: 'normal', spacing: 'normal', font: 'default', focus: false, codeWrap: false },
+  preferences: { size: 'normal', spacing: 'normal', font: 'default', focus: false, codeWrap: false, focusRuler: true },
 };
 
 function load(): CourseState {
@@ -116,6 +118,7 @@ export function applyPreferences(preferences: ReadingPreferences): void {
   root.readingFont = preferences.font;
   root.readingFocus = String(preferences.focus);
   root.codeWrap = String(preferences.codeWrap);
+  root.readingRuler = String(preferences.focusRuler);
 }
 
 export function isCompleted(route: string): boolean {
