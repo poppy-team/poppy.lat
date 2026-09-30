@@ -5,6 +5,7 @@ import type { Db } from './db/client.ts';
 import * as schema from './db/schema.ts';
 import type { Env } from './env.ts';
 import { nameFromEmail } from './lib/handle.ts';
+import { describeLogArg } from './lib/http.ts';
 import { loginMail, type Mailer } from './lib/mail.ts';
 import { ensureProfile } from './lib/profile-row.ts';
 
@@ -25,7 +26,7 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
       : {};
   const google =
     env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
-      ? { google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET } }
+      ? { google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET, prompt: 'select_account' as const } }
       : {};
 
   return betterAuth({
@@ -41,6 +42,12 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
     // Limits live in our own middleware, which counts in the database and so
     // holds across serverless instances. The built-in ones count in memory.
     rateLimit: { enabled: false },
+    // Its default logger prints whole errors, and a failed sign-up carries the SQL with the e-mail and
+    // the provider's tokens in it. Only what describeLogArg allows reaches the log.
+    logger: {
+      level: 'error',
+      log: (level, message, ...args) => console.error('[auth]', level, message, args.map(describeLogArg).filter(Boolean).join(' ')),
+    },
     session: {
       expiresIn: 60 * 60 * 24 * sessionDays,
       updateAge: 60 * 60 * 24,
@@ -58,11 +65,36 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
       ipAddress: { ipAddressHeaders: ['x-real-ip', 'x-forwarded-for'] },
     },
     databaseHooks: {
+      // The provider's tokens are only needed to call the provider on someone's behalf, which this site never
+      // does. They are not kept, so a copy of the database holds no keys to anyone's Google or GitHub.
+      account: {
+        create: {
+          before: async (account) => ({
+            data: {
+              ...account,
+              accessToken: null,
+              refreshToken: null,
+              idToken: null,
+              accessTokenExpiresAt: null,
+              refreshTokenExpiresAt: null,
+              scope: null,
+            },
+          }),
+        },
+      },
       user: {
         create: {
-          before: async (user) => ({
-            data: { ...user, name: user.name?.trim() || nameFromEmail(user.email), image: null },
-          }),
+          before: async (user) => {
+            // An address the provider did not vouch for cannot open an account: whoever owns it later
+            // would inherit what was done under it. (Magic links only create users after the click.)
+            if (!user.emailVerified) {
+              return false;
+            }
+
+            // The name people see starts as a nickname from the e-mail, for every way of entering,
+            // because the profile starts closed. The name the provider sends is not kept.
+            return { data: { ...user, name: nameFromEmail(user.email), image: null } };
+          },
           after: async (user) => {
             // A profile row always exists, private and with a generated name.
             await ensureProfile(db, user.id);

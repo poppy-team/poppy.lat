@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { badgeFor, can, outranks, type Action, type Actor, type Role } from '../../server/lib/can.ts';
 import { handleSchema, nameFromEmail } from '../../server/lib/handle.ts';
 import { describeTarget } from '../../server/db/target.ts';
-import { describeError, HttpError } from '../../server/lib/http.ts';
+import { describeError, describeLogArg, HttpError } from '../../server/lib/http.ts';
 import { linkHref, normalizeLink } from '../../server/lib/links.ts';
 import { rateLimit } from '../../server/lib/rate-limit.ts';
 import { cleanText, likePattern, text } from '../../server/lib/text.ts';
@@ -187,6 +187,12 @@ describe('describeError', () => {
     expect(describeError(engine)).toBe('LibsqlError SERVER_ERROR: SERVER_ERROR: Server returned HTTP status 502 (causa: TypeError: fetch failed)');
   });
 
+  it('também reconhece o erro de lote do banco', () => {
+    const batch = Object.assign(new Error('SQLITE_CONSTRAINT: UNIQUE constraint failed: user.email'), { name: 'LibsqlBatchError', code: 'SQLITE_CONSTRAINT' });
+
+    expect(describeError(batch)).toBe('LibsqlBatchError SQLITE_CONSTRAINT: SQLITE_CONSTRAINT: UNIQUE constraint failed: user.email');
+  });
+
   it('para outros erros, só o nome', () => {
     expect(describeError(new TypeError('segredo'))).toBe('TypeError');
     expect(describeError('texto')).toBe('unknown');
@@ -200,7 +206,23 @@ describe('describeTarget', () => {
       label: 'poppy-aprender-raillen.turso.io (remoto)',
     });
     expect(describeTarget('file:./local.db')).toEqual({ remote: false, label: 'arquivo local (./local.db)' });
+    expect(describeTarget('FILE:./local.db').remote).toBe(false);
     expect(describeTarget(':memory:').remote).toBe(false);
     expect(describeTarget('isto não é um endereço').remote).toBe(true);
+  });
+});
+
+describe('describeLogArg', () => {
+  it('mantém a mensagem de um erro comum e esconde a de um erro com SQL e parâmetros', () => {
+    const plain = new Error('Resend answered 401');
+    const drizzle = new Error('Failed query: insert into user values (?)\nparams: ana@example.com', { cause: Object.assign(new Error('SQLITE_BUSY'), { name: 'LibsqlError', code: 'SQLITE_BUSY' }) });
+
+    drizzle.name = 'DrizzleQueryError';
+
+    expect(describeLogArg(plain)).toBe('Error: Resend answered 401');
+    expect(describeLogArg(drizzle)).not.toContain('ana@example.com');
+    expect(describeLogArg(drizzle)).toContain('SQLITE_BUSY');
+    expect(describeLogArg({ accessToken: 'segredo' })).toBe('');
+    expect(describeLogArg('texto')).toBe('texto');
   });
 });

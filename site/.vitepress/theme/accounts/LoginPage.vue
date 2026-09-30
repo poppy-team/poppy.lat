@@ -24,7 +24,11 @@ onMounted(async () => {
     back.value = wanted;
   }
 
-  if (new URLSearchParams(location.search).has('erro')) {
+  const failed = new URLSearchParams(location.search).get('erro');
+
+  if (failed === 'social') {
+    error.value = 'Não foi possível entrar por lá. Tente de novo, ou peça o link por e-mail abaixo.';
+  } else if (failed) {
     error.value = 'O link não funcionou. Ele vale por 10 minutos e só uma vez. Peça um novo abaixo.';
   }
 
@@ -73,7 +77,7 @@ const providerName = { github: 'GitHub', google: 'Google' } as const;
 async function withProvider(provider: keyof typeof providerName): Promise<void> {
   try {
     const result = await api<{ url?: string }>('/api/auth/sign-in/social', {
-      json: { provider, callbackURL: back.value },
+      json: { provider, callbackURL: back.value, errorCallbackURL: '/conta/entrar?erro=social' },
     });
 
     if (result.url) {

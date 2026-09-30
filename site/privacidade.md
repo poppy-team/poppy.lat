@@ -24,7 +24,7 @@ O controlador dos dados é a **Poppy Team**, projeto mantido por Raillen Santos.
 
 | Dado | Para quê | Base legal (LGPD) |
 | --- | --- | --- |
-| E-mail e nome | Criar a conta, enviar o link de entrada e identificar você. Se você entrar com Google, recebemos os dois pela sua conta Google; a foto do Google não é guardada | Execução do serviço que você pediu (art. 7º, V) |
+| E-mail e nome | Criar a conta, enviar o link de entrada e identificar você. Se você entrar com Google ou GitHub, recebemos o e-mail pelo provedor; o nome que ele envia não é guardado (o apelido inicial sai do e-mail) | Execução do serviço que você pediu (art. 7º, V) |
 | Confirmação de maioridade e aceite dos Termos (data e versão) | Cumprir a regra de que a conta é só para adultos e provar o aceite | Cumprimento de obrigação legal e exercício de direitos (art. 7º, II e VI) |
 | Perfil: apelido, bio, foto e links | Mostrar quem você é na comunidade, do jeito que você escolher | Execução do serviço (art. 7º, V) |
 | Anotações e progresso nas aulas | Guardar o seu estudo entre aparelhos | Execução do serviço (art. 7º, V) |
@@ -42,10 +42,11 @@ Usamos estas empresas para o site funcionar. Elas tratam os dados só para prest
 
 - **Vercel** (hospedagem do site e do servidor);
 - **Turso** (banco de dados);
-- **Resend** (envio do e-mail com o link de entrada);
-- **Google** (só se você escolher "Entrar com Google": o login acontece no Google, que nos informa o seu e-mail e o seu nome. Não recebemos a sua senha nem acessamos outros dados da conta Google).
+- **Resend** (envio do e-mail com o link de entrada).
 
 Essas empresas ficam nos Estados Unidos, então os seus dados podem ser **transferidos para fora do Brasil** (LGPD, art. 33). Nunca vendemos nem compartilhamos dados para publicidade.
+
+**Entrar com Google ou GitHub** é opcional. Nesse caso o login acontece no site do provedor, que é responsável pelos próprios dados e pela própria política de privacidade, e ele também fica nos Estados Unidos. Recebemos o seu e-mail (só se o provedor garantir que ele é verificado) e o seu nome. Não recebemos a sua senha. O nome que o provedor envia não é guardado: o apelido inicial sai do e-mail. A foto do provedor e as chaves de acesso que ele entrega também não são guardadas. Guardamos apenas o identificador da sua conta naquele provedor, para reconhecer você na próxima vez.
 
 Na comunidade, o que você publica em comentários fica visível para quem visita a aula. O perfil começa **fechado**: só aparece para outras pessoas se você marcar "perfil público". A foto só aparece para quem está logado. O seu e-mail de login nunca é mostrado.
 

@@ -47,7 +47,8 @@ export function describeError(error: unknown): string {
   }
 
   const inner = error.cause instanceof Error ? error.cause : undefined;
-  const engine = error.name === 'LibsqlError' ? error : inner?.name === 'LibsqlError' ? inner : undefined;
+  const isEngine = (value: Error | undefined) => value !== undefined && /^Libsql(Batch)?Error$/u.test(value.name);
+  const engine = isEngine(error) ? error : isEngine(inner) ? inner : undefined;
 
   if (!engine) {
     return error.name;
@@ -57,4 +58,20 @@ export function describeError(error: unknown): string {
   const reason = engine.cause instanceof Error ? ` (causa: ${engine.cause.name}: ${engine.cause.message.replace(/\s+/gu, ' ').slice(0, 160)})` : '';
 
   return `${error.name} ${typeof code === 'string' ? code : 'no-code'}: ${engine.message.replace(/\s+/gu, ' ').slice(0, 240)}${reason}`;
+}
+
+/**
+ * One argument of a line that a library logs (Better Auth does this for every
+ * sign-in it cannot finish). Errors keep their message, because that is what
+ * says what went wrong, except the ones that carry SQL and bound parameters,
+ * which go through describeError. Objects are left out: they can hold tokens.
+ */
+export function describeLogArg(arg: unknown): string {
+  if (arg instanceof Error) {
+    const carriesParameters = arg.name === 'DrizzleQueryError' || /\bparams:/u.test(arg.message);
+
+    return carriesParameters ? describeError(arg) : `${arg.name}: ${arg.message.replace(/\s+/gu, ' ').slice(0, 300)}`;
+  }
+
+  return typeof arg === 'string' ? arg.slice(0, 300) : '';
 }

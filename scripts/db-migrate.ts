@@ -13,7 +13,7 @@ const target = describeTarget(env.TURSO_DATABASE_URL);
 
 if (!target.remote && !process.argv.includes('--local')) {
   console.error(
-    `Nada foi feito: TURSO_DATABASE_URL não está definida, então o alvo seria ${target.label}.\n` +
+    `Nada foi feito: TURSO_DATABASE_URL não aponta para a Turso, então o alvo seria ${target.label}.\n` +
       'Para a produção: TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... pnpm db:migrate\n' +
       'Para o arquivo local de propósito: pnpm db:migrate --local',
   );
