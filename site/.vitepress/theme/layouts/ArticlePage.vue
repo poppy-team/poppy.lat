@@ -19,7 +19,7 @@ const iso = computed(() => {
 </script>
 
 <template>
-  <article id="main-content" class="article-page" tabindex="-1">
+  <main id="main-content" class="article-page" tabindex="-1">
     <header class="article-page__header">
       <a class="article-page__back" :href="`${root}/blog/`">
         <span aria-hidden="true">←</span> {{ locale === 'en' ? 'Journal' : 'Blog' }}
@@ -34,5 +34,5 @@ const iso = computed(() => {
     <div class="article-content vp-doc">
       <Content />
     </div>
-  </article>
+  </main>
 </template>

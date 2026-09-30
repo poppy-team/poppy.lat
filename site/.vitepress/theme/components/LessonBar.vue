@@ -65,7 +65,7 @@ const moduleProgress = computed(() => ({
 </script>
 
 <template>
-  <div id="main-content" class="lesson-head" tabindex="-1">
+  <div id="main-content" class="lesson-head" role="region" aria-label="Sobre esta lição" tabindex="-1">
     <template v-if="place">
       <p class="lesson-head__kicker">
         <span>Lição {{ place.position }} de {{ place.module.lessons.length }}</span>

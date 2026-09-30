@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue';
 import { useData, type Theme } from 'vitepress';
-import { siteCopy } from '@poppy/project-data';
+import { projects, siteCopy } from '@poppy/project-data';
 import DefaultTheme from 'vitepress/theme';
 import ProjectSwitcher from './components/ProjectSwitcher.vue';
 import DocsProjectHeader from './components/DocsProjectHeader.vue';
@@ -19,6 +19,7 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs, rememberCodeWrap } from './course-state';
+import { watchVitepressAccessibility } from './vitepress-a11y';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
 import ProfileEditPage from './accounts/ProfileEditPage.vue';
@@ -74,7 +75,9 @@ const RoutedLayout = defineComponent({
 
     return () => {
       const kind = pageKind(page.value.relativePath);
-      const project = typeof frontmatter.value.project === 'string' ? frontmatter.value.project : '';
+      // Only a project's slug marks the page; a lesson's `project` names the program it builds.
+      const declared = frontmatter.value.project;
+      const project = typeof declared === 'string' && projects.some((entry) => entry.slug === declared) ? declared : '';
 
       if (typeof document !== 'undefined') {
         document.documentElement.dataset.project = project;
@@ -142,5 +145,13 @@ export default {
     app.component('ModerationPage', ModerationPage);
     rememberCodeTabs();
     rememberCodeWrap();
+
+    if (typeof document !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', watchVitepressAccessibility, { once: true });
+      } else {
+        watchVitepressAccessibility();
+      }
+    }
   },
 } satisfies Theme;

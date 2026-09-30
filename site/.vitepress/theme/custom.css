@@ -48,6 +48,32 @@ html[data-project]:not([data-project='']) {
   --vp-c-brand-soft: color-mix(in srgb, var(--project-plane) 80%, transparent);
 }
 
+/* Syntax colours. The default GitHub palette that VitePress ships has three
+   colours below 4.5:1 on the code background (comments, keywords, orange) and
+   the dark comment colour is at 3.1:1. Each is replaced by a darker (light
+   theme) or lighter (dark theme) shade of the same hue; the inline style that
+   Shiki writes is outranked with !important. */
+.vp-doc span[style*='--shiki-light:#D73A49'] {
+  --shiki-light: #b82535 !important;
+}
+
+.vp-doc span[style*='--shiki-light:#6A737D'] {
+  --shiki-light: #5a636d !important;
+}
+
+.vp-doc span[style*='--shiki-dark:#6A737D'] {
+  --shiki-dark: #959fa9 !important;
+}
+
+.vp-doc span[style*='--shiki-light:#E36209'] {
+  --shiki-light: #a84500 !important;
+}
+
+/* Inline code inside the coloured boxes keeps the text colour, so it stays legible in both themes. */
+.vp-doc .custom-block :is(code, a code) {
+  color: var(--text);
+}
+
 /* Code shows the characters that were typed: no `>=` drawn as `≥`. */
 code,
 pre,
@@ -176,6 +202,12 @@ body {
 }
 
 /* ---------------------------------------------------------------- shell -- */
+
+/* The site has its own skip link, in the reader's language and aimed at the main text; the
+   default theme's English one would be a second, redundant stop. */
+.VPSkipLink {
+  display: none;
+}
 
 .skip-link {
   position: absolute;

@@ -211,7 +211,7 @@ async function act(kind: 'mute' | 'unmute' | 'photo' | 'ban' | 'unban' | 'role')
 </script>
 
 <template>
-  <div class="acct-page acct-page--wide">
+  <main id="main-content" tabindex="-1" class="acct-page acct-page--wide">
     <h1>Moderação</h1>
 
     <p v-if="!accountsEnabled || sessionStatus !== 'ready'" role="status">Carregando…</p>
@@ -344,5 +344,5 @@ async function act(kind: 'mute' | 'unmute' | 'photo' | 'ban' | 'unban' | 'role')
         </table>
       </section>
     </template>
-  </div>
+  </main>
 </template>

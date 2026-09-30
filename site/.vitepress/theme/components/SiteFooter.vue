@@ -36,7 +36,7 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
         </a>
         <p class="site-footer__description">{{ copy.footerDescription }}</p>
       </div>
-      <nav class="site-footer__links" :aria-label="copy.navigationLabel">
+      <nav class="site-footer__links" :aria-label="copy.footerNavigationLabel">
         <a :href="activeLocale === 'en' ? '/en/learn/' : '/aprender/'">{{ copy.navigation.learn }}</a>
         <a :href="`${root}/#projects`">{{ copy.navigation.projects }}</a>
         <a :href="`${root}/blog/`">{{ copy.navigation.blog }}</a>

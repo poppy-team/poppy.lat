@@ -258,8 +258,10 @@ export default defineConfig({
   },
 
   transformHead({ pageData, title, description }) {
-    const project =
-      typeof pageData.frontmatter.project === 'string' ? pageData.frontmatter.project : '';
+    // Only a project's slug marks the page. A lesson's `project` is the name of
+    // the small program it builds, not a project of the team.
+    const declared = pageData.frontmatter.project;
+    const project = typeof declared === 'string' && projects.some((entry) => entry.slug === declared) ? declared : '';
 
     // VitePress offers no build-time hook for attributes on <html>, and the
     // rules that separate editorial pages from documentation depend on them.

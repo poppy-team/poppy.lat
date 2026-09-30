@@ -119,7 +119,7 @@ async function deleteAccount(): Promise<void> {
 </script>
 
 <template>
-  <div class="acct-page">
+  <main id="main-content" tabindex="-1" class="acct-page">
     <template v-if="!accountsEnabled">
       <h1>Editar perfil</h1>
       <p>As contas ainda não estão ativas neste site.</p>
@@ -230,5 +230,5 @@ async function deleteAccount(): Promise<void> {
         </details>
       </section>
     </template>
-  </div>
+  </main>
 </template>
