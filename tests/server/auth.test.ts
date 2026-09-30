@@ -130,6 +130,23 @@ describe('conta sem perfil (cadastro que parou no meio)', () => {
     expect((await harness.client.execute('SELECT count(*) AS n FROM profiles')).rows[0]?.n).toBe(1);
   });
 
+  it('o aceite de idade e Termos de uma conta sem perfil fica gravado e continua valendo', async () => {
+    const harness = await createHarness();
+    const cookie = await harness.signIn('ana@example.com', { consent: false });
+
+    await harness.client.execute('DELETE FROM profiles');
+
+    const accepted = await harness.request('/api/me/consent', { cookie, json: { birthDate: '1990-05-20', acceptTerms: true } });
+
+    expect(accepted.status).toBe(200);
+
+    // A later request, as after reloading the page, still sees it.
+    const who = await harness.request('/api/whoami', { cookie });
+
+    expect(who.data.me.consented).toBe(true);
+    expect((await harness.request('/api/me/notes', { cookie })).status).toBe(200);
+  });
+
   it('health diz quais entradas sociais estão ligadas', async () => {
     const harness = await createHarness();
     const health = await harness.request('/api/health');
