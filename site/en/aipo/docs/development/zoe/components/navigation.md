@@ -4,40 +4,40 @@ description: "Aipo — Navigation"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/components/navigation.md"
+sourcePath: "docs/en/zoe/components/navigation.md"
 sourceBlob: "cc8931158334a9e177bf10b4da2422d947cd5461"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/components/navigation.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `cc8931158334a9e177bf10b4da2422d947cd5461`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/components/navigation.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `cc8931158334a9e177bf10b4da2422d947cd5461`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Navegação e Listas Hierárquicas
+# Navigation & Tree Lists
 
-Componentes para alternância de abas e navegação em árvores de dados.
+Components for tab switching and hierarchical data inspection.
 
 ---
 
-## `tab_view` e `tab_bar`
+## `tab_view`
 
-Conjunto de abas profissionais com transição de conteúdo:
+Professional tab views with content switching:
 
 ```aipo
-let aba_ativa = zoe.use_state("hierarquia")
+let active_tab = zoe.use_state("scene")
 
 zoe.tab_view(
     {
-        "active": aba_ativa,
+        "active": active_tab,
         "tabs": [
-            { "id": "hierarquia", "label": "Hierarquia" },
-            { "id": "assets", "label": "Arquivos" }
+            { "id": "scene", "label": "Scene" },
+            { "id": "assets", "label": "Assets" }
         ]
     },
     {
-        "hierarquia": arvore_cenas,
-        "assets": lista_arquivos
+        "scene": scene_tree,
+        "assets": asset_list
     }
 )
 ```
@@ -46,26 +46,26 @@ zoe.tab_view(
 
 ## `hierarchy_tree`
 
-Árvore de cena inspirada na Unity e Godot, com linhas de indentação, carets de expansão/colapso, badges semânticos de tipo (`3D`, `2D`, `CAM`, `LGT`) e seleção em linha inteira (*Fitts's Law*):
+Scene hierarchy tree with rail guide lines, expand/collapse carets, semantic type badges (`3D`, `2D`, `CAM`, `LGT`), and full-width row selection:
 
 ```aipo
-let entidade_selecionada = zoe.use_state("heroi")
+let selected = zoe.use_state("player")
 
-let estrutura = [
+let nodes = [
     {
         "id": "root",
-        "label": "CenaPrincipal",
+        "label": "RootScene",
         "type": "3d",
         "children": [
-            { "id": "camera", "label": "Camera3D", "type": "camera" },
-            { "id": "heroi", "label": "Jogador", "type": "3d" }
+            { "id": "camera", "label": "MainCamera", "type": "camera" },
+            { "id": "player", "label": "Player", "type": "3d" }
         ]
     }
 ]
 
 zoe.hierarchy_tree({
-    "nodes": estrutura,
-    "selected": entidade_selecionada
+    "nodes": nodes,
+    "selected": selected
 })
 ```
 
@@ -73,4 +73,4 @@ zoe.hierarchy_tree({
 
 ## `virtual_list`
 
-Lista virtualizada de alto desempenho com janela deslizante de itens $O(1)$. Gera somente os elementos visíveis no viewport, suportando coleções de 100.000+ linhas sem degradação de FPS.
+Virtual scrolling list providing $O(1)$ windowed element rendering for large collections of 100,000+ items.

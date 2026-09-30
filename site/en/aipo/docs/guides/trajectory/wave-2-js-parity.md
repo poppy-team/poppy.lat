@@ -4,46 +4,46 @@ description: "Aipo — Wave 2 Js Parity"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-2-js-parity.md"
+sourcePath: "docs/en/trajectory/wave-2-js-parity.md"
 sourceBlob: "a9bb312e6ec76eb87820017f312695b1fabbb6f2"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-2-js-parity.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `a9bb312e6ec76eb87820017f312695b1fabbb6f2`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-2-js-parity.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `a9bb312e6ec76eb87820017f312695b1fabbb6f2`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 2 — Backend JavaScript & Deep Quality
+# Wave 2 — JavaScript Backend & Deep Quality
 
-A **Wave 2** expandiu os horizontes do Aipo para a web e runtimes serverless através do emissor **`aipo-js`**, acompanhado por uma rodada profunda de endurecimento de qualidade e segurança (*Deep Quality Gauntlet*).
+**Wave 2** extended Aipo's deployment surface to modern web browsers and serverless runtimes through the **`aipo-js`** compiler, complemented by an exhaustive quality and supply-chain hardening cycle (*Deep Quality Gauntlet*).
 
 ---
 
-## Marcos Conquistados
+## Achieved Milestones
 
-### 1. O Emissor `aipo-js` & Runtime Shim
-- Implementação de um compilador semântico de HIR para **JavaScript moderno (ES2022)**.
-- Criação de um *runtime shim* modular e versionado que implementa:
-  - O modelo de valores e referências do Aipo em JavaScript.
-  - A semântica exata de falhas e transações com rollback de mutações em `attempt`.
-  - Normalização Unicode NFC compatível.
-  - Mapeamento preciso de código-fonte através de **Source Maps V3**.
+### 1. The `aipo-js` Emitter & Runtime Shim
+- Semantic compiler lowering HIR directly to **modern JavaScript (ES2022)**.
+- Modular, versioned runtime shim implementing:
+  - Identical Aipo value and reference semantics in pure JavaScript.
+  - Precise operational fault semantics and mutation rollbacks within `attempt` blocks.
+  - Normalized Unicode NFC text equivalence.
+  - Source-level debugging accuracy via **Source Maps V3**.
 
-### 2. Suíte de Paridade Diferencial VM ↔ JS
-- Criação de um test runner diferencial automatizado:
-  - Todo programa da suíte de conformance é executado na **VM nativa em Rust** e simultaneamente no **Node.js** com a saída transpilada.
-  - Validação estrita de equivalência bit a bit de `stdout`, códigos de saída e diagnósticos de erro em 100% dos casos.
+### 2. Differential VM ↔ JS Conformance Suite
+- Automated differential test runner:
+  - Every canonical program in the test suite is executed concurrently on the **native Rust VM** and in **Node.js** via emitted JavaScript.
+  - Strict bit-for-bit assertion of identical `stdout`, exit status codes, and diagnostic error outputs across both backends.
 
-### 3. Deep Quality Gauntlet: Fuzzing & Testes de Propriedade
-- Integração de suites de fuzzing com **libFuzzer** e `cargo-fuzz` para o Lexer e o Parser.
-- Testes de propriedade com **proptest** cobrindo:
-  - Parsing e unparsing resilientes.
-  - Comportamento de números de ponto flutuante, inteiros e limites de estouro.
-  - Normalização de caminhos e manipulação de strings UTF-8.
+### 3. Deep Quality Gauntlet: Fuzzing & Property-Based Testing
+- Fuzz testing integration utilizing **libFuzzer** and `cargo-fuzz` for lexer and parser robustness.
+- Invariant property testing using **proptest** validating:
+  - Resilient AST parsing and idempotent unparsing.
+  - Floating-point arithmetic edge cases, integer overflow boundaries, and rounding guarantees.
+  - Canonical path normalization and zero-panic UTF-8 string slicing.
 
-### 4. Política Estrita de Dependências (`cargo deny`)
-- Configuração de políticas de segurança em `deny.toml`:
-  - Auditoria automática contra vulnerabilidades conhecidas (RUSTSEC).
-  - Bloqueio de licenças restritivas ou incompatíveis.
-  - Banimento de duplicatas de crates no grafo de dependências do workspace.
+### 4. Supply Chain Security Enforcement (`cargo deny`)
+- Automated security policies configured in `deny.toml`:
+  - Continual vulnerability database auditing against known advisories (RUSTSEC).
+  - Strict license policy enforcement rejecting non-compliant or copyleft dependencies.
+  - Zero-duplicate crate enforcement across the entire workspace dependency tree.

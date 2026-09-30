@@ -4,70 +4,70 @@ description: "Aipo — Installation"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/getting-started/installation.md"
+sourcePath: "docs/en/getting-started/installation.md"
 sourceBlob: "68e0ff256dcc079b2ab0ea611d7157cd90c35201"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/getting-started/installation.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `68e0ff256dcc079b2ab0ea611d7157cd90c35201`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/getting-started/installation.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `68e0ff256dcc079b2ab0ea611d7157cd90c35201`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Instalação & Setup
+# Installation & Setup
 
-O compilador e a suíte de ferramentas do **Aipo** estão distribuídos como um workspace unificado em Rust.
+The Aipo compiler and toolchain are distributed as an open unified workspace in Rust.
 
 ---
 
-## Pré-requisitos
+## Prerequisites
 
-Para compilar e executar o Aipo em sua máquina:
+To build and run Aipo locally:
 
-- **Rust 1.85+** (MSRV verificado com suporte a Rust 2024 edition)
-- **Cargo** (incluso com o Rust toolchain)
-- **Node.js 18+** *(opcional, necessário apenas se for utilizar o backend `aipo-js` para executar via Node)*
+- **Rust 1.85+** (MSRV verified with Rust 2024 edition support)
+- **Cargo** (included with the standard Rust toolchain)
+- **Node.js 18+** *(optional, only needed when executing output emitted by `aipo-js`)*
 
-Para instalar o Rust em distribuições Linux, macOS ou WSL:
+To install Rust on Linux, macOS, or WSL:
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ---
 
-## Compilação a partir do Código-Fonte
+## Building from Source
 
-Clone o repositório do Aipo e compile o binário da interface de linha de comando (`aipo-cli`):
+Clone the Aipo repository and compile the command-line interface binary (`aipo-cli`):
 
 ```bash
-# 1. Clonar o repositório
+# 1. Clone the repository
 git clone https://github.com/poppy-team/aipo-lang.git
 cd aipo-lang
 
-# 2. Compilar em modo release com otimizações máximas
+# 2. Build in release mode with maximum optimization
 cargo build --release -p aipo-cli
 
-# 3. O binário executável estará disponível em:
+# 3. The executable binary will be available at:
 ./target/release/aipo --version
 ```
 
-### Adicionando ao seu `PATH`
+### Adding to your `PATH`
 
-Para disponibilizar o comando `aipo` globalmente no seu sistema:
+To make the `aipo` command accessible globally:
 
 ```bash
-# No Linux / macOS
+# On Linux / macOS
 cp ./target/release/aipo ~/.local/bin/
 
-# Verifique a instalação
+# Verify installation
 aipo --help
 ```
 
 ---
 
-## Verificação da Instalação
+## Verifying Installation
 
-Após a instalação, verifique se todos os subsistemas estão funcionais:
+Verify that all subsystems operate properly:
 
 ```bash
 aipo check --help
@@ -75,7 +75,7 @@ aipo run --help
 aipo disasm --help
 ```
 
-Para validar a integridade completa do workspace e executar a suíte com mais de 500 testes:
+To validate the workspace integrity and execute the full suite of 500+ automated tests:
 
 ```bash
 cargo test --workspace

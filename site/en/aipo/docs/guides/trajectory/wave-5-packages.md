@@ -4,43 +4,43 @@ description: "Aipo — Wave 5 Packages"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-5-packages.md"
+sourcePath: "docs/en/trajectory/wave-5-packages.md"
 sourceBlob: "3a882d8a6fcfcaa8c55879ae91291bdadc9d982f"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-5-packages.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `3a882d8a6fcfcaa8c55879ae91291bdadc9d982f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-5-packages.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `3a882d8a6fcfcaa8c55879ae91291bdadc9d982f`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 5 — Gestor de Pacotes Hermético & Offline
+# Wave 5 — Hermetic & Offline Package Manager
 
-A **Wave 5** desenvolveu o sistema de empacotamento, resolução de dependências e distribuição da linguagem Aipo (P04-G01 a P04-G11), com foco em **hermeticidade, determinismo e segurança de supply-chain**.
+**Wave 5** built the packaging, dependency resolution, and distribution system for the Aipo programming language (P04-G01 to P04-G11), designed around **hermeticity, determinism, and supply chain security**.
 
 ---
 
-## Marcos Conquistados
+## Achieved Milestones
 
-### 1. Fundação do Sistema de Pacotes (P04-G01)
-- Identidade formal baseada em coordenadas `namespace.package`.
-- Manifesto canônico `aipo.toml` e geração de lockfile determinístico `aipo.lock`.
-- Resolução de dependências locais por caminho (`path`), imports qualificados e rastreamento de proveniência.
+### 1. Package System Foundation (P04-G01)
+- Formal package identification based on `namespace.package` coordinates.
+- Canonical `aipo.toml` manifest specification and deterministic `aipo.lock` lockfile generation.
+- Local path dependency resolution (`path`), qualified imports, and immutable provenance tracking.
 
-### 2. Dependências Remotas Pinadas no GitHub (P04-G04 a P04-G06)
-- Suporte a pacotes hospedados no GitHub, exigindo obrigatoriamente um **commit SHA completo pinado** no manifesto:
+### 2. GitHub Remote Dependencies Pinned by SHA (P04-G04 to P04-G06)
+- Support for GitHub-hosted dependencies, strictly requiring a **pinned commit SHA** in the manifest:
   ```toml
   [dependencies]
-  helper = { github = "organizacao/repo", commit = "4b24a71c08" }
+  helper = { github = "organization/repo", commit = "4b24a71c08" }
   ```
-- Resolução recursiva do grafo de dependências com limite estrito de segurança de 256 pacotes.
-- Download atômico através do subcomando explícito `aipo package fetch-github`, suportando autenticação opt-in com token bearer sem nunca expor nem logar segredos.
+- Recursive dependency graph resolution enforcing a hard security cap of 256 packages per project.
+- Atomic downloads orchestrated exclusively via the dedicated `aipo package fetch-github` command, supporting opt-in Bearer token authentication without ever leaking or logging secrets.
 
-### 3. Consumo Offline & Integridade Criptográfica (P04-G07 a P04-G10)
-- Armazenamento em cache local estruturado (`.aipo/cache`) verificado por hashes SHA-256 independentes.
-- Execução regular (`run`, `check`, `build`) em modo estritamente **offline**:
-  - O runtime nunca faz chamadas de rede durante a execução comum.
-  - Se um pacote estiver ausente ou modificado no cache, a execução falha imediatamente (*fail-closed*).
-- Ferramental de auditoria e manutenção de cache:
-  - `aipo package cache verify`: Varre e valida a assinatura criptográfica de todos os pacotes em cache.
-  - `aipo package cache prune`: Poda com segurança pacotes antigos não mais referenciados no lockfile.
+### 3. Offline Consumption & Cryptographic Integrity (P04-G07 to P04-G10)
+- Local content-addressable cache (`.aipo/cache`) verified against SHA-256 tree digests.
+- Standard execution workflows (`run`, `check`, `build`) run in strictly **offline mode**:
+  - The runtime never issues network requests during ordinary execution.
+  - Missing or tampered package archives immediately cause a secure *fail-closed* termination.
+- Cache auditing and maintenance tooling:
+  - `aipo package cache verify`: Scans and asserts cryptographic validity across all cached dependencies.
+  - `aipo package cache prune`: Safely prunes orphaned package versions no longer referenced in the active lockfile.

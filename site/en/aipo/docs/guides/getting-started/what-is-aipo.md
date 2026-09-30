@@ -4,44 +4,44 @@ description: "Aipo — What Is Aipo"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/getting-started/what-is-aipo.md"
+sourcePath: "docs/en/getting-started/what-is-aipo.md"
 sourceBlob: "d7e78ce87a0d2b39bc7b39966e51077f09f92bd9"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/getting-started/what-is-aipo.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `d7e78ce87a0d2b39bc7b39966e51077f09f92bd9`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/getting-started/what-is-aipo.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `d7e78ce87a0d2b39bc7b39966e51077f09f92bd9`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# O que é Aipo?
+# What is Aipo?
 
-O **Aipo** é uma linguagem de programação moderna de propósito geral, com tipagem dinâmica e forte, dotada de suporte nativo a contratos de assinatura e invariantes estruturais.
+**Aipo** is a modern general-purpose programming language featuring dynamic and strong typing, paired with native signature contracts and structural invariants.
 
-Projetada com uma filosofia de **simplicidade, robustez e previsibilidade**, o Aipo foi construído do zero em Rust com arquitetura limpa e sem dependências ocultas.
+Engineered with a philosophy of **clarity, robustness, and predictability**, Aipo was built from the ground up in Rust using Clean Architecture boundaries.
 
 ---
 
-## Pilares Fundamentais
+## Core Pillars
 
-### 1. Tipagem Dinâmica e Forte
+### 1. Dynamic and Strong Typing
 
-No Aipo, valores possuem tipos concretos e o sistema não realiza conversões arbitrárias ou silenciosas entre tipos incompatíveis:
+In Aipo, values have concrete types and the runtime never performs arbitrary or hidden conversions between incompatible types:
 
 ```aipo
 let x = "42"
 let y = 10
 
-// Erro de tipo em tempo de execução:
-// Operador '+' não aplica concatenação entre String e Int
-let z = x + y // Falha explícita!
+// Runtime type fault:
+// Operator '+' does not concatenate String and Int implicitly
+let z = x + y // Explicit failure!
 ```
 
-Para concatenar ou converter valores, exige-se intenção explícita ou formatação declarada.
+Converting or concatenating values requires clear programmer intent.
 
-### 2. Contratos Estruturais & Invariantes
+### 2. Structural Invariants & Contracts
 
-Enquanto linguagens tradicionais exigem que você espalhe asserções ou validações manuais em todos os métodos, o Aipo introduz o hook `invariant()` no bloco `impl` da estrutura:
+While traditional languages require scattering manual assertions across every method, Aipo introduces the `invariant()` hook inside the struct's `impl` block:
 
 ```aipo
 struct Temperature {
@@ -50,32 +50,32 @@ struct Temperature {
 
 impl Temperature {
     invariant {
-        self.celsius >= -273.15 # Não pode ser inferior ao zero absoluto
+        self.celsius >= -273.15 # Cannot be below absolute zero
     }
 }
 ```
 
-Qualquer mutação que viole a invariante é interceptada na fronteira da operação. Dentro de blocos de transação `attempt { ... } failed err { ... }`, as alterações sofrem rollback atômico para o estado anterior.
+Any mutation that violates an invariant is intercepted at the boundary. Inside `attempt { ... } failed err { ... }` transaction blocks, modifications undergo atomic rollback to their previous state.
 
-### 3. Concorrência Determinística
+### 3. Deterministic Concurrency
 
-O modelo de concorrência do Aipo é baseado em **fibras cooperativas e tempo virtual**. As chamadas assíncronas usam `async fn` e combinadores de alto nível (`task.spawn`, `task.sleep`, `task.all`, `task.race`), orquestrados por um scheduler determinístico que permite testes 100% reproduzíveis.
+Aipo's concurrency model is founded on **cooperative fibers and virtual time**. Async calls utilize `async fn` and high-level combinators (`task.spawn`, `task.sleep`, `task.all`, `task.race`), orchestrated by a deterministic scheduler that enables 100% reproducible tests.
 
-### 4. Dois Destinos: VM Nativa e JavaScript
+### 4. Dual Target: Native VM and JavaScript
 
-O compilador do Aipo foi desenvolvido com duas metas principais:
-1. **VM de Bytecode em Rust**: Execução veloz, serialização binária determinística (`.aibc`) e inspeção de baixo nível com desassemblador de linha/coluna.
-2. **Backend JavaScript (`aipo-js`)**: Emissão direta de JavaScript moderno (ES2022) com runtime shim modular e paridade diferencial bit a bit garantida por suíte de testes.
+The Aipo compiler targets two first-class runtimes:
+1. **Rust Bytecode VM**: Fast execution, deterministic `.aibc` binary serialization, and instruction disassembly with mapped line/column metadata.
+2. **JavaScript Backend (`aipo-js`)**: Direct transpilation to modern ES2022 with a modular runtime shim, guaranteeing bit-for-bit differential parity.
 
 ---
 
-## Comparativo Rápido
+## Quick Comparison
 
-| Recurso | Aipo | Python | Lua | JavaScript |
+| Feature | Aipo | Python | Lua | JavaScript |
 | :--- | :--- | :--- | :--- | :--- |
-| **Tipagem** | Dinâmica e Forte | Dinâmica e Forte | Dinâmica e Fraca | Dinâmica e Fraca |
-| **Invariantes Nativas** | Sim (`invariant()`) | Não (manual) | Não | Não |
-| **Rollback Transacional** | Sim (`attempt`) | Não | Não | Não |
-| **Async Nativo** | Sim (Determinístico) | Sim (`asyncio`) | Corrotinas (baixo nível) | Sim (Event Loop) |
-| **Módulos / Dependências** | SHA Pinada + Offline | Pip / Virtualenv | Externa (Luarocks) | NPM / Node Modules |
-| **Implementação** | Rust (Compilador + VM) | C / C++ | ANSI C | C++ (V8) / Rust (Deno) |
+| **Typing** | Dynamic & Strong | Dynamic & Strong | Dynamic & Weak | Dynamic & Weak |
+| **Native Invariants** | Yes (`invariant()`) | No (manual) | No | No |
+| **Transactional Rollback** | Yes (`attempt`) | No | No | No |
+| **Native Async** | Yes (Deterministic) | Yes (`asyncio`) | Coroutines | Yes (Event Loop) |
+| **Package Panning** | Commit SHA + Offline | Pip / Virtualenv | External (Luarocks) | NPM / Node Modules |
+| **Implementation** | Rust (Compiler + VM) | C / C++ | ANSI C | C++ (V8) / Rust (Deno) |

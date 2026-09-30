@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/ui-ux/keymap.md"
 sourceBlob: "f16663fac7fadb5278b214dcaa607d29ef93fa2f"
-revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
+revision: "1cd515630b8ceb57777d466bee4970fe7c2e30e0"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/ui-ux/keymap.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `f16663fac7fadb5278b214dcaa607d29ef93fa2f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `1cd515630b8ceb57777d466bee4970fe7c2e30e0`, blob `f16663fac7fadb5278b214dcaa607d29ef93fa2f`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Mapa de teclas
 

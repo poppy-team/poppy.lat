@@ -4,69 +4,69 @@ description: "Aipo — Performance Lessons"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/evidence/performance-lessons.md"
+sourcePath: "docs/en/evidence/performance-lessons.md"
 sourceBlob: "7e8ea56ece2dc5f403a3da1cbd6d459a9534447f"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/evidence/performance-lessons.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `7e8ea56ece2dc5f403a3da1cbd6d459a9534447f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/evidence/performance-lessons.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `7e8ea56ece2dc5f403a3da1cbd6d459a9534447f`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# A Saga de Otimização & Rigor Metodológico
+# The Optimization Saga & Methodological Rigor
 
-Uma das maiores lições de engenharia do projeto Aipo é a **disciplina de medição empírica**: código que parece uma otimização no papel muitas vezes não gera ganho real quando submetido a rigorosos testes pareados.
+A central engineering takeaway from the Aipo project is the **discipline of empirical measurement**: optimizations that look compelling in theory frequently deliver zero speedup when subjected to controlled paired benchmarking.
 
-Documentar os experimentos que foram **revertidos** é tão importante quanto celebrar as melhorias mantidas.
-
----
-
-## Ganhos Comprovados & Mantidos
-
-Durante a evolução da VM e do runtime, as seguintes otimizações foram comprovadas por medição com controle estatístico:
-
-1. **Cache Monomórfico de Field Slot**:
-   - Reduziu o tempo do benchmark `fields` de 1.001,77ms para 718,20ms (**redução de 28,31%**).
-2. **Cache de Base Frame**:
-   - Evitou chamadas desnecessárias a `frames.last()` nos acessos a variáveis locais, gerando reduções estáveis de **-3,71% em `arithmetic`**, **-6,65% em `fields`** e **-4,17% em `recursion`**.
-3. **Eliminação de Clones em `SetField`**:
-   - Eliminou 600.000 clonagens de `Value` de forma determinística para estruturas não protegidas (*unguarded*), mantendo a semântica de rollback intacta.
+Documenting experiments that were **reverted** is just as crucial as highlighting durable optimizations.
 
 ---
 
-## Os 7 Experimentos Revertidos
+## Proven & Retained Speedups
 
-Sete hipóteses de otimização foram minuciosamente implementadas, testadas com o script pareado `scripts/perf/paired.sh` e **revertidas** após os dados confirmarem ausência de ganho demonstrável:
+Across VM and runtime profiling, the following optimizations demonstrated statistically verified gains:
 
-| Experimento | Hipótese Técnica | Resultado Observado | Decisão |
+1. **Monomorphic Field Slot Cache**:
+   - Decreased `fields` benchmark execution time from 1,001.77ms down to 718.20ms (**28.31% reduction**).
+2. **Base Frame Pointer Caching**:
+   - Avoided redundant `frames.last()` queries during local slot lookups, producing consistent speedups: **-3.71% in `arithmetic`**, **-6.65% in `fields`**, and **-4.17% in `recursion`**.
+3. **Eliminating Clone Calls in `SetField`**:
+   - Deterministically eliminated 600,000 `Value` clones on unguarded struct mutations while preserving transactional rollback semantics.
+
+---
+
+## Seven Reverted Experiments
+
+Seven optimization hypotheses were implemented, benchmarked using paired script `scripts/perf/paired.sh`, and **reverted** after evidence disproved measurable gains:
+
+| Experiment | Technical Hypothesis | Measured Outcome | Decision |
 | :--- | :--- | :--- | :--- |
-| **1. Cache de Metadados de Métodos** | Evitar buscas repetidas na tabela de métodos | Sem variação estatisticamente significante | **Revertido** |
-| **2. Pool de Nomes (`Rc<str>` vs Enum)** | Reduzir alocações na resolução de identificadores | Custo de chaveamento superou a economia | **Revertido** |
-| **3. Guardedness na Entrada de Cache** | Evitar checagens dinâmicas redundantes | Neutro no wall-clock | **Revertido** |
-| **4. Flags `fixed` por Slot** | Bitmask compacta para campos imutáveis | Ruído dentro da margem de erro (±2%) | **Revertido** |
-| **5. Cache de Tipos Guarded** | Reutilização de esquemas de proteção | Ganho nulo frente à contenção de cache L2 | **Revertido** |
-| **6. Layout Denso de `StructInstance`** | Vetor contíguo para campos primitivos | Deslocamento de offset oscilou entre +7% e neutro | **Revertido** |
-| **7. Despacho de Método Sem Alocar** | Evitar ponteiros intermediários | Compilador já eliminava alocações no caminho feliz | **Revertido** |
+| **1. Method Metadata Cache** | Avoid repeated method table lookups | No statistically significant difference | **Reverted** |
+| **2. Name Pooling (`Rc<str>` vs Enum)** | Reduce allocations in identifier resolution | Keying overhead exceeded memory savings | **Reverted** |
+| **3. Guardedness in Cache Entry** | Elide redundant dynamic integrity checks | Neutral wall-clock impact | **Reverted** |
+| **4. `fixed` Flags per Slot** | Compact bitmask for immutable struct fields | Noise within margin of error (±2%) | **Reverted** |
+| **5. Guarded Types Cache** | Reuse invariant enforcement schemas | Zero gain due to L2 cache contention | **Reverted** |
+| **6. Dense `StructInstance` Layout** | Contiguous flat buffer for primitive fields | Offset calculation drifted +7% to neutral | **Reverted** |
+| **7. Zero-Alloc Method Dispatch** | Elide intermediate wrapper pointers | Compiler already hoisted fast-path allocations | **Reverted** |
 
 ---
 
-## O Diagnóstico do Laço de Despacho
+## Dispatch Loop Diagnosis
 
-Uma calibração com número fixo de iterações revelou um fato crucial:
-- O custo por opcode na VM é **constante (~100ns)** e independe da mistura de operações.
-- O gargalo estrutural não está nas instruções individuais, mas no laço de despacho (*dispatch overhead*) e no tamanho largo do tipo `VmFault` (72 bytes).
-- A tentativa de otimizar a decodificação de opcodes sem `Result` produziu ganho **nulo (-0,16%)**, comprovando que o LLVM já afundava a montagem da falha para fora do caminho feliz (*cold branch*).
+A calibrated fixed-iteration benchmark revealed a fundamental characteristic:
+- Opcode execution cost in the VM is **constant (~100ns)**, regardless of instruction mix.
+- The structural bottleneck lies in the outer dispatch loop and the bulky 72-byte `VmFault` type.
+- Attempting to rewrite opcode decoding without `Result` yielded **zero speedup (-0.16%)**, confirming that LLVM was already sinking fault construction into cold branches off the hot execution path.
 
 ---
 
-## Regras Canônicas de Medição (A precondição para o futuro)
+## Canonical Rules of Measurement
 
-Para evitar retrabalho em máquinas sujeitas a ruído e contenção de CPU:
+To prevent wasted effort under noisy CPU scheduling and background system contention:
 
-1. **Diferença menor que ±5% não é evidência de ganho**.
-2. **Um único lote pareado não decide nada**: toda proposta exige pelo menos dois lotes com inversão de ordem candidate/baseline.
-3. **`arithmetic` é o controle obrigatório**, por não depender de structs nem de despacho dinâmico de métodos.
-4. **Sob contenção de carga, tempo de CPU (`RUSAGE_CHILDREN`) é a única métrica confiável**. Wall-clock em ambiente concorrido produz falsos positivos.
+1. **Any delta under ±5% is not evidence of speedup**.
+2. **A single batch of measurements proves nothing**: every benchmark candidate requires at least two interleaved runs with candidate/baseline order inversion.
+3. **`arithmetic` is the mandatory control workload**, as it isolates pure loop overhead from structs and dynamic method dispatch.
+4. **Under CPU contention, CPU process time (`RUSAGE_CHILDREN`) is the only reliable signal**. Wall-clock measurements in shared environments produce false positives.
 
-A trilha de micro-otimização do interpretador foi formalmente **encerrada**. Qualquer reabertura futura exigirá hardware dedicado e foco em mudanças arquiteturais macro (`Call0..Call4`, `GetLocal8` ou jump tables com threaded dispatch).
+The micro-optimization phase for the baseline interpreter is officially **closed**. Any future work requires dedicated benchmark hardware and macro-architectural changes (`Call0..Call4`, `GetLocal8`, or threaded dispatch jump tables).

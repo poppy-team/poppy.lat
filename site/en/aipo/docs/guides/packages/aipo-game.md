@@ -4,45 +4,45 @@ description: "Aipo — Aipo Game"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/packages/aipo-game.md"
+sourcePath: "docs/en/packages/aipo-game.md"
 sourceBlob: "8481ae3e070f418d42ebbaa3b60ac926f10c62d7"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/packages/aipo-game.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `8481ae3e070f418d42ebbaa3b60ac926f10c62d7`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/packages/aipo-game.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `8481ae3e070f418d42ebbaa3b60ac926f10c62d7`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# aipo.game — Micro Game Engine 2D
+# aipo.game — 2D Micro Game Engine
 
-`aipo.game` é a engine 2D oficial da linguagem Aipo para criação ágil e expressiva de jogos, inspirada nos melhores princípios de produtividade e facilidade do **Construct 3**, **ct.js** e **GameMaker Studio**, mas com a robustez e o desempenho da arquitetura nativa da Aipo.
+`aipo.game` is the official 2D game engine of the Aipo programming language for expressive, rapid game development. It draws inspiration from the productivity paradigms of **Construct 3**, **ct.js**, and **GameMaker Studio**, powered by the raw speed and determinism of Aipo's native runtime.
 
 ---
 
-## 1. Visão Geral & Filosofia
+## 1. Overview & Philosophy
 
-O desenvolvimento de jogos 2D não deve ser sobrecarregado por cerimônias de boilerplate ou motores excessivamente complexos. O `aipo.game` foi projetado com quatro pilares essenciais:
+Game development should not be weighed down by excessive boilerplate or heavyweight workflows. `aipo.game` is anchored on four core pillars:
 
-1. **Atores e Cenas Claros:** Cada entidade (`Actor`) possui seu próprio ciclo de vida (`on_create`, `on_update`, `on_collision`, `on_destroy`), encapsulando sua lógica e física.
-2. **Behaviors Plugáveis em 1 Linha:** Funcionalidades completas como movimentação de plataforma, física de projétil ou barreiras sólidas são anexadas com uma única chamada declarativa.
-3. **Simulação Determinística:** A aritmética e o estado da Aipo garantem simulações 100% reproduzíveis, viabilizando **Rollback Netcode** para multiplayer e saves de replay microscópicos.
-4. **Programação Visual Anti-Espaguete:** O sistema de nós visuais segue o modelo estruturado **"Gatilho $\to$ Filtro $\to$ Ação"**, gerando código `.aipo` transparente e legível.
+1. **Explicit Actors & Scenes:** Every entity (`Actor`) encapsulates its lifecycle (`on_create`, `on_update`, `on_collision`, `on_destroy`), rendering, and physics.
+2. **One-Line Pluggable Behaviors:** Turnkey capabilities like platformer physics, top-down movement, and bullet trajectories are attached with a single declaration.
+3. **Deterministic Simulation:** Aipo's strict type system and controlled side effects ensure 100% reproducible gameplay steps, enabling **Rollback Netcode** for multiplayer and featherweight replay files.
+4. **Anti-Spaghetti Visual Nodes:** Visual scripting follows an organized **"Trigger $\to$ Filter $\to$ Action"** model that compiles bidirectionally to clean `.aipo` code.
 
 ```mermaid
 graph TD
-    Game["Código ou Nós Visuais (aipo.game)"] --> EngineCore["Core da Engine (Atores, Cenas, Colisões AABB, Behaviors)"]
-    EngineCore --> FFIBridge["Ponte FFI Host (__aipo_game_*)"]
-    FFIBridge --> Desktop["Desktop Nativo: Skia / Miniquad (Vulkan / Metal / DX12)"]
-    FFIBridge --> Web["Navegador: WebAssembly (WebGL2 / Canvas 2D + WebAudio)"]
-    FFIBridge --> Headless["Servidor & CI: Simulação Matemática Headless a 10.000 FPS"]
+    Game["Game Code or Visual Nodes (aipo.game)"] --> EngineCore["Engine Core (Actors, Scenes, AABB Collisions, Behaviors)"]
+    EngineCore --> FFIBridge["Host FFI Bridge (__aipo_game_*)"]
+    FFIBridge --> Desktop["Native Desktop: Skia / Miniquad (Vulkan / Metal / DX12)"]
+    FFIBridge --> Web["Browser: WebAssembly (WebGL2 / Canvas 2D + WebAudio)"]
+    FFIBridge --> Headless["Server & CI: Headless Math Simulation at 10,000 FPS"]
 ```
 
 ---
 
-## 2. Instalação
+## 2. Installation
 
-Adicione ao seu `aipo.toml`:
+Add to your project's `aipo.toml`:
 
 ```toml
 [dependencies]
@@ -51,28 +51,28 @@ Adicione ao seu `aipo.toml`:
 
 ---
 
-## 3. Exemplo Prático: Jogo Espacial em 50 Linhas
+## 3. Quick Example: Space Game in 50 Lines
 
 ```aipo
 import aipo.game as g
 
-# 1. Definição do Jogador
-let Nave = g.actor("Nave", {
-    sprite: "nave.png",
+# 1. Player Actor
+let Ship = g.actor("Ship", {
+    sprite: "ship.png",
     behaviors: [
         g.behaviors.TopDown(speed: 250.0),
         g.behaviors.KeepInScreen()
     ],
 
     on_create: actor => {
-        actor.vida = 100
+        actor.health = 100
         actor.cooldown = 0.0
     },
 
     on_update: (actor, dt) => {
         actor.cooldown -= dt
         
-        # Atirar ao pressionar Barra de Espaço
+        # Fire laser on Spacebar press
         if g.input.key_down("Space") and actor.cooldown <= 0.0 {
             g.spawn(Laser, x: actor.x, y: actor.y - 18)
             g.audio.play("laser.wav")
@@ -81,15 +81,15 @@ let Nave = g.actor("Nave", {
     },
 
     on_collision: (actor, other) => {
-        if other.is_a(Asteroide) {
-            actor.vida -= 20
+        if other.is_a(Asteroid) {
+            actor.health -= 20
             other.destroy()
-            g.audio.play("explosao.wav")
+            g.audio.play("explosion.wav")
         }
     }
 })
 
-# 2. Definição do Projétil
+# 2. Projectile Actor
 let Laser = g.actor("Laser", {
     sprite: "laser.png",
     behaviors: [
@@ -98,255 +98,198 @@ let Laser = g.actor("Laser", {
     ]
 })
 
-# 3. Definição do Inimigo
-let Asteroide = g.actor("Asteroide", {
-    sprite: "asteroide.png",
+# 3. Enemy Actor
+let Asteroid = g.actor("Asteroid", {
+    sprite: "asteroid.png",
     behaviors: [
         g.behaviors.Bullet(speed: 140.0, angle: 90.0),
         g.behaviors.DestroyOutsideScreen()
     ]
 })
 
-# 4. Montagem da Cena do Jogo
-let FaseEspacial = g.scene("Fase1", {
+# 4. Main Game Scene
+let SpaceScene = g.scene("Level1", {
     width: 800,
     height: 600,
     background: "#0d0e15",
 
     on_load: scene => {
-        g.spawn(Nave, x: 400, y: 520)
+        g.spawn(Ship, x: 400, y: 520)
 
-        # Gerador de asteroides a cada 0.8s
+        # Spawn asteroids every 0.8s
         scene.timer(interval: 0.8, repeat: true, _ => {
             let posX = g.random.range(40, 760)
-            g.spawn(Asteroide, x: posX, y: -20)
+            g.spawn(Asteroid, x: posX, y: -20)
         })
     }
 })
 
-# 5. Ponto de Entrada
+# 5. Entrypoint
 fn main() {
     g.start({
         title: "Space Defender — Aipo Game",
         width: 800,
         height: 600,
-        initial_scene: FaseEspacial
+        initial_scene: SpaceScene
     })
 }
 ```
 
 ---
 
-## 4. Catálogo de Comportamentos (*Behaviors*)
+## 4. Behaviors Catalog
 
-| Comportamento | Parâmetros Principais | Descrição |
+| Behavior | Key Properties | Description |
 |---|---|---|
-| `g.behaviors.TopDown()` | `speed: 200.0`, `diagonal: true` | Movimentação em 8 direções com suporte automático a WASD, setas e gamepads. |
-| `g.behaviors.Platformer()` | `speed: 200.0`, `jump_force: 400.0`, `gravity: 980.0` | Física clássica de plataforma com salto, gravidade e colisão de solo. |
-| `g.behaviors.Bullet()` | `speed: 400.0`, `angle: 0.0` | Desloca a entidade em linha reta na direção e velocidade configuradas. |
-| `g.behaviors.Solid()` | *(nenhum)* | Marca o ator como obstáculo intransponível para atores com movimentação. |
-| `g.behaviors.WrapScreen()` | `margin: 16.0` | Faz a entidade reaparecer do lado oposto ao cruzar os limites da tela. |
-| `g.behaviors.KeepInScreen()` | `margin: 0.0` | Impede a entidade de sair dos limites visíveis da janela. |
-| `g.behaviors.DestroyOutsideScreen()` | `margin: 50.0` | Libera o ator da memória automaticamente ao sair do campo de visão. |
+| `g.behaviors.TopDown()` | `speed: 200.0`, `diagonal: true` | 8-directional movement with WASD, arrow keys, and gamepad support. |
+| `g.behaviors.Platformer()` | `speed: 200.0`, `jump_force: 400.0`, `gravity: 980.0` | Classic platforming physics with jump, gravity, and ground contact checks. |
+| `g.behaviors.Bullet()` | `speed: 400.0`, `angle: 0.0` | Moves the entity in a straight line at fixed speed and angle. |
+| `g.behaviors.Solid()` | *(none)* | Marks the actor as an impassable obstacle for moving entities. |
+| `g.behaviors.WrapScreen()` | `margin: 16.0` | Reappears on the opposite side of the screen when crossing borders. |
+| `g.behaviors.KeepInScreen()` | `margin: 0.0` | Prevents the actor from leaving visible window boundaries. |
+| `g.behaviors.DestroyOutsideScreen()` | `margin: 50.0` | Automatically frees the actor when out of viewport range. |
 
 ---
 
-## 5. Sistema de Entrada e Áudio
+## 5. Input and Audio Subsystems
 
-### Teclado e Mouse
+### Keyboard & Mouse
 ```aipo
-# Checagens contínuas ou de clique único
+# Continuous or single-press checks
 if g.input.key_down("Space") { ... }
 if g.input.key_pressed("Enter") { ... }
 
-# Eixos analógicos normalizados (-1.0 a +1.0)
-let ax = g.input.axis_x() # A/D ou Setas Esquerda/Direita
-let ay = g.input.axis_y() # W/S ou Setas Cima/Baixo
+# Normalized directional axes (-1.0 to +1.0)
+let ax = g.input.axis_x() # A/D or Left/Right
+let ay = g.input.axis_y() # W/S or Up/Down
 
-# Coordenadas do mouse
+# Pointer coordinates
 let mx = g.input.mouse_x()
 let my = g.input.mouse_y()
-let clicou = g.input.mouse_down("left")
+let clicked = g.input.mouse_down("left")
 ```
 
-### Efeitos Sonoros e Trilha Sonora
+### Sound Effects & Music
 ```aipo
-# Reprodução de arquivos de áudio externos
-g.audio.play("tiro.wav")
-g.audio.play_sound("tiro.wav", volume: 0.8, pitch: 1.2)
-g.audio.play_music("trilha_fase1.ogg", volume: 0.5, loop: true)
+# External audio file playback
+g.audio.play("laser.wav")
+g.audio.play_sound("laser.wav", volume: 0.8, pitch: 1.2)
+g.audio.play_music("bgm_stage1.ogg", volume: 0.5, loop: true)
 
-# Síntese Procedural Chiptune (Estilo SFXR) — Zero arquivos externos necessários!
-g.audio.sfx("coin")       # Moeda / Coleta
-g.audio.sfx("jump")       # Pulo com curva ascendente
-g.audio.sfx("laser")      # Disparo de projétil
-g.audio.sfx("explosion")  # Explosão em ruído branco
-g.audio.sfx("powerup")    # Upgrade sonoro
+# Procedural Chiptune SFX (SFXR style) — Zero external audio files required!
+g.audio.sfx("coin")       # Coin / Pickup chime
+g.audio.sfx("jump")       # Rising pitch jump sound
+g.audio.sfx("laser")      # Blaster laser sound
+g.audio.sfx("explosion")  # White noise explosion rumble
+g.audio.sfx("powerup")    # Ascending arpeggio powerup
 ```
 
 ---
 
-## 6. Animações com Tweening & "Game Juice"
+## 6. Tweening & "Game Juice" Animations
 
-O módulo de tweening (`aipo.game.tween`) confere elasticidade e vida ao jogo com interpolações suaves e curvas de aceleração:
+The tweening module (`aipo.game.tween`) infuses games with springy, elastic animations using customizable easing curves:
 
 ```aipo
-# Squash & Stretch ao aterrissar ou pular
-g.animate(heroi, prop: "scale_x", to_val: 1.3, duration: 0.1, ease_fn: g.ease_out)
-g.animate(heroi, prop: "scale_y", to_val: 0.7, duration: 0.1, ease_fn: g.ease_out, on_complete: _ => {
-    # Retorna ao tamanho normal com efeito elástico
-    g.animate(heroi, prop: "scale_x", to_val: 1.0, duration: 0.2, ease_fn: g.bounce_out)
-    g.animate(heroi, prop: "scale_y", to_val: 1.0, duration: 0.2, ease_fn: g.bounce_out)
+# Squash & Stretch on landing or jumping
+g.animate(player, prop: "scale_x", to_val: 1.3, duration: 0.1, ease_fn: g.ease_out)
+g.animate(player, prop: "scale_y", to_val: 0.7, duration: 0.1, ease_fn: g.ease_out, on_complete: _ => {
+    # Return to normal dimensions with a bouncy settle
+    g.animate(player, prop: "scale_x", to_val: 1.0, duration: 0.2, ease_fn: g.bounce_out)
+    g.animate(player, prop: "scale_y", to_val: 1.0, duration: 0.2, ease_fn: g.bounce_out)
 })
 ```
 
 ---
 
-## 7. Sistema de Nós Visuais Anti-Espaguete
+## 7. Anti-Spaghetti Visual Scripting Nodes
 
-O módulo `aipo.game.nodes` implementa a arquitetura de programação visual para ferramentas visuais (como o futuro **Aipo Game Studio**).
+The `aipo.game.nodes` module defines the data structures and compiler for graphical editing tools.
 
-Em vez de nós desordenados e teias de fios cruzados, a programação visual é estruturada em trilhas de **Gatilho $\to$ Filtro $\to$ Ação**:
+Instead of unorganized graphs with tangled cables, visual logic is organized into structured **Trigger $\to$ Filter $\to$ Action** sequences:
 
 ```mermaid
 graph LR
-    Trigger["⚡ GATILHO (Quando Colidir com Inimigo)"] --> Filter["🔍 FILTRO (Se vida > 0)"]
-    Filter --> Action1["🚀 AÇÃO 1 (Subtrair Vida)"]
-    Filter --> Action2["🚀 AÇÃO 2 (Tocar Som Dano)"]
+    Trigger["⚡ TRIGGER (On Collision with Enemy)"] --> Filter["🔍 FILTER (If health > 0)"]
+    Filter --> Action1["🚀 ACTION 1 (Subtract Health)"]
+    Filter --> Action2["🚀 ACTION 2 (Play Hit Sound)"]
 ```
 
-### Bilinguismo Visual/Texto
-Qualquer regra montada visualmente transcreve diretamente para código canônico da Aipo:
+### Visual / Code Bidirectionality
+Any visual rule transpires directly into readable Aipo code:
 
 ```aipo
 import aipo.game.nodes as n
 
-let regra_colisao = n.rule(
-    "DanoNoInimigo",
-    trigger: n.trigger("on_collision", { "with": "Inimigo" }),
+let collision_rule = n.rule(
+    "EnemyHit",
+    trigger: n.trigger("on_collision", { "with": "Enemy" }),
     filters: [ n.filter("actor.vy", ">", "0") ],
     actions: [
         n.action("destroy", { "target": "other" }),
-        n.action("play_sound", { "file": "impacto.wav" })
+        n.action("play_sound", { "file": "hit.wav" })
     ]
 )
 
-# O compilador de nós gera código limpo para estudo ou edição manual:
-let codigo_gerado = n.transpile_to_aipo_code(regra_colisao)
+# The node compiler outputs clean, formatted Aipo source:
+let source_code = n.transpile_to_aipo_code(collision_rule)
 ```
 
 ---
 
-## 8. Máquina de Estados e Animação de Sprites (`g.animation`)
+## 8. Native Desktop Host (`aipo-game-host`)
 
-O subsistema `g.animation` gerencia sequências de quadros a partir de spritesheets tabulares, permitindo transições fluidas de estado e espelhamento horizontal instantâneo:
+The `crates/aipo-game-host` crate is the official native desktop runner powered by the high-performance **Miniquad / Macroquad** graphics backend. It compiles and drives any `.aipo` game script directly on the GPU at 60 FPS with resizable windows, real-time input, and live hot-reloading.
 
-```aipo
-import aipo.game as g
-
-# Criação do animador para textura de ID 1
-let anim = g.animation.create_animator(1)
-
-# Definição dos clipes da entidade
-let idle = g.animation.create_clip("idle", [0, 1, 2, 3], 6.0, true, 32.0, 32.0, 4)
-let run = g.animation.create_clip("run", [4, 5, 6, 7], 12.0, true, 32.0, 32.0, 4)
-let attack = g.animation.create_clip("attack", [8, 9, 10], 14.0, false, 32.0, 32.0, 4)
-
-g.animation.add_clip(anim, idle)
-g.animation.add_clip(anim, run)
-g.animation.add_clip(anim, attack)
-
-# Reprodução e controle de quadro
-g.animation.play(anim, "run", false)
-g.animation.update(anim, dt)
-
-# Desenho com recorte UV automático e espelhamento horizontal
-g.animation.draw(anim, x, y, 64.0, 64.0, 0.0, flip_x)
-```
-
----
-
-## 9. Sistema de Partículas 2D com Física (`g.particles`)
-
-O módulo `g.particles` implementa emissores leves para efeitos visuais com arrasto dinâmico, aceleração gravitacional, atenuação contínua de opacidade (*alpha fading*) e presets prontos para jogos:
-
-```aipo
-import aipo.game as g
-
-# Criação de emissor de partículas com teto máximo de 256 partículas ativas
-let fx = g.particles.create_emitter(400.0, 300.0, 256)
-
-# Disparo de presets visuais integrados
-g.particles.emit_preset(fx, "sparks", 400.0, 300.0, 20)    # Faíscas pirotécnicas
-g.particles.emit_preset(fx, "explosion", 400.0, 300.0, 30) # Onda de choque e fogo
-g.particles.emit_preset(fx, "dust", 400.0, 324.0, 4)       # Poeira de passos
-g.particles.emit_preset(fx, "coins", 400.0, 300.0, 12)     # Moedas douradas
-g.particles.emit_preset(fx, "smoke", 400.0, 300.0, 8)      # Fumaça ascendente
-
-# Atualização física (gravidade e atrito aerodinâmico) e renderização GPU
-g.particles.update(fx, dt)
-g.particles.draw(fx)
-```
-
----
-
-## 10. Host Nativo Desktop (`aipo-game-host`)
-
-O crate `crates/aipo-game-host` é o executor desktop oficial alimentado pelo backend gráfico ultrarrápido **Miniquad / Macroquad**. Ele compila e executa qualquer script `.aipo` diretamente na GPU a 60 FPS com suporte a janelas redimensionáveis, entrada em tempo real e hot-reload dinâmico.
-
-### Como Executar
+### Running Games
 
 ```bash
-# Executa a demonstração de Animação de Sprites e Partículas 2D
-cargo run -p aipo-game-host -- packages/aipo-game/examples/animation_and_particles.aipo
+# Run an Aipo game script directly on the native GPU host at 60 FPS
+cargo run -p aipo-game-host -- examples/26_interactive_game.aipo
 
-# Executa a demonstração com Tilemap 2D e HUD Imediato
-cargo run -p aipo-game-host -- packages/aipo-game/examples/tilemap_and_hud.aipo
-
-# Executa o exemplo com câmera 2D e coleta de gemas
+# Run the 2D camera tracking and gem pickup demo
 cargo run -p aipo-game-host -- examples/27_camera_and_sprites.aipo
 
-# Executa o Snake Game nativo embutido (quando chamado sem parâmetros)
+# Run the built-in native Snake game demo (when called with no arguments)
 cargo run -p aipo-game-host
 ```
 
-### Hot-Reload em Tempo Real
-Durante a execução de qualquer script `.aipo`:
-- Pressione **F5** ou **Ctrl+R** para recompilar o script e recarregar os dados na hora sem reiniciar a janela.
-- Caso ocorra um erro de sintaxe ou tipo durante o recarregamento, um overlay de diagnóstico é renderizado diretamente sobre a tela do jogo com as mensagens e números de linha.
+### Live Hot-Reloading
+While any `.aipo` script is running:
+- Press **F5** or **Ctrl+R** to recompile and reload the script on the fly without closing the window.
+- If a syntax or type error occurs during reload, an in-window diagnostics overlay renders the exact error messages and line numbers over the frozen previous state.
 
-### Ciclo de Vida do Script (.aipo)
-O host detecta automaticamente ganchos de ciclo de vida definidos no script:
-1. `setup()` ou `on_init()`: Executado uma única vez na inicialização.
-2. `update(dt)`: Executado a cada quadro com o delta de tempo em segundos (`dt`).
-3. `draw()`: Executado a cada quadro para emissão de comandos de renderização na GPU.
+### Script Lifecycle Hooks (.aipo)
+The host automatically detects lifecycle hooks declared in the script:
+1. `setup()` or `on_init()`: Invoked once when the game initializes.
+2. `update(dt)`: Invoked every frame with the delta time in seconds (`dt`).
+3. `draw()`: Invoked every frame for GPU render commands.
 
-### Catálogo de Funções FFI do Host
+### Host FFI API Catalog
 
-| Função Host | Parâmetros | Descrição |
+| Host Function | Parameters | Description |
 |---|---|---|
-| `host_clear_background(r, g, b)` | `r, g, b: Float` | Limpa o framebuffer com a cor especificada (0.0 a 1.0). |
-| `host_draw_rect(x, y, w, h, r, g, b, a)` | `Float` | Desenha um retângulo preenchido na tela ou no espaço do mundo. |
-| `host_draw_rect_lines(x, y, w, h, th, r, g, b, a)` | `Float` | Desenha as bordas de um retângulo com espessura `th`. |
-| `host_draw_line(x1, y1, x2, y2, th, r, g, b, a)` | `Float` | Desenha uma linha de espessura `th` entre dois pontos. |
-| `host_draw_circle(cx, cy, radius, r, g, b, a)` | `Float` | Desenha um círculo preenchido. |
-| `host_draw_text(text, x, y, size, r, g, b)` | `String, Float...` | Renderiza texto com tamanho de fonte especificado. |
-| `host_load_texture(path)` | `String -> Int` | Carrega uma imagem PNG/JPEG na memória da GPU e retorna seu ID numérico. |
-| `host_draw_sprite(tex_id, x, y, w, h, rot, flip_x)` | `Int, Float..., Bool` | Renderiza uma textura ou sprite com escala, rotação e espelhamento horizontal. |
-| `host_draw_sprite_subrect(tex_id, sx, sy, sw, sh, dx, dy, dw, dh, flip_x)` | `Int, Float..., Bool` | Renderiza uma fatia de spritesheet (atlas de textura). |
-| `host_set_camera(target_x, target_y, zoom)` | `Float, Float, Float` | Ativa a câmera 2D focada em `(target_x, target_y)` com fator de zoom. |
-| `host_reset_camera()` | *(nenhum)* | Restaura o sistema de coordenadas para a tela (HUD e interface de usuário). |
-| `host_load_sound(path)` | `String -> Int` | Carrega arquivo de áudio WAV/OGG em memória e retorna ID numérico de handle. |
-| `host_play_sound(id, volume, pitch)` | `Int, Float, Float` | Reproduz som por ID com controle de volume e pitch. |
-| `host_play_preset(name, volume, pitch)` | `String, Float, Float` | Reproduz som procedural chiptune ("coin", "jump", "laser", "explosion", "hit", "powerup", "click"). |
-| `host_synth_sound(wave, freq, slide, dur, vol)` | `String, Float... -> Int` | Sintetiza onda sonora em memória gerando WAV 16-bit e retorna handle. |
-| `host_stop_sound(id)` | `Int` | Interrompe o som correspondente ao ID. |
-| `host_play_music(id, volume, loop)` | `Int, Float, Bool` | Toca trilha musical em loop contínuo. |
-| `host_stop_music()` | *(nenhum)* | Para imediatamente a música de fundo. |
-| `host_key_down(code)` | `Int -> Bool` | Retorna `true` se a tecla especificada (código GLFW) estiver pressionada. |
-| `host_key_pressed(code)` | `Int -> Bool` | Retorna `true` no frame exato em que a tecla foi acionada. |
-| `host_mouse_x()`, `host_mouse_y()` | `() -> Float` | Retorna a posição do cursor do mouse em coordenadas da tela. |
-| `host_mouse_btn(btn)` | `Int -> Bool` | Retorna se o botão do mouse (0=Esquerdo, 1=Direito, 2=Meio) está pressionado. |
-| `host_screen_width()`, `host_screen_height()` | `() -> Float` | Dimensões atuais da janela em pixels. |
-| `host_frame_time()` | `() -> Float` | Delta time real do frame anterior em segundos. |
+| `host_clear_background(r, g, b)` | `r, g, b: Float` | Clears the framebuffer with the given RGB color (0.0 to 1.0). |
+| `host_draw_rect(x, y, w, h, r, g, b, a)` | `Float` | Draws a filled rectangle in screen space or world space. |
+| `host_draw_rect_lines(x, y, w, h, th, r, g, b, a)` | `Float` | Draws a hollow rectangle outline with thickness `th`. |
+| `host_draw_circle(cx, cy, radius, r, g, b, a)` | `Float` | Draws a filled circle. |
+| `host_draw_text(text, x, y, size, r, g, b)` | `String, Float...` | Renders text with the specified font size and color. |
+| `host_load_texture(path)` | `String -> Int` | Loads a PNG/JPEG image into GPU texture memory and returns its handle ID. |
+| `host_draw_sprite(tex_id, x, y, w, h, rot, flip_x)` | `Int, Float..., Bool` | Draws a textured sprite with scale, rotation (degrees), and flip. |
+| `host_draw_sprite_subrect(tex_id, sx, sy, sw, sh, dx, dy, dw, dh, flip_x)` | `Int, Float..., Bool` | Draws a slice of a texture atlas or spritesheet. |
+| `host_set_camera(target_x, target_y, zoom)` | `Float, Float, Float` | Activates a 2D camera centered on `(target_x, target_y)` with zoom factor. |
+| `host_reset_camera()` | *(none)* | Resets transform to screen space (for HUD overlays and GUI). |
+| `host_load_sound(path)` | `String -> Int` | Loads a WAV/OGG audio file into memory and returns its handle ID. |
+| `host_play_sound(id, volume, pitch)` | `Int, Float, Float` | Plays sound by handle ID with volume and pitch control. |
+| `host_play_preset(name, volume, pitch)` | `String, Float, Float` | Plays procedural chiptune preset ("coin", "jump", "laser", "explosion", "hit", "powerup", "click"). |
+| `host_synth_sound(wave, freq, slide, dur, vol)` | `String, Float... -> Int` | Synthesizes custom procedural waveform generating 16-bit WAV bytes in memory. |
+| `host_stop_sound(id)` | `Int` | Stops playback of specified sound handle ID. |
+| `host_play_music(id, volume, loop)` | `Int, Float, Bool` | Plays looping background music track. |
+| `host_stop_music()` | *(none)* | Immediately stops active background music. |
+| `host_key_down(code)` | `Int -> Bool` | Returns `true` while the key (GLFW keycode) is held down. |
+| `host_key_pressed(code)` | `Int -> Bool` | Returns `true` only on the frame the key was initially pressed. |
+| `host_mouse_x()`, `host_mouse_y()` | `() -> Float` | Returns cursor coordinates in screen space. |
+| `host_mouse_btn(btn)` | `Int -> Bool` | Returns `true` if mouse button (0=Left, 1=Right, 2=Middle) is pressed. |
+| `host_screen_width()`, `host_screen_height()` | `() -> Float` | Current window viewport dimensions in pixels. |
+| `host_frame_time()` | `() -> Float` | Exact delta time of the previous frame in seconds. |
 

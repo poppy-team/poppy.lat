@@ -4,42 +4,42 @@ description: "Aipo — Wave 1 Contracts"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-1-contracts.md"
+sourcePath: "docs/en/trajectory/wave-1-contracts.md"
 sourceBlob: "ba0fe72f95adf12941edb20a26399f5cb2402814"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-1-contracts.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `ba0fe72f95adf12941edb20a26399f5cb2402814`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-1-contracts.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ba0fe72f95adf12941edb20a26399f5cb2402814`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 1 — Contratos, Rollback & Conformance
+# Wave 1 — Contracts, Rollback & Conformance
 
-A **Wave 1** elevou o Aipo além de um interpretador convencional, introduzindo seu principal diferencial: **garantias estruturais de dados por meio de contratos de assinatura, invariantes com rollback atômico e interfaces formais**.
+**Wave 1** elevated Aipo beyond conventional interpreters by introducing its defining architectural paradigm: **structural data guarantees through signature contracts, atomic rollback invariants, and formal interfaces**.
 
 ---
 
-## Marcos Conquistados
+## Achieved Milestones
 
-### 1. Hooks de Construção e Invariantes (`init` e `invariant`)
-- A adição do hook `init()` garantiu que estruturas recém-criadas passem por validações e normalizações antes de serem expostas ao restante do código.
-- O bloco `invariant()` foi integrado às fronteiras estáveis de mutação. Cada vez que um campo de uma estrutura é alterado, o runtime valida a condição lógica declarada.
+### 1. Construction Hooks and Invariants (`init` and `invariant`)
+- Addition of the `init()` hook ensures that newly instantiated structures undergo validation and normalization before exposure to consumer code.
+- The `invariant()` block was integrated into stable mutation boundaries. Whenever a struct field is mutated, the runtime rigorously validates declared logical assertions.
 
-### 2. Rollback Transacional com `attempt ... recover`
-- Criação de um mecanismo de **journal de mutações** na VM:
-  - Quando um bloco `attempt` é aberto, todas as modificações em objetos são registradas em um diário de alterações.
-  - Se ocorrer uma falha operacional (`fail`) ou a quebra de uma invariante (`invariant()`), o journal reverte atomicamente todas as estruturas para seus valores originais antes de transferir o controle para o bloco `recover`.
-  - Se a execução for bem-sucedida, o journal é descartado sem custo de cópia residual.
+### 2. Transactional Rollback with `attempt ... recover`
+- Implementation of an in-memory **mutation journal** inside the virtual machine:
+  - Entering an `attempt` block initiates recording of all subsequent object mutations into a rollback journal.
+  - If an operational failure (`fail`) occurs or an `invariant()` assertion is violated, the journal atomically reverts all modified structs to their pre-attempt state before transferring execution to the `recover` block.
+  - Upon successful block completion, the journal is committed and discarded without lingering memory overhead.
 
-### 3. Validação Estática e em Runtime de Interfaces
-- Suporte a interfaces formais e conformidade estrutural:
-  - O analisador semântico valida previamente a correspondência de nomes de métodos, aridade de parâmetros e compatibilidade do receptor `self`.
-  - Em tempo de execução, chamadas através de interfaces realizam validação estrutural segura, disparando falhas determinísticas caso um objeto não conforme seja fornecido.
+### 3. Static and Runtime Interface Validation
+- Support for formal interfaces and structural conformance:
+  - Semantic analysis pre-validates method names, parameter arities, and `self` receiver compatibility.
+  - At runtime, calls dispatched through interfaces perform structural validation, yielding deterministic faults if an incompatible object is provided.
 
-### 4. Suporte Completo a Funções Locais e Escopo de Módulo
-- Fechamento da resolução de escopos com funções locais aninhadas e suporte a auto-recursão através da instrução de preenchimento de captura própria (`FillSelfCapture`).
-- Acesso transparente e seguro a bindings declarados no escopo do módulo a partir de métodos de `impl` e closures.
+### 4. Full Support for Local Functions & Module Scopes
+- Lexical scope resolution completed with nested local functions and self-referential recursion support via the `FillSelfCapture` bytecode instruction.
+- Transparent and safe access to module-level bindings from `impl` methods and closures.
 
-### 5. Gauntlet de Conformance 100% Verde
-- Certificação por 20 programas canônicos e 19 suítes de diagnósticos, atingindo 100% de conformidade nos quality gates (fmt, clippy, check, test, doc).
+### 5. 100% Green Conformance Gauntlet
+- Certified by 20 canonical programs and 19 diagnostic test suites, achieving 100% compliance across all quality gates (fmt, clippy, check, test, doc).

@@ -4,43 +4,43 @@ description: "Aipo — Aipo Ui"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/packages/aipo-ui.md"
+sourcePath: "docs/en/packages/aipo-ui.md"
 sourceBlob: "239ffff03e645d6c60e628f396f511a698275fd6"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/packages/aipo-ui.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `239ffff03e645d6c60e628f396f511a698275fd6`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/packages/aipo-ui.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `239ffff03e645d6c60e628f396f511a698275fd6`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# aipo.ui — Framework Universal de Interface Multiplataforma
+# aipo.ui — Universal Multiplatform UI Framework
 
-`aipo.ui` é o framework oficial da linguagem Aipo para construção de interfaces gráficas declarativas universais, capazes de rodar nativamente em **Desktop (GPU)**, na **Web (Canvas/WebGL via WebAssembly)** e no **Terminal (TUI)** a partir de uma única base de código.
+`aipo.ui` is the official user interface framework of the Aipo programming language for building declarative, cross-platform graphical applications capable of running natively on **Desktop (GPU)**, on the **Web (Canvas/WebGL via WebAssembly)**, and in the **Terminal (TUI)** from a single codebase.
 
 ---
 
-## 1. Visão Geral & Separação de Domínios
+## 1. Overview & Domain Separation
 
-No ecossistema Aipo, a separação de responsabilidades é rigorosa:
+In the Aipo ecosystem, architectural separation of concerns is strictly preserved:
 
-- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/3a5ce6737d42ae75470f7798680ebc95b3ac761c/docs/packages/aipo-html)**: Projetado exclusivamente para a web tradicional. Opera sobre a árvore DOM do navegador (`<div>`, `<span>`, CSS web, Tailwind).
-- **`aipo.ui`**: 100% agnóstico de plataforma. Constrói uma árvore declarativa de nós de layout e controles de alto nível, calcula a geometria espacial com o motor Rust **Taffy** e delega o desenho a renderizadores desacoplados.
+- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/en/en/packages/aipo-html)**: Designed exclusively for standard web browsers. Operates directly on the host DOM tree (`<div>`, `<span>`, CSS, Tailwind).
+- **`aipo.ui`**: 100% platform-agnostic. Constructs a declarative tree of layout nodes and high-level controls, computes spatial geometry via the Rust **Taffy** engine (CSS Flexbox and CSS Grid), and delegates rendering to decoupled backends.
 
 ```mermaid
 graph TD
-    UserCode["Código Aipo Declarativo (ui.Column, ui.Row, ui.Button)"] --> Layout["Motor de Layout Taffy (Flexbox & CSS Grid em Rust)"]
-    Layout --> Pipeline["Pipeline de Renderização Desacoplada"]
+    UserCode["Declarative Aipo Code (ui.Column, ui.Row, ui.Button)"] --> Layout["Taffy Layout Engine (Flexbox & CSS Grid in Rust)"]
+    Layout --> Pipeline["Decoupled Rendering Pipeline"]
     Pipeline --> Skia["Desktop GPU (Skia / Vulkan / Metal / DirectX)"]
-    Pipeline --> Canvas["WebAssembly Canvas / WebGL (Sem Overhead de DOM)"]
-    Pipeline --> TUI["Terminal ANSI TrueColor (Crossterm)"]
+    Pipeline --> Canvas["WebAssembly Canvas / WebGL (Bypassing DOM Overhead)"]
+    Pipeline --> TUI["ANSI TrueColor Terminal (Crossterm)"]
 ```
 
 ---
 
-## 2. Instalação
+## 2. Installation
 
-Adicione ao `aipo.toml` do seu projeto:
+Add to your project's `aipo.toml`:
 
 ```toml
 [dependencies]
@@ -49,7 +49,7 @@ Adicione ao `aipo.toml` do seu projeto:
 
 ---
 
-## 3. Exemplo Rápido: Aplicação Universal
+## 3. Quick Example: Universal Application
 
 ```aipo
 import aipo.ui as ui
@@ -93,15 +93,15 @@ fn view(m: Model, dispatch: Fn) {
             background: card_bg,
             align: ui.Align::Center
         ) {
-            ui.Text("Aipo UI Multiplataforma", font_size: 24, font_weight: "bold", color: text_color)
+            ui.Text("Aipo Universal UI", font_size: 24, font_weight: "bold", color: text_color)
             ui.Spacer()
             
-            ui.Text(f"Valor: {m.count}", font_size: 40, font_weight: "bold", color: color.blue_500)
+            ui.Text(f"Count: {m.count}", font_size: 40, font_weight: "bold", color: color.blue_500)
             
             ui.Row(gap: 8, padding: 16) {
                 ui.Button("+1", on_click: _ => dispatch(Msg::Increment), variant: "primary")
                 ui.Button("-1", on_click: _ => dispatch(Msg::Decrement), variant: "secondary")
-                ui.Button("Alternar Tema", on_click: _ => dispatch(Msg::ToggleTheme))
+                ui.Button("Toggle Theme", on_click: _ => dispatch(Msg::ToggleTheme))
             }
         }
     }
@@ -121,12 +121,12 @@ fn main() {
 
 ---
 
-## 4. Primitivas de Layout
+## 4. Layout Primitives
 
-As primitivas de layout utilizam blocos finais (*trailing blocks*) `{ ... }` e traduzem diretamente para as regras padrão de CSS Flexbox e Grid do motor **Taffy**:
+Layout primitives utilize Aipo's trailing blocks `{ ... }` and map directly to standard CSS Flexbox and Grid rules handled by the **Taffy** engine:
 
 ### `ui.Column`
-Empilha seus filhos verticalmente:
+Stacks child elements vertically:
 ```aipo
 ui.Column(gap: 12, padding: 16, align: ui.Align::Center) {
     ui.Text("Item 1")
@@ -136,64 +136,64 @@ ui.Column(gap: 12, padding: 16, align: ui.Align::Center) {
 ```
 
 ### `ui.Row`
-Distribui os filhos horizontalmente em linha:
+Lays out child elements horizontally:
 ```aipo
 ui.Row(gap: 8, justify: ui.Justify::SpaceBetween) {
-    ui.Text("Esquerda")
-    ui.Text("Direita")
+    ui.Text("Left")
+    ui.Text("Right")
 }
 ```
 
 ### `ui.Stack`
-Posiciona elementos sobrepostos na mesma área (eixo Z), útil para badges, camadas de fundo e sobreposições flutuantes:
+Overlays child elements across the Z-axis, ideal for badges, backdrops, and floating layers:
 ```aipo
 ui.Stack(width: 200, height: 120) {
     ui.Box(background: color.gray_200, width: "100%", height: "100%")
-    ui.Text("Sobreposto", align: "center")
+    ui.Text("Overlaid", align: "center")
 }
 ```
 
 ### `ui.ScrollArea`
-Área rolável para listas ou conteúdos extensos com recorte (*clipping*) acelerado:
+Scrollable container with accelerated clipping for lists or oversized content:
 ```aipo
 ui.ScrollArea(height: 300, direction: "vertical") {
-    each item in lista_itens {
+    each item in item_list {
         ui.Text(item)
     }
 }
 ```
 
 ### `ui.Spacer`
-Elemento elástico com `flex_grow: 1` que empurra os elementos adjacentes para as extremidades.
+Elastic container with `flex_grow: 1` that expands to fill available space, pushing siblings apart.
 
 ---
 
-## 5. Controles e Componentes Interativos
+## 5. Controls & Interactive Components
 
-| Componente | Parâmetros Principais | Exemplo |
+| Component | Key Properties | Example |
 |---|---|---|
-| `ui.Text` | `content`, `font_size`, `font_weight`, `color`, `align` | `ui.Text("Olá Mundo", font_size: 16)` |
-| `ui.Button` | `label`, `on_click`, `variant`, `disabled` | `ui.Button("Salvar", on_click: _ => dispatch(Msg::Save))` |
-| `ui.TextInput` | `value`, `placeholder`, `on_change`, `disabled` | `ui.TextInput(placeholder: "Nome...", on_change: val => dispatch(Msg::SetNome(val)))` |
+| `ui.Text` | `content`, `font_size`, `font_weight`, `color`, `align` | `ui.Text("Hello World", font_size: 16)` |
+| `ui.Button` | `label`, `on_click`, `variant`, `disabled` | `ui.Button("Save", on_click: _ => dispatch(Msg::Save))` |
+| `ui.TextInput` | `value`, `placeholder`, `on_change`, `disabled` | `ui.TextInput(placeholder: "Name...", on_change: val => dispatch(Msg::SetName(val)))` |
 | `ui.Slider` | `value`, `min`, `max`, `step`, `on_change` | `ui.Slider(value: 50.0, min: 0.0, max: 100.0)` |
-| `ui.Checkbox` | `checked`, `label`, `on_toggle` | `ui.Checkbox(checked: true, label: "Aceito os termos")` |
-| `ui.ProgressBar` | `progress` (0.0 a 1.0), `height`, `color` | `ui.ProgressBar(progress: 0.75, color: color.emerald_500)` |
+| `ui.Checkbox` | `checked`, `label`, `on_toggle` | `ui.Checkbox(checked: true, label: "Accept terms")` |
+| `ui.ProgressBar` | `progress` (0.0 to 1.0), `height`, `color` | `ui.ProgressBar(progress: 0.75, color: color.emerald_500)` |
 
 ---
 
-## 6. Sistema de Cores e Estilos Tipados
+## 6. Color System & Typed Styles
 
-O submódulo `aipo.ui.color` oferece construtores seguros e a paleta padrão do sistema:
+The `aipo.ui.color` submodule provides type-safe constructors and standard design palettes:
 
 ```aipo
 import aipo.ui.color as color
 
-# Construtores
+# Constructors
 let c1 = color.rgb(30, 41, 59)
 let c2 = color.rgba(255, 255, 255, 0.8)
 let c3 = color.hex("#4f46e5")
 
-# Paleta Integrada
+# Canonical Palette
 color.white
 color.black
 color.gray_900
@@ -204,15 +204,15 @@ color.red_500
 
 ---
 
-## 7. Renderizadores e Pontos de Montagem
+## 7. Renderers & Mount Targets
 
-Dependendo do seu alvo de compilação, o `aipo.ui` se adapta automaticamente ou permite montagem explícita:
+Depending on your compilation target, `aipo.ui` supports dedicated mount routines:
 
-### Desktop GPU Nativo (`mount_desktop`)
-Renderiza uma janela nativa via Skia acelerada por GPU (Vulkan no Linux, Metal no macOS, DirectX 12 no Windows):
+### Native Desktop GPU (`mount_desktop`)
+Creates an accelerated window powered by Skia (Vulkan on Linux, Metal on macOS, DirectX 12 on Windows):
 ```aipo
 ui.mount_desktop(
-    title = "Aplicação Desktop",
+    title = "Desktop Application",
     width = 1024,
     height = 768,
     init = init_state,
@@ -222,13 +222,13 @@ ui.mount_desktop(
 ```
 
 ### WebAssembly Canvas 2D / WebGL (`mount_canvas`)
-Compila diretamente para WebAssembly e desenha em um elemento `<canvas id="app-canvas">`, contornando completamente o DOM para jogos, ferramentas de design e dashboards de alta frequência:
+Compiles to WebAssembly and renders directly to an HTML5 `<canvas id="app-canvas">`, bypassing the browser DOM for performance-critical tools and dashboards:
 ```aipo
 ui.mount_canvas("app-canvas", init = init_state, update = update, view = view)
 ```
 
 ### Terminal TUI (`mount_tui`)
-Permite rodar painéis de controle, ferramentas de desenvolvedor e visualizadores de métricas diretamente no console sem ambiente gráfico:
+Runs dashboards, CLI tools, and metric viewers in ANSI terminal environments without X11/Wayland:
 ```aipo
 ui.mount_tui(init = init_state, update = update, view = view)
 ```

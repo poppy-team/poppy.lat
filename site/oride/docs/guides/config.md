@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/guides/pt/config.md"
 sourceBlob: "cb14e550722e237f746d2ce16fea63645b704355"
-revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
+revision: "1cd515630b8ceb57777d466bee4970fe7c2e30e0"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/guides/pt/config.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `cb14e550722e237f746d2ce16fea63645b704355`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `1cd515630b8ceb57777d466bee4970fe7c2e30e0`, blob `cb14e550722e237f746d2ce16fea63645b704355`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Configuração (P0.3)
 
@@ -22,7 +22,7 @@ Oride carrega TOML em camadas (depois sobrescreve o anterior):
 2. **Usuário:** `~/.config/oride/config.toml` (XDG)
 3. **Projeto:** primeiro `.oride/config.toml` encontrado subindo a partir do arquivo aberto (ou do CWD)
 
-Exemplo completo: [`assets/config.example.toml`](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/assets/config.example.toml).
+Exemplo completo: [`assets/config.example.toml`](https://github.com/poppy-team/oride/blob/1cd515630b8ceb57777d466bee4970fe7c2e30e0/docs/guides/assets/config.example.toml).
 
 ## Campos
 

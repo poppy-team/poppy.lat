@@ -9,10 +9,10 @@ sourceBlob: "deda484d1a6ab4c06e3f342256bb4d3373b9d2ce"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/guides/report-bugs.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `deda484d1a6ab4c06e3f342256bb4d3373b9d2ce`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/guides/report-bugs.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `deda484d1a6ab4c06e3f342256bb4d3373b9d2ce`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # How to report bugs
 

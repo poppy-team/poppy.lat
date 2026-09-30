@@ -4,36 +4,36 @@ description: "Aipo — Wave 4 Host Poppy"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-4-host-poppy.md"
+sourcePath: "docs/en/trajectory/wave-4-host-poppy.md"
 sourceBlob: "86907f67ad048f4249943fa4bb6b330d33c0ce96"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-4-host-poppy.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `86907f67ad048f4249943fa4bb6b330d33c0ce96`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-4-host-poppy.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `86907f67ad048f4249943fa4bb6b330d33c0ce96`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Wave 4 — Host ABI, Sandboxing & Poppy Engine
 
-A **Wave 4** projetou a fronteira de segurança e interoperabilidade do Aipo com aplicações anfitriãs, formalizando a **Host ABI (`aipo-host`)** e validando-a na prática com a **Poppy Headless Simulation Engine (`aipo-poppy`)**.
+**Wave 4** engineered Aipo's security boundary and host interoperability substrate, formalizing the **Host ABI (`aipo-host`)** and validating it in practice against the **Poppy Headless Simulation Engine (`aipo-poppy`)**.
 
 ---
 
-## Marcos Conquistados
+## Achieved Milestones
 
-### 1. Crate `aipo-host` & Host Schema (AHS)
-- Criação de um protocolo formal de comunicação entre o runtime da linguagem e qualquer código anfitrião em Rust:
-  - **Capabilities Deny-by-Default**: Nenhuma função ou recurso do sistema (relógio, I/O, rede, arquivos) é acessível a menos que a aplicação anfitriã conceda explicitamente a capacidade correspondente através de uma árvore de permissões (`CapabilitySet`).
-  - **Handles Geracionais (`HandleTable`)**: Objetos do host expostos ao Aipo são referenciados por identificadores geracionais com checagem estrita de geração e índice, eliminando vulnerabilidades de *use-after-free*.
+### 1. `aipo-host` Crate & Host Schema (AHS)
+- Formalized communication protocol bridging the language runtime and host Rust applications:
+  - **Deny-by-Default Capabilities**: No system resource (clock, I/O, network, filesystem) is accessible unless the host explicitly grants granular capability permissions (`CapabilitySet`).
+  - **Generational Handles (`HandleTable`)**: Host-managed resources exposed to Aipo scripts are identified via generational handles with strict generation and index verification, completely eliminating *use-after-free* hazards.
 
-### 2. Prevenção Estrita de Escape de Escopo (`Scope Escape`)
-- Validação profunda nos 6 pontos de publicação da VM (`SetGlobal`, `Return`, `SetField`, `SetIndex`, `BuildList`, `BuildDict`):
-  - Garante que handles ou valores atrelados a um ciclo de vida restrito não sobrevivam fora do seu escopo delimitado, disparando o diagnóstico determinístico `AIPO_RT_SCOPE_ESCAPE`.
+### 2. Strict Scope Escape Prevention
+- Deep verification across all 6 VM publication points (`SetGlobal`, `Return`, `SetField`, `SetIndex`, `BuildList`, `BuildDict`):
+  - Guarantees that handles and values bound to a confined lifecycle cannot survive beyond their active scope, raising the deterministic runtime fault `AIPO_RT_SCOPE_ESCAPE`.
 
-### 3. Adaptador Poppy & Simulação Headless Determinística (`aipo-poppy`)
-- Integração da linguagem com um motor de simulação ECS (Entity-Component-System):
-  - Exposição segura do módulo `poppy` sob a capability `poppy.*`.
-  - Buffer de comandos (`CommandBuffer`) com mutações estruturais deferidas para *safe points*, garantindo integridade das iterações.
-  - Gerador de números pseudo-aleatórios com semente (`PoppyRng`), garantindo 100% de reproducibilidade matemática entre execuções repetidas.
-  - Fixture de teste de integração demonstrando uma simulação completa de entidades sem interface gráfica, comprovando a estabilidade da Host ABI.
+### 3. Poppy Adapter & Deterministic Headless Simulation (`aipo-poppy`)
+- Language integration with an ECS (Entity-Component-System) simulation runtime:
+  - Securely exposes the `poppy` module guarded under the `poppy.*` capability tree.
+  - Deferred structural mutations buffered in a transactional `CommandBuffer` evaluated exclusively at engine safe points, preserving iteration invariants.
+  - Seedable pseudo-random number generator (`PoppyRng`), guaranteeing 100% mathematical reproducibility across runs.
+  - End-to-end integration fixture running headless entity simulations, proving Host ABI design stability.

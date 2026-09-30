@@ -4,193 +4,193 @@ description: "Aipo — Control Flow"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/manual/control-flow.md"
+sourcePath: "docs/en/manual/control-flow.md"
 sourceBlob: "53176ce016920fe3bb4acdb724e1d7a11f7e083c"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/manual/control-flow.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `53176ce016920fe3bb4acdb724e1d7a11f7e083c`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/manual/control-flow.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `53176ce016920fe3bb4acdb724e1d7a11f7e083c`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Controle de Fluxo & Falhas
+# Control Flow & Failures
 
-O Aipo oferece estruturas de controle de fluxo limpas, determinísticas e altamente legíveis: blocos delimitados por chaves `{ ... }` sem parênteses redundantes ao redor de condições, combinados com um modelo transacional de tratamento de erros com rollback atômico.
+Aipo offers clean, deterministic, and highly readable control flow constructs: blocks enclosed in curly braces `{ ... }` without redundant parentheses around conditions, combined with a transactional error handling model with automatic atomic rollback.
 
 ---
 
-## Estruturas Condicionais
+## Conditional Structures
 
-### Bloco `if ... elif ... else`
+### `if ... elif ... else` Blocks
 
-As condições dispensam parênteses obrigatórios e os blocos são abertos e fechados por chaves `{ ... }`. A sintaxe fornece clareza visual imediata, com suporte nativo a realce de pares (*rainbow brackets*) e dobragem de código (*code folding*) em qualquer IDE:
+Conditions require no parentheses, and blocks open and close with braces `{ ... }`. The syntax provides immediate visual clarity, with native support for rainbow brackets and automatic code folding in any IDE:
 
 ```aipo
-var pontuacao = 85
+var score = 85
 var status = ""
 
-if pontuacao >= 90 {
-    status = "Excelente"
-} elif pontuacao >= 70 {
-    status = "Aprovado"
+if score >= 90 {
+    status = "Excellent"
+} elif score >= 70 {
+    status = "Passing"
 } else {
-    status = "Recuperação"
+    status = "Remedial"
 }
 
-io.println(status) # "Aprovado"
+io.println(status) # "Passing"
 ```
 
-### Expressão Inline `if condition then a else b`
+### Inline Expression `if condition then a else b`
 
-O Aipo também suporta expressões condicionais de valor em linha única utilizando `then`:
+Aipo also supports single-line ternary conditional value expressions using `then`:
 
 ```aipo
-let ativo = true
-let mensagem = if ativo then "Online" else "Offline"
-io.println(mensagem) # "Online"
+let active = true
+let message = if active then "Online" else "Offline"
+io.println(message) # "Online"
 ```
 
 ---
 
-## Seleção por Padrão (`match ... when`)
+## Pattern Matching (`match ... when`)
 
-O comando `match` permite bifurcar o fluxo comparando uma expressão contra um ou mais padrões por ramo:
+The `match` construct branches execution by comparing an expression against one or more patterns per branch:
 
 ```aipo
-let status = "aprovado"
+let status = "approved"
 
 match status {
-    when "pendente" {
-        io.println("Aguardando confirmação...")
+    when "pending" {
+        io.println("Awaiting confirmation...")
     }
-    when "aprovado", "concluido" {
-        io.println("Operação finalizada com sucesso!")
+    when "approved", "completed" {
+        io.println("Operation finished successfully!")
     }
     else {
-        io.println("Status não reconhecido")
+        io.println("Status unrecognized")
     }
 }
 ```
 
 ---
 
-## Estruturas de Repetição
+## Loop Constructs
 
-Todas as estruturas de repetição em Aipo utilizam blocos delimitados `{ ... }` e **dispensam** parênteses ou palavras de ligação como `do`.
+All loop constructs in Aipo use delimited `{ ... }` blocks and require **no** parentheses or connecting words like `do`.
 
 ### `while`
 
-Executa o corpo enquanto a condição booleana for verdadeira:
+Executes the loop body as long as the boolean condition is true:
 
 ```aipo
 var i = 0
 while i < 3 {
-    io.println(f"Passo: {i}")
+    io.println(f"Step: {i}")
     i += 1
 }
 ```
 
 ### `loop`
 
-Laço contínuo canônico, projetado para repetições que dependem de `break` explícito:
+Canonical infinite loop, designed for repetitions that terminate via explicit `break`:
 
 ```aipo
-var tentativas = 0
+var attempts = 0
 loop {
-    tentativas += 1
-    if tentativas >= 3 {
+    attempts += 1
+    if attempts >= 3 {
         break
     }
 }
-io.println(f"Total de tentativas: {tentativas}")
+io.println(f"Total attempts: {attempts}")
 ```
 
 ### `repeat`
 
-Repete o bloco um número fixo de vezes com um contador opcional (`repeat count as indice`):
+Repeats the block a fixed number of times with an optional iteration counter (`repeat count as index`):
 
 ```aipo
-# Executa 3 vezes (com índices 0, 1 e 2)
+# Executes 3 times (with indices 0, 1, and 2)
 repeat 3 as idx {
-    io.println(f"Iteração número: {idx}")
+    io.println(f"Iteration number: {idx}")
 }
 ```
 
 ### `each`
 
-Iteração canônica sobre coleções (`List`, `Dict`, `Set`, `Sequence`):
+Canonical iteration over collections (`List`, `Dict`, `Set`, `Sequence`):
 
 ```aipo
-# Iteração simples sobre lista
-let frutas = ["Maçã", "Banana", "Laranja"]
-each fruta in frutas {
-    io.println(fruta)
+# Simple iteration over a list
+let fruits = ["Apple", "Banana", "Orange"]
+each fruit in fruits {
+    io.println(fruit)
 }
 
-# Iteração com índice e elemento
-each idx, fruta in frutas {
-    io.println(f"{idx}: {fruta}")
+# Iteration with index and element
+each idx, fruit in fruits {
+    io.println(f"{idx}: {fruit}")
 }
 
-# Iteração sobre dicionário (chave e valor na ordem de inserção)
+# Iteration over dictionary (key and value in insertion order)
 let config = {
     "host": "127.0.0.1",
     "port": 5432,
 }
-each chave, valor in config {
-    io.println(f"{chave} => {valor}")
+each key, val in config {
+    io.println(f"{key} => {val}")
 }
 ```
 
 ---
 
-## Modelo de Falhas & Transações (`attempt ... failed`)
+## Failure Model & Transactions (`attempt ... failed`)
 
-Em Aipo, erros não são exceções globais com saltos de pilha descontrolados, nem códigos de status que podem ser esquecidos. Falhas operacionais são disparadas explicitamente com `fail` (ou retornadas com `return fail(...)`) e tratadas por blocos transacionais com **journaling e rollback automático**.
+In Aipo, errors are neither uncontrolled stack-unwinding exceptions nor easily ignored status codes. Failures are raised explicitly with `fail` (or returned with `return fail(...)`) and handled in transactional blocks with **journaling and automatic atomic rollback**:
 
 ```aipo
-struct Cofre {
-    var saldo = 0.0
+struct Vault {
+    var balance = 0.0
 }
 
-impl Cofre {
-    fn init(saldo_inicial = 0.0) {
-        self.saldo = saldo_inicial
+impl Vault {
+    fn init(initial_balance = 0.0) {
+        self.balance = initial_balance
     }
 
     invariant {
-        self.saldo >= 0.0
+        self.balance >= 0.0
     }
 }
 
-let c = Cofre{ saldo: 100.0 }
+let v = Vault{ balance: 100.0 }
 
 attempt {
-    # Esta operação temporariamente reduz o saldo para -100.0
-    c.saldo -= 200.0
-} failed erro {
-    # Como violou a invariante, o rollback restaura self.saldo para 100.0!
-    io.println(f"Falha capturada: {erro.message}")
+    # This mutation temporarily drops balance to -100.0
+    v.balance -= 200.0
+} failed err {
+    # Violating the invariant triggers automatic rollback restoring self.balance to 100.0!
+    io.println(f"Caught failure: {err.message}")
 }
 
-# O saldo permanece exatamente no valor anterior à tentativa!
-io.println(f"Saldo preservado: {c.saldo}") # 100.0
+# The balance remains untouched at its pre-attempt state!
+io.println(f"Preserved balance: {v.balance}") # 100.0
 ```
 
-Se qualquer operação dentro do bloco `attempt` disparar um `fail` ou violar uma invariante estrutural, todas as mutações ocorridas nos objetos rastreados no journal são revertidas atomicamente para o estado original.
+If any operation inside an `attempt` block executes `fail` or violates a structural invariant, all mutations to journaled objects are atomically reverted to their original state.
 
-### Fallback Imediato com `or_else`
+### Immediate Fallback with `or_else`
 
-Para expressões onde você deseja apenas prover um valor padrão de recuperação sem a verbosidade de um bloco `attempt`, utilize o operador canônico `or_else`:
+For expressions where you simply want to provide a fallback recovery value without the boilerplate of an `attempt` block, use the canonical `or_else` operator:
 
 ```aipo
-fn ler_arquivo(caminho) {
-    # Se o arquivo não existir ou falhar, retorna fail
-    return fail("arquivo não encontrado")
+fn read_file(path) {
+    # If the file does not exist or fails, return fail
+    return fail("file not found")
 }
 
-# Se ler_arquivo disparar fail, or_else avalia e retorna a alternativa:
-let conteudo = ler_arquivo("config.toml") or_else "host = 127.0.0.1"
-io.println(conteudo) # "host = 127.0.0.1"
+# If read_file raises fail, or_else evaluates and yields the fallback alternative:
+let content = read_file("config.toml") or_else "host = 127.0.0.1"
+io.println(content) # "host = 127.0.0.1"
 ```

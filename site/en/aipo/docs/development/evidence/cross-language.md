@@ -4,59 +4,59 @@ description: "Aipo — Cross Language"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/evidence/cross-language.md"
+sourcePath: "docs/en/evidence/cross-language.md"
 sourceBlob: "31575dfc7a9d96ebbe30c38d78284ae3c602d835"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/evidence/cross-language.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `31575dfc7a9d96ebbe30c38d78284ae3c602d835`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/evidence/cross-language.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `31575dfc7a9d96ebbe30c38d78284ae3c602d835`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Benchmarks Cross-Language
+# Cross-Language Benchmarks
 
-O Aipo conta com um harness de benchmark padronizado (`aipo-bench --compare`) que confronta os tempos de execução e o consumo de memória (*Peak RSS*) contra linguagens consagradas do ecossistema.
-
----
-
-## Escopo dos Testes
-
-O objetivo é medir o custo real dos workloads equivalentes sem ocultar as diferenças arquiteturais fundamentais entre interpretadores, compiladores JIT e código nativo compilado:
-
-- **Aipo VM In-Process**: Compilação realizada fora do cronômetro; medição da criação da VM, inicialização de frames e execução do bytecode.
-- **Aipo CLI / VM (`aipo run`)**: Execução completa do processo a frio (leitura de arquivo, lexer, parser, semântica, bytecode e execução).
-- **Aipo → JavaScript (Node.js)**: Execução do código emitido pelo `aipo-js` executado sobre a engine V8.
-- **Runtimes de Referência**: Lua 5.4, LuaJIT, Wren 0.4.0, Luau 0.739, CPython 3.12, PyPy 8.0.0, Ruby e Rust nativo (controle algorítmico).
+Aipo provides a standardized benchmarking harness (`aipo-bench --compare`) evaluating wall-clock execution speed and memory footprint (*Peak RSS*) against established runtime ecosystems.
 
 ---
 
-## Os Seis Workloads Canônicos
+## Benchmark Scope
 
-Todos os benchmarks geram uma soma de controle padronizada no formato `checksum:<valor>` para garantir que nenhum compilador eliminou trabalho computacional legítimo:
+Our goal is measuring real-world workload execution costs without obscuring architectural distinctions between interpreters, JIT compilers, and ahead-of-time compiled native code:
 
-| Workload | Escopo Medido | Objetivo |
+- **Aipo VM In-Process**: Compilation occurs before the clock starts; measures VM instantiation, call frame allocation, and bytecode instruction dispatch.
+- **Aipo CLI / VM (`aipo run`)**: Cold process startup (source reading, lexing, parsing, semantic analysis, bytecode emission, and execution).
+- **Aipo → JavaScript (Node.js)**: Emitted JavaScript executed on the V8 engine via `aipo-js`.
+- **Reference Runtimes**: Lua 5.4, LuaJIT, Wren 0.4.0, Luau 0.739, CPython 3.12, PyPy 8.0.0, Ruby, and native Rust (algorithmic baseline).
+
+---
+
+## Six Canonical Workloads
+
+All benchmarks compute a standardized `checksum:<value>` to verify that optimizing compilers did not elide legitimate computation:
+
+| Workload | Measured Domain | Primary Evaluation Goal |
 | :--- | :--- | :--- |
-| `arithmetic` | Loop com chamadas de função e aritmética intensiva | Medir custo básico de despacho e chamadas de frame |
-| `collections` | Construção dinâmica e iteração de listas | Custo de alocação no heap e travessia |
-| `fields` | 6 campos em structs, mutação e métodos | Acesso a propriedades e despacho monomórfico |
-| `strings` | Concatenação incremental ASCII | Gestão de buffers de texto e realocação |
-| `recursion` | Cálculo recursivo de Fibonacci(24) | Profundidade de pilha e custo de chamada pura |
-| `startup` | Inicialização mínima do processo | Custo de inicialização e carga da stdlib |
+| `arithmetic` | Tight loop with function calls and intensive math | Basic dispatch overhead and call frame mechanics |
+| `collections` | Dynamic list construction and traversal | Heap allocation pressure and container indexing |
+| `fields` | Struct with 6 fields, mutation, and method calls | Property lookups and monomorphic field caching |
+| `strings` | Incremental ASCII string concatenations | Text buffer growth and reallocation characteristics |
+| `recursion` | Deep recursive calculation of Fibonacci(24) | Call stack depth and pure invocation overhead |
+| `startup` | Minimal process initialization and exit | Cold startup time and standard library bootstrap |
 
 ---
 
-## Como Reproduzir os Resultados
+## Reproducing the Results
 
-Para reproduzir os números medidos em sua própria máquina:
+To reproduce these measurements locally:
 
 ```bash
-# Compilar os binários em modo release otimizado
+# Compile binaries in optimized release mode
 cargo build --release -p aipo-cli -p aipo-bench
 
-# Executar a suíte de comparação completa
+# Execute the complete comparison suite
 target/release/aipo-bench --compare --compare-json target/cross-language.json
 
-# Execução rápida (desenvolvimento)
+# Quick developer smoke run
 target/release/aipo-bench --compare --compare-quick
 ```

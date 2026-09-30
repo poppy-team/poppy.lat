@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/adp/ADP-001-byte-and-core-types-as-values.md"
 sourceBlob: "5a12956507c447113107d94b2e2030d06f06183e"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/adp/ADP-001-byte-and-core-types-as-values.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `5a12956507c447113107d94b2e2030d06f06183e`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `5a12956507c447113107d94b2e2030d06f06183e`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # ADP-001 — Byte, `Bytes` e tipos como valores no Prelude V1
 

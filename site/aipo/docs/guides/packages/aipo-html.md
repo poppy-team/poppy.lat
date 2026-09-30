@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/packages/aipo-html.md"
 sourceBlob: "1798cc507a0a696e5645a772b6e6a1d3edfa83ad"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/packages/aipo-html.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `1798cc507a0a696e5645a772b6e6a1d3edfa83ad`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `1798cc507a0a696e5645a772b6e6a1d3edfa83ad`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # aipo.html — Framework Web Declarativo e SSR
 

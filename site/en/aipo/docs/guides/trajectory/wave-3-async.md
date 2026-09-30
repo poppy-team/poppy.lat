@@ -4,43 +4,43 @@ description: "Aipo — Wave 3 Async"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-3-async.md"
+sourcePath: "docs/en/trajectory/wave-3-async.md"
 sourceBlob: "314e4626b39cb33f3a5b082294c55b412024a096"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-3-async.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `314e4626b39cb33f3a5b082294c55b412024a096`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-3-async.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `314e4626b39cb33f3a5b082294c55b412024a096`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 3 — Tipos Ricos, Async & Concorrência
+# Wave 3 — Rich Types, Async & Concurrency
 
-A **Wave 3** introduziu novos tipos de dados estruturais na linguagem e consolidou a **infraestrutura de concorrência assíncrona cooperativa com scheduler determinístico**.
+**Wave 3** introduced modern structural data types and consolidated Aipo's **deterministic, cooperative asynchronous concurrency infrastructure**.
 
 ---
 
-## Marcos Conquistados
+## Achieved Milestones
 
-### 1. Tipos e Valores Ricos
-- **`Set`**: Coleção de elementos únicos com preservação estrita da ordem original de inserção.
-- **`Sequence`**: Geradores de avaliação preguiçosa (*lazy evaluation*), permitindo pipelines de processamento contínuo sem alocação intermediária.
-- **`Bytes` Packing**: Métodos de leitura e escrita tipados em memória contígua (`read_u16_le`, `write_u32_be`, etc.), ideais para protocolos binários e I/O de alta velocidade.
-- **`Duration`**: Tipo nativo para intervalos de tempo precisos.
+### 1. Rich Types and Value Semantics
+- **`Set`**: Collection of unique values maintaining strict insertion order.
+- **`Sequence`**: Lazy evaluation pipelines enabling composable data transformations without intermediate allocations.
+- **`Bytes` Packing**: Direct binary reading and writing methods (`read_u16_le`, `write_u32_be`, etc.), optimized for binary protocols and high-throughput I/O.
+- **`Duration`**: Native type for high-precision time intervals.
 
-### 2. Sintaxe & Semântica Assíncrona
-- Funções declaradas com `async fn` passam a retornar handles de tarefas cooperativas.
-- Bloco sequencial `await do ... end`, evitando a dispersão de `await` soltos em subexpressões e prevenindo condições de corrida sutis.
-- Diagnósticos estáticos específicos:
-  - `AIPO_SEM_AWAIT_IN_SUBEXPRESSION`: Bloqueia o uso de `await` fora de blocos dedicados.
-  - `AIPO_SEM_FORGOTTEN_TASK`: Alerta quando uma tarefa criada não é aguardada nem associada a um grupo.
-  - `AIPO_SEM_NESTED_AWAIT_DO`: Proíbe aninhamento confuso de blocos de espera.
+### 2. Asynchronous Syntax & Semantics
+- Functions declared with `async fn` return cooperative task handles.
+- Sequential `await do ... end` block prevents scattered `await` expressions across nested operations, eliminating subtle interleaving race conditions.
+- Static semantic diagnostics:
+  - `AIPO_SEM_AWAIT_IN_SUBEXPRESSION`: Disallows unanchored `await` outside dedicated blocks.
+  - `AIPO_SEM_FORGOTTEN_TASK`: Flags unawaited, detached task handles.
+  - `AIPO_SEM_NESTED_AWAIT_DO`: Forbids confusing nested await blocks.
 
-### 3. Scheduler Cooperativo com Tempo Virtual
-- O runtime do Aipo implementa um agendador de tarefas determinístico:
-  - As tarefas cooperativas cedem o controle em pontos de suspensão explícitos (`task.sleep`, `await`).
-  - O tempo não depende do relógio do sistema operacional (wall-clock), mas sim de um **relógio virtual determinístico**, permitindo que testes com dezenas de timeouts rodem em milissegundos sem flakiness.
+### 3. Cooperative Scheduler with Virtual Time
+- Deterministic runtime task scheduler:
+  - Tasks yield execution cooperatively at explicit suspension boundaries (`task.sleep`, `await`).
+  - Runtime execution does not depend on host wall-clock time, but on a **deterministic virtual clock**, enabling tests with multiple timeouts to execute in milliseconds with zero test flakiness.
 
-### 4. Combinadores Assíncronos & Detecção de Ciclos
-- Biblioteca `task` completa: `task.spawn`, `task.sleep`, `task.all`, `task.race`, `task.timeout`, `task.cancel`, `task.group`.
-- Detecção em tempo de execução de ciclos de dependência transitiva entre tarefas (`AIPO_RT_AWAIT_CYCLE`), impedindo deadlocks silenciosos.
+### 4. Async Combinators & Cycle Detection
+- Full `task` standard library: `task.spawn`, `task.sleep`, `task.all`, `task.race`, `task.timeout`, `task.cancel`, `task.group`.
+- Runtime cycle detection across transitive task await chains (`AIPO_RT_AWAIT_CYCLE`), preventing silent task deadlocks.

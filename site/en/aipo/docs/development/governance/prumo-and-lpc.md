@@ -4,34 +4,34 @@ description: "Aipo — Prumo And Lpc"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/governance/prumo-and-lpc.md"
+sourcePath: "docs/en/governance/prumo-and-lpc.md"
 sourceBlob: "3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/governance/prumo-and-lpc.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/governance/prumo-and-lpc.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Prumo CLI & Metodologia LPC
+# Prumo CLI & LPC Methodology
 
-O Aipo utiliza o **Prumo v0.6** como framework de governança contínua e a metodologia **Lean Progressive Context (LPC)** para coordenação entre desenvolvedores humanos e agentes de inteligência artificial.
-
----
-
-## O Princípio do Lean Progressive Context (LPC)
-
-1. **Menor Contexto Suficiente**: Cada tarefa inicia com a carga mínima de arquivos necessários, evitando poluição de contexto e alucinações.
-2. **Ponteiro sobre Carga Útil (*Pointer over Payload*)**: Utilização de mapas de autoridade (`AUTHORITY_MAP.json`), contratos estáveis e referências formais em vez de ler o repositório inteiro.
-3. **Expansão Progressiva Delimitada**: O contexto é expandido apenas quando a evidência disponível for insuficiente para garantir o critério de aceitação.
-4. **Nunca Enfraquecer Critérios Silenciosamente**: Se uma meta técnica encontrar um obstáculo não previsto, a questão torna-se um ADP explícito e nunca uma concessão silenciosa.
+Aipo utilizes **Prumo v0.6** as its continuous governance framework alongside the **Lean Progressive Context (LPC)** methodology to orchestrate precision collaboration between human developers and autonomous AI agents.
 
 ---
 
-## O Prumo como Ferramenta de Ciclo de Vida
+## The Lean Progressive Context (LPC) Paradigm
 
-O utilitário `prumo` orquestra:
-- **Portões de Qualidade**: Verificação determinística de cobertura documental (`prumo docs audit`, `prumo docs verify --strict`).
-- **Rastreabilidade de Evidências**: Mapeamento de decisões, artefatos gerados e histórico de execução em `.prumo/history/`.
-- **Prevenção de Derivação Documental**: Sincronização obrigatória entre especificações canônicas, testes automatizados e código de produção em cada alteração (*Documentation Delta*).
+1. **Smallest Sufficient Context**: Every engineering task begins with the minimal subset of required context files, preventing context dilution and hallucinated assumptions.
+2. **Pointer over Payload**: Heavy payloads are indexed via authority maps (`AUTHORITY_MAP.json`), stable interface contracts, and canonical file pointers rather than ingesting entire directory trees.
+3. **Bounded Progressive Expansion**: Context is expanded only when active evidence is insufficient to prove acceptance criteria.
+4. **Never Weaken Criteria Silently**: When a technical gate encounters unforeseen barriers, the discrepancy is escalated as an explicit Architectural Decision Proposal (ADP) rather than conceded through silent shortcuts.
+
+---
+
+## Prumo as a Lifecycle Automation Tool
+
+The `prumo` command-line utility enforces:
+- **Quality Gates**: Deterministic documentation verification (`prumo docs audit`, `prumo docs verify --strict`).
+- **Evidence Traceability**: Mapping architectural decisions, generated artifacts, and execution histories under `.prumo/history/`.
+- **Documentation Drift Prevention**: Enforced synchronization between canonical specifications, automated test suites, and production implementations in every single change (*Documentation Delta*).

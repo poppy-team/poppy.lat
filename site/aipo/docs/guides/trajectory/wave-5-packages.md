@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/trajectory/wave-5-packages.md"
 sourceBlob: "81cba3fb2c687769d19e818bf67555d413cf4ce0"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/trajectory/wave-5-packages.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `81cba3fb2c687769d19e818bf67555d413cf4ce0`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `81cba3fb2c687769d19e818bf67555d413cf4ce0`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Wave 5 — Gestor de Pacotes Hermético & Offline
 

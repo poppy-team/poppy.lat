@@ -4,65 +4,37 @@ description: "Aipo — Layout Leona"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/guide/layout-leona.md"
+sourcePath: "docs/en/zoe/guide/layout-leona.md"
 sourceBlob: "5616d88b5e76e5f566d5c0e702969ad1d5e76db0"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/guide/layout-leona.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `5616d88b5e76e5f566d5c0e702969ad1d5e76db0`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/guide/layout-leona.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `5616d88b5e76e5f566d5c0e702969ad1d5e76db0`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# O Motor de Layout Leona 2.0
+# The Leona 2.0 Layout Engine
 
-O **Leona** é o motor de layout canônico do Zoe UI. Desenvolvido inteiramente em Aipo, ele resolve coordenadas $(x, y)$, larguras e alturas relativas com precisão geométrica em três passadas determinísticas.
-
----
-
-## 1. As Três Passadas do Leona 2.0
-
-```mermaid
-flowchart TD
-    P1["Passada 1: Medição Intrínseca"] -->|Calcula tamanho de textos e ícones baseados na fonte| P2["Passada 2: Distribuição de Flex & Clamping"]
-    P2 -->|Divide espaço restante sem transbordar| P3["Passada 3: Alinhamento de Linha de Base (Baseline)"]
-    P3 -->|Alinha textos e ícones na linha tipográfica| Final["Geometria Final dos Nós (x, y, width, height)"]
-```
-
-### Passada 1: Medição Intrínseca
-Nós folha (como `label`, `icon`, `button`, `badge`, `segment_item`) calculam seu tamanho exato usando as métricas da fonte TTF via `host_measure_text` e `host_font_metrics`. Nenhum contêiner recebe tamanhos mágicos ou arbitrários.
-
-### Passada 2: Distribuição Flex
-Elementos com `width: "flex"` ou `height: "flex"` compartilham o espaço livre restante no eixo principal de forma rigorosa:
-
-$$\text{flex\_size} = \frac{\text{espaço\_disponível} - \text{espaço\_usado}}{\text{número\_de\_flex}}$$
-
-Se você possui 3 campos `scrubber_input` em uma linha com 240px de largura e gap de 6px:
-$$\text{flex\_size} = \frac{240 - 2 \times 6}{3} = 76.0\text{px}$$
-
-### Passada 3: Alinhamento pela Linha de Base
-Em contêineres horizontais (`row`) configurados com `align_items: "baseline"`, ícones e textos de tamanhos variados são alinhados não pelo centro matemático da caixa, mas pela linha inferior das letras sem descendentes (*baseline*). Isso confere a sofisticação tipográfica de publicações impressas e ferramentas de ponta.
+**Leona** is the canonical layout engine of Zoe UI. Written entirely in pure Aipo, it computes bounding boxes, proportional flex distribution, and text-driven geometry with subpixel accuracy.
 
 ---
 
-## 2. Propriedades Universais de Dimensão
+## 1. The Three Passes of Leona 2.0
 
-Todo componente ou retângulo no Zoe aceita as seguintes propriedades de dimensionamento:
+1. **Pass 1: Intrinsic Measurement**: Leaf nodes (`label`, `icon`, `button`, `badge`, `segment_item`) measure their exact content dimensions using real TTF font metrics via `host_measure_text` and `host_font_metrics`.
+2. **Pass 2: Flex Distribution & Clamping**: Flex containers divide remaining main-axis space without overflowing bounds.
+3. **Pass 3: Font Baseline Alignment**: In `row` containers configured with `align_items: "baseline"`, items of varying sizes align along the typographic baseline rather than geometric centers.
 
-| Propriedade | Exemplo | Descrição |
+---
+
+## 2. Dimension Properties
+
+| Property | Example | Meaning |
 | :--- | :--- | :--- |
-| `width`, `height` | `120.0` | Tamanho fixo em pixels |
-| `width`, `height` | `"100%"`, `"50%"` | Porcentagem do espaço disponível no contêiner pai |
-| `width`, `height` | `"flex"` | Preenchimento elástico proporcional do espaço restante |
-| `width`, `height` | `"auto"` | Ajusta-se (*hug content*) exatamente ao conteúdo dos filhos |
-| `min_width`, `max_width` | `80.0`, `400.0` | Limites estritos de contenção |
-| `min_height`, `max_height` | `24.0`, `600.0` | Limites estritos de altura |
-
----
-
-## 3. Direções de Layout
-
-- **`column`**: Organiza os filhos verticalmente, de cima para baixo.
-- **`row`**: Organiza os filhos horizontalmente, da esquerda para a direita.
-- **`stack`**: Sobrepõe os filhos uns sobre os outros, com suporte a deslocamentos `offset_x` e `offset_y`.
-- **`wrap: true`**: Permite quebra automática em múltiplas linhas quando a largura do contêiner é excedida.
+| `width`, `height` | `120.0` | Fixed pixel size |
+| `width`, `height` | `"100%"`, `"50%"` | Relative percentage of parent inner space |
+| `width`, `height` | `"flex"` | Elastic flex share of remaining space |
+| `width`, `height` | `"auto"` | Shrink-wrap to fit child content |
+| `min_width`, `max_width` | `80.0`, `400.0` | Strict boundary constraints |
+| `min_height`, `max_height` | `24.0`, `600.0` | Strict vertical constraints |

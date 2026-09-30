@@ -9,10 +9,10 @@ sourceBlob: "b8b4d793fb1f09d84679481d7429477e339fe180"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/guides/performance.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `b8b4d793fb1f09d84679481d7429477e339fe180`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/guides/performance.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `b8b4d793fb1f09d84679481d7429477e339fe180`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Performance microbench (polyglot)
 

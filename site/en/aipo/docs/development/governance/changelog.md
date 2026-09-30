@@ -4,78 +4,78 @@ description: "Aipo — Changelog"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/governance/changelog.md"
+sourcePath: "docs/en/governance/changelog.md"
 sourceBlob: "7a0fa26faafed4cd6e0e36c2f15551b9be2c3e29"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/governance/changelog.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `7a0fa26faafed4cd6e0e36c2f15551b9be2c3e29`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/governance/changelog.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `7a0fa26faafed4cd6e0e36c2f15551b9be2c3e29`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Changelog Oficial do Projeto
+# Official Project Changelog
 
-Todas as alterações notáveis, releases e marcos do Aipo são documentados neste arquivo, em conformidade com o formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) e aderindo ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+All notable changes, releases, and milestones of the Aipo programming language are documented here, adhering to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Não Lançado — Rumo à v0.1.0]
+## [Unreleased — Towards v0.1.0]
 
-### Produto & Fronteiras
-- **Recorte da `aipo v0.1.0` (ADP-008)**: A primeira release oficial é focada exclusivamente na linguagem, com async cooperativo, CLI unificada, test runner minimalista, C ABI síncrona versionada (ADP-009) e thin proofs de interoperabilidade Rust/C/JS (ADP-010).
+### Product & Scoping
+- **Scoping `aipo v0.1.0` (ADP-008)**: First official release is strictly language-first, delivering cooperative async, unified CLI, minimalist test runner, versioned synchronous C ABI (ADP-009), and thin interop proofs across Rust, C, and JS (ADP-010).
 
-### Performance & Rigor Empírico
-- **Cross-Language Benchmark Suite**: Ferramenta `aipo-bench --compare` cobrindo 6 workloads determinísticos contra Lua, LuaJIT, Wren, Luau, CPython, PyPy, Ruby e Rust nativo.
-- **Cache Monomórfico de Field Slot**: Aceleração de `GetField`/`SetField` resultando em redução de 28,31% no workload `fields`.
-- **Cache de Frame Base**: Redução consistente em `arithmetic` (-3,71%), `fields` (-6,65%) e `recursion` (-4,17%).
-- **Eliminação de Clones em `SetField`**: Eliminação determinística de 600.000 clones de `Value` para estruturas sem proteção.
-- **Relatório Transparente de Experimentos Revertidos**: Documentação de 7 experimentos de micro-otimização revertidos por falta de ganho mensurável no wall-clock, consolidando a metodologia de medição por tempo de CPU e encerrando a trilha de micro-ajustes locais.
+### Performance & Empirical Rigor
+- **Cross-Language Benchmark Suite**: `aipo-bench --compare` test harness covering 6 deterministic workloads measured against Lua, LuaJIT, Wren, Luau, CPython, PyPy, Ruby, and native Rust.
+- **Monomorphic Field Slot Cache**: Accelerated `GetField`/`SetField` dispatch yielding a 28.31% wall-clock reduction on the `fields` workload.
+- **Base Frame Pointer Caching**: Consistent speedups across `arithmetic` (-3.71%), `fields` (-6.65%), and `recursion` (-4.17%).
+- **Elimination of Clones in `SetField`**: Deterministically elided 600,000 `Value` clones on unguarded struct mutations.
+- **Transparent Post-Mortem on Reverted Experiments**: Documented 7 micro-optimization experiments reverted due to lack of measurable gain, standardizing CPU process time measurement and closing the interpreter micro-tuning track.
 
-### Gestor de Pacotes & Ecossistema Hermético (P04-G01 a P04-G11)
-- **Manifesto & Lockfile**: Coordenadas `namespace.package`, arquivo `aipo.toml` e `aipo.lock` determinístico.
-- **Dependências Remotas**: Suporte a dependências GitHub pinadas obrigatoriamente por commit SHA de 40 dígitos.
-- **Cache Local & Verificação**: Subcomandos `aipo package fetch-github`, `aipo package cache verify` e `aipo package cache prune --apply`.
-- **Autenticação Segura**: Suporte a tokens bearer via variável de ambiente (`--github-token-env`), sem jamais gravar segredos em disco ou logs.
+### Hermetic Package Manager & Supply Chain (P04-G01 to P04-G11)
+- **Manifest & Lockfile**: `namespace.package` coordinates, `aipo.toml` manifest, and canonical `aipo.lock`.
+- **Remote Dependencies**: GitHub dependency resolution strictly requiring pinned 40-character commit SHAs.
+- **Local Cache & Auditing**: Subcommands `aipo package fetch-github`, `aipo package cache verify`, and `aipo package cache prune --apply`.
+- **Secure Authentication**: Support for environment variable Bearer tokens (`--github-token-env`), never writing secrets to disk or logs.
 
-### Bytecode & Desassembly
-- **Serialização Binária `.aibc`**: Formato binário nativo determinístico com verificação mágica `AIBC` v1.
-- **Execução Direta**: `aipo run app.aibc` executa sem passar pelo pipeline frontend.
-- **Desassemblador `aipo disasm`**: Mapeamento preciso de instruções de bytecode para linhas e colunas do código-fonte.
+### Bytecode & Disassembly
+- **`.aibc` Binary Serialization**: Deterministic binary format with magic header `AIBC` v1 verification.
+- **Direct Execution**: `aipo run app.aibc` executes compiled bytecode without frontend compilation overhead.
+- **Disassembler `aipo disasm`**: Precise mapping of bytecode instructions to source lines and columns.
 
 ---
 
 ## [Wave 4] — Host ABI & Poppy Simulation
-- Crate `aipo-host` com árvore de permissões (`CapabilitySet`) deny-by-default.
-- Handles geracionais (`HandleTable`) imunes a falhas de use-after-free.
-- Prevenção estrita de escape de escopo (`Scope Escape`) nos 6 pontos de publicação da VM.
-- Crate `aipo-poppy` com simulação headless determinística via ECS e buffer de comandos.
+- `aipo-host` crate with deny-by-default capability tree (`CapabilitySet`).
+- Generational handles (`HandleTable`) immune to use-after-free hazards.
+- Scope escape prevention across all 6 VM publication points.
+- `aipo-poppy` crate featuring deterministic headless ECS simulation and command buffering.
 
 ---
 
-## [Wave 3] — Tipos Ricos & Async Cooperativo
-- Tipos `Set` com ordem de inserção, `Sequence` lazy e `Bytes` packing.
-- Sintaxe `async fn` e bloco `await do ... end`.
-- Scheduler cooperativo com tempo virtual e combinadores `task.*`.
-- Detecção em runtime de ciclos transitivos de await (`AIPO_RT_AWAIT_CYCLE`).
+## [Wave 3] — Rich Types & Cooperative Async
+- `Set` with insertion ordering, lazy `Sequence`, and `Bytes` packing.
+- `async fn` syntax and `await do ... end` block scoping.
+- Cooperative scheduler with deterministic virtual time and `task.*` combinators.
+- Runtime task dependency cycle detection (`AIPO_RT_AWAIT_CYCLE`).
 
 ---
 
-## [Wave 2] — Paridade JavaScript & Deep Quality
-- Compilador semântico `aipo-js` com emissão de ES2022 e Source Maps.
-- Suíte de conformance diferencial VM ↔ Node.js.
-- Fuzzing com libFuzzer e testes de propriedade com proptest.
-- Auditoria de segurança de dependências com `cargo deny`.
+## [Wave 2] — JavaScript Parity & Deep Quality
+- `aipo-js` semantic compiler emitting ES2022 and Source Maps V3.
+- Differential VM ↔ Node.js conformance test suite.
+- Continuous fuzzing with libFuzzer and property testing with proptest.
+- Automated dependency auditing with `cargo deny`.
 
 ---
 
-## [Wave 1] — Contratos Estruturais & Transações
-- Hooks `init()` e `invariant()`.
-- Rollback automático de mutações através de journal em blocos `attempt ... recover`.
-- Interfaces formais e checagem de conformidade de assinaturas.
-- Funções locais aninhadas com auto-recursão (`FillSelfCapture`).
+## [Wave 1] — Structural Contracts & Transactions
+- `init()` and `invariant()` lifecycle hooks.
+- Automatic transactional mutation rollback inside `attempt ... recover`.
+- Structural interfaces and method contract compliance.
+- Nested local functions with self-recursion support (`FillSelfCapture`).
 
 ---
 
-## [Wave 0] — Fundação da Linguagem (MVP)
-- Implementação inicial dos 11 slices (Lexer, Parser, HIR, SEMA, IR, Bytecode, VM, Stdlib, Formatter, CLI, Conformance).
+## [Wave 0] — Language Foundation (MVP)
+- Initial implementation of the 11 vertical slices (Lexer, Parser, HIR, SEMA, IR, Bytecode, VM, Stdlib, Formatter, CLI, Conformance).

@@ -281,6 +281,22 @@ body {
   border-color: var(--text);
 }
 
+/* The default theme's language menu is replaced by `.language-switch`, which
+   leads to the same page in the other language and remembers the choice. */
+.VPNavBarTranslations,
+.VPNavScreenTranslations {
+  display: none !important;
+}
+
+.VPNavBar .language-switch {
+  margin-inline-start: var(--space-2);
+}
+
+.nav-screen-language {
+  display: flex;
+  padding-top: var(--space-3);
+}
+
 .site-footer {
   margin-top: var(--section-gap);
   border-top: 1px solid var(--rule);

@@ -4,36 +4,36 @@ description: "Aipo — Getting Started"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/guide/getting-started.md"
+sourcePath: "docs/en/zoe/guide/getting-started.md"
 sourceBlob: "56efe7b621c3ab1acbdeec9a017af1688903e931"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/guide/getting-started.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `56efe7b621c3ab1acbdeec9a017af1688903e931`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/guide/getting-started.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `56efe7b621c3ab1acbdeec9a017af1688903e931`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Primeiros Passos com Zoe UI
+# Getting Started with Zoe UI
 
-Este guia orienta a inicialização, configuração e ciclo de vida de uma aplicação com **Zoe UI**.
+This guide walks you through setup, initialization, and application lifecycle with **Zoe UI**.
 
 ---
 
-## 1. Instalação e Configuração
+## 1. Installation & Setup
 
-Para utilizar o Zoe UI, referencie o pacote no manifesto `aipo.toml`:
+Add the package dependency to your `aipo.toml`:
 
 ```toml
 [package]
-name = "meu-app"
+name = "my-app"
 version = "0.1.0"
 
 [dependencies]
 "aipo.zoe" = { path = "packages/aipo-zoe" }
 ```
 
-Gere ou sincronize a trava do pacote com:
+Lock package dependencies:
 
 ```bash
 aipo package lock
@@ -41,51 +41,49 @@ aipo package lock
 
 ---
 
-## 2. A Tríade do Ciclo de Vida: `setup`, `update`, `draw`
+## 2. The Lifecycle Triad: `setup`, `update`, `draw`
 
-Aplicações gráficas no ecossistema Aipo adotam o ciclo clássico de três estágios:
+Graphical Aipo applications follow the 3-stage lifecycle:
 
 ```aipo
 import aipo.zoe as zoe
 
-# 1. Ponto de montagem da UI
+# 1. UI Root View
 fn view() {
     return zoe.center({ "background": zoe.color.base }, [
-        zoe.label("Olá, Zoe UI!", { "font_size": 20.0, "color": zoe.color.text })
+        zoe.label("Hello, Zoe UI!", { "font_size": 20.0, "color": zoe.color.text })
     ])
 }
 
-# 2. Inicialização: registra a função raiz de visualização
+# 2. Setup: mount root component function
 fn setup() {
     zoe.mount(view)
 }
 
-# 3. Atualização física/lógica: despacha eventos do mouse e animações de tweens
+# 3. Update: process inputs, signals, and tweens
 fn update(dt) {
     zoe.step(dt)
 }
 
-# 4. Renderização gráfica: despacha a árvore calculada para os shaders de GPU
+# 4. Draw: render calculated node tree to GPU
 fn draw() {
     zoe.draw_ui()
 }
 ```
 
-### O que acontece em cada estágio?
+### What happens in each stage?
 
-- **`zoe.mount(component_fn)`**: Vincula a função geradora de nós ao ciclo do framework. Avalia a primeira árvore declarativa e computa as dimensões globais com Leona.
-- **`zoe.step(dt)`**: Inspeciona a posição do cursor do mouse, estado dos botões, roda de rolagem e teclas digitadas. Se algum sinal (`Signal`) foi alterado, o Zoe marca a árvore como `dirty` e agenda a reavaliação do layout. Também interpola animações ativas via `use_tween`.
-- **`zoe.draw_ui()`**: Transforma a árvore calculada em comandos analíticos de GPU (`host_draw_sdf_rect`, `host_draw_text`, `host_draw_bezier`) com ordenação de camadas e tesouras de recorte (*scissor clipping*).
+- **`zoe.mount(component_fn)`**: Connects your generator function to the framework loop and computes initial Leona layout.
+- **`zoe.step(dt)`**: Handles mouse hover, clicks, drags, scroll wheel, and keyboard events. Re-evaluates dirty trees when signals change, and steps active `use_tween` animations.
+- **`zoe.draw_ui()`**: Converts the computed layout into GPU analytical primitives (`host_draw_sdf_rect`, `host_draw_text`, `host_draw_bezier`) with scissor clipping and layer sorting.
 
 ---
 
-## 3. Modo Inspecionar (DevTools Inspector)
+## 3. DevTools Inspector
 
-O Zoe UI inclui um inspecionador visual de caixas delimitadoras integrado:
+Zoe UI includes an integrated live bounding box inspector:
 
 ```aipo
-# Pressione F12 ou invoque diretamente no seu código:
+# Press F12 or call directly in your code:
 zoe.toggle_inspector()
 ```
-
-Quando ativado, o inspetor desenha contornos azuis semitransparentes em torno de cada contêiner e exibe uma etiqueta flutuante com a tag do nó, seu identificador e suas dimensões exatas em pixels.

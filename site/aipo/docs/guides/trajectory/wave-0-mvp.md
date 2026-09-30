@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/trajectory/wave-0-mvp.md"
 sourceBlob: "4e68830ac8d8d26eae530d85fee5dbc6f0f1869f"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/trajectory/wave-0-mvp.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `4e68830ac8d8d26eae530d85fee5dbc6f0f1869f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `4e68830ac8d8d26eae530d85fee5dbc6f0f1869f`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Wave 0 — MVP da Linguagem em 11 Slices
 

@@ -4,40 +4,40 @@ description: "Aipo — Crates"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/architecture/crates.md"
+sourcePath: "docs/en/architecture/crates.md"
 sourceBlob: "e1330d7669cd3c1a8744dc44d89511badb142d9d"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/architecture/crates.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `e1330d7669cd3c1a8744dc44d89511badb142d9d`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/architecture/crates.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `e1330d7669cd3c1a8744dc44d89511badb142d9d`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Contratos das Crates do Workspace
+# Workspace Crate Contracts
 
-O repositório do Aipo é composto por **crates modulares em Rust**, cada uma com limites estritos de responsabilidade e dependências lineares sem ciclos.
+The Aipo codebase is structured as a collection of **modular Rust crates**, each enforcing strict domain boundaries and acyclic dependency graphs.
 
 ---
 
-## Inventário de Crates
+## Crate Inventory
 
-| Crate | Responsabilidade Primária | Dependências Internas |
+| Crate | Primary Domain | Internal Dependencies |
 | :--- | :--- | :--- |
-| **`aipo-source`** | Carregamento de fontes e indexação segura UTF-8 | Nenhuma |
-| **`aipo-diagnostics`** | Catálogo estável de erros e spans de código | `aipo-source` |
-| **`aipo-lexer`** | Tokenização de alta velocidade sem alocação | `aipo-source`, `aipo-diagnostics` |
-| **`aipo-ast`** | Tipos da árvore sintática abstrata | `aipo-source`, `aipo-diagnostics` |
-| **`aipo-syntax`** | Parser recursivo com recuperação de erros | `aipo-lexer`, `aipo-ast`, `aipo-diagnostics` |
-| **`aipo-hir`** | Representação intermediária de alto nível | `aipo-ast`, `aipo-diagnostics` |
-| **`aipo-sema`** | Análise semântica e contratos estáticos | `aipo-hir`, `aipo-diagnostics` |
-| **`aipo-ir`** | Core Intermediate Representation linearizada | `aipo-hir`, `aipo-diagnostics` |
-| **`aipo-bytecode`** | Emissão e serialização `.aibc` | `aipo-ir`, `aipo-diagnostics` |
-| **`aipo-vm`** | Máquina virtual de execução e scheduler async | `aipo-bytecode`, `aipo-diagnostics` |
-| **`aipo-js`** | Emissor JavaScript ES2022 e Source Maps | `aipo-hir`, `aipo-diagnostics` |
-| **`aipo-host`** | Host ABI, capabilities e handles geracionais | `aipo-diagnostics` |
-| **`aipo-runtime`** | Registro e orquestração de módulos nativos | `aipo-vm`, `aipo-host` |
-| **`aipo-stdlib`** | Implementação canônica da biblioteca padrão | `aipo-runtime`, `aipo-vm` |
-| **`aipo-poppy`** | Adaptador ECS e simulação determinística | `aipo-host`, `aipo-vm` |
-| **`aipo-formatter`** | Formatador automático de sintaxe canônica | `aipo-syntax`, `aipo-ast` |
-| **`aipo-cli`** | Ponto de entrada de linha de comando (`aipo`) | Todas as crates acima |
+| **`aipo-source`** | Source file representation & UTF-8 safe boundary indexing | None |
+| **`aipo-diagnostics`** | Stable diagnostic catalog, source spans & formatting | `aipo-source` |
+| **`aipo-lexer`** | Zero-copy UTF-8 tokenizer & lexical validations | `aipo-source`, `aipo-diagnostics` |
+| **`aipo-ast`** | Abstract Syntax Tree node definitions | `aipo-source`, `aipo-diagnostics` |
+| **`aipo-syntax`** | Recursive-descent parser with error synchronization | `aipo-lexer`, `aipo-ast`, `aipo-diagnostics` |
+| **`aipo-hir`** | High-level Intermediate Representation lowering | `aipo-ast`, `aipo-diagnostics` |
+| **`aipo-sema`** | Semantic validation & structural contract checks | `aipo-hir`, `aipo-diagnostics` |
+| **`aipo-ir`** | Linearized Core Intermediate Representation | `aipo-hir`, `aipo-diagnostics` |
+| **`aipo-bytecode`** | Instruction encoding & `.aibc` binary serialization | `aipo-ir`, `aipo-diagnostics` |
+| **`aipo-vm`** | Bytecode virtual machine & cooperative async scheduler | `aipo-bytecode`, `aipo-diagnostics` |
+| **`aipo-js`** | JavaScript ES2022 emitter & Source Maps V3 | `aipo-hir`, `aipo-diagnostics` |
+| **`aipo-host`** | Sandboxed Host ABI, capabilities & generational handles | `aipo-diagnostics` |
+| **`aipo-runtime`** | Host runtime registration & native module management | `aipo-vm`, `aipo-host` |
+| **`aipo-stdlib`** | Canonical standard library modules | `aipo-runtime`, `aipo-vm` |
+| **`aipo-poppy`** | Headless ECS simulation adapter | `aipo-host`, `aipo-vm` |
+| **`aipo-formatter`** | Automatic source code formatting | `aipo-syntax`, `aipo-ast` |
+| **`aipo-cli`** | Unified CLI entrypoint (`aipo`) | All crates above |

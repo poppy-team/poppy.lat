@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/getting-started/installation.md"
 sourceBlob: "07d35d6aa023437e04b30123c45e402e26daec47"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/getting-started/installation.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `07d35d6aa023437e04b30123c45e402e26daec47`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `07d35d6aa023437e04b30123c45e402e26daec47`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Instalação do Prumo
 

@@ -4,47 +4,47 @@ description: "Aipo — Host Abi"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/architecture/host-abi.md"
+sourcePath: "docs/en/architecture/host-abi.md"
 sourceBlob: "921116755a7dcd8b994d5dcd3b63d0ba30c5e523"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/architecture/host-abi.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `921116755a7dcd8b994d5dcd3b63d0ba30c5e523`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/architecture/host-abi.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `921116755a7dcd8b994d5dcd3b63d0ba30c5e523`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Host ABI & Sandboxing
 
-A **Host ABI (`aipo-host`)** define a interface de isolamento e segurança entre os scripts em Aipo e o ambiente que hospeda o runtime (seja um jogo, uma aplicação de backend ou um agente inteligente).
+The **Host ABI (`aipo-host`)** governs the sandboxing boundary and isolation model bridging Aipo scripts and host runtime environments (such as game engines, backend servers, or AI agents).
 
 ---
 
-## O Modelo de Permissões Deny-by-Default
+## Deny-by-Default Capabilities
 
-Por padrão, um script em Aipo roda em um ambiente completamente isolado:
-- Não pode ler variáveis de ambiente (`env`).
-- Não pode ler ou gravar no sistema de arquivos (`fs`).
-- Não pode consultar o relógio do sistema operacional (`clock`).
-- Não pode abrir conexões de rede.
+By default, an Aipo script executes inside an hermetically isolated sandbox:
+- Cannot access environment variables (`env`).
+- Cannot read from or write to the filesystem (`fs`).
+- Cannot query host system wall-clock time (`clock`).
+- Cannot initiate outbound network connections.
 
-Para que um recurso seja acessível, a aplicação anfitriã em Rust deve registrar uma permissão explícita na árvore de capacidades (`CapabilitySet`):
+For any resource to be accessible, the host application must explicitly grant granular permissions via the capability tree (`CapabilitySet`):
 
 ```rust
-// Exemplo no anfitrião em Rust: concedendo apenas relógio e leitura em diretório restrito
+// Rust host example: granting clock and restricted read-only filesystem access
 let mut caps = CapabilitySet::new();
 caps.grant("clock");
 caps.grant("fs.read");
 ```
 
-Se o script tentar acessar uma função sem a permissão correspondente, o runtime dispara a falha determinística `AIPO_RT_CAPABILITY_DENIED`.
+If a script attempts to invoke a restricted capability without authorization, execution halts immediately with the deterministic fault `AIPO_RT_CAPABILITY_DENIED`.
 
 ---
 
-## Handles Geracionais contra *Use-After-Free*
+## Generational Handles Anti Use-After-Free
 
-Para objetos complexos do host (como janelas de UI, entidades de jogo ou conexões com banco de dados), o Aipo utiliza a tabela de handles geracionais (`HandleTable`):
+For stateful host resources (such as simulation entities, file handles, or network sockets), Aipo utilizes a generational handle table (`HandleTable`):
 
-- Cada handle contém um **índice de slot** e um **número de geração**.
-- Quando o objeto do host é destruído ou reciclado, a geração do slot é incrementada.
-- Qualquer tentativa posterior do script de acessar o handle antigo é rejeitada com o erro `AIPO_RT_STALE_HANDLE`, eliminando ponteiros soltos e corrupção de memória.
+- Every handle pairs an **index slot** with a **monotonic generation counter**.
+- When a host resource is destroyed or recycled, its slot generation increments.
+- Any subsequent attempt by a script to dereference a stale handle is intercepted with `AIPO_RT_STALE_HANDLE`, completely preventing dangling pointer dereferences and memory corruption.

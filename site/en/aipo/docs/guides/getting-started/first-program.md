@@ -4,138 +4,138 @@ description: "Aipo — First Program"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/getting-started/first-program.md"
+sourcePath: "docs/en/getting-started/first-program.md"
 sourceBlob: "4ae0190c693fb552243c4d693987240f3479c38b"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/getting-started/first-program.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `4ae0190c693fb552243c4d693987240f3479c38b`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/getting-started/first-program.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `4ae0190c693fb552243c4d693987240f3479c38b`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Seu Primeiro Programa em 5 Minutos
+# Your First Program in 5 Minutes
 
-Neste tutorial rápido, vamos criar, verificar, compilar e executar o seu primeiro programa em Aipo.
+In this quick walkthrough, you will write, verify, compile, and execute your first program in Aipo.
 
 ---
 
-## 1. Olá, Mundo!
+## 1. Hello, World!
 
-Crie um arquivo chamado `hello.aipo`:
+Create a file named `hello.aipo`:
 
 ```aipo
 # hello.aipo
-io.println("Olá do Aipo!")
+io.println("Hello from Aipo!")
 ```
 
-Execute diretamente pelo CLI:
+Run it directly with the CLI:
 
 ```bash
 aipo run hello.aipo
 ```
 
-**Saída esperada:**
+**Expected output:**
 ```
-Olá do Aipo!
+Hello from Aipo!
 ```
 
 ---
 
-## 2. Estruturas, Invariantes e Métodos
+## 2. Structs, Invariants, and Methods
 
-Vamos criar um programa que modela uma conta bancária com invariante de saldo positivo. Crie o arquivo `conta.aipo`:
+Let's model a bank account with an invariant guaranteeing a non-negative balance. Create `account.aipo`:
 
 ```aipo
-# conta.aipo
-struct Conta {
-    titular
-    numero
-    var saldo = 0.0
+# account.aipo
+struct Account {
+    holder
+    account_number
+    var balance = 0.0
 }
 
-impl Conta {
-    init(titular, numero = 0, saldo = 0.0) {
-        self.titular = titular
-        self.numero = numero
-        self.saldo = saldo
+impl Account {
+    init(holder, account_number = 0, balance = 0.0) {
+        self.holder = holder
+        self.account_number = account_number
+        self.balance = balance
     }
 
-    # Invariante: executada em todas as criações e mutações de campos
+    # Invariant: executed upon construction and every field mutation
     invariant {
-        self.saldo >= 0.0
+        self.balance >= 0.0
     }
 
-    fn depositar(var self, valor: Float) {
-        if valor <= 0.0 {
-            return fail("Valor de depósito deve ser positivo")
+    fn deposit(var self, amount: Float) {
+        if amount <= 0.0 {
+            return fail("Deposit amount must be positive")
         }
-        self.saldo += valor
+        self.balance += amount
     }
 
-    fn sacar(var self, valor: Float) {
-        if valor <= 0.0 {
-            return fail("Valor de saque deve ser positivo")
+    fn withdraw(var self, amount: Float) {
+        if amount <= 0.0 {
+            return fail("Withdrawal amount must be positive")
         }
         
-        # Tenta aplicar a operação. Se violar self.saldo >= 0.0,
-        # o bloco attempt reverte automaticamente a mutação!
+        # Tries to execute the withdrawal. If self.balance >= 0.0 fails,
+        # the attempt block rolls back the mutation automatically!
         attempt {
-            self.saldo -= valor
-        } failed erro {
-            return fail("Saque recusado: saldo insuficiente")
+            self.balance -= amount
+        } failed err {
+            return fail("Withdrawal rejected: insufficient balance")
         }
     }
 }
 
-# Instanciando a conta usando dois-pontos (:) consistente
-let c = Conta{ titular: "Maria Silva", numero: 1042, saldo: 150.0 }
+# Instantiating the account using consistent colon (:) syntax
+let acc = Account{ holder: "Alice Johnson", account_number: 1042, balance: 150.0 }
 
-io.println(f"Conta criada para: {c.titular}")
-io.println(f"Saldo inicial: {c.saldo}")
+io.println(f"Account created for: {acc.holder}")
+io.println(f"Initial balance: {acc.balance}")
 
-c.depositar(50.0)
-io.println(f"Saldo após depósito: {c.saldo}")
+acc.deposit(50.0)
+io.println(f"Balance after deposit: {acc.balance}")
 
-c.sacar(75.0)
-io.println(f"Saldo após saque: {c.saldo}")
+acc.withdraw(75.0)
+io.println(f"Balance after withdrawal: {acc.balance}")
 ```
 
-Execute o programa:
+Run the program:
 
 ```bash
-aipo run conta.aipo
+aipo run account.aipo
 ```
 
-**Saída esperada:**
+**Expected output:**
 ```
-Conta criada para: Maria Silva
-Saldo inicial: 150.0
-Saldo após depósito: 200.0
-Saldo após saque: 125.0
+Account created for: Alice Johnson
+Initial balance: 150.0
+Balance after deposit: 200.0
+Balance after withdrawal: 125.0
 ```
 
 ---
 
-## 3. Inspecionando o Bytecode
+## 3. Inspecting Bytecode
 
-Uma das grandes forças do Aipo é a transparência do compilador. Você pode visualizar as instruções de bytecode geradas para qualquer arquivo:
+Aipo provides full transparency into compiler output. You can disassemble the bytecode for any file:
 
 ```bash
-aipo disasm conta.aipo
+aipo disasm account.aipo
 ```
 
-O comando exibirá o desassembly com linhas e colunas mapeadas, demonstrando a alocação de registradores, frames de chamada e tabelas de constantes.
+The output shows bytecode mnemonics annotated with corresponding source line and column numbers.
 
 ---
 
-## 4. Compilando para JavaScript
+## 4. Compiling to JavaScript
 
-Você pode transpilar o mesmo código para JavaScript executável via Node.js:
+You can transpile the exact same program to JavaScript for Node.js or browser execution:
 
 ```bash
-aipo build conta.aipo -o dist/conta.js
-node dist/conta.js
+aipo build account.aipo -o dist/account.js
+node dist/account.js
 ```
 
-O código gerado possui paridade comportamental completa com a VM em Rust.
+The emitted JavaScript provides bit-for-bit behavioral parity with the native Rust VM.

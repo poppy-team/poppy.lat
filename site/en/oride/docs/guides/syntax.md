@@ -6,13 +6,13 @@ category: guides
 locale: en
 sourcePath: "docs/guides/en/syntax.md"
 sourceBlob: "dc54fbc644d4e80bd6bde923c4db79bb29c233f5"
-revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
+revision: "1cd515630b8ceb57777d466bee4970fe7c2e30e0"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/guides/en/syntax.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `dc54fbc644d4e80bd6bde923c4db79bb29c233f5`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/guides/en/syntax.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Pinned to revision `1cd515630b8ceb57777d466bee4970fe7c2e30e0`, blob `dc54fbc644d4e80bd6bde923c4db79bb29c233f5`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Syntax Highlighting Engine
 

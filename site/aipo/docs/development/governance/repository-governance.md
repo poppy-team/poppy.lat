@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/governance/repository-governance.md"
 sourceBlob: "6b3bedb62c4b8cd65d72e8c3e48b3e70e9df6879"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/governance/repository-governance.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `6b3bedb62c4b8cd65d72e8c3e48b3e70e9df6879`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `6b3bedb62c4b8cd65d72e8c3e48b3e70e9df6879`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Governança de Repositório
 

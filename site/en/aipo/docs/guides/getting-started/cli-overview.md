@@ -4,76 +4,76 @@ description: "Aipo — Cli Overview"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/getting-started/cli-overview.md"
+sourcePath: "docs/en/getting-started/cli-overview.md"
 sourceBlob: "ba15b2452e3e319e339bce70c68c08565a153510"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/getting-started/cli-overview.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `ba15b2452e3e319e339bce70c68c08565a153510`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/getting-started/cli-overview.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ba15b2452e3e319e339bce70c68c08565a153510`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Guia do Utilitário de Linha de Comando (`aipo`)
+# Command-Line Interface Guide (`aipo`)
 
-O executável `aipo` é a ferramenta unificada para execução, análise estática, emissão de JavaScript, desmontagem de bytecode, formatação de código e auditoria hermética de pacotes.
+The `aipo` executable is the unified toolchain utility for execution, static checking, JavaScript code generation, bytecode disassembly, code formatting, and hermetic package auditing.
 
 ---
 
-## Subcomandos Principais
+## Primary Subcommands
 
 ### `aipo run`
 
-Compila e executa um arquivo de código-fonte (`.aipo`) ou um bytecode compilado (`.aibc`):
+Compiles and executes an Aipo source file (`.aipo`) or precompiled bytecode (`.aibc`):
 
 ```bash
-# Executar código-fonte diretamente
+# Run source file directly
 aipo run src/main.aipo
 
-# Executar com cache customizado de pacotes
+# Run with custom package cache directory
 aipo run src/main.aipo --package-cache .aipo/cache
 
-# Saída de diagnósticos em formato JSONL estruturado (ideal para editores e CI)
+# Structured JSONL diagnostic output (ideal for IDEs and CI pipelines)
 aipo run src/main.aipo --message-format=jsonl
 ```
 
 ### `aipo test`
 
-Descobre e executa testes unitários automaticamente em arquivos `*_test.aipo` e `test_*.aipo`, garantindo isolamento total por VM limpa, semente PRNG zerada e relógio congelado:
+Discovers and executes unit tests automatically across `*_test.aipo` and `test_*.aipo` files, with full isolation, zeroed PRNG seeds, and a frozen virtual clock:
 
 ```bash
-# Executar todos os testes do projeto
+# Run all unit tests
 aipo test
 
-# Filtrar testes por padrão de nome ou caminho
+# Filter tests by name or path pattern
 aipo test --filter math
 
-# Saída em streaming JSONL para CI/CD
+# Machine-readable streaming JSONL for CI/CD
 aipo test --message-format=jsonl
 ```
 
 ### `aipo check`
 
-Executa a análise estática completa (Lexer, Parser, HIR, Semântica e verificação de bytecode) sem rodar a VM:
+Runs the complete static analysis pipeline (Lexer, Parser, HIR, SEMA, and bytecode verification) without running the VM:
 
 ```bash
 aipo check src/main.aipo
 ```
 
-Reporta com precisão erros de sintaxe, contratos de interface incompatíveis, referências a variáveis indefinidas e tentativas de mutação de campos imutáveis.
+Accurately reports syntax errors, incompatible interface contracts, unbound variable references, and illegal mutations of immutable fields.
 
 ### `aipo build`
 
-Emite o bundle JavaScript completo (`app.js`, `aipo-runtime.js` e mapa de fontes `app.js.map`) pronto para execução em navegadores ou Node.js:
+Emits the complete JavaScript bundle (`app.js`, `aipo-runtime.js`, and `app.js.map` sourcemap) ready for deployment in modern browsers or Node.js runtimes:
 
 ```bash
-# Compilar e emitir bundle no diretório de saída
+# Compile and emit bundle into output directory
 aipo build src/main.aipo --out dist/
 ```
 
 ### `aipo disasm`
 
-Desassembla um arquivo `.aipo` ou `.aibc`, exibindo as instruções da VM, offsets em bytes, pool de constantes e coordenadas de código originais:
+Disassembles an `.aipo` or `.aibc` file, displaying VM instructions, byte offsets, constant pool entries, and mapped source coordinates:
 
 ```bash
 aipo disasm src/main.aipo
@@ -81,37 +81,37 @@ aipo disasm src/main.aipo
 
 ### `aipo fmt`
 
-Formata arquivos de código Aipo de acordo com o padrão canônico da linguagem:
+Formats Aipo source files according to canonical language style conventions:
 
 ```bash
-# Formatar arquivos no local
+# Format files in place
 aipo fmt src/main.aipo
 
-# Verificar se há desvios de formatação sem alterar os arquivos (modo CI)
+# Verify formatting without writing changes (CI mode)
 aipo fmt --check src/
 ```
 
 ### `aipo package`
 
-Conjunto de comandos herméticos para gerenciamento, bloqueio e auditoria de pacotes:
+Hermetic commands for package management, lockfile generation, and security auditing:
 
 ```bash
-# Criar ou atualizar o lockfile determinístico (aipo.lock)
+# Create or update deterministic lockfile (aipo.lock)
 aipo package lock .
 
-# Criar lockfile buscando snapshots remotos do GitHub para o cache
+# Create lockfile fetching remote GitHub snapshots into local cache
 aipo package lock . --fetch-github --cache .aipo/cache
 
-# Auditar a integridade e conformidade de um pacote local
+# Audit integrity and manifest compliance of a local package
 aipo package audit .
 
-# Verificar a integridade criptográfica SHA-256 de todas as entradas no cache
+# Verify cryptographic SHA-256 integrity across all cached entries
 aipo package cache verify .aipo/cache
 
-# Limpar entradas de cache obsoletas não referenciadas no lockfile
+# Prune unreferenced, stale cache entries safely
 aipo package cache prune .aipo/cache --lock aipo.lock --apply
 ```
 
-::: tip 📖 Guia Aprofundado de Ferramentas
-Para mais detalhes sobre flags de compilação, WebAssembly, integração contínua e exemplos práticos, consulte o [Guia Completo de Ferramentas do Desenvolvedor](https://github.com/poppy-team/aipo-lang/blob/3a5ce6737d42ae75470f7798680ebc95b3ac761c/docs/tools/).
+::: tip 📖 Comprehensive Tooling Guide
+For in-depth details on compiler flags, WebAssembly targets, CI/CD integrations, and real-world examples, visit the [Complete Developer Tooling Guide](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/en/en/tools/).
 :::

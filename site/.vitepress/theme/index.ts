@@ -22,6 +22,7 @@ import ProfilePage from './accounts/ProfilePage.vue';
 import NotesPage from './accounts/NotesPage.vue';
 import ModerationPage from './accounts/ModerationPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
+import LanguageSwitch from './components/LanguageSwitch.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
@@ -94,9 +95,21 @@ const RoutedLayout = defineComponent({
         'doc-before': () =>
           kind === 'documentation' ? [h(DocsBar)] : kind === 'course' ? [h(LessonBar)] : [],
         'doc-after': () => (kind === 'course' ? [h(LessonFooter)] : []),
-        // The header of editorial pages carries the account menu itself.
-        'nav-bar-content-after': () => (kind === 'editorial' || lang.value.startsWith('en') ? [] : [h(AccountMenu)]),
-        'nav-screen-content-after': () => (kind === 'editorial' || lang.value.startsWith('en') ? [] : [h(AccountMenu)]),
+        // The default theme's language menu leads to the other locale's home
+        // and forgets the choice; the site's own switch goes to the same page
+        // and remembers it, so it replaces the menu in the documentation and lesson bars.
+        // The header of editorial pages carries the account menu and the switch itself.
+        'nav-bar-content-after': () =>
+          kind === 'documentation' || kind === 'course'
+            ? [...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []), h(LanguageSwitch)]
+            : [],
+        'nav-screen-content-after': () =>
+          kind === 'documentation' || kind === 'course'
+            ? [
+                ...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []),
+                h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)]),
+              ]
+            : [],
       });
     };
   },

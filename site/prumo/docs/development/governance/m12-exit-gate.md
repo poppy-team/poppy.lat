@@ -5,32 +5,32 @@ project: prumo
 category: development
 locale: pt-BR
 sourcePath: "docs/governance/m12-exit-gate.md"
-sourceBlob: "6ecf5c02914debadb5dd9b46d77a23585e65603f"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+sourceBlob: "d0cdb67f7adb7a7bb582a0ea0fb080a12797bc93"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/governance/m12-exit-gate.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `6ecf5c02914debadb5dd9b46d77a23585e65603f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `d0cdb67f7adb7a7bb582a0ea0fb080a12797bc93`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
-# M12 Team / Advanced Runtime — Governance Evaluation & Status
+# M12 Team / Advanced Runtime — Avaliação de Governança e Status
 
-Status: **DEFERRED BY DESIGN (Per v0.4 Architecture & Phases)**
+Status: **ADIADO POR DESIGN (Conforme a Arquitetura e as Fases da v0.4)**
 
-## Governance & Architecture Assessment
+## Avaliação de Governança e Arquitetura
 
-### Scope & Specification
-Per `docs/development/phases.md:384-390`:
-- **Scope**: Shared runtime, leases, concurrency coordination, optional server.
-- **Prerequisites**: Dependent on M11, explicitly gated: *"only after real usage validates need — deferred until proven necessary"*.
+### Escopo e Especificação
+Conforme `docs/development/phases.md:384-390`:
+- **Escopo**: runtime compartilhado, leases, coordenação de concorrência, servidor opcional.
+- **Pré-requisitos**: depende do M11, explicitamente condicionado: *"somente depois que o uso real validar a necessidade — adiado até que se prove necessário"*.
 
-### Architectural Justification
-1. **Lean Progressive Context & Provider-Neutral Core**:
-   Prumo prioritizes smallest sufficient context, single-agent deterministic execution, and zero unnecessary daemons or central servers.
-2. **Local Repository Autonomy**:
-   As documented in `docs/architecture/overview.md` and `docs/runtime/control-plane.md`, Prumo is optimized to run locally within developers' environments and CI/CD pipelines without requiring long-lived daemon processes, centralized leasing servers, or distributed lock managers.
-3. **Multi-Agent Coordination via Experience Handoff (M9)**:
-   Milestone M9 introduced the zero-transcript `Handoff` protocol, allowing sequential or delegated multi-agent state handoff cleanly via files under `.prumo/experience/` without introducing complex network-distributed locking or server processes.
-4. **Conclusion**:
-   Per formal repository governance, M12 features remain deferred until real multi-agent team usage in production demonstrates an empirical necessity for a shared daemon or server-mediated concurrency coordination.
+### Justificativa Arquitetural
+1. **Lean Progressive Context e Core Neutro em Relação a Providers**:
+   O Prumo prioriza o menor contexto suficiente, a execução determinística com um único agente e zero daemons ou servidores centrais desnecessários.
+2. **Autonomia Local do Repositório**:
+   Conforme documentado em `docs/architecture/overview.md` e `docs/runtime/control-plane.md`, o Prumo é otimizado para rodar localmente nos ambientes dos desenvolvedores e em pipelines de CI/CD sem exigir processos daemon de longa duração, servidores centralizados de leasing ou gerenciadores de locks distribuídos.
+3. **Coordenação Multiagente via Experience Handoff (M9)**:
+   O marco M9 introduziu o protocolo `Handoff` sem transcript, permitindo a transferência de estado entre múltiplos agentes, sequencial ou delegada, de forma limpa por meio de arquivos em `.prumo/experience/`, sem introduzir locking complexo distribuído em rede nem processos de servidor.
+4. **Conclusão**:
+   Conforme a governança formal do repositório, os recursos do M12 continuam adiados até que o uso real de times multiagente em produção demonstre uma necessidade empírica de um daemon compartilhado ou de coordenação de concorrência mediada por servidor.
