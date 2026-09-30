@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
 import AccountMenu from '../accounts/AccountMenu.vue';
+import { siteSection } from '../nav';
 import LanguageSwitch from './LanguageSwitch.vue';
 
 const props = defineProps<{
@@ -14,24 +15,7 @@ const route = useRoute();
 const copy = computed(() => siteCopy[props.locale]);
 const root = computed(() => (props.locale === 'en' ? '/en' : ''));
 
-/** The section the current page belongs to, so its link reads as current. */
-const section = computed(() => {
-  const path = route.path.replace(/^\/en(?=\/)/u, '');
-
-  if (path.startsWith('/projects/')) {
-    return 'projects';
-  }
-
-  if (path.startsWith('/aprender') || path.startsWith('/learn')) {
-    return 'learn';
-  }
-
-  if (path.startsWith('/blog')) {
-    return 'blog';
-  }
-
-  return /^\/[a-z]+\/docs\//u.test(path) ? 'docs' : '';
-});
+const section = computed(() => siteSection(route.path));
 
 const links = computed(() => [
   { key: 'projects', href: `${root.value}/#projects`, label: copy.value.navigation.projects },
