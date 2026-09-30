@@ -155,16 +155,121 @@ A página inteira segue WCAG 2.2 AA. Além disso, decisões específicas por pú
 
 ## 6. Futuro: conta, playground e exercícios
 
-Nada disso entra agora. O esqueleto já nasce preparado: progresso e preferências ficam num único módulo, que hoje salva no navegador e depois passa a salvar na conta.
+Nada disso entra agora. O esqueleto já nasce preparado: progresso e preferências passam por um único módulo (`course-state.ts`), que hoje salva no navegador e depois passa a falar com a API.
 
-1. **Progresso local** (já no esqueleto): lições concluídas e preferências no `localStorage`.
-2. **Conta de usuário:** login com GitHub ou e-mail. O site é estático na Vercel, então isso pede um serviço de autenticação e um banco pequeno (por exemplo Supabase ou Vercel + Postgres). Sincroniza progresso e preferências entre aparelhos.
-3. **Playground interativo:**
-   - Aipo tem um backend JavaScript e um caminho Wasm, então dá para rodar **no navegador**, sem servidor.
-   - Ori compila para nativo; no navegador precisaria de um alvo Wasm ou de um servidor com sandbox. Isso é uma decisão para o time da Ori.
-4. **Exercícios por projeto:** enunciado, código inicial no playground, testes automáticos que dizem o que falta com linguagem gentil, e dicas em camadas (dica 1, dica 2, solução).
+### Decisão tomada: SQLite com Turso
 
----
+O banco é **SQLite**, hospedado no **Turso** (libSQL, compatível com SQLite). Motivos: é o mesmo SQL no computador de quem desenvolve (um arquivo `.db`) e em produção, é barato para o volume de um curso e o esquema cabe em poucos arquivos `.sql` versionados no repositório.
+
+**O que vai para o banco:** só dados de cada pessoa (conta, progresso, preferências, tentativas de exercícios, código salvo no playground).
+**O que não vai:** o conteúdo do curso. Lições, enunciados e testes dos exercícios continuam em Markdown e arquivos no repositório, revisados por PR. O banco guarda apenas o identificador de cada um (por exemplo `pensar-em-codigo/primeiro-programa/ola`).
+
+### Como o site estático conversa com o Turso
+
+```
+navegador (páginas VitePress estáticas)
+   │  fetch('/api/...')  com cookie de sessão HttpOnly
+   ▼
+Vercel Functions  (pasta api/ na raiz do repositório)
+   │  @libsql/client  com TURSO_DATABASE_URL e TURSO_AUTH_TOKEN
+   ▼
+Turso (libSQL)
+```
+
+- O site continua 100% estático. As funções da pasta `api/` rodam na Vercel no mesmo domínio, então não há CORS nem configuração extra de hospedagem.
+- **O token do Turso nunca vai para o navegador.** Ele só existe nas variáveis de ambiente da Vercel. O navegador fala apenas com `/api`.
+- Sem login, tudo funciona como hoje (progresso no navegador). Ao entrar, o progresso local é **mesclado** com o da conta (união das lições concluídas; nada se perde) e, dali em diante, cada mudança vai para a API e também fica no navegador, para a página não depender da rede.
+- Desenvolvimento local: o mesmo `@libsql/client` aponta para `file:local.db`. As migrações ficam em `db/migrations/NNN-nome.sql` e um script aplica em ordem, local ou no Turso.
+
+### Login
+
+- Entrar com **GitHub** (quem programa já tem) e com **e-mail por link mágico** (para iniciantes, sem senha para lembrar).
+- Sessão em cookie `HttpOnly`, `Secure`, `SameSite=Lax`, guardada na tabela `sessions`. Uma biblioteca de autenticação com suporte a SQLite/libSQL faz o fluxo OAuth e o link por e-mail; a escolha exata fica para a implementação.
+- Dados mínimos: nome de exibição, e-mail e avatar. A conta pode ser **exportada e apagada** pela própria pessoa (LGPD).
+
+### Esquema inicial
+
+```sql
+-- 001-inicial.sql
+CREATE TABLE users (
+  id            TEXT PRIMARY KEY,            -- uuid
+  email         TEXT UNIQUE,
+  display_name  TEXT NOT NULL,
+  avatar_url    TEXT,
+  preferences   TEXT NOT NULL DEFAULT '{}',  -- JSON: tamanho, espaçamento, fonte, foco, aba de código
+  created_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE auth_accounts (                 -- um usuário pode ter GitHub e e-mail
+  provider      TEXT NOT NULL,               -- 'github' | 'email'
+  provider_id   TEXT NOT NULL,
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  PRIMARY KEY (provider, provider_id)
+);
+
+CREATE TABLE sessions (
+  id            TEXT PRIMARY KEY,            -- valor aleatório; o cookie guarda só o hash
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at    TEXT NOT NULL
+);
+
+CREATE TABLE lesson_progress (
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  lesson_id     TEXT NOT NULL,               -- 'pensar-em-codigo/primeiro-programa/ola'
+  status        TEXT NOT NULL CHECK (status IN ('started', 'completed')),
+  code_tab      TEXT,                        -- 'Ori' | 'Aipo' usada na lição
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now')),
+  PRIMARY KEY (user_id, lesson_id)
+);
+
+CREATE TABLE exercise_attempts (
+  id            INTEGER PRIMARY KEY,
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  exercise_id   TEXT NOT NULL,               -- definido no repositório, ao lado da lição
+  language      TEXT NOT NULL CHECK (language IN ('ori', 'aipo')),
+  code          TEXT NOT NULL,
+  passed        INTEGER NOT NULL,            -- 0 ou 1
+  hints_used    INTEGER NOT NULL DEFAULT 0,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX exercise_attempts_by_user ON exercise_attempts (user_id, exercise_id);
+
+CREATE TABLE playground_snippets (           -- código salvo pela pessoa no playground
+  id            TEXT PRIMARY KEY,
+  user_id       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  language      TEXT NOT NULL CHECK (language IN ('ori', 'aipo')),
+  lesson_id     TEXT,
+  code          TEXT NOT NULL,
+  updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
+);
+```
+
+### API inicial
+
+| Rota | O que faz |
+|---|---|
+| `GET /api/me` | Quem está logado (ou 401) e as preferências |
+| `GET /api/progress` | Todas as lições da pessoa |
+| `PUT /api/progress/:lessonId` | Marca como iniciada ou concluída |
+| `POST /api/progress/merge` | Mescla o progresso do navegador ao entrar |
+| `PUT /api/preferences` | Salva as preferências de leitura |
+| `POST /api/exercises/:id/attempts` | Registra uma tentativa |
+| `GET/PUT /api/snippets/:id` | Código salvo no playground |
+| `GET /api/account/export`, `DELETE /api/account` | Exportar e apagar a conta |
+
+### Playground e exercícios
+
+- **Aipo** tem backend JavaScript e caminho Wasm, então o código roda **no navegador**. Os testes do exercício também rodam ali, e a API só registra o resultado.
+- **Ori** compila para nativo. No navegador precisaria de um alvo Wasm; do contrário, de um servidor com sandbox. Vercel Functions não são lugar para executar código de terceiros, então isso é uma decisão separada, junto com o time da Ori.
+- Como o resultado dos exercícios vem do navegador, ele serve para a pessoa acompanhar o próprio avanço, não como nota ou certificado. Não há ranking.
+- Exercícios: enunciado, código inicial no playground, testes que dizem o que falta com linguagem gentil, e dicas em camadas (dica 1, dica 2, solução).
+
+### O que fica de fora por enquanto
+
+- Qualquer código de banco, API ou login (entra na fase 6).
+- Execução de Ori no servidor.
+- Certificados, rankings, turmas e painel para professores.
+- Réplicas embarcadas do Turso e modo offline além do `localStorage`.
 
 ## 7. Fases
 
@@ -175,7 +280,7 @@ Nada disso entra agora. O esqueleto já nasce preparado: progresso e preferênci
 | 3 | Módulos 2 a 4 do curso comum; teste automático dos exemplos na CI. |
 | 4 | Curso "Como uma linguagem funciona"; EN do que já existir. |
 | 5 | Trilhas de uso de Ori e Aipo. |
-| 6 | Trilhas de implementação; conta e playground. |
+| 6 | Trilhas de implementação; conta (Turso), sincronização de progresso, playground de Aipo no navegador e exercícios. |
 
 ---
 
@@ -184,3 +289,5 @@ Nada disso entra agora. O esqueleto já nasce preparado: progresso e preferênci
 1. **Nome da área:** "Cursos" (recomendo, é direto) ou "Aprender" / "Escola".
 2. **Quem revisa o código das lições:** o time de cada linguagem precisa confirmar os exemplos antes de publicar, porque as duas linguagens ainda mudam (Ori S3, Aipo S2).
 3. **Inglês:** começar só em PT (recomendo) ou escrever PT e EN juntos desde o módulo 1.
+
+Já decidido: banco SQLite no Turso para conta, progresso e exercícios (seção 6).
