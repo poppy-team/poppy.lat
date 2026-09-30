@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/governance/lpc.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
 Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `18ffd6f8228d2a367ee6d5e7269f7e06b89da36d`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Lean Progressive Context (LPC)
 

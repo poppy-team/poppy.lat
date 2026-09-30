@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md"
 sourceBlob: "3aa1de8c53a8b276c6cb89f9ed68d2d16674ba68"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `3aa1de8c53a8b276c6cb89f9ed68d2d16674ba68`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `3aa1de8c53a8b276c6cb89f9ed68d2d16674ba68`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidence — P02-G03 / Wave 3 Infra: Sintaxe `async fn`, `await do` e Diagnósticos Estáticos
 

@@ -267,7 +267,7 @@
     {
       "project": "aipo",
       "repository": "https://github.com/poppy-team/aipo-lang",
-      "revision": "3a5ce6737d42ae75470f7798680ebc95b3ac761c",
+      "revision": "7d51026653301c3048a41e2cf4026e3429c3a3b9",
       "license": "MIT",
       "licenseFile": "LICENSE",
       "criterion": "srcExclude declarado em https://github.com/poppy-team/aipo-lang",
@@ -1010,7 +1010,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/architecture/bytecode-and-vm.md",
+          "sourcePath": "docs/en/architecture/bytecode-and-vm.md",
           "sourceBlob": "6c6c5de8b91116f335617993bc0371f786a6d4c7",
           "localPath": "site/en/aipo/docs/development/architecture/bytecode-and-vm.md",
           "category": "development",
@@ -1018,7 +1018,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/architecture/compiler-frontend.md",
+          "sourcePath": "docs/en/architecture/compiler-frontend.md",
           "sourceBlob": "ed0ddc149a6b683487bdef1238619aa19b93fa21",
           "localPath": "site/en/aipo/docs/development/architecture/compiler-frontend.md",
           "category": "development",
@@ -1026,7 +1026,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/architecture/crates.md",
+          "sourcePath": "docs/en/architecture/crates.md",
           "sourceBlob": "e1330d7669cd3c1a8744dc44d89511badb142d9d",
           "localPath": "site/en/aipo/docs/development/architecture/crates.md",
           "category": "development",
@@ -1034,7 +1034,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/architecture/host-abi.md",
+          "sourcePath": "docs/en/architecture/host-abi.md",
           "sourceBlob": "921116755a7dcd8b994d5dcd3b63d0ba30c5e523",
           "localPath": "site/en/aipo/docs/development/architecture/host-abi.md",
           "category": "development",
@@ -1042,7 +1042,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/architecture/js-emitter.md",
+          "sourcePath": "docs/en/architecture/js-emitter.md",
           "sourceBlob": "dd9fe3f590d05731f4c5ad714c3268aae61cfd10",
           "localPath": "site/en/aipo/docs/development/architecture/js-emitter.md",
           "category": "development",
@@ -1050,7 +1050,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-001.md",
+          "sourcePath": "docs/en/decisions/adp-001.md",
           "sourceBlob": "5cafae0c95500ebd92a13a8c715f93a148f9057f",
           "localPath": "site/en/aipo/docs/development/decisions/adp-001.md",
           "category": "development",
@@ -1058,7 +1058,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-002.md",
+          "sourcePath": "docs/en/decisions/adp-002.md",
           "sourceBlob": "93c034ddbb12d0c7c9345ff225df6d14b10cbe62",
           "localPath": "site/en/aipo/docs/development/decisions/adp-002.md",
           "category": "development",
@@ -1066,7 +1066,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-003.md",
+          "sourcePath": "docs/en/decisions/adp-003.md",
           "sourceBlob": "c90c836f34a0d6b0c759d8036e9a3aa3608d7d42",
           "localPath": "site/en/aipo/docs/development/decisions/adp-003.md",
           "category": "development",
@@ -1074,7 +1074,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-004.md",
+          "sourcePath": "docs/en/decisions/adp-004.md",
           "sourceBlob": "5079ae4480d3d8256bf616cdbb8d34039c280eba",
           "localPath": "site/en/aipo/docs/development/decisions/adp-004.md",
           "category": "development",
@@ -1082,7 +1082,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-005.md",
+          "sourcePath": "docs/en/decisions/adp-005.md",
           "sourceBlob": "82147775b32e2c6c5124d464593a4e473a5fb215",
           "localPath": "site/en/aipo/docs/development/decisions/adp-005.md",
           "category": "development",
@@ -1090,7 +1090,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-006.md",
+          "sourcePath": "docs/en/decisions/adp-006.md",
           "sourceBlob": "9f70e1a187d6e2bf04febac17c7608ea58dc7e01",
           "localPath": "site/en/aipo/docs/development/decisions/adp-006.md",
           "category": "development",
@@ -1098,7 +1098,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-007.md",
+          "sourcePath": "docs/en/decisions/adp-007.md",
           "sourceBlob": "e8f20475b7cdc79f76c32eac0b68f1dd8d9df13d",
           "localPath": "site/en/aipo/docs/development/decisions/adp-007.md",
           "category": "development",
@@ -1106,7 +1106,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-008.md",
+          "sourcePath": "docs/en/decisions/adp-008.md",
           "sourceBlob": "03cca28fbe0773d93c4b7444a0d4e1b6ac0a2b16",
           "localPath": "site/en/aipo/docs/development/decisions/adp-008.md",
           "category": "development",
@@ -1114,7 +1114,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-009.md",
+          "sourcePath": "docs/en/decisions/adp-009.md",
           "sourceBlob": "0051d608b5c2c15dbd58bbaf61fa6f8112830c33",
           "localPath": "site/en/aipo/docs/development/decisions/adp-009.md",
           "category": "development",
@@ -1122,7 +1122,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-010.md",
+          "sourcePath": "docs/en/decisions/adp-010.md",
           "sourceBlob": "5cccbd95e63e283bb55bc9af75472ab82cf12053",
           "localPath": "site/en/aipo/docs/development/decisions/adp-010.md",
           "category": "development",
@@ -1130,7 +1130,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-011.md",
+          "sourcePath": "docs/en/decisions/adp-011.md",
           "sourceBlob": "e45817a8b8dac53005297387e5b68f659d594c7e",
           "localPath": "site/en/aipo/docs/development/decisions/adp-011.md",
           "category": "development",
@@ -1138,7 +1138,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-012.md",
+          "sourcePath": "docs/en/decisions/adp-012.md",
           "sourceBlob": "9ace2f37bbc6bbabc4a8504868578fa3e7e6d6db",
           "localPath": "site/en/aipo/docs/development/decisions/adp-012.md",
           "category": "development",
@@ -1146,7 +1146,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/decisions/adp-013.md",
+          "sourcePath": "docs/en/decisions/adp-013.md",
           "sourceBlob": "a2ccd3faf7338b7271c5fd62df6771ae5763c916",
           "localPath": "site/en/aipo/docs/development/decisions/adp-013.md",
           "category": "development",
@@ -1154,7 +1154,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/evidence/conformance.md",
+          "sourcePath": "docs/en/evidence/conformance.md",
           "sourceBlob": "3da069d7aba61cd6774e69d833c010060c2ec1cb",
           "localPath": "site/en/aipo/docs/development/evidence/conformance.md",
           "category": "development",
@@ -1162,7 +1162,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/evidence/cross-language.md",
+          "sourcePath": "docs/en/evidence/cross-language.md",
           "sourceBlob": "31575dfc7a9d96ebbe30c38d78284ae3c602d835",
           "localPath": "site/en/aipo/docs/development/evidence/cross-language.md",
           "category": "development",
@@ -1170,7 +1170,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/evidence/performance-lessons.md",
+          "sourcePath": "docs/en/evidence/performance-lessons.md",
           "sourceBlob": "7e8ea56ece2dc5f403a3da1cbd6d459a9534447f",
           "localPath": "site/en/aipo/docs/development/evidence/performance-lessons.md",
           "category": "development",
@@ -1178,7 +1178,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/evidence/slices.md",
+          "sourcePath": "docs/en/evidence/slices.md",
           "sourceBlob": "2ea758c4036a0b8922b36bd7e54ec92a77bcf3d3",
           "localPath": "site/en/aipo/docs/development/evidence/slices.md",
           "category": "development",
@@ -1186,7 +1186,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/governance/changelog.md",
+          "sourcePath": "docs/en/governance/changelog.md",
           "sourceBlob": "7a0fa26faafed4cd6e0e36c2f15551b9be2c3e29",
           "localPath": "site/en/aipo/docs/development/governance/changelog.md",
           "category": "development",
@@ -1194,7 +1194,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/governance/prumo-and-lpc.md",
+          "sourcePath": "docs/en/governance/prumo-and-lpc.md",
           "sourceBlob": "3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9",
           "localPath": "site/en/aipo/docs/development/governance/prumo-and-lpc.md",
           "category": "development",
@@ -1202,7 +1202,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/governance/security-and-threat-model.md",
+          "sourcePath": "docs/en/governance/security-and-threat-model.md",
           "sourceBlob": "244a70c926a8bfe777c020bb14ad74a91fae4da6",
           "localPath": "site/en/aipo/docs/development/governance/security-and-threat-model.md",
           "category": "development",
@@ -1210,7 +1210,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/governance/standards-and-testing.md",
+          "sourcePath": "docs/en/governance/standards-and-testing.md",
           "sourceBlob": "f0d33115348a86cb500b8a1c88bd6f0943688094",
           "localPath": "site/en/aipo/docs/development/governance/standards-and-testing.md",
           "category": "development",
@@ -1218,7 +1218,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/components/advanced.md",
+          "sourcePath": "docs/en/zoe/components/advanced.md",
           "sourceBlob": "a3790ac24bbe546c863cc712e3f6d93c9481429a",
           "localPath": "site/en/aipo/docs/development/zoe/components/advanced.md",
           "category": "development",
@@ -1226,7 +1226,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/components/buttons.md",
+          "sourcePath": "docs/en/zoe/components/buttons.md",
           "sourceBlob": "7ba1b33fc09a57efbb9ade99a4efbddd76acefd1",
           "localPath": "site/en/aipo/docs/development/zoe/components/buttons.md",
           "category": "development",
@@ -1234,7 +1234,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/components/inputs.md",
+          "sourcePath": "docs/en/zoe/components/inputs.md",
           "sourceBlob": "a7da1fd2867ff88dd8c3efe48b87fb52b7376094",
           "localPath": "site/en/aipo/docs/development/zoe/components/inputs.md",
           "category": "development",
@@ -1242,7 +1242,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/components/layout.md",
+          "sourcePath": "docs/en/zoe/components/layout.md",
           "sourceBlob": "55da2b515061c14cf81e165d085d712f3fec611f",
           "localPath": "site/en/aipo/docs/development/zoe/components/layout.md",
           "category": "development",
@@ -1250,7 +1250,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/components/navigation.md",
+          "sourcePath": "docs/en/zoe/components/navigation.md",
           "sourceBlob": "cc8931158334a9e177bf10b4da2422d947cd5461",
           "localPath": "site/en/aipo/docs/development/zoe/components/navigation.md",
           "category": "development",
@@ -1258,7 +1258,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/guide/custom-components.md",
+          "sourcePath": "docs/en/zoe/guide/custom-components.md",
           "sourceBlob": "ef314fc5c310c809195cab25c61b6a9b6bc068ec",
           "localPath": "site/en/aipo/docs/development/zoe/guide/custom-components.md",
           "category": "development",
@@ -1266,7 +1266,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/guide/getting-started.md",
+          "sourcePath": "docs/en/zoe/guide/getting-started.md",
           "sourceBlob": "56efe7b621c3ab1acbdeec9a017af1688903e931",
           "localPath": "site/en/aipo/docs/development/zoe/guide/getting-started.md",
           "category": "development",
@@ -1274,7 +1274,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/guide/layout-leona.md",
+          "sourcePath": "docs/en/zoe/guide/layout-leona.md",
           "sourceBlob": "5616d88b5e76e5f566d5c0e702969ad1d5e76db0",
           "localPath": "site/en/aipo/docs/development/zoe/guide/layout-leona.md",
           "category": "development",
@@ -1282,7 +1282,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/guide/reactivity.md",
+          "sourcePath": "docs/en/zoe/guide/reactivity.md",
           "sourceBlob": "1703397a67aba6f958a2a4f541c018ef599c4986",
           "localPath": "site/en/aipo/docs/development/zoe/guide/reactivity.md",
           "category": "development",
@@ -1290,7 +1290,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/zoe/playground.md",
+          "sourcePath": "docs/en/zoe/playground.md",
           "sourceBlob": "9db9295e10d740cc3502ad4653acc05471dd5bc6",
           "localPath": "site/en/aipo/docs/development/zoe/playground.md",
           "category": "development",
@@ -1298,7 +1298,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/getting-started/cli-overview.md",
+          "sourcePath": "docs/en/getting-started/cli-overview.md",
           "sourceBlob": "ba15b2452e3e319e339bce70c68c08565a153510",
           "localPath": "site/en/aipo/docs/guides/getting-started/cli-overview.md",
           "category": "guides",
@@ -1306,7 +1306,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/getting-started/first-program.md",
+          "sourcePath": "docs/en/getting-started/first-program.md",
           "sourceBlob": "4ae0190c693fb552243c4d693987240f3479c38b",
           "localPath": "site/en/aipo/docs/guides/getting-started/first-program.md",
           "category": "guides",
@@ -1314,7 +1314,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/getting-started/installation.md",
+          "sourcePath": "docs/en/getting-started/installation.md",
           "sourceBlob": "68e0ff256dcc079b2ab0ea611d7157cd90c35201",
           "localPath": "site/en/aipo/docs/guides/getting-started/installation.md",
           "category": "guides",
@@ -1322,7 +1322,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/getting-started/what-is-aipo.md",
+          "sourcePath": "docs/en/getting-started/what-is-aipo.md",
           "sourceBlob": "d7e78ce87a0d2b39bc7b39966e51077f09f92bd9",
           "localPath": "site/en/aipo/docs/guides/getting-started/what-is-aipo.md",
           "category": "guides",
@@ -1330,7 +1330,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/async-and-concurrency.md",
+          "sourcePath": "docs/en/manual/async-and-concurrency.md",
           "sourceBlob": "dce41093bf18237e1adbfd9b5468d5d33333ef2a",
           "localPath": "site/en/aipo/docs/guides/manual/async-and-concurrency.md",
           "category": "guides",
@@ -1338,7 +1338,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/control-flow.md",
+          "sourcePath": "docs/en/manual/control-flow.md",
           "sourceBlob": "53176ce016920fe3bb4acdb724e1d7a11f7e083c",
           "localPath": "site/en/aipo/docs/guides/manual/control-flow.md",
           "category": "guides",
@@ -1346,7 +1346,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/functions-and-closures.md",
+          "sourcePath": "docs/en/manual/functions-and-closures.md",
           "sourceBlob": "d9cccc196ec0181ea5be58a5b531b75ea2d0a4bc",
           "localPath": "site/en/aipo/docs/guides/manual/functions-and-closures.md",
           "category": "guides",
@@ -1354,7 +1354,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/interfaces-and-contracts.md",
+          "sourcePath": "docs/en/manual/interfaces-and-contracts.md",
           "sourceBlob": "984a9bb264c3b159ad9e7d8861c597325284b829",
           "localPath": "site/en/aipo/docs/guides/manual/interfaces-and-contracts.md",
           "category": "guides",
@@ -1362,7 +1362,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/packages-and-modules.md",
+          "sourcePath": "docs/en/manual/packages-and-modules.md",
           "sourceBlob": "a94dc83ec65807ddb5fa986323d42135a3bda94a",
           "localPath": "site/en/aipo/docs/guides/manual/packages-and-modules.md",
           "category": "guides",
@@ -1370,7 +1370,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/stdlib.md",
+          "sourcePath": "docs/en/manual/stdlib.md",
           "sourceBlob": "ffb34bc568f4b225280cd673f9dda7fcbd5ea20e",
           "localPath": "site/en/aipo/docs/guides/manual/stdlib.md",
           "category": "guides",
@@ -1378,7 +1378,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/manual/syntax-and-types.md",
+          "sourcePath": "docs/en/manual/syntax-and-types.md",
           "sourceBlob": "aaad3d3d3003580a04d7a6f3ab23233f35f50d12",
           "localPath": "site/en/aipo/docs/guides/manual/syntax-and-types.md",
           "category": "guides",
@@ -1386,7 +1386,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/packages/aipo-game.md",
+          "sourcePath": "docs/en/packages/aipo-game.md",
           "sourceBlob": "8481ae3e070f418d42ebbaa3b60ac926f10c62d7",
           "localPath": "site/en/aipo/docs/guides/packages/aipo-game.md",
           "category": "guides",
@@ -1394,7 +1394,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/packages/aipo-html.md",
+          "sourcePath": "docs/en/packages/aipo-html.md",
           "sourceBlob": "23e2e8c4cdb4d6de9776430f8634ee7490cea9d4",
           "localPath": "site/en/aipo/docs/guides/packages/aipo-html.md",
           "category": "guides",
@@ -1402,7 +1402,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/packages/aipo-http.md",
+          "sourcePath": "docs/en/packages/aipo-http.md",
           "sourceBlob": "e1dd134f93733b4a66fcf2f3be57963a9c1fe2e4",
           "localPath": "site/en/aipo/docs/guides/packages/aipo-http.md",
           "category": "guides",
@@ -1410,7 +1410,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/packages/aipo-ui.md",
+          "sourcePath": "docs/en/packages/aipo-ui.md",
           "sourceBlob": "239ffff03e645d6c60e628f396f511a698275fd6",
           "localPath": "site/en/aipo/docs/guides/packages/aipo-ui.md",
           "category": "guides",
@@ -1418,7 +1418,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/packages/aipo-zoe.md",
+          "sourcePath": "docs/en/packages/aipo-zoe.md",
           "sourceBlob": "604400db5201cb5e2fddd214162ef44158abc7af",
           "localPath": "site/en/aipo/docs/guides/packages/aipo-zoe.md",
           "category": "guides",
@@ -1426,7 +1426,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-0-mvp.md",
+          "sourcePath": "docs/en/trajectory/wave-0-mvp.md",
           "sourceBlob": "39633d19b0faf7b34591714c2d7161409a551859",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-0-mvp.md",
           "category": "guides",
@@ -1434,7 +1434,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-1-contracts.md",
+          "sourcePath": "docs/en/trajectory/wave-1-contracts.md",
           "sourceBlob": "ba0fe72f95adf12941edb20a26399f5cb2402814",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-1-contracts.md",
           "category": "guides",
@@ -1442,7 +1442,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-2-js-parity.md",
+          "sourcePath": "docs/en/trajectory/wave-2-js-parity.md",
           "sourceBlob": "a9bb312e6ec76eb87820017f312695b1fabbb6f2",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-2-js-parity.md",
           "category": "guides",
@@ -1450,7 +1450,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-3-async.md",
+          "sourcePath": "docs/en/trajectory/wave-3-async.md",
           "sourceBlob": "314e4626b39cb33f3a5b082294c55b412024a096",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-3-async.md",
           "category": "guides",
@@ -1458,7 +1458,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-4-host-poppy.md",
+          "sourcePath": "docs/en/trajectory/wave-4-host-poppy.md",
           "sourceBlob": "86907f67ad048f4249943fa4bb6b330d33c0ce96",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-4-host-poppy.md",
           "category": "guides",
@@ -1466,7 +1466,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-5-packages.md",
+          "sourcePath": "docs/en/trajectory/wave-5-packages.md",
           "sourceBlob": "3a882d8a6fcfcaa8c55879ae91291bdadc9d982f",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-5-packages.md",
           "category": "guides",
@@ -1474,7 +1474,7 @@
         },
         {
           "locale": "en",
-          "sourcePath": "docs/trajectory/wave-6-release-v010.md",
+          "sourcePath": "docs/en/trajectory/wave-6-release-v010.md",
           "sourceBlob": "62c1deff1c694880c64c41b446f5ef628277b5ec",
           "localPath": "site/en/aipo/docs/guides/trajectory/wave-6-release-v010.md",
           "category": "guides",

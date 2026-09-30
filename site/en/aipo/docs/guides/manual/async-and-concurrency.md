@@ -4,95 +4,95 @@ description: "Aipo — Async And Concurrency"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/manual/async-and-concurrency.md"
+sourcePath: "docs/en/manual/async-and-concurrency.md"
 sourceBlob: "dce41093bf18237e1adbfd9b5468d5d33333ef2a"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/manual/async-and-concurrency.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `dce41093bf18237e1adbfd9b5468d5d33333ef2a`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/manual/async-and-concurrency.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `dce41093bf18237e1adbfd9b5468d5d33333ef2a`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Concorrência & Async
+# Concurrency & Async
 
-O modelo de concorrência do Aipo é **cooperativo, determinístico e baseado em tempo virtual**. Ele elimina condições de corrida de baixo nível (*data races*) e garante testes 100% reprodutíveis sem atrasos reais na suíte de testes.
+Aipo's concurrency model is **cooperative, deterministic, and based on virtual time**. It completely eliminates low-level data races and ensures 100% reproducible test suites with zero artificial wall-clock delays.
 
 ---
 
-## Funções Assíncronas (`async fn`)
+## Asynchronous Functions (`async fn`)
 
-Funções que realizam temporização, I/O cooperativo ou orquestração assíncrona são declaradas com `async fn` e delimitadas por chaves `{ ... }`. Invocar uma função assíncrona agenda a tarefa imediatamente no scheduler cooperativo e retorna seu handle `Task`:
+Functions performing timing operations, cooperative I/O, or asynchronous orchestration are declared with `async fn` and delimited by curly braces `{ ... }`. Calling an async function schedules the task immediately on the cooperative scheduler and returns its `Task` handle:
 
 ```aipo
-async fn buscar_dados(recurso) {
-    # task.sleep é uma primitiva de suspensão cooperativa em tempo virtual
+async fn fetch_data(resource) {
+    # task.sleep suspends execution cooperatively using virtual time ticks
     task.sleep(50)
-    return f"Dados para {recurso}"
+    return f"Data for {resource}"
 }
 
-# Invocação dispara a tarefa e retorna o handle Task
-let tarefa = buscar_dados("usuarios")
+# Invoking launches the task and returns a Task handle
+let my_task = fetch_data("users")
 
-# Aguarda explicitamente a conclusão e obtém o resultado
-let dados = await tarefa
-io.println(dados) # "Dados para usuarios"
+# Explicitly await completion to obtain the result
+let data = await my_task
+io.println(data) # "Data for users"
 ```
 
 ---
 
-## Bloco de Espera Sequencial (`await do { ... }`)
+## Sequential Await Block (`await do { ... }`)
 
-Diferente de ecossistemas onde `await` pode ser inserido aleatoriamente no meio de subexpressões complexas, o Aipo introduz o bloco `await do { ... }` para encadeamento sequencial claro e seguro:
+Unlike ecosystems where `await` can be dropped into arbitrary nested subexpressions, Aipo provides the `await do { ... }` block for clear, sequential asynchronous execution:
 
 ```aipo
-async fn obter_etapa_1() {
+async fn step_one() {
     return 10
 }
 
-async fn obter_etapa_2() {
+async fn step_two() {
     return 20
 }
 
-async fn executar_fluxo() {
+async fn run_pipeline() {
     await do {
-        let a = await obter_etapa_1()
-        let b = await obter_etapa_2()
+        let a = await step_one()
+        let b = await step_two()
         return a + b
     }
 }
 
-let total = await executar_fluxo()
-io.println(f"Total acumulado: {total}") # 30
+let total = await run_pipeline()
+io.println(f"Accumulated total: {total}") # 30
 ```
 
-Essa disciplina de engenharia evita promessas pendentes descontroladas e tarefas esquecidas no ar (`AIPO_SEM_FORGOTTEN_TASK`).
+This discipline prevents unhandled promises and forgotten background tasks (`AIPO_SEM_FORGOTTEN_TASK`).
 
 ---
 
-## Combinadores Assíncronos (`task.*`)
+## Async Combinators (`task.*`)
 
-A biblioteca padrão fornece combinadores primitivos de alto nível:
+The standard library provides powerful high-level combinators:
 
-- **`task.spawn(callable, args_list)`**: Dispara uma nova tarefa concorrente no scheduler com os argumentos fornecidos.
-- **`task.sleep(ms)`**: Suspende a tarefa corrente pelo número de ticks de tempo virtual especificados.
-- **`task.all(lista_tasks)`**: Aguarda até que todas as tarefas da lista tenham sido concluídas, retornando a lista dos resultados.
-- **`task.race(lista_tasks)`**: Retorna assim que a primeira tarefa concluir, cancelando cooperativamente as demais concorrentes.
-- **`task.timeout(tarefa, ms)`**: Cancela a tarefa alvo caso ela exceda o tempo virtual estipulado.
-- **`task.cancel(tarefa)`**: Cancela a execução cooperativa de uma tarefa ativa.
-- **`task.group()`**: Cria um grupo estruturado de tarefas para ciclo de vida coordenado e cancelamento em cascata.
+- **`task.spawn(callable, args_list)`**: Spawns a new concurrent task in the scheduler with the provided arguments.
+- **`task.sleep(ms)`**: Suspends current task execution for a specified number of virtual time ticks.
+- **`task.all(task_list)`**: Awaits until all tasks in the list complete, returning an ordered list of results.
+- **`task.race(task_list)`**: Resolves as soon as the first task completes, cooperatively cancelling the others.
+- **`task.timeout(target_task, ms)`**: Cancels target task if it exceeds virtual time duration.
+- **`task.cancel(target_task)`**: Cooperatively aborts an active task.
+- **`task.group()`**: Creates a structured task group for coordinated lifecycle and cascading cancellation.
 
 ```aipo
-let t1 = obter_etapa_1()
-let t2 = obter_etapa_2()
+let t1 = step_one()
+let t2 = step_two()
 
-# Aguarda todas as tarefas em paralelo determinístico
-let resultados = task.all([t1, t2])
-io.println(resultados) # [10, 20]
+# Await all tasks concurrently with deterministic ordering
+let results = task.all([t1, t2])
+io.println(results) # [10, 20]
 ```
 
 ---
 
-## Detecção Transitiva de Ciclos (`AIPO_RT_AWAIT_CYCLE`)
+## Transitive Cycle Detection (`AIPO_RT_AWAIT_CYCLE`)
 
-A máquina virtual do Aipo mantém um grafo de dependências de espera ativo. Se duas ou mais tarefas entrarem em espera mútua transitiva (deadlock assíncrono), o runtime detecta o ciclo imediatamente e dispara a falha determinística `AIPO_RT_AWAIT_CYCLE` com a cadeia completa dos identificadores envolvidos.
+The Aipo runtime maintains an active await-dependency graph. If two or more tasks enter a mutual waiting cycle (async deadlock), the runtime immediately detects it and triggers the deterministic fault `AIPO_RT_AWAIT_CYCLE` with the complete chain of cycle members.

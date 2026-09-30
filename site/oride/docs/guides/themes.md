@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/guides/pt/themes.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
 Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `6cae80573e8f8d72ccc04835af23dfb1cd3093a3`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Guia de Desenvolvimento de Temas no Oride
 

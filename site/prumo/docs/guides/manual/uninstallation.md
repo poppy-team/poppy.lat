@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/manual/uninstallation.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
 Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `fc6e19a0293f439d3d2d5406eff61d134a71494d`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Manual de Desinstalação
 

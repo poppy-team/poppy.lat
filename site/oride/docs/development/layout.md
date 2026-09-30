@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/ui-ux/layout.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
 Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `02b6110a00098b491a1620a9fbd5b78ad69e7b11`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Layout e classes de largura
 

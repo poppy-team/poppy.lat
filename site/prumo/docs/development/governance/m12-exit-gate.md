@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/governance/m12-exit-gate.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
 Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `6ecf5c02914debadb5dd9b46d77a23585e65603f`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # M12 Team / Advanced Runtime — Governance Evaluation & Status
 

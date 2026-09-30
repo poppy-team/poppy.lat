@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/harness/aci-tools.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
 Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `4d65aa634c9311d3235dcd800451667daedd0462`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Ferramental ACI & Sandboxing
 

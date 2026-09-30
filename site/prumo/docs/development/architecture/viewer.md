@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/architecture/viewer.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
 Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `637a2198b5a97e53d98c08bc27f6b821781e1a39`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Native Workspace Viewer (`prumo-viewer`)
 

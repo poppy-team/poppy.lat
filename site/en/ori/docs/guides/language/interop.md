@@ -9,10 +9,10 @@ sourceBlob: "915d88cb3788d013c7ce36ac1638e8ca973ee5fa"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/language/interop.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `915d88cb3788d013c7ce36ac1638e8ca973ee5fa`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/language/interop.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `915d88cb3788d013c7ce36ac1638e8ca973ee5fa`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Interoperability and the C ABI
 

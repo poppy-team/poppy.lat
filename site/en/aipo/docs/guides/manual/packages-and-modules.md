@@ -4,302 +4,302 @@ description: "Aipo — Packages And Modules"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/manual/packages-and-modules.md"
+sourcePath: "docs/en/manual/packages-and-modules.md"
 sourceBlob: "a94dc83ec65807ddb5fa986323d42135a3bda94a"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/manual/packages-and-modules.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `a94dc83ec65807ddb5fa986323d42135a3bda94a`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/manual/packages-and-modules.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `a94dc83ec65807ddb5fa986323d42135a3bda94a`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Pacotes & Módulos
+# Packages & Modules
 
-O ecossistema de código do Aipo é sustentado por uma separação clara entre duas unidades de organização:
-- **Módulo**: Um único arquivo de código-fonte `.aipo`.
-- **Pacote**: Uma coleção autônoma de módulos governada por um manifesto `aipo.toml`.
+The Aipo codebase architecture relies on a clean, unambiguous separation between two organizational units:
+- **Module**: A single `.aipo` source code file.
+- **Package**: An autonomous collection of modules governed by an `aipo.toml` manifest.
 
-Diferente de gerenciadores tradicionais de dependências que sofrem com derivação de lockfile, ataques de sequestro e builds quebrados por falhas de rede, o sistema de empacotamento do Aipo é **hermético, determinístico e 100% offline-first**.
+Unlike legacy package ecosystems prone to lockfile drift, typosquatting attacks, and builds broken by transient network downtime, Aipo's packaging system is **hermetic, deterministic, and 100% offline-first**.
 
 ---
 
-## 1. Módulos Locais (`.aipo`)
+## 1. Local Modules (`.aipo`)
 
-No Aipo, **um arquivo `.aipo` equivale exatamente a um módulo**.
+In Aipo, **one `.aipo` file corresponds exactly to one module**.
 
 ```mermaid
 graph LR
-    Arquivo["math_util.aipo<br>(Módulo no disco)"] -->|exporta apenas| Publico["Funções Públicas:<br>somar, subtrair"]
-    Arquivo -.->|bloqueia| Privado["Funções Privadas:<br>_auxiliar_interno"]
+    File["math_util.aipo<br>(On-disk module)"] -->|explicitly exports| Public["Public API:<br>add, double"]
+    File -.->|blocks access to| Private["Private Helpers:<br>_internal_check"]
 ```
 
-### Privacidade por Padrão (*Private by Default*)
-Por padrão, todas as funções, estruturas e variáveis declaradas em um arquivo são **estritamente privadas**. Para tornar um símbolo acessível a outros módulos, você deve listá-lo explicitamente na declaração `export`:
+### Private by Default
+By default, all functions, structs, and variables declared within a module are **strictly private**. To expose an identifier to consumers, you must explicitly declare it in an `export` statement:
 
 ```aipo
-# Arquivo: math_util.aipo
+# File: math_util.aipo
 
-# 1. Função privada de apoio interno
-fn validar_numero(n: Int) -> Bool {
+# 1. Private internal helper function
+fn validate_number(n: Int) -> Bool {
     return n >= 0
 }
 
-# 2. Funções públicas
-fn somar_positivo(a: Int, b: Int) -> Int {
-    if not validar_numero(a) or not validar_numero(b) {
-        return fail("números devem ser positivos")
+# 2. Public API functions
+fn add_positive(a: Int, b: Int) -> Int {
+    if not validate_number(a) or not validate_number(b) {
+        return fail("numbers must be positive")
     }
     return a + b
 }
 
-fn duplicar(n: Int) -> Int {
+fn double(n: Int) -> Int {
     return n * 2
 }
 
-# Exporta explicitamente apenas os símbolos que a API pública oferece:
-export somar_positivo, duplicar
+# Explicitly export only intended public identifiers:
+export add_positive, double
 ```
 
-::: info O que acontece se eu tentar usar algo privado?
-Se um módulo importador tentar acessar `validar_numero`, o compilador Aipo emite um diagnóstico estático `AIPO_SEM_UNKNOWN_NAME`. O símbolo privado nem sequer é registrado no escopo do importador, garantindo proteção semântica real.
+::: info What happens if I attempt to use a private symbol?
+If an importer attempts to reference `validate_number`, the Aipo compiler immediately emits a static compile-time error: `AIPO_SEM_UNKNOWN_NAME`. The private symbol is never injected into the consumer's namespace, ensuring genuine lexical boundary enforcement.
 :::
 
 ---
 
-## 2. Formas de Importação (`import`)
+## 2. Import Flavors (`import`)
 
-O Aipo oferece três maneiras diretas e legíveis de importar módulos:
+Aipo provides three clean, readable syntaxes for importing modules:
 
-### A. Importação Qualificada (Padrão Recomendado)
-Mantém o nome do módulo como prefixo, facilitando a leitura de quem lê o código sem ambiguidades:
+### A. Qualified Import (Recommended Default)
+Keeps the module namespace as a clear prefix, ensuring maximum readability:
 ```aipo
 import math_util
 
-let total = math_util.somar_positivo(10, 20)
+let total = math_util.add_positive(10, 20)
 print(total)
 ```
 
-### B. Importação com Apelido (`as alias`)
-Útil para encurtar nomes longos ou evitar conflitos de nomes idênticos:
+### B. Aliased Import (`as alias`)
+Useful for shortening verbose names or resolving naming collisions:
 ```aipo
 import math_util as mu
 
-let dobro = mu.duplicar(50)
-print(dobro)
+let result = mu.double(50)
+print(result)
 ```
 
-### C. Importação Seletiva Direta (`import modulo: ...`)
-Traz os identificadores especificados diretamente para o escopo local:
+### C. Selective Direct Import (`import module: ...`)
+Imports specific identifiers directly into local scope:
 ```aipo
-import math_util: somar_positivo, duplicar
+import math_util: add_positive, double
 
-let resultado = somar_positivo(15, 30)
-let dobrado = duplicar(resultado)
+let sum = add_positive(15, 30)
+let doubled = double(sum)
 ```
 
 ---
 
-## 3. Resolução Estrutural & Inicialização Única
+## 3. Structural Resolution & Eager Initialization
 
-O runtime do Aipo segue duas regras estritas para importação de módulos:
+The Aipo module loader enforces two core architectural guarantees:
 
-1. **Inicialização Antecipada Única (*Eager Init Once*)**:
-   Quando um módulo é importado pela primeira vez, todas as suas instruções de nível superior (atribuições de variáveis globais, validações iniciais) são executadas **exatamente uma vez**, antes do código do importador prosseguir. Se outros arquivos importarem o mesmo módulo posteriormente, a inicialização não é repetida.
+1. **Eager Init Once**:
+   When a module is first imported, all top-level statements (variable assignments, sanity checks) execute **exactly once**, before the importing module continues. Subsequent imports of the same module throughout the program reuse the initialized bindings without re-executing top-level code.
 
-2. **Detecção Antecipada de Ciclos**:
-   Se o módulo `A` importar `B` e o módulo `B` importar `A` (direta ou transitivamente), o compilador Aipo aborta imediatamente com o diagnóstico canônico `AIPO_MOD_IMPORT_CYCLE`, apontando a cadeia exata de arquivos envolvidos.
+2. **Acyclic Import Graph**:
+   If module `A` imports `B` and module `B` imports `A` (directly or transitively), the Aipo compiler halts immediately with diagnostic `AIPO_MOD_IMPORT_CYCLE`, reporting the exact dependency loop path.
 
 ```mermaid
 flowchart TD
-    App["app.aipo"] -->|importa| ModA["modulo_a.aipo"]
-    ModA -->|importa| ModB["modulo_b.aipo"]
-    ModB -.->|Ciclo Proibido!| ModA
+    App["app.aipo"] -->|imports| ModA["module_a.aipo"]
+    ModA -->|imports| ModB["module_b.aipo"]
+    ModB -.->|Cycle Detected!| ModA
     style ModB stroke:#ef4444,stroke-width:2px
 ```
 
 ---
 
-## 4. O Sistema de Pacotes Hermético
+## 4. The Hermetic Package System
 
-Para projetos maiores ou bibliotecas compartilháveis, criamos um pacote governado pelo manifesto **`aipo.toml`**.
+For larger applications or reusable libraries, files are organized into a package governed by an **`aipo.toml`** manifest.
 
-### Coordenadas Canônicas: `namespace.nome`
-Todo pacote Aipo possui uma identidade formal em dois níveis:
-- `poppy.motor_jogo`
-- `minha_empresa.servico_auth`
-- `comunidade.formatador_json`
+### Canonical Coordinates: `namespace.name`
+Every Aipo package has a two-part formal identity:
+- `poppy.game_engine`
+- `my_org.auth_service`
+- `community.json_extras`
 
-Essa notação elimina riscos de ataque por sequestro de nomes (*typosquatting*) comuns em ecossistemas planos.
+This hierarchical coordinate system eradicates typosquatting and namespace collision attacks inherent to flat registries.
 
 ---
 
-## 5. O Manifesto `aipo.toml`
+## 5. The `aipo.toml` Manifest
 
-O arquivo `aipo.toml` reside na raiz do projeto:
+The `aipo.toml` file sits at the root of a package:
 
 ```toml
 [package]
-name = "meu_app"
+name = "my_app"
 namespace = "poppy"
 version = "0.1.0"
-authors = ["Equipe Poppy <dev@poppy-lang.org>"]
+authors = ["Poppy Team <dev@poppy-lang.org>"]
 
 [dependencies]
-# 1. Dependência local no disco (ótimo para monorepos e desenvolvimento)
-utilitarios = { path = "../libs/utilitarios" }
+# 1. Local path dependency (ideal for monorepos and local development)
+utilities = { path = "../libs/utilities" }
 
-# 2. Dependência remota no GitHub (EXIGE commit SHA fixo)
-extras_json = { github = "poppy-team/aipo-json-extras", commit = "4b24a71c08000000000000000000000000000000" }
+# 2. Pinned remote GitHub dependency (STRICTLY REQUIRES commit SHA)
+json_extras = { github = "poppy-team/aipo-json-extras", commit = "4b24a71c08000000000000000000000000000000" }
 ```
 
-::: warning Proibição de Branches e Tags Móveis
-O Aipo **rejeita** manifestos que usem branches (`main`, `master`) ou tags flutuantes (`v1.x`).
-Toda dependência remota deve especificar o **commit SHA hexadecimal completo de 40 dígitos**. Isso garante que ninguém possa alterar o código de uma dependência sem que você perceba.
+::: warning Moving Branches & Tags are Strictly Forbidden
+Aipo manifests **reject** floating branches (`main`, `master`) and mutable tags (`v1.x`).
+Every remote dependency must declare an **exact 40-character hexadecimal commit SHA**. This guarantees that upstream changes can never compromise your build without explicit human review.
 :::
 
 ---
 
-## 6. O Lockfile Determinístico (`aipo.lock`)
+## 6. Deterministic Lockfile (`aipo.lock`)
 
-Ao executar o comando `aipo package lock`, o gerenciador resolve todo o grafo de dependências e gera o arquivo `aipo.lock`.
+Running `aipo package lock` resolves the complete dependency graph and writes `aipo.lock`.
 
-Cada entrada no lockfile registra quatro informações essenciais:
+Every locked entry records four verifiable properties:
 ```toml
 [[package]]
 namespace = "poppy"
-name = "extras_json"
+name = "json_extras"
 source = "github:poppy-team/aipo-json-extras"
 commit = "4b24a71c08000000000000000000000000000000"
 digest = "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 ```
 
-1. **Coordenadas**: `namespace` e `name` do pacote.
-2. **Origem**: Repositório remoto ou caminho local.
-3. **Commit**: Versão exata imutável.
-4. **Digest Criptográfico (SHA-256)**: Assinatura matemática de todos os arquivos do pacote.
+1. **Coordinates**: Package `namespace` and `name`.
+2. **Origin**: GitHub repository URL or local path.
+3. **Commit**: Exact, immutable revision.
+4. **Cryptographic Digest (SHA-256)**: Mathematical content signature across all files in the package.
 
-Se um único caractere dentro do pacote for modificado, o digest não coincidirá e a execução será bloqueada imediatamente.
+If a single byte inside a cached package is modified, the digest check fails and execution is aborted immediately (*fail-closed*).
 
 ---
 
-## 7. Cache Local & Operação 100% Offline
+## 7. Local Cache & 100% Offline Execution
 
-O Aipo adota uma separação rigorosa entre **fase de download** e **fase de compilação/execução**:
+Aipo enforces a clean boundary between **fetching dependencies** and **compilation/execution**:
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Dev as Desenvolvedor / CI
+    actor Dev as Developer / CI
     participant CLI as aipo package
-    participant Web as GitHub
-    participant Cache as Cache Local (.aipo/cache)
+    participant Web as GitHub API
+    participant Cache as Local Cache (.aipo/cache)
     participant Engine as Runtime (aipo run)
 
-    Note over Dev,Web: Fase de Download (Opt-in com Rede)
+    Note over Dev,Web: Fetch Phase (Explicit Network Access)
     Dev->>CLI: aipo package fetch-github
-    CLI->>Web: Baixa arquivos do commit SHA
-    CLI->>Cache: Salva e valida hash SHA-256
+    CLI->>Web: Downloads pinned commit archive
+    CLI->>Cache: Saves & verifies SHA-256 digest
 
-    Note over Dev,Engine: Fase de Execução (100% Offline)
+    Note over Dev,Engine: Execution Phase (100% Offline)
     Dev->>Engine: aipo run main.aipo
-    Engine->>Cache: Lê pacotes locais verificados
-    Note right of Engine: Zero chamadas de rede!<br>Falha imediata se algo foi corrompido.
+    Engine->>Cache: Resolves verified local packages
+    Note right of Engine: Zero network queries!<br>Immediate failure if files tampered.
 ```
 
-- **`aipo run` e `aipo build` nunca acessam a internet**: Seu build não falha porque o GitHub caiu ou o WiFi oscilou.
-- **Armazenamento no Cache**: Os pacotes baixados ficam salvos localmente em `.aipo/cache`, identificados por seu digest criptográfico.
+- **`aipo run` and `aipo build` never initiate network requests**: Your builds remain completely unaffected by remote outages, airport Wi-Fi instability, or upstream repo deletions.
+- **Content-Addressable Cache**: Retrieved packages are stored under `.aipo/cache`, keyed by their verified content digest.
 
 ---
 
-## 8. Guia Prático de Comandos CLI
+## 8. CLI Command Workflow
 
-Aqui está o fluxo completo de trabalho com pacotes:
+The standard package development lifecycle:
 
-### 1. Inicializar um Novo Pacote
-Cria a estrutura de pastas e o arquivo `aipo.toml` básico:
+### 1. Initialize a New Package
+Scaffolds the directory structure and default `aipo.toml`:
 ```bash
-aipo package init --namespace meu_time --name meu_projeto
+aipo package init --namespace my_team --name my_project
 ```
 
-### 2. Gerar o Lockfile
-Analisa as dependências declaradas e cria o `aipo.lock`:
+### 2. Generate Lockfile
+Resolves declared dependencies and generates `aipo.lock`:
 ```bash
 aipo package lock
 ```
 
-### 3. Baixar Dependências Remotas
-Faz o download dos pacotes listados no lockfile para o cache local:
+### 3. Fetch Remote Dependencies
+Downloads packages pinned in the lockfile into local cache:
 ```bash
-# Download público
+# Public download
 aipo package fetch-github
 
-# Download autenticado (para repositórios privados ou limites maiores de API)
-# O token é lido da variável de ambiente e NUNCA é salvo no disco ou em logs
+# Authenticated download (for private repositories or higher GitHub API rate limits)
+# Token is read from environment variable and NEVER written to disk or logs
 aipo package fetch-github --github-token-env GITHUB_TOKEN
 ```
 
-### 4. Auditar a Integridade do Cache
-Varre o diretório `.aipo/cache` e recalcula os hashes de cada pacote para atestar que nenhum arquivo foi corrompido:
+### 4. Audit Cache Integrity
+Scans `.aipo/cache` and recalculates cryptographic hashes to assert zero tampering:
 ```bash
 aipo package cache verify .aipo/cache
 ```
 
-### 5. Limpar Pacotes Antigos (Prune)
-Remove do cache dependências antigas que você não usa mais no seu projeto:
+### 5. Prune Stale Dependencies
+Safely removes orphaned package revisions no longer referenced by `aipo.lock`:
 ```bash
-# Simulação sem deletar nada:
+# Dry run simulation (safe):
 aipo package cache prune .aipo/cache --lock aipo.lock
 
-# Aplicar a limpeza de fato:
+# Apply deletion:
 aipo package cache prune .aipo/cache --lock aipo.lock --apply
 ```
 
 ---
 
-## 9. Exemplo Completo de Projeto com Módulos e Pacotes
+## 9. Complete Real-World Project Structure
 
-Veja como fica a estrutura de um projeto real e organizado:
+An organized multi-module Aipo project:
 
-### Estrutura de Arquivos
+### Directory Layout
 ```text
-meu_app/
+my_app/
 ├── aipo.toml
 ├── aipo.lock
 ├── .aipo/
-│   └── cache/          (pastas de pacotes baixados com verificação de digest)
+│   └── cache/          (local package cache verified with SHA-256)
 └── src/
-    ├── main.aipo       (ponto de entrada)
+    ├── main.aipo       (entry point)
     └── auth/
-        ├── tokens.aipo (submódulo)
-        └── user.aipo   (submódulo)
+        ├── tokens.aipo (submodule)
+        └── user.aipo   (submodule)
 ```
 
-### Conteúdo de `src/auth/user.aipo`
+### `src/auth/user.aipo`
 ```aipo
-struct Usuario {
+struct User {
     id
-    nome
-    var ativo = true
+    name
+    var active = true
 }
 
-fn criar_usuario(id: Int, nome: String) -> Usuario {
-    return Usuario{ id: id, nome: nome, ativo: true }
+fn create_user(id: Int, name: String) -> User {
+    return User{ id: id, name: name, active: true }
 }
 
-export Usuario, criar_usuario
+export User, create_user
 ```
 
-### Conteúdo de `src/main.aipo`
+### `src/main.aipo`
 ```aipo
-import auth.user: criar_usuario
+import auth.user: create_user
 
-let dev = criar_usuario(1, "Raillen")
-io.println(f"Usuário cadastrado com sucesso: {dev.nome}")
+let developer = create_user(1, "Raillen")
+io.println(f"User registered successfully: {developer.name}")
 ```
 
-Para executar seu projeto completo:
+Run your project from terminal:
 ```bash
 aipo run src/main.aipo
 ```
-O compilador resolve todas as árvores de importação, garante a integridade dos pacotes e executa o programa com velocidade nativa!
+The compiler resolves the full module graph, asserts package integrity, and executes with native performance!

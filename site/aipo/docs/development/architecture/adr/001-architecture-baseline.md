@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/architecture/adr/001-architecture-baseline.md"
 sourceBlob: "8b2e672013d69fb0663827a1361fe491582aa9bc"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/architecture/adr/001-architecture-baseline.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `8b2e672013d69fb0663827a1361fe491582aa9bc`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `8b2e672013d69fb0663827a1361fe491582aa9bc`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # ADR 001: Linha de Base Arquitetural e Princípios de Clean Architecture
 

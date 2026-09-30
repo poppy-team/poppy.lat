@@ -4,55 +4,55 @@ description: "Aipo — Standards And Testing"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/governance/standards-and-testing.md"
+sourcePath: "docs/en/governance/standards-and-testing.md"
 sourceBlob: "f0d33115348a86cb500b8a1c88bd6f0943688094"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/governance/standards-and-testing.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `f0d33115348a86cb500b8a1c88bd6f0943688094`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/governance/standards-and-testing.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `f0d33115348a86cb500b8a1c88bd6f0943688094`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Padrões de Código & Estratégia de Testes
+# Code Standards & Testing Strategy
 
-A integridade do Aipo é sustentada por uma pirâmide abrangente de testes automatizados e regras estritas de compilação em Rust 2024.
-
----
-
-## Portões de Qualidade Obrigatórios (Quality Gates)
-
-Todo commit e pull request deve passar com sucesso por 100% dos seguintes portões de verificação:
-
-1. **`cargo fmt --check`**: Verificação rigorosa de formatação do código-fonte.
-2. **`cargo check --workspace --all-targets`**: Análise de compilação sem erros.
-3. **`cargo clippy --workspace --all-targets -- -D warnings`**: Zero advertências permitidas em linters estáticos.
-4. **`cargo test --workspace`**: Execução integral de mais de 500 testes unitários e de integração.
-5. **`cargo doc --workspace --no-deps`**: Verificação de documentação de APIs sem links quebrados.
+Aipo's engineering integrity is upheld by an exhaustive automated test pyramid and strict compilation standards in Rust 2024.
 
 ---
 
-## A Pirâmide de Testes
+## Mandatory Quality Gates
+
+Every commit and pull request must cleanly satisfy 100% of the following verification gates:
+
+1. **`cargo fmt --check`**: Canonical source code formatting.
+2. **`cargo check --workspace --all-targets`**: Zero compilation errors across all workspace targets.
+3. **`cargo clippy --workspace --all-targets -- -D warnings`**: Zero warnings allowed under strict linter flags.
+4. **`cargo test --workspace`**: 100% passing across over 500 unit and integration tests.
+5. **`cargo doc --workspace --no-deps`**: API documentation compiles with zero broken links or warnings.
+
+---
+
+## The Testing Pyramid
 
 ```mermaid
 graph BT
-    Fuzz["Fuzzing Contínuo (libFuzzer)"] --> Diff["Testes Diferenciais (Rust VM x Node.js)"]
-    Diff --> Conf["Suíte de Conformance (40+ programas & diagnósticos)"]
-    Conf --> Integ["Testes de Integração & Host ABI"]
-    Integ --> Unit["Testes Unitários & Proptest (Lexer, Parser, Sema, IR, VM)"]
+    Fuzz["Continuous Fuzzing (libFuzzer)"] --> Diff["Differential Conformance (Rust VM vs Node.js)"]
+    Diff --> Conf["Conformance Suite (40+ canonical programs & diagnostics)"]
+    Conf --> Integ["Integration Tests & Host ABI Sandboxing"]
+    Integ --> Unit["Unit Tests & Proptest (Lexer, Parser, Sema, IR, VM)"]
 ```
 
-### 1. Testes Unitários & de Propriedade
-Verificação de funções puras, manipulação de limites em `Bytes`, cálculo de offsets em `Source` e propriedades matemáticas com `proptest`.
+### 1. Unit & Property-Based Tests
+Verifies pure functions, `Bytes` boundary clamping, UTF-8 character indexing in `Source`, and mathematical invariants with `proptest`.
 
-### 2. Testes de Integração & Host ABI
-Cenários ponta a ponta avaliando o comportamento da VM com simulação Poppy, gerenciamento de memória em handles e negação de capacidades.
+### 2. Integration & Host ABI Tests
+End-to-end scenarios validating VM lifecycle with headless Poppy simulation, generational handle isolation, and capability denials.
 
-### 3. Testes de Conformance
-Execução de programas canônicos com checagem estrita de saída de texto e código de término.
+### 3. Conformance Tests
+Execution of canonical test programs asserting exact standard output and process termination codes.
 
-### 4. Testes Diferenciais (VM ↔ JS)
-Execução paralela de cada programa no runtime em Rust e no Node.js, garantindo compatibilidade semântica absoluta.
+### 4. Differential Tests (VM ↔ JS)
+Concurrent execution of each test program on the native Rust VM and Node.js via emitted JavaScript, asserting identical semantics.
 
-### 5. Fuzzing Contínuo
-Injeção massiva de entradas aleatórias e malformadas no Lexer e no Parser para comprovar que o compilador nunca sofre pânicos ou estouros de buffer.
+### 5. Continuous Fuzzing
+Massive fuzz testing injection on Lexer and Parser ensuring the compiler rejects malformed input gracefully without panicking.

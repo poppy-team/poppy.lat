@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/guides/pt/guia-de-uso.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
 Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `a036731bf3aa33027b2e1de7744ef7750c3f3b74`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Manual do Usuário — Oride
 

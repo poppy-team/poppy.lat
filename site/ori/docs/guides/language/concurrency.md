@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/language/concurrency.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
 Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `1b76a0ac25c67cfeed2b46d5e62cf6c927ae6a2d`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Async e concorrência
 

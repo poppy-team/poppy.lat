@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/guides/testing.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
 Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `c96448f2e2e6fe0c5a93f20408eda21a00fdd7e5`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 > Manual de mantenedor (PT). **English (user + contributor summary):** [testing.md](/en/ori/docs/guides/manual/testing)
 

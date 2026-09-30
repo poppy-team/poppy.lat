@@ -9,10 +9,10 @@ sourceBlob: "5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/guides/en/config.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/guides/en/config.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Configuration Reference
 

@@ -9,10 +9,10 @@ sourceBlob: "642c5537a76a2c7e2e3d11d3af2d13ed49092126"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/install.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `642c5537a76a2c7e2e3d11d3af2d13ed49092126`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/install.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `642c5537a76a2c7e2e3d11d3af2d13ed49092126`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Installing Ori
 

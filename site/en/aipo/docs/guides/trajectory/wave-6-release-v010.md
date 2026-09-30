@@ -4,55 +4,55 @@ description: "Aipo — Wave 6 Release V010"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-6-release-v010.md"
+sourcePath: "docs/en/trajectory/wave-6-release-v010.md"
 sourceBlob: "62c1deff1c694880c64c41b446f5ef628277b5ec"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-6-release-v010.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `62c1deff1c694880c64c41b446f5ef628277b5ec`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-6-release-v010.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `62c1deff1c694880c64c41b446f5ef628277b5ec`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 6 — Rumo à Release v0.1.0 da Linguagem
+# Wave 6 — Towards Language Release v0.1.0
 
-A **Wave 6 (P05)** consolida a fronteira formal do produto e prepara a primeira release canônica da linguagem: **`aipo v0.1.0`**.
-
----
-
-## Delimitação Canônica do Produto (ADP-008)
-
-Em conformidade com a decisão arquitetural **ADP-008**, a versão v0.1.0 adota uma estratégia **language-first e escopo fechado**:
-
-- **Dentro do Escopo da v0.1.0**:
-  - A linguagem completa: compilador, bytecode, VM, scheduler assíncrono cooperativo, contratos e invariantes.
-  - A biblioteca padrão completa com paridade diferencial VM ↔ JS.
-  - O utilitário CLI unificado (`aipo run`, `check`, `build`, `disasm`, `fmt`, `package`).
-  - O test runner minimalista embutido.
-  - A C ABI síncrona versionada (ADP-009).
-  - A API de embedding em Rust e três provas finas de interoperabilidade (*thin proofs*) em Rust, C e JavaScript (ADP-010).
-
-- **Fora do Escopo da v0.1.0 (Pós-V1)**:
-  - Motores de jogos completos e editores visuais.
-  - Registro público centralizado de pacotes na nuvem.
-  - Profiles web amplos e extensões para editores de código complexas.
+**Wave 6 (P05)** consolidates the formal product boundary and prepares the first canonical release of the language: **`aipo v0.1.0`**.
 
 ---
 
-## C ABI Síncrona Versionada (ADP-009)
+## Canonical Product Boundary (ADP-008)
 
-Para permitir que a linguagem Aipo seja incorporada com facilidade em projetos escritos em C, C++, Zig ou qualquer outra linguagem com FFI, a Wave 6 define uma interface binária de aplicação (*Application Binary Interface* - ABI) estável em C:
+In alignment with architectural decision **ADP-008**, release v0.1.0 adopts a **language-first, scoped-boundary** strategy:
 
-- Tipos opacos para instâncias da VM e bytecode.
-- Execução síncrona com passagem de valores primitivos e captura de códigos de diagnóstico.
-- Zero alocação de memória no lado do chamador.
+- **In Scope for v0.1.0**:
+  - The core language: compiler, bytecode format, VM, cooperative async scheduler, contracts, and invariants.
+  - Complete standard library with differential VM ↔ JS parity.
+  - Unified CLI utility (`aipo run`, `check`, `build`, `disasm`, `fmt`, `package`).
+  - Minimalist built-in test runner.
+  - Versioned synchronous C ABI (ADP-009).
+  - Native Rust embedding API and three thin interoperability proofs in Rust, C, and JavaScript (ADP-010).
+
+- **Out of Scope for v0.1.0 (Post-V1 Roadmap)**:
+  - Full game engines and visual authoring editors.
+  - Centralized public cloud package registry.
+  - Broad web profiles and heavyweight IDE language server extensions.
 
 ---
 
-## Provas Finas de Interoperabilidade (ADP-010)
+## Versioned Synchronous C ABI (ADP-009)
 
-Antes de declarar a v0.1.0 estável, o projeto valida sua viabilidade em três ambientes distintos através de testes de integração dedicados:
+To enable embedding Aipo seamlessly into hosts written in C, C++, Zig, or any language supporting C FFI, Wave 6 defines a stable C Application Binary Interface (ABI):
 
-1. **Rust Host Embedding**: Uma aplicação em Rust inicializando a VM, registrando funções nativas personalizadas e executando scripts Aipo.
-2. **C Host Integration**: Um binário em C consumindo a biblioteca estática/dinâmica compilada e trocando dados primitivos.
-3. **JavaScript / Node.js Runtime**: Um projeto em Node.js importando o código emitido por `aipo-js` e rodando o runtime shim em conjunto com bibliotecas do ecossistema JS.
+- Opaque handle types for VM instances and compiled bytecode chunks.
+- Synchronous execution model passing primitives and diagnostic code captures.
+- Zero mandatory heap allocations required on caller side.
+
+---
+
+## Thin Interoperability Proofs (ADP-010)
+
+Before declaring v0.1.0 stable, the language verifies real-world embedding viability across three distinct environments via automated integration proofs:
+
+1. **Rust Host Embedding**: A native Rust application initializing the VM, injecting custom native functions, and running Aipo scripts.
+2. **C Host Integration**: A compiled C binary linking against the Aipo static/dynamic library and exchanging primitive data safely.
+3. **JavaScript / Node.js Runtime**: A Node.js application importing modules emitted by `aipo-js` and executing the runtime shim alongside ecosystem libraries.

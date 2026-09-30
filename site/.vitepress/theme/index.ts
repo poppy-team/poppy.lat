@@ -13,6 +13,7 @@ import BlogIndex from './layouts/BlogIndex.vue';
 import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import SiteChrome from './components/SiteChrome.vue';
+import LanguageSwitch from './components/LanguageSwitch.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
@@ -74,6 +75,12 @@ const RoutedLayout = defineComponent({
         // so it lines up with the text instead of spanning the sidebar. The
         // landing and category pages render it themselves.
         'doc-before': () => (kind === 'documentation' ? [h(DocsBar)] : []),
+        // The default theme's language menu leads to the other locale's home
+        // and forgets the choice; the site's own switch goes to the same page
+        // and remembers it, so it replaces the menu in the documentation bar.
+        'nav-bar-content-after': () => (kind === 'documentation' ? [h(LanguageSwitch)] : []),
+        'nav-screen-content-after': () =>
+          kind === 'documentation' ? [h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)])] : [],
       });
     };
   },

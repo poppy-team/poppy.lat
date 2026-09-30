@@ -4,28 +4,28 @@ description: "Aipo — Inputs"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/components/inputs.md"
+sourcePath: "docs/en/zoe/components/inputs.md"
 sourceBlob: "a7da1fd2867ff88dd8c3efe48b87fb52b7376094"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/components/inputs.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `a7da1fd2867ff88dd8c3efe48b87fb52b7376094`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/components/inputs.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `a7da1fd2867ff88dd8c3efe48b87fb52b7376094`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Campos de Entrada (Inputs)
+# Input Fields
 
-Campos interativos calibrados para ferramentas técnicas e edição numérica.
+Precision input components designed for developer tooling and numeric editing.
 
 ---
 
 ## `scrubber_input`
 
-Controle de precisão inspirado no Blender e Unreal Engine. Permite clicar e arrastar horizontalmente para alterar valores com suporte a modificadores táteis:
-- **Arrasto padrão**: Incremento regular ($\times 0.2\times\text{step}$).
-- <kbd>Shift</kbd> + **Arrasto**: Modo de micro-precisão ($\times 0.02\times\text{step}$).
-- <kbd>Ctrl</kbd> + **Arrasto**: Salto rápido ($\times 2.0\times\text{step}$).
+Blender-style horizontal drag input with tactile modifier keys:
+- **Normal drag**: Standard increment ($\times 0.2\times\text{step}$).
+- <kbd>Shift</kbd> + **drag**: Micro precision ($\times 0.02\times\text{step}$).
+- <kbd>Ctrl</kbd> + **drag**: Fast snap ($\times 2.0\times\text{step}$).
 
 ```aipo
 let pos_x = zoe.use_state(0.0)
@@ -44,22 +44,8 @@ zoe.scrubber_input({
 
 ---
 
-## `text_input`
+## `text_input`, `dropdown_select`, `color_picker`
 
-Campo de texto alfanumérico com cursor piscante e gerenciamento de foco:
-
-```aipo
-let nome_entidade = zoe.use_state("Player")
-
-zoe.text_input({
-    "value": nome_entidade,
-    "placeholder": "Digite o nome..."
-})
-```
-
----
-
-## `dropdown_select` e `color_picker`
-
-- **`dropdown_select`**: Seletor com menu suspenso em camada flutuante (*overlay*).
-- **`color_picker`**: Seletor de cores da paleta Catppuccin com preview imediato.
+- **`text_input`**: Alphanumeric text editing with blinking cursor and focus management.
+- **`dropdown_select`**: Selection menu rendered in an elevated overlay.
+- **`color_picker`**: Catppuccin palette picker with immediate swatch feedback.
