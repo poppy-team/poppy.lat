@@ -9,6 +9,7 @@ import { moderationRoutes } from './routes/moderation.ts';
 import { noteRoutes } from './routes/notes.ts';
 import { profileRoutes } from './routes/profile.ts';
 import { progressRoutes } from './routes/progress.ts';
+import { gestaoRoutes } from './routes/gestao.ts';
 import { publicRoutes } from './routes/public.ts';
 import type { Client } from '@libsql/client';
 
@@ -35,6 +36,7 @@ export function buildApp(parts: ServerParts): App {
     app.route('/', commentRoutes());
     app.route('/', dashboardRoutes());
     app.route('/', moderationRoutes());
+    app.route('/', gestaoRoutes());
   });
 }
 

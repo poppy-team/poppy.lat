@@ -84,7 +84,7 @@ async function withGithub(): Promise<void> {
 </script>
 
 <template>
-  <div class="acct-page" :class="accountsEnabled && !sent ? 'acct-page--login' : 'acct-page--narrow'">
+  <main id="main-content" tabindex="-1" class="acct-page" :class="accountsEnabled && !sent ? 'acct-page--login' : 'acct-page--narrow'">
     <template v-if="!accountsEnabled">
       <h1>Entrar</h1>
       <p>As contas ainda não estão ativas neste site. As lições continuam abertas para todo mundo.</p>
@@ -172,5 +172,5 @@ async function withGithub(): Promise<void> {
         </section>
       </div>
     </template>
-  </div>
+  </main>
 </template>

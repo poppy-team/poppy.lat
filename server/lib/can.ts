@@ -3,7 +3,10 @@
  * unless a rule below says "yes". Every route calls it; the table in
  * tests/server/can.test.ts is the written form of the permission matrix.
  */
-export type Role = 'student' | 'contributor' | 'admin';
+export type Role = 'student' | 'contributor' | 'creator' | 'admin';
+
+/** Every role, from the least to the most powerful, for forms and validation. */
+export const roles = ['student', 'contributor', 'creator', 'admin'] as const;
 
 export interface Actor {
   id: string;
@@ -26,6 +29,11 @@ export type Action =
   | 'user:mute'
   | 'user:ban'
   | 'user:role'
+  | 'user:list'
+  | 'panel:access'
+  | 'content:draft'
+  | 'content:publish'
+  | 'content:edit-any'
   | 'photo:remove-other'
   | 'log:read'
   | 'notes:own'
@@ -53,7 +61,21 @@ const moderator: ReadonlySet<Action> = new Set([
   'photo:remove-other',
 ]);
 
-const administrator: ReadonlySet<Action> = new Set(['user:ban', 'user:role', 'comment:purge', 'log:read']);
+const administrator: ReadonlySet<Action> = new Set([
+  'user:ban',
+  'user:role',
+  'user:list',
+  'comment:purge',
+  'log:read',
+  'content:publish',
+  'content:edit-any',
+]);
+
+/** Contributors, creators and admins enter the management panel; what they see inside depends on the action. */
+const staff: ReadonlySet<Action> = new Set(['panel:access']);
+
+/** Creators write lessons, posts and media as drafts. Publishing is an admin action until the roles are configurable. */
+const author: ReadonlySet<Action> = new Set(['content:draft']);
 
 /** Actions that only ever apply to the actor's own data, whatever the role. */
 const ownOnly: ReadonlySet<Action> = new Set(['comment:edit-own', 'comment:delete-own', 'notes:own', 'profile:own']);
@@ -83,10 +105,18 @@ export function can(actor: Actor | null, action: Action, resource?: { ownerId?: 
     return actor.role === 'admin';
   }
 
+  if (staff.has(action)) {
+    return actor.role !== 'student';
+  }
+
+  if (author.has(action)) {
+    return actor.role === 'creator' || actor.role === 'admin';
+  }
+
   return false;
 }
 
-const rank: Record<Role, number> = { student: 0, contributor: 1, admin: 2 };
+const rank: Record<Role, number> = { student: 0, contributor: 1, creator: 1, admin: 2 };
 
 /** A moderator may only act on people they outrank; admins are only changed by role. */
 export function outranks(actor: Role, target: Role): boolean {
@@ -94,6 +124,8 @@ export function outranks(actor: Role, target: Role): boolean {
 }
 
 /** The badge shown next to a name. The role decides it; nobody can pick it. */
-export function badgeFor(role: Role): 'student' | 'contributor' {
-  return role === 'student' ? 'student' : 'contributor';
+export function badgeFor(role: Role): Badge {
+  return role === 'student' ? 'student' : role === 'creator' ? 'creator' : 'contributor';
 }
+
+export type Badge = 'student' | 'contributor' | 'creator';

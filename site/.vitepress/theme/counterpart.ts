@@ -84,6 +84,11 @@ export function useCounterpart() {
       return '/en/learn/';
     }
 
+    // The team page is written in Portuguese only.
+    if (/^\/?(equipe|gestao)\/?$/u.test(stripped)) {
+      return '/en/';
+    }
+
     // The privacy policy and the terms exist only in Portuguese for now.
     if (/^\/?(privacidade|termos)\/$/u.test(stripped)) {
       return '/en/';

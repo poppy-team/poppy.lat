@@ -178,51 +178,43 @@ html[data-page='course'] .vp-doc div[class*='language-'] code {
 .reading-tools__reset:focus-visible,
 .reading-tools__panel input:focus-visible,
 .focus-exit:focus-visible,
+.focus-ruler input:focus-visible,
 .lesson-footer__done:focus-visible {
   outline: var(--focus-ring);
   outline-offset: 2px;
-}
-
-/* Focus mode keeps one way out that never scrolls away. */
-.focus-exit {
-  display: none;
-}
-
-html[data-reading-focus='true'][data-page='course'] .focus-exit {
-  position: fixed;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 50;
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.5rem;
-  padding: 0.35rem 0.9rem;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--surface-raised);
-  color: var(--accent-ink);
-  font: inherit;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  cursor: pointer;
 }
 
 /* Wrapping long lines in code. The button sits beside VitePress's copy
    button, inside every code block. */
 .vp-doc div[class*='language-'] > .code-wrap {
   position: absolute;
-  top: 12px;
-  right: 56px;
+  top: 8px;
+  right: 46px;
   z-index: 3;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border: 1px solid var(--vp-code-copy-code-border-color, var(--rule));
-  border-radius: 4px;
-  background: var(--vp-code-copy-code-bg, var(--surface-raised)) no-repeat 50% 50% / 20px;
+  border-radius: 6px;
+  background: var(--vp-code-copy-code-bg, var(--surface-raised)) no-repeat 50% 50% / 16px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23767676' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18M3 12h14a3 3 0 0 1 0 6h-4m0 0 2-2m-2 2 2 2M3 18h5'/%3E%3C/svg%3E");
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s;
+}
+
+/* The copy button of VitePress is 40px; both buttons are smaller and the same size. */
+.vp-doc div[class*='language-'] > button.copy {
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background-size: 16px;
+}
+
+.vp-doc div[class*='language-'] > button.copy.copied::before,
+.vp-doc div[class*='language-'] > button.copy:hover.copied::before {
+  height: 30px;
 }
 
 .vp-doc div[class*='language-']:hover > .code-wrap,

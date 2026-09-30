@@ -20,7 +20,7 @@ const groups = computed(() =>
 </script>
 
 <template>
-  <article v-if="project && copy" id="main-content" class="project-page" :data-project="project.slug" tabindex="-1">
+  <main v-if="project && copy" id="main-content" class="project-page" :data-project="project.slug" tabindex="-1">
     <header class="project-page__hero">
       <p class="project-page__topline">
         <a :href="`${localeRoot(locale)}/#projects`">{{ en ? 'Projects' : 'Projetos' }}</a>
@@ -119,5 +119,5 @@ const groups = computed(() =>
         </div>
       </section>
     </div>
-  </article>
+  </main>
 </template>

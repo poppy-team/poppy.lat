@@ -19,7 +19,7 @@ const siblings = computed(() => groups.value.filter((item) => item.slug !== grou
 </script>
 
 <template>
-  <div v-if="project && category" id="main-content" class="docs-landing" :data-project="project.slug" tabindex="-1">
+  <main v-if="project && category" id="main-content" class="docs-landing" :data-project="project.slug" tabindex="-1">
     <header class="docs-hero docs-hero--compact">
       <ProjectSwitcher :locale="locale" :current="project.slug" />
       <p class="eyebrow">
@@ -47,5 +47,5 @@ const siblings = computed(() => groups.value.filter((item) => item.slug !== grou
         <span class="docs-siblings__description">{{ sibling.description }}</span>
       </a>
     </nav>
-  </div>
+  </main>
 </template>

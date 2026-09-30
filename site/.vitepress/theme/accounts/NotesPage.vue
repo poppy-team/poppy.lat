@@ -109,7 +109,7 @@ const empty = computed(() => loaded.value && notes.value.length === 0);
 </script>
 
 <template>
-  <div class="acct-page acct-page--wide">
+  <main id="main-content" tabindex="-1" class="acct-page acct-page--wide">
     <template v-if="!accountsEnabled">
       <h1>Minhas anotações</h1>
       <p>As contas ainda não estão ativas neste site.</p>
@@ -166,5 +166,5 @@ const empty = computed(() => loaded.value && notes.value.length === 0);
         </section>
       </div>
     </template>
-  </div>
+  </main>
 </template>

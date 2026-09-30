@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue';
 import { useData, type Theme } from 'vitepress';
-import { siteCopy } from '@poppy/project-data';
+import { projects, siteCopy } from '@poppy/project-data';
 import DefaultTheme from 'vitepress/theme';
 import ProjectSwitcher from './components/ProjectSwitcher.vue';
 import DocsProjectHeader from './components/DocsProjectHeader.vue';
@@ -20,11 +20,16 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs, rememberCodeWrap } from './course-state';
+import { registerServiceWorker } from './app-install';
+import { initPalette } from './palette';
+import { watchVitepressAccessibility } from './vitepress-a11y';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
 import ProfileEditPage from './accounts/ProfileEditPage.vue';
 import NotesPage from './accounts/NotesPage.vue';
 import ModerationPage from './accounts/ModerationPage.vue';
+import GestaoPage from './accounts/GestaoPage.vue';
+import TeamPage from './accounts/TeamPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import LanguageSwitch from './components/LanguageSwitch.vue';
 import SiteFooter from './components/SiteFooter.vue';
@@ -35,6 +40,7 @@ import '@fontsource-variable/jetbrains-mono/index.css';
 import '@fontsource/atkinson-hyperlegible/400.css';
 import '@fontsource/atkinson-hyperlegible/700.css';
 import './tokens.css';
+import './palettes.css';
 import './custom.css';
 import './courses.css';
 import './lessons.css';
@@ -75,7 +81,9 @@ const RoutedLayout = defineComponent({
 
     return () => {
       const kind = pageKind(page.value.relativePath);
-      const project = typeof frontmatter.value.project === 'string' ? frontmatter.value.project : '';
+      // Only a project's slug marks the page; a lesson's `project` names the program it builds.
+      const declared = frontmatter.value.project;
+      const project = typeof declared === 'string' && projects.some((entry) => entry.slug === declared) ? declared : '';
 
       if (typeof document !== 'undefined') {
         document.documentElement.dataset.project = project;
@@ -142,7 +150,19 @@ export default {
     app.component('ProfileEditPage', ProfileEditPage);
     app.component('NotesPage', NotesPage);
     app.component('ModerationPage', ModerationPage);
+    app.component('TeamPage', TeamPage);
+    app.component('GestaoPage', GestaoPage);
     rememberCodeTabs();
     rememberCodeWrap();
+    registerServiceWorker();
+    initPalette();
+
+    if (typeof document !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', watchVitepressAccessibility, { once: true });
+      } else {
+        watchVitepressAccessibility();
+      }
+    }
   },
 } satisfies Theme;

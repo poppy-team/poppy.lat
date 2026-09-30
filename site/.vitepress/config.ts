@@ -242,6 +242,12 @@ export default defineConfig({
     for (const handout of buildAllHandouts(siteDirectory, today())) {
       writeFileSync(path.join(folder, path.basename(handout.href)), handout.markdown, 'utf8');
     }
+
+    // Each build gets its own cache name in the service worker, so a deploy
+    // never leaves visitors on old files.
+    const worker = path.join(siteConfig.outDir, 'sw.js');
+
+    writeFileSync(worker, readFileSync(worker, 'utf8').replace('__BUILD_VERSION__', Date.now().toString(36)), 'utf8');
   },
 
   transformPageData(pageData) {
@@ -258,8 +264,10 @@ export default defineConfig({
   },
 
   transformHead({ pageData, title, description }) {
-    const project =
-      typeof pageData.frontmatter.project === 'string' ? pageData.frontmatter.project : '';
+    // Only a project's slug marks the page. A lesson's `project` is the name of
+    // the small program it builds, not a project of the team.
+    const declared = pageData.frontmatter.project;
+    const project = typeof declared === 'string' && projects.some((entry) => entry.slug === declared) ? declared : '';
 
     // VitePress offers no build-time hook for attributes on <html>, and the
     // rules that separate editorial pages from documentation depend on them.
@@ -284,6 +292,21 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/apple-touch-icon.png' }],
+    // Installable as an app: the manifest, the colour of the window frame, and
+    // the names iPhone and iPad use, since they read them from tags.
+    // The saved palette is applied before the first paint, so pages never flash the wrong colours.
+    [
+      'script',
+      {},
+      "try{var p=localStorage.getItem('poppy.palette');if(/^(tokyo-night|gruvbox|nord)$/.test(p))document.documentElement.setAttribute('data-palette',p)}catch(e){}",
+    ],
+    ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
+    ['meta', { name: 'theme-color', content: '#f1eddf', media: '(prefers-color-scheme: light)' }],
+    ['meta', { name: 'theme-color', content: '#1b1e1b', media: '(prefers-color-scheme: dark)' }],
+    ['meta', { name: 'mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: 'Poppy' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
   ],
   lastUpdated: true,
   ignoreDeadLinks: false,

@@ -20,7 +20,7 @@ const preview = 6;
 </script>
 
 <template>
-  <div v-if="project" id="main-content" class="docs-landing" :data-project="project.slug" tabindex="-1">
+  <main v-if="project" id="main-content" class="docs-landing" :data-project="project.slug" tabindex="-1">
     <header class="docs-hero">
       <ProjectSwitcher :locale="locale" :current="project.slug" />
       <p class="eyebrow">{{ project.category[locale] }}</p>
@@ -71,5 +71,5 @@ const preview = 6;
         </section>
       </div>
     </section>
-  </div>
+  </main>
 </template>

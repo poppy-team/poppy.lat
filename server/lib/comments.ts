@@ -1,6 +1,7 @@
 import type { Client, Row } from '@libsql/client';
-import { badgeFor, type Role } from './can.ts';
+import { badgeFor, type Badge, type Role } from './can.ts';
 import { iso } from './http.ts';
+import { effectiveRole } from './role-sql.ts';
 
 export const reactionEmojis = ['👍', '❤️', '🎉', '💡', '🤔', '😅'] as const;
 export type ReactionEmoji = (typeof reactionEmojis)[number];
@@ -16,7 +17,7 @@ export interface CommentView {
   targetId: string;
   parentId: string | null;
   /** Null when the account was removed. */
-  author: { handle: string; name: string; badge: 'student' | 'contributor'; profilePublic: boolean; photoUrl: string | null } | null;
+  author: { handle: string; name: string; badge: Badge; profilePublic: boolean; photoUrl: string | null } | null;
   bodyMd: string | null;
   status: string;
   hiddenReason: string | null;
@@ -32,7 +33,7 @@ export interface CommentView {
 export const commentSelect = `
   SELECT c.id, c.target_type, c.target_id, c.parent_id, c.author_id, c.body_md, c.status, c.hidden_reason,
          c.is_pinned, c.is_official, c.created_at, c.edited_at,
-         u.name AS author_name, u.role AS author_role, p.handle AS author_handle, p.is_public AS author_public,
+         u.name AS author_name, ${effectiveRole('u')} AS author_role, p.handle AS author_handle, p.is_public AS author_public,
          ph.photo_key AS author_photo
   FROM comments c
   LEFT JOIN user u ON u.id = c.author_id

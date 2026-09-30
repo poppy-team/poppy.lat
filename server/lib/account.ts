@@ -21,6 +21,8 @@ export async function deleteAccount(client: Client, userId: string): Promise<voi
       { sql: 'DELETE FROM profile_links WHERE user_id = ?', args: [userId] },
       { sql: 'DELETE FROM profile_photos WHERE user_id = ?', args: [userId] },
       { sql: 'DELETE FROM user_mutes WHERE user_id = ?', args: [userId] },
+      { sql: 'DELETE FROM notification_state WHERE user_id = ?', args: [userId] },
+      { sql: 'DELETE FROM user_grants WHERE user_id = ?', args: [userId] },
       { sql: 'DELETE FROM profiles WHERE user_id = ?', args: [userId] },
       { sql: 'DELETE FROM session WHERE user_id = ?', args: [userId] },
       { sql: 'DELETE FROM account WHERE user_id = ?', args: [userId] },

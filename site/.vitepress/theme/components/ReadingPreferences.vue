@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCourseState } from '../course-state';
+import PalettePicker from './PalettePicker.vue';
 import ThemeToggle from './ThemeToggle.vue';
 
 /**
@@ -41,7 +42,7 @@ function onKeydown(event: KeyboardEvent): void {
 }
 
 function reset(): void {
-  Object.assign(state.value.preferences, { size: 'normal', spacing: 'normal', font: 'default', codeWrap: false });
+  Object.assign(state.value.preferences, { size: 'normal', spacing: 'normal', font: 'default', codeWrap: false, focusRuler: true });
 }
 
 onMounted(() => document.addEventListener('click', onDocumentClick));
@@ -118,8 +119,17 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
       </fieldset>
 
       <fieldset>
+        <legend>Modo foco</legend>
+        <label>
+          <input v-model="state.preferences.focusRuler" type="checkbox" />
+          Destacar só o trecho que estou lendo
+        </label>
+      </fieldset>
+
+      <fieldset>
         <legend>Aparência</legend>
         <ThemeToggle />
+        <PalettePicker name="palette-reading" />
       </fieldset>
 
       <p class="reading-tools__note">

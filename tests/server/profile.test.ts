@@ -250,3 +250,48 @@ describe('conta', () => {
     expect(denied.data.error.code).toBe('last_admin');
   });
 });
+
+describe('página da equipe', () => {
+  async function publish(cookie: string, name: string, isPublic = true) {
+    const me = (await h.request('/api/me', { cookie })).data.profile;
+
+    return h.request('/api/me/profile', {
+      method: 'PUT',
+      cookie,
+      json: { name, handle: name.toLowerCase().replace(/\s+/gu, '-'), bio: `Sobre ${name}`, isPublic, showInRankings: me.showInRankings },
+    });
+  }
+
+  it('lista só quem é da equipe e deixou o perfil público', async () => {
+    const ana = await h.signIn('ana@example.com');
+    const bia = await h.signIn('bia@example.com');
+    const caio = await h.signIn('caio@example.com');
+    const duda = await h.signIn('duda@example.com');
+
+    await publish(ana, 'Ana Costa');
+    await publish(bia, 'Bia Lima');
+    await publish(caio, 'Caio Reis', false);
+    await publish(duda, 'Duda Melo');
+    await h.setRole('ana@example.com', 'admin');
+    await h.setRole('bia@example.com', 'contributor');
+    await h.setRole('caio@example.com', 'contributor');
+
+    const team = await h.request('/api/team');
+
+    expect(team.status).toBe(200);
+    expect(team.data.members.map((member: { name: string }) => member.name).sort()).toEqual(['Ana Costa', 'Bia Lima']);
+    // A student with a public profile is not on the team, and a private contributor is not shown.
+    expect(JSON.stringify(team.data)).not.toMatch(/Duda|Caio|example\.com/u);
+  });
+
+  it('o e-mail do perfil só aparece para quem está logado', async () => {
+    const ana = await h.signIn('ana@example.com');
+
+    await publish(ana, 'Ana Costa');
+    await h.setRole('ana@example.com', 'contributor');
+    await h.request('/api/me/links/email', { method: 'PUT', cookie: ana, json: { value: 'ana@equipe.dev' } });
+
+    expect(JSON.stringify((await h.request('/api/team')).data)).not.toContain('ana@equipe.dev');
+    expect(JSON.stringify((await h.request('/api/team', { cookie: ana })).data)).toContain('ana@equipe.dev');
+  });
+});

@@ -11,7 +11,7 @@ describe('database', () => {
 
     const tables = (await client.execute("SELECT name FROM sqlite_master WHERE type = 'table'")).rows.map((row) => String(row.name));
 
-    for (const name of ['user', 'session', 'account', 'verification', 'profiles', 'profile_photos', 'profile_links', 'notes', 'comments', 'comment_reactions', 'reports', 'moderation_log', 'lesson_progress', 'rate_limits', 'user_mutes']) {
+    for (const name of ['user', 'session', 'account', 'verification', 'profiles', 'profile_photos', 'profile_links', 'notes', 'comments', 'comment_reactions', 'reports', 'moderation_log', 'lesson_progress', 'rate_limits', 'user_mutes', 'notification_state', 'user_grants']) {
       expect(tables).toContain(name);
     }
   });

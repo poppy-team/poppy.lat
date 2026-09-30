@@ -113,6 +113,9 @@ async function exists(target: string): Promise<boolean> {
   }
 }
 
+/** Files that are not pages of the site: the standalone page the installed app shows when there is no connection. */
+const standalonePages = new Set(['offline.html']);
+
 async function findHtmlFiles(directory = outputRoot): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
   const nested = await Promise.all(
@@ -123,7 +126,7 @@ async function findHtmlFiles(directory = outputRoot): Promise<string[]> {
         return findHtmlFiles(entryPath);
       }
 
-      return entry.name.endsWith('.html') ? [entryPath] : [];
+      return entry.name.endsWith('.html') && !(directory === outputRoot && standalonePages.has(entry.name)) ? [entryPath] : [];
     }),
   );
 

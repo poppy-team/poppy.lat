@@ -88,8 +88,14 @@ export async function createHarness() {
     return cookie;
   }
 
-  async function setRole(email: string, role: 'student' | 'contributor' | 'admin') {
-    await client.execute({ sql: 'UPDATE user SET role = ? WHERE email = ?', args: [role, email] });
+  async function setRole(email: string, role: 'student' | 'contributor' | 'creator' | 'admin') {
+    // "Creator" is a grant on top of the student role (migration 007); every other role clears it.
+    await client.execute({ sql: 'UPDATE user SET role = ? WHERE email = ?', args: [role === 'creator' ? 'student' : role, email] });
+    await client.execute({ sql: `DELETE FROM user_grants WHERE user_id = (SELECT id FROM user WHERE email = ?)`, args: [email] });
+
+    if (role === 'creator') {
+      await client.execute({ sql: `INSERT INTO user_grants (user_id, capability) SELECT id, 'creator' FROM user WHERE email = ?`, args: [email] });
+    }
   }
 
   async function handleOf(cookie: string): Promise<string> {
