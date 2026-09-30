@@ -4,6 +4,7 @@ import { createDb, type Db } from './db/client.ts';
 import { readEnv, type Env } from './env.ts';
 import { createMailer, type Mailer } from './lib/mail.ts';
 import { commentRoutes } from './routes/comments.ts';
+import { dashboardRoutes } from './routes/dashboard.ts';
 import { moderationRoutes } from './routes/moderation.ts';
 import { noteRoutes } from './routes/notes.ts';
 import { profileRoutes } from './routes/profile.ts';
@@ -32,6 +33,7 @@ export function buildApp(parts: ServerParts): App {
     app.route('/', progressRoutes());
     app.route('/', noteRoutes());
     app.route('/', commentRoutes());
+    app.route('/', dashboardRoutes());
     app.route('/', moderationRoutes());
   });
 }

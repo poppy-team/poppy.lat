@@ -108,8 +108,20 @@ async function withGithub(): Promise<void> {
           <p>
             Aprender Ori e Aipo, construindo projetos, não custa nada: as aulas, a conta, as anotações e os
             comentários são gratuitos, sem cartão de crédito. A conta serve para guardar o seu progresso e as suas
-            anotações e para conversar em cada aula.
+            anotações e para conversar com a comunidade.
           </p>
+          <ul class="community-points" aria-label="O que a conta abre">
+            <li>
+              <strong>Tire dúvidas nos comentários.</strong>
+              Cada aula tem uma conversa no fim da página. Pergunte o que não entendeu e responda a quem está no mesmo
+              ponto que você já esteve.
+            </li>
+            <li>
+              <strong>Faça amizades no fórum.</strong>
+              Em breve, um espaço para trocar ideias e projetos com outras pessoas que estão aprendendo a programar.
+              Ninguém aprende sozinho.
+            </li>
+          </ul>
           <p class="acct-muted">
             Só quer ler? As aulas continuam abertas, <a href="/aprender/">veja os cursos sem entrar</a>.
           </p>

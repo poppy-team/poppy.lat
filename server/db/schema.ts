@@ -85,6 +85,7 @@ export const profiles = sqliteTable('profiles', {
   bio: text('bio').notNull().default(''),
   isPublic: integer('is_public', { mode: 'boolean' }).notNull().default(false),
   showInRankings: integer('show_in_rankings', { mode: 'boolean' }).notNull().default(false),
+  notificationsSeenAt: text('notifications_seen_at'),
   createdAt: text('created_at').notNull().default(now),
 });
 

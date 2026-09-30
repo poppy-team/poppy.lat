@@ -10,13 +10,13 @@ import { avatarMaxInputBytes, processAvatar } from '../lib/images.ts';
 import { isLinkService, normalizeLink } from '../lib/links.ts';
 import { loadProfile } from '../lib/profile.ts';
 import { rateLimit } from '../lib/rate-limit.ts';
-import { looksLikeLink, text } from '../lib/text.ts';
+import { containsAddress, text } from '../lib/text.ts';
 
 const profileInput = z
   .object({
     name: text(1, 40),
     handle: handleSchema,
-    bio: text(0, 280, { multiline: false }).refine((value) => !looksLikeLink.test(value), 'Coloque endereços na seção de links, não na bio.'),
+    bio: text(0, 280, { multiline: false }).refine((value) => !containsAddress(value), 'Coloque endereços na seção de links, não na bio.'),
     isPublic: z.boolean(),
     showInRankings: z.boolean(),
   })

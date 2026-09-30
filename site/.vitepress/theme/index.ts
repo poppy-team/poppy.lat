@@ -19,6 +19,7 @@ import { rememberCodeTabs } from './course-state';
 import AccountMenu from './accounts/AccountMenu.vue';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
+import ProfileEditPage from './accounts/ProfileEditPage.vue';
 import NotesPage from './accounts/NotesPage.vue';
 import ModerationPage from './accounts/ModerationPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
@@ -131,6 +132,7 @@ export default {
     app.component('courses-landing', CoursesLanding);
     app.component('LoginPage', LoginPage);
     app.component('ProfilePage', ProfilePage);
+    app.component('ProfileEditPage', ProfileEditPage);
     app.component('NotesPage', NotesPage);
     app.component('ModerationPage', ModerationPage);
     rememberCodeTabs();
