@@ -1,6 +1,6 @@
 # Painel de gestão do Aprender
 
-Data: 2026-09-30 (versão 2, com as decisões do Raillen). Complementa o [plano do Aprender](aprender-plano.md), a [biblioteca](aprender-biblioteca.md), a [comunidade](aprender-comunidade.md) e os [recursos de acessibilidade e vídeo](aprender-acessibilidade-e-video.md). É um desenho: **só a fase 1 começou a ser construída (seção 10).**
+Data: 2026-09-30 (versão 3, com as duas rodadas de decisões do Raillen). Complementa o [plano do Aprender](aprender-plano.md), a [biblioteca](aprender-biblioteca.md), a [comunidade](aprender-comunidade.md) e os [recursos de acessibilidade e vídeo](aprender-acessibilidade-e-video.md). É um desenho: **só a fase 1 começou a ser construída (seção 10).**
 
 > **Em uma frase:** um painel só para a equipe, em uma rota própria, para cuidar de **pessoas e conteúdo**: usuários e permissões, aulas (texto, vídeo, áudio, imagens, slides), posts do blog e moderação. Sem configuração do site e sem mexer no visual.
 
@@ -17,6 +17,14 @@ Data: 2026-09-30 (versão 2, com as decisões do Raillen). Complementa o [plano 
 | 5 | **Quatro papéis**: aluno, contribuidor, criador, admin | Tabela de permissões na seção 3 |
 | 6 | **Vídeos** do YouTube, Vimeo e TikTok | Lista fixa de provedores, clique para carregar (seção 7) |
 | 7 | **Rota com outro nome** e gestão de usuários com promoção de papéis | Seção 2 |
+| 8 | **Criador passa por revisão** antes de publicar, *a princípio*. As permissões de cada papel poderão ser alteradas depois | Permissões ficam num só lugar (`server/lib/can.ts`); uma tela para editá-las vem depois (fase 7) |
+| 9 | **Tabela de permissões** da seção 3 aceita, com o **menor atrito e o máximo de segurança** | Criador não modera; contribuidor segue moderando; ações sensíveis pedem login recente |
+| 10 | **TipTap com extensão de Markdown** | O Markdown é o formato canônico; o editor lê e escreve nele (seção 5) |
+| 11 | **Podcast de resumo por módulo** | Um áudio por módulo, com transcrição (seção 6) |
+| 12 | **Cloudflare R2** guarda áudio, **slides** e outras mídias | Envio por URL assinada, domínio próprio, CSP ajustada (seção 6.3) |
+| 13 | **Slides são PDF hospedado** | Um bloco "slides" com visualizador de PDF e download |
+| 14 | **TikTok** como complemento marcado | Só links no formato canônico; nunca a única fonte de uma aula |
+| 15 | **SEO importa** | As aulas do banco são entregues já como HTML pronto, com título, descrição e sitemap vindos do banco (seção 4.1) |
 
 ## 2. A rota: `/gestao`
 
@@ -153,7 +161,7 @@ Migrações escritas à mão, como as atuais, com teste de servidor para cada re
 
 ## 10. Fases
 
-1. **Base da gestão** *(em construção)*: papel **criador**, rota `/gestao`, guarda no servidor, **registro de auditoria**, e **Usuários** (busca, ver papel, **promover e rebaixar**, suspender). Moderação existente linkada de dentro.
+1. **Base da gestão** *(pronta)*: papel **criador**, rota `/gestao`, guarda no servidor, **registro de auditoria**, e **Usuários** (busca, ver papel, **promover e rebaixar**, suspender). Moderação existente linkada de dentro.
 2. **Modelo de conteúdo**: tabelas de cursos, módulos, lições, versões; renderizador seguro (Markdown para HTML); API de aulas; **script de importação** das aulas atuais e comparação.
 3. **Aulas lidas do banco**: a página-casca, catálogo, painel de conteúdo, pager e apostila vindos da API; convivência com as aulas em arquivo, curso a curso.
 4. **Editor TipTap** com os blocos das aulas, revisão e publicação.
@@ -163,12 +171,24 @@ Migrações escritas à mão, como as atuais, com teste de servidor para cada re
 
 Cada fase é um PR pequeno, com testes, que pode ser usado sozinho.
 
-## 11. O que ainda falta você decidir
+## 11. O que ainda falta
 
-1. **Criador publica direto ou passa por revisão?** (Recomendo revisão no começo.)
-2. **A tabela de permissões da seção 3 está certa?** Em especial: contribuidor continua moderando? Criador modera?
-3. **Áudio:** começo pelo Internet Archive (sem cartão) ou você já tem ou aceita uma conta no Cloudflare R2?
-4. **Podcast por módulo** (minha sugestão) ou por aula?
-5. **Slides:** PDF, incorporação, ou slides em Markdown no próprio editor?
-6. **TikTok** como complemento marcado (minha sugestão)?
-7. **Busca (SEO) das aulas importa?** Se sim, a fase 3 inclui pré-renderizar no servidor.
+As sete perguntas da versão 2 foram respondidas (decisões 8 a 15). Restam:
+
+1. **Rebaixar admin:** hoje um admin **não** muda o papel de outro admin (regra de segurança que já existia). Quer manter assim, ou permitir com login recente e registro?
+2. **Criar o bucket no Cloudflare R2**, o domínio de mídia (por exemplo `midia.poppy.lat`) e a chave de acesso. A chave entra como variável de ambiente na Vercel; **nunca** no chat nem no repositório.
+3. **Regras de ranking e selos** (ainda sem resposta) e **caixa de mensagens** entre pessoas (depois do fórum).
+
+### Como o SEO entra (decisão 15)
+
+- A página da aula é entregue já com o HTML da aula, não só um esqueleto que o navegador preenche depois.
+- Título, descrição, `canonical` e dados estruturados (`Course` e `LearningResource`) saem do banco.
+- O `sitemap.xml` passa a incluir as aulas do banco, e rascunhos ficam de fora (e com `noindex`).
+- As aulas atuais, em arquivo, continuam como estão até o curso correspondente ser importado; o endereço não muda.
+
+### Como o R2 entra (decisão 12)
+
+- O navegador envia o arquivo **direto** ao R2 por uma URL assinada, de validade curta, criada pelo servidor depois de checar o papel. O arquivo não passa pelo servidor do site.
+- O servidor confere tipo, extensão e tamanho máximo antes de assinar, e depois confere o que chegou.
+- Só tipos permitidos: MP3 e M4A (áudio), PDF (slides), PNG, JPG, WebP (imagens). Nada de SVG nem HTML.
+- Domínio próprio para a mídia, e a CSP passa a permitir só esse domínio em `media-src` e `img-src`.
