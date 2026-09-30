@@ -1,43 +1,9 @@
 /*
- * Courses: the landing, the lesson chrome and the reading preferences.
- *
- * Lessons use the documentation shell (navbar, sidebar, outline), marked
- * `data-page='course'`. Reading preferences arrive as attributes on the
- * document element and only act on lesson pages.
+ * Courses: the landing, the lesson text and the reading preferences. The lesson
+ * shell (bar, contents panel, sheet) is in lessons.css. Reading preferences
+ * arrive as attributes on the document element and only act on lesson pages,
+ * marked `data-page='course'`.
  */
-
-/* --------------------------------------------------------------------------
-   Shell: lessons share the documentation chrome.
-   -------------------------------------------------------------------------- */
-
-html[data-page='course'] .site-header {
-  display: none;
-}
-
-/* Lessons belong to no single project, so the site accent marks the current
-   sidebar item, legible in both themes. */
-html[data-page='course'] {
-  --project-ink: var(--accent-ink);
-}
-
-@media (min-width: 960px) {
-  html[data-page='course'] .site-footer {
-    margin-top: 0;
-    padding-left: var(--vp-sidebar-width);
-  }
-
-  html[data-page='course'] .site-footer__inner {
-    width: auto;
-    margin-inline: var(--space-4);
-  }
-}
-
-@media (min-width: 1440px) {
-  html[data-page='course'] .site-footer {
-    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
-    padding-right: calc((100vw - var(--vp-layout-max-width)) / 2);
-  }
-}
 
 .visually-hidden {
   position: absolute;
@@ -108,98 +74,9 @@ html[data-page='course'] .vp-doc div[class*='language-'] code {
   word-spacing: 0;
 }
 
-/* Focus mode: only the lesson remains. */
-html[data-reading-focus='true'][data-page='course'] .VPNav,
-html[data-reading-focus='true'][data-page='course'] .VPLocalNav,
-html[data-reading-focus='true'][data-page='course'] .VPSidebar,
-html[data-reading-focus='true'][data-page='course'] .VPDoc .aside,
-html[data-reading-focus='true'][data-page='course'] .site-footer,
-html[data-reading-focus='true'][data-page='course'] .tabbar {
-  display: none;
-}
-
-html[data-reading-focus='true'][data-page='course'] .VPContent.has-sidebar {
-  padding-left: 0;
-  padding-top: 0;
-}
-
-html[data-reading-focus='true'][data-page='course'] .VPDoc .content-container {
-  margin-inline: auto;
-}
-
 /* --------------------------------------------------------------------------
    Lesson bar and footer.
    -------------------------------------------------------------------------- */
-
-.lesson-bar {
-  position: relative;
-  display: grid;
-  gap: 0.5rem;
-  margin-bottom: var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--rule);
-}
-
-.lesson-bar:focus {
-  outline: none;
-}
-
-.lesson-bar__trail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-}
-
-.lesson-bar__trail a {
-  color: var(--text-soft);
-  text-decoration: underline;
-  text-decoration-color: var(--rule-strong);
-  text-underline-offset: 0.2em;
-}
-
-/* On a phone the whole trail becomes one link back to the course. */
-.lesson-bar__up {
-  display: none;
-}
-
-.lesson-bar__line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-}
-
-.lesson-bar__meta {
-  display: flex;
-  gap: 0.4rem;
-  margin: 0;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-soft);
-}
-
-.lesson-bar__progress {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-}
-
-.lesson-bar__progress progress {
-  width: 6rem;
-  height: 0.4rem;
-  accent-color: var(--accent);
-}
-
-.lesson-bar__project {
-  margin: 0;
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-}
 
 /* Reading tools: two quiet buttons and a panel that floats over the page. */
 .reading-tools {

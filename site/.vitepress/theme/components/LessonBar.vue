@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, watch } from 'vue';
 import { onContentUpdated, useRoute } from 'vitepress';
-import { coursesRoot, lessonAt, lessonRoute } from '../data/courses';
+import { lessonAt, lessonRoute } from '../data/courses';
 import { applyCodeTab, syncCodeWrapButtons, useCourseState } from '../course-state';
-import ReadingPreferences from './ReadingPreferences.vue';
 
 /**
- * The head of every lesson: where it sits, how long it takes, how far the
- * reader is in the module, and the reading controls. The same shape on every
- * lesson, so nobody has to look for it. It is kept to two quiet lines and a
- * thin bar: the lesson itself starts right below.
+ * The head of every lesson, inside the lesson sheet: which lesson of the
+ * module this is, a stepper with one mark per lesson (done, current, still to
+ * come) and how long it takes. The same shape on every lesson, so nobody has
+ * to look for it. Reading controls live in the lesson bar above.
  */
 const route = useRoute();
 const state = useCourseState();
@@ -40,54 +39,60 @@ function rememberLesson(): void {
 onMounted(rememberLesson);
 watch(place, rememberLesson);
 
-const moduleProgress = computed(() => {
+const steps = computed(() => {
   const current = place.value;
 
   if (!current) {
-    return { done: 0, total: 0 };
+    return [];
   }
 
-  const routes = current.module.lessons.map((lesson) => lessonRoute(current.course, current.module, lesson));
+  return current.module.lessons.map((lesson) => {
+    const route = lessonRoute(current.course, current.module, lesson);
 
-  return {
-    done: routes.filter((item) => state.value.completed.includes(item)).length,
-    total: routes.length,
-  };
+    return {
+      route,
+      title: lesson.title,
+      available: lesson.status === 'available',
+      done: state.value.completed.includes(route),
+    };
+  });
 });
+
+const moduleProgress = computed(() => ({
+  done: steps.value.filter((step) => step.done).length,
+  total: steps.value.length,
+}));
 </script>
 
 <template>
-  <div id="main-content" class="lesson-bar" tabindex="-1">
-    <nav v-if="place" class="lesson-bar__trail" aria-label="Onde você está">
-      <a class="lesson-bar__up" :href="`${coursesRoot}/#${place.course.slug}`">
-        <span aria-hidden="true">‹</span> {{ place.course.title }}
-      </a>
-      <a class="lesson-bar__root" :href="`${coursesRoot}/`">Aprender</a>
-      <span class="lesson-bar__root" aria-hidden="true">›</span>
-      <a class="lesson-bar__root" :href="`${coursesRoot}/#${place.course.slug}`">{{ place.course.title }}</a>
-      <span class="lesson-bar__root" aria-hidden="true">›</span>
-      <span class="lesson-bar__root">{{ place.module.title }}</span>
-    </nav>
-
-    <div class="lesson-bar__line">
-      <p v-if="place" class="lesson-bar__meta">
+  <div id="main-content" class="lesson-head" tabindex="-1">
+    <template v-if="place">
+      <p class="lesson-head__kicker">
         <span>Lição {{ place.position }} de {{ place.module.lessons.length }}</span>
         <span aria-hidden="true">·</span>
-        <span>cerca de {{ place.lesson.minutes }} min</span>
+        <span>{{ place.course.title }}</span>
       </p>
-      <ReadingPreferences />
-    </div>
 
-    <div v-if="place" class="lesson-bar__progress">
-      <progress
-        :value="moduleProgress.done"
-        :max="moduleProgress.total"
-        :aria-label="`Progresso do módulo: ${moduleProgress.done} de ${moduleProgress.total} lições concluídas`"
-      />
-      <span class="lesson-bar__progress-text">{{ moduleProgress.done }} de {{ moduleProgress.total }} concluídas</span>
-    </div>
+      <ol class="lesson-steps" :aria-label="`Lições do módulo: ${moduleProgress.done} de ${moduleProgress.total} concluídas`">
+        <li v-for="(step, index) in steps" :key="step.route">
+          <a
+            v-if="step.available"
+            :href="step.route"
+            :class="{ 'is-done': step.done }"
+            :aria-current="index + 1 === place.position ? 'step' : undefined"
+            :aria-label="`Lição ${index + 1}: ${step.title}${step.done ? ' (concluída)' : ''}`"
+            :title="step.title"
+          />
+          <span v-else class="is-soon" role="img" :aria-label="`Lição ${index + 1}: ${step.title} (em breve)`" :title="`${step.title} (em breve)`" />
+        </li>
+      </ol>
 
-    <p v-if="place" class="lesson-bar__project">Projeto do módulo: {{ place.module.project }}</p>
+      <p class="lesson-head__meta">
+        <span>cerca de {{ place.lesson.minutes }} min</span>
+        <span aria-hidden="true">·</span>
+        <span>{{ moduleProgress.done }} de {{ moduleProgress.total }} concluídas</span>
+      </p>
+    </template>
 
     <button
       v-if="state.preferences.focus"

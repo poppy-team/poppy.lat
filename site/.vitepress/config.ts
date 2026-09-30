@@ -15,7 +15,6 @@ import {
   type Locale,
 } from '@poppy/project-data';
 import { docsIndex, docsPageFor, type DocsIndexPage } from './docs-index.ts';
-import { courseTracks, coursesRoot, lessonRoute } from './theme/data/courses.ts';
 
 const locales = {
   root: {
@@ -146,36 +145,6 @@ function projectSidebars(locale: Locale): DefaultTheme.SidebarMulti {
 }
 
 /**
- * The course sidebar: every course with at least one written lesson, module
- * by module. Lessons not written yet are listed as plain text, so the reader
- * sees what comes next without a link that goes nowhere.
- */
-function courseSidebar(): DefaultTheme.SidebarMulti {
-  const courses = courseTracks
-    .flatMap((track) => track.courses)
-    .filter((course) => course.modules.some((module) => module.lessons.some((l) => l.status === 'available')));
-
-  return {
-    [`${coursesRoot}/`]: [
-      { text: 'Todos os cursos', link: `${coursesRoot}/` },
-      ...courses.map((course) => ({
-        text: course.title,
-        items: course.modules
-          .filter((module) => module.lessons.length > 0)
-          .map((module) => ({
-            text: module.title,
-            items: module.lessons.map((lesson) =>
-              lesson.status === 'available'
-                ? { text: lesson.title, link: lessonRoute(course, module, lesson) }
-                : { text: `${lesson.title} (em breve)` },
-            ),
-          })),
-      })),
-    ],
-  };
-}
-
-/**
  * Serves the enriched documentation index to the theme, which renders in the
  * browser and cannot read the page files itself.
  */
@@ -297,7 +266,7 @@ export default defineConfig({
           { text: siteCopy['pt-BR'].navigation.docs, link: '/#docs' },
           { text: siteCopy['pt-BR'].navigation.blog, link: '/blog/' },
         ],
-        sidebar: { ...projectSidebars('pt-BR'), ...courseSidebar() },
+        sidebar: projectSidebars('pt-BR'),
         ...themeLabels('pt-BR'),
       },
     },
