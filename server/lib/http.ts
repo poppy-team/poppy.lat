@@ -36,22 +36,25 @@ export function clientIp(c: Context): string {
 
 /**
  * What the log may say about an unexpected error. Only the name and, for a
- * database failure, the engine's own code and message: Drizzle wraps those in
- * an error that also carries the SQL and its parameters (user text), so the
- * wrapper's message is never printed, only its cause's.
+ * database failure, the engine's own code and message (and its cause, such as a
+ * network error). Drizzle wraps those in an error that also carries the SQL and
+ * its parameters (user text), so the wrapper's message is never printed, only
+ * what is inside it.
  */
 export function describeError(error: unknown): string {
   if (!(error instanceof Error)) {
     return 'unknown';
   }
 
-  const cause = error.cause instanceof Error ? error.cause : error;
+  const inner = error.cause instanceof Error ? error.cause : undefined;
+  const engine = error.name === 'LibsqlError' ? error : inner?.name === 'LibsqlError' ? inner : undefined;
 
-  if (cause.name !== 'LibsqlError') {
+  if (!engine) {
     return error.name;
   }
 
-  const { code } = cause as Error & { code?: unknown };
+  const { code } = engine as Error & { code?: unknown };
+  const reason = engine.cause instanceof Error ? ` (causa: ${engine.cause.name}: ${engine.cause.message.replace(/\s+/gu, ' ').slice(0, 160)})` : '';
 
-  return `${error.name} ${typeof code === 'string' ? code : 'no-code'}: ${cause.message.replace(/\s+/gu, ' ').slice(0, 240)}`;
+  return `${error.name} ${typeof code === 'string' ? code : 'no-code'}: ${engine.message.replace(/\s+/gu, ' ').slice(0, 240)}${reason}`;
 }

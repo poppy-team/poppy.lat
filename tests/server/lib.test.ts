@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { badgeFor, can, outranks, type Action, type Actor, type Role } from '../../server/lib/can.ts';
 import { handleSchema, nameFromEmail } from '../../server/lib/handle.ts';
+import { describeTarget } from '../../server/db/target.ts';
 import { describeError, HttpError } from '../../server/lib/http.ts';
 import { linkHref, normalizeLink } from '../../server/lib/links.ts';
 import { rateLimit } from '../../server/lib/rate-limit.ts';
@@ -179,8 +180,27 @@ describe('describeError', () => {
     expect(describeError(engine)).toContain('LibsqlError SQLITE_UNKNOWN');
   });
 
+  it('um erro do banco que carrega uma causa de rede mostra as duas', () => {
+    const network = new TypeError('fetch failed');
+    const engine = Object.assign(new Error('SERVER_ERROR: Server returned HTTP status 502', { cause: network }), { name: 'LibsqlError', code: 'SERVER_ERROR' });
+
+    expect(describeError(engine)).toBe('LibsqlError SERVER_ERROR: SERVER_ERROR: Server returned HTTP status 502 (causa: TypeError: fetch failed)');
+  });
+
   it('para outros erros, só o nome', () => {
     expect(describeError(new TypeError('segredo'))).toBe('TypeError');
     expect(describeError('texto')).toBe('unknown');
+  });
+});
+
+describe('describeTarget', () => {
+  it('distingue o banco remoto do arquivo local, sem mostrar o token', () => {
+    expect(describeTarget('libsql://poppy-aprender-raillen.turso.io?authToken=segredo')).toEqual({
+      remote: true,
+      label: 'poppy-aprender-raillen.turso.io (remoto)',
+    });
+    expect(describeTarget('file:./local.db')).toEqual({ remote: false, label: 'arquivo local (./local.db)' });
+    expect(describeTarget(':memory:').remote).toBe(false);
+    expect(describeTarget('isto não é um endereço').remote).toBe(true);
   });
 });

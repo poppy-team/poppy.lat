@@ -20,7 +20,7 @@ VITE_ACCOUNTS=1 pnpm dev --host 127.0.0.1 # site em http://127.0.0.1:5173, /api 
 A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, que junta `server/` em `server-dist/handler.mjs` (esbuild, dependências de fora ficam em `node_modules`). `api/index.js` só reexporta esse arquivo, e o `vercel.json` manda tudo o que começa com `/api/` para ele (um nome de arquivo com `[...route]` só casou com um trecho de caminho, e `/api/auth/...` dava 404). Não volte a apontar a função para um `.ts`: a Vercel não empacota os outros arquivos `.ts` de `server/` e a função cai com `ERR_MODULE_NOT_FOUND`.
 
 1. **Turso:** criar o banco na nuvem com a CLI oficial (`~/.turso/turso db create poppy-aprender`; o comando `turso` de algumas instalações é o motor local `tursodb` e não conhece `db create`), pegar a URL (`turso db show poppy-aprender --url`) e um token só deste banco (`turso db tokens create poppy-aprender`).
-2. **Migrações:** `TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... pnpm db:migrate` antes de cada publicação que traga um arquivo novo em `server/db/migrations/`. Elas nunca rodam sozinhas em produção.
+2. **Migrações:** `TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... pnpm db:migrate` antes de cada publicação que traga um arquivo novo em `server/db/migrations/`. Elas nunca rodam sozinhas em produção. O script mostra em qual banco está rodando (por exemplo `poppy-aprender-….turso.io (remoto)`) e lista as migrações que o banco tem no fim; se faltarem as variáveis ele para, em vez de aplicar num arquivo local. Confira sempre que a última da lista é a mais nova de `server/db/migrations/`.
 3. **Variáveis na Vercel** (Production e Preview, valores diferentes em cada um):
 
 | Variável | Para quê |
