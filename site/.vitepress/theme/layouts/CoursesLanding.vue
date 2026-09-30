@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useData } from 'vitepress';
-import { courseTracks, lessonAt, lessonRoute, type Course } from '../data/courses';
+import { courseTracks, handoutHref, hasHandout, lessonAt, lessonRoute, type Course } from '../data/courses';
 import { useCourseState } from '../course-state';
 import { accountsEnabled } from '../accounts/api';
 import { me, sessionStatus } from '../accounts/session';
@@ -144,6 +144,10 @@ function completedCount(course: Course): number {
             <span v-if="lessonCount(course)" class="course-card__tag course-card__tag--progress">
               {{ completedCount(course) }} de {{ lessonCount(course) }} lições
             </span>
+          </p>
+          <p v-if="hasHandout(course)" class="course-card__handout">
+            <a :href="handoutHref(course)" download>Baixar a apostila (Markdown)</a>
+            <span>com as lições já escritas</span>
           </p>
         </header>
 

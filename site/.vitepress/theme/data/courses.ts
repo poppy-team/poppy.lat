@@ -172,6 +172,18 @@ export function lessonRoute(course: Course, module: CourseModule, lesson: Course
   return `${coursesRoot}/${course.slug}/${module.slug}/${lesson.slug}`;
 }
 
+/** Where the apostila of a course is served; made at build time from its written lessons. */
+export const handoutsRoot = '/apostilas';
+
+export function handoutHref(course: Pick<Course, 'slug'>): string {
+  return `${handoutsRoot}/${course.slug}.md`;
+}
+
+/** A course has an apostila as soon as one of its lessons is written. */
+export function hasHandout(course: Course): boolean {
+  return course.modules.some((module) => module.lessons.some((lesson) => lesson.status === 'available'));
+}
+
 export interface LessonPlace {
   track: CourseTrack;
   course: Course;

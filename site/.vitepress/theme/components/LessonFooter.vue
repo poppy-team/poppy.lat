@@ -2,7 +2,7 @@
 import CommentsSection from '../accounts/CommentsSection.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vitepress';
-import { coursesRoot, lessonAt, lessonRoute } from '../data/courses';
+import { coursesRoot, handoutHref, hasHandout, lessonAt, lessonRoute } from '../data/courses';
 import { isCompleted, setCompleted, useCourseState } from '../course-state';
 
 /**
@@ -64,6 +64,19 @@ const feedbackHref = computed(() => {
         <span class="lesson-pager__title">Voltar ao curso {{ place.course.title }}</span>
       </a>
     </nav>
+    <aside v-if="!neighbours.next && hasHandout(place.course)" class="lesson-handout" aria-labelledby="lesson-handout-title">
+      <h2 id="lesson-handout-title">Leve o curso com você</h2>
+      <p>
+        A apostila reúne todas as lições escritas de <strong>{{ place.course.title }}</strong>, em ordem, num único
+        arquivo Markdown que abre em qualquer editor. Ela cresce junto com o curso. Em breve, também em PDF.
+      </p>
+      <a class="lesson-handout__button" :href="handoutHref(place.course)" download>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14" />
+        </svg>
+        Baixar a apostila (Markdown)
+      </a>
+    </aside>
     <p class="lesson-footer__feedback">
       Algo ficou confuso? <a :href="feedbackHref" target="_blank" rel="noreferrer">Conte para a gente</a>. Cada
       lição é revisada a partir dessas mensagens.
