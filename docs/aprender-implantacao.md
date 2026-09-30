@@ -44,7 +44,7 @@ Pronto e testado (148 testes; fluxo completo no navegador): login por link (e Gi
 Ainda **não** feito:
 
 - **Verificação em duas etapas (TOTP)** para Contribuidor e Admin. Hoje essas contas dependem só do link no e-mail, e ações graves (banir, mudar papel, apagar de vez, ler o registro) pedem login feito nos últimos 15 minutos.
-- **Política de CSP que bloqueia**: o site envia `Content-Security-Policy-Report-Only`. Passar a bloquear exige trocar os scripts inline do VitePress por hashes.
+- **CSP sem `unsafe-inline`**: o site já envia a `Content-Security-Policy` que bloqueia (fontes, scripts, imagens e API só do próprio site), mas ainda permite `unsafe-inline` em scripts e estilos por causa do VitePress. Tirar isso exige trocar os scripts inline por hashes.
 - **Revisão jurídica** de idade mínima e privacidade (LGPD) antes de abrir cadastros. O texto de `/aprender/regras` é um resumo honesto do que o sistema faz, não um parecer.
 - Ranking, medalhas e micro fórum: só a base (tabelas e regras) existe.
 - Preferências de leitura ainda ficam só no navegador.
