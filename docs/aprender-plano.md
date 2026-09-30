@@ -189,6 +189,8 @@ Turso (libSQL)
 
 ### Esquema inicial
 
+> **Atualização:** as tabelas `users`, `auth_accounts` e `sessions` abaixo serão trocadas pelas que o Better Auth gera (`user`, `session`, `account`, `verification`). As demais continuam e apontam para `user(id)`. O desenho completo da comunidade (perfil, anotações, comentários, papéis, badges, fórum) está em [comunidade.md](aprender-comunidade.md).
+
 ```sql
 -- 001-inicial.sql
 CREATE TABLE users (
@@ -312,7 +314,12 @@ O banco vai guardar dados de pessoas, inclusive crianças e adolescentes que est
 | 3 | Módulos 2 a 4 do curso comum; teste automático dos exemplos na CI. |
 | 4 | Curso "Como uma linguagem funciona"; EN do que já existir. |
 | 5 | Trilhas de uso de Ori e Aipo. |
-| 6 | Trilhas de implementação; conta (Turso), sincronização de progresso, playground de Aipo no navegador e exercícios. |
+| 6a | Conta, perfil privado, progresso sincronizado (ver [comunidade.md](aprender-comunidade.md)) |
+| 6b | Anotações com download em Markdown |
+| 6c | Comentários nas lições, com moderação e regras da comunidade, tudo junto |
+| 6d | Trilhas de implementação, playground de Aipo no navegador e exercícios |
+| 6e | Porcentagem por trilha, badges e ranking opcional |
+| 6f | Micro fórum por categorias |
 
 ---
 
