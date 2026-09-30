@@ -1,0 +1,127 @@
+---
+title: "Erros, optional e void"
+description: "O modelo mental de ausência e falha: optional, result, try e void."
+project: ori
+category: guides
+locale: pt-BR
+sourcePath: "docs/guides/errors-null-void.pt-BR.md"
+sourceBlob: "6eb0e01507a8b7faa312428716b07218cb25abb4"
+revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
+license: "MIT"
+---
+::: info Cópia estática
+Copiado de `docs/guides/errors-null-void.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `6eb0e01507a8b7faa312428716b07218cb25abb4`.
+O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+:::
+# Erros, optional e void — mapa mental
+
+> Guia pedagógico (**S3 + inferência B / workspace 0.3.8-dev**).
+> **English:** [errors-null-void.md](/en/ori/docs/guides/manual/errors-null-void)  
+> Normativo: [09-errors](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/09-errors.md), [04-types](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/04-types.md)
+
+## Quatro conceitos
+
+| Conceito | Papel | Quando |
+|----------|--------|--------|
+| **`void`** | Sem valor útil de retorno | Funções de efeito |
+| **`optional[T]`** | Valor pode faltar | Busca, EOF — ausência ≠ falha |
+| **`result[T, E]`** | Sucesso ou falha com motivo | I/O, validação |
+| **`check`** | Pré-condição em runtime | Invariantes |
+
+Ori **não tem null**. Use `none` ou `err(...)`.
+
+## `void`
+
+```ori
+module app.main
+
+import ori.io as io
+
+greet() -> void
+    io.println("olá")
+end
+
+main()
+    greet()
+end
+```
+
+## `optional[T]`
+
+```ori
+module app.main
+
+find_user(id: int) -> optional[string]
+    if id == 0
+        return none
+    end
+    return some("alice")
+end
+
+main()
+    match find_user(1)
+        case some(name):
+            -- use name
+        case none:
+    end
+end
+```
+
+- Desempacote com `if some(x) = expr` ou `match`.
+- `try` em optional propaga `none`.
+- Postfix `?` foi **removido** no S3.
+
+## `result[T, E]`
+
+```ori
+module app.main
+
+import ori.fs as fs
+import ori.io as io
+
+read_config(path: string) -> result[string, string]
+    return fs.read_text(path)
+end
+
+main()
+    match read_config("app.conf")
+        case ok(text):
+            io.println(text)
+        case err(msg):
+            io.eprintln(msg)
+    end
+end
+```
+
+- Construtores: **`ok` / `err`** (não `success` / `error`).
+- Trate com `match` ou **`try expr`**.
+
+## `check`
+
+```ori
+module app.main
+
+divide(a: int, b: int) -> int
+    check b != 0, "division by zero"
+    return a / b
+end
+```
+
+Quebra o processo se o contrato falhar; não é um `result`.
+
+## Mapa rápido
+
+| Situação | Use |
+|----------|-----|
+| Só efeito | `-> void` |
+| “Não achou”, sem erro | `optional[T]` |
+| Falha com mensagem | `result[T, string]` |
+| Sempre deve ser verdade | `check` |
+
+```bash
+ori explain name.undefined
+ori doctor
+```
+
+Catálogo: [13-error-catalog.md](https://github.com/poppy-team/ori-lang/blob/42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f/docs/spec/13-error-catalog.md).

@@ -18,7 +18,23 @@ export interface ImportedDocPage {
 export const importedDocs: Record<string, ImportedDocPage[]> = {
   "ori": [
     {
-      "route": "/ori/docs/guides/first-project/",
+      "route": "/ori/docs/development/bootstrapping/",
+      "slug": "bootstrapping",
+      "category": "development",
+      "title": "Bootstrapping",
+      "description": "Como compilar o Ori a partir do código-fonte.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/development/report-bugs/",
+      "slug": "report-bugs",
+      "category": "development",
+      "title": "Como reportar bugs",
+      "description": "O que incluir num relato de bug para que ele possa ser reproduzido.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/getting-started/first-project/",
       "slug": "first-project",
       "category": "guides",
       "title": "Primeiro projeto e pacotes locais",
@@ -26,11 +42,219 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "locale": "pt-BR"
     },
     {
-      "route": "/en/ori/docs/guides/first-project/",
+      "route": "/ori/docs/guides/getting-started/install/",
+      "slug": "install",
+      "category": "guides",
+      "title": "Instalação",
+      "description": "Como instalar o Ori, conferir a instalação com ori doctor e atualizar para uma nova versão.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/getting-started/tour/",
+      "slug": "tour",
+      "category": "guides",
+      "title": "Tour da linguagem",
+      "description": "Um passeio pela superfície S3: módulos, funções, tipos, result, match, pipe e traits.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/language/advanced/",
+      "slug": "advanced",
+      "category": "guides",
+      "title": "Recursos avançados",
+      "description": "Slices, contratos, genéricos const, atributos de declaração, SIMD, arenas de memória e destrutores.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/language/concurrency/",
+      "slug": "concurrency",
+      "category": "guides",
+      "title": "Async e concorrência",
+      "description": "async e await, tasks, canais, atômicos e tokens de cancelamento.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/language/interop/",
+      "slug": "interop",
+      "category": "guides",
+      "title": "Interop e ABI C",
+      "description": "Como chamar C com extern e publicar funções Ori para C com @c_export.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/manual/cookbook/",
+      "slug": "cookbook",
+      "category": "guides",
+      "title": "Cookbook",
+      "description": "Receitas para projetos pequenos e médios, com código S3 válido.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/manual/debugging/",
+      "slug": "debugging",
+      "category": "guides",
+      "title": "Depuração",
+      "description": "O depurador de terminal, o servidor DAP e a integração com editores.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/manual/errors-null-void/",
+      "slug": "errors-null-void",
+      "category": "guides",
+      "title": "Erros, optional e void",
+      "description": "O modelo mental de ausência e falha: optional, result, try e void.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/manual/performance/",
+      "slug": "performance",
+      "category": "guides",
+      "title": "Desempenho",
+      "description": "Microbench comparando Ori, Python e Rust, com o método usado.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/manual/testing/",
+      "slug": "testing",
+      "category": "guides",
+      "title": "Testes",
+      "description": "Como testar programas Ori com @test e ori test, e como testar o compilador.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/reference/cli-reference/",
+      "slug": "cli-reference",
+      "category": "guides",
+      "title": "Referência da CLI",
+      "description": "Todos os comandos da CLI ori, suas opções e variáveis de ambiente.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/ori/docs/guides/reference/stdlib-reference/",
+      "slug": "stdlib-reference",
+      "category": "guides",
+      "title": "Mapa da biblioteca padrão",
+      "description": "Os módulos ori.X da biblioteca padrão, posições de texto e convenções de erro.",
+      "locale": "pt-BR"
+    },
+    {
+      "route": "/en/ori/docs/development/bootstrapping/",
+      "slug": "bootstrapping",
+      "category": "development",
+      "title": "Bootstrapping",
+      "description": "How to build Ori from source.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/development/report-bugs/",
+      "slug": "report-bugs",
+      "category": "development",
+      "title": "How to report bugs",
+      "description": "What to include in a bug report so it can be reproduced.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/getting-started/first-project/",
       "slug": "first-project",
       "category": "guides",
       "title": "First project and local packages",
       "description": "How to create a project, declare local packages, and compile a first program.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/getting-started/install/",
+      "slug": "install",
+      "category": "guides",
+      "title": "Installing Ori",
+      "description": "How to install Ori, check the install with ori doctor, and upgrade to a new release.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/getting-started/tour/",
+      "slug": "tour",
+      "category": "guides",
+      "title": "Language tour",
+      "description": "A walk through the S3 surface: modules, functions, types, result, match, pipe, and traits.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/language/advanced/",
+      "slug": "advanced",
+      "category": "guides",
+      "title": "Advanced features",
+      "description": "Slices, contracts, const generics, declaration attributes, SIMD, memory arenas, and destructors.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/language/concurrency/",
+      "slug": "concurrency",
+      "category": "guides",
+      "title": "Async and concurrency",
+      "description": "async and await, tasks, channels, atomics, and cancellation tokens.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/language/interop/",
+      "slug": "interop",
+      "category": "guides",
+      "title": "Interop and the C ABI",
+      "description": "How to call C with extern and publish Ori functions to C with @c_export.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/manual/cookbook/",
+      "slug": "cookbook",
+      "category": "guides",
+      "title": "Cookbook",
+      "description": "Recipes for small and medium projects, in valid S3 code.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/manual/debugging/",
+      "slug": "debugging",
+      "category": "guides",
+      "title": "Debugging",
+      "description": "The terminal debugger, the DAP server, and editor integration.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/manual/errors-null-void/",
+      "slug": "errors-null-void",
+      "category": "guides",
+      "title": "Errors, optional, and void",
+      "description": "The mental model of absence and failure: optional, result, try, and void.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/manual/performance/",
+      "slug": "performance",
+      "category": "guides",
+      "title": "Performance",
+      "description": "A microbenchmark comparing Ori, Python, and Rust, with the method used.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/manual/testing/",
+      "slug": "testing",
+      "category": "guides",
+      "title": "Testing",
+      "description": "How to test Ori programs with @test and ori test, and how to test the compiler.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/reference/cli-reference/",
+      "slug": "cli-reference",
+      "category": "guides",
+      "title": "CLI reference",
+      "description": "Every ori CLI command, its options, and environment variables.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/ori/docs/guides/reference/stdlib-reference/",
+      "slug": "stdlib-reference",
+      "category": "guides",
+      "title": "Standard library map",
+      "description": "The ori.X standard library modules, text positions, and error conventions.",
       "locale": "en"
     }
   ],

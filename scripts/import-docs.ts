@@ -570,6 +570,21 @@ for (const project of upstreamProjects) {
     let written = 0;
     let writtenEnglish = 0;
 
+    // Upstream file -> vendored route, so a link between two listed pages
+    // stays on this site instead of leaving for the repository.
+    const vendoredRoutes = new Map<string, string>();
+
+    for (const page of source?.pages ?? []) {
+      vendoredRoutes.set(page.sourcePath, `/${project.slug}/docs/${page.category}/${page.slug}`);
+
+      if (page.englishSourcePath) {
+        vendoredRoutes.set(
+          page.englishSourcePath,
+          `/en/${project.slug}/docs/${page.category}/${page.slug}`,
+        );
+      }
+    }
+
     for (const page of source?.pages ?? []) {
       const variants: { upstreamPath: string; locale: string; prefix: string }[] = [
         { upstreamPath: page.sourcePath, locale: 'pt-BR', prefix: '' },
@@ -629,16 +644,25 @@ for (const project of upstreamProjects) {
               blob,
               license,
             }) +
-            rewriteLinks(body, [], (label, target, anchor) =>
-              pointAtUpstream(
+            rewriteLinks(body, [], (label, target, anchor) => {
+              const resolved = path.posix.normalize(
+                path.posix.join(path.posix.dirname(variant.upstreamPath), target),
+              );
+              const route = vendoredRoutes.get(resolved);
+
+              if (route) {
+                return `[${label}](${route}${anchor})`;
+              }
+
+              return pointAtUpstream(
                 label,
                 target,
                 anchor,
                 variant.upstreamPath,
                 project.repository,
                 revision,
-              ),
-            ),
+              );
+            }),
           'utf8',
         );
 

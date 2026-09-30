@@ -558,7 +558,7 @@ describe('content safety', () => {
     for (const source of vendoredDocs) {
       for (const page of source.pages) {
         expect(page.sourcePath.startsWith('/')).toBe(false);
-        expect(page.slug).toMatch(/^[a-z0-9-]+$/u);
+        expect(page.slug).toMatch(/^[a-z0-9-]+(?:\/[a-z0-9-]+)*$/u);
       }
     }
   });
