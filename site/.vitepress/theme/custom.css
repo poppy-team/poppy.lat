@@ -141,6 +141,16 @@ body {
   background: color-mix(in srgb, var(--text) 82%, var(--surface));
 }
 
+.button-link--learn {
+  border-color: var(--feature-ink);
+  background: var(--feature-ink);
+  color: var(--feature-plane);
+}
+
+.button-link--learn:hover {
+  background: color-mix(in srgb, var(--feature-ink) 88%, var(--text));
+}
+
 .button-link--light {
   background: transparent;
   color: var(--text);
@@ -361,6 +371,66 @@ body {
   margin-inline-start: var(--space-2);
 }
 
+/* The theme switch lives in the footer and the lesson reading panel, and the
+   GitHub link in the footer: the navbar keeps only places to go. */
+.VPNavBarAppearance,
+.VPNavScreenAppearance,
+.VPNavBarSocialLinks,
+.VPNavScreenSocialLinks,
+.VPNavBarExtra {
+  display: none !important;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 2.5rem;
+  height: 1.4rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface-sunken);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--text-soft);
+  transition: transform 0.15s;
+}
+
+.theme-toggle[aria-checked='true'] .theme-toggle__thumb {
+  transform: translateX(1.1rem);
+  background: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__thumb {
+    transition: none;
+  }
+}
+
 .nav-screen-language {
   display: flex;
   padding-top: var(--space-3);
@@ -421,6 +491,11 @@ body {
 .site-footer__links a:hover {
   color: var(--text);
   text-decoration: underline;
+}
+
+.site-footer .theme-toggle {
+  grid-column: 1 / -1;
+  justify-self: start;
 }
 
 .site-footer__legal {
@@ -1888,4 +1963,86 @@ html[data-page='documentation'] .site-header {
 /* The site footer replaces the VitePress one on every page. */
 .VPFooter {
   display: none;
+}
+
+/* ---------------------------------------------------- home: the learn band -- */
+
+.learn-band {
+  padding: var(--space-4) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--feature-ink) 22%, transparent);
+  border-radius: var(--radius);
+  background: var(--feature-plane);
+}
+
+.learn-band .section-header {
+  margin-bottom: var(--space-2);
+  padding-top: 0;
+  border-top: 0;
+}
+
+.learn-tracks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.learn-track {
+  display: grid;
+  gap: 0.35rem;
+  height: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--feature-ink) 22%, transparent);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.learn-track:hover {
+  border-color: var(--feature-ink);
+}
+
+.learn-track:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.learn-track__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.learn-track__summary {
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+}
+
+.learn-track__meta {
+  color: var(--feature-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.learn-band__note {
+  display: grid;
+  gap: 0.4rem;
+  margin: var(--space-3) 0 0;
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 850px) {
+  .learn-tracks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .learn-band {
+    padding: var(--space-3) var(--space-2);
+  }
 }

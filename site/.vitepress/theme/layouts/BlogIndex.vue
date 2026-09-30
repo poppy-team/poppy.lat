@@ -14,7 +14,7 @@ const notes = computed(() => posts.filter((post) => post.locale === locale.value
   <div id="main-content" class="journal-page" tabindex="-1">
     <header class="page-intro">
       <p class="eyebrow">Poppy Team</p>
-      <h1 class="page-intro__title">{{ locale === 'en' ? 'Journal' : 'Caderno' }}</h1>
+      <h1 class="page-intro__title">{{ locale === 'en' ? 'Journal' : 'Blog' }}</h1>
       <p class="page-intro__lead">
         {{
           locale === 'en'

@@ -6,6 +6,7 @@ import { importedDocs } from 'virtual:imported-docs';
 import ProjectBadge from '../components/ProjectBadge.vue';
 import { data as posts } from '../data/posts.data';
 import { formatDate, pageCount } from '../format';
+import { availableLessons, courseTracks } from '../data/courses';
 
 const { frontmatter } = useData();
 
@@ -21,6 +22,16 @@ const documentation = computed(() =>
     count: (importedDocs[project.slug] ?? []).filter((page) => page.locale === locale.value).length,
   })),
 );
+
+const learnTracks = computed(() =>
+  courseTracks.map((track) => ({
+    slug: track.slug,
+    title: track.title,
+    summary: track.summary,
+    courses: track.courses.length,
+  })),
+);
+const lessonsReady = availableLessons().length;
 
 const latestPosts = computed(() => posts.filter((post) => post.locale === locale.value).slice(0, 3));
 </script>
@@ -40,18 +51,60 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
         }}
       </p>
       <p class="hero__actions">
-        <a class="button-link button-link--dark" :href="`${root}/#projects`">
+        <a class="button-link button-link--learn" :href="en ? '/en/learn/' : '/aprender/'">
+          {{ en ? 'Start learning' : 'Começar a aprender' }}
+        </a>
+        <a class="button-link button-link--light" :href="`${root}/#projects`">
           {{ en ? 'See the projects' : 'Conhecer os projetos' }}
         </a>
-        <a class="button-link button-link--light" :href="`${root}/#docs`">
-          {{ en ? 'Read the documentation' : 'Ler a documentação' }}
-        </a>
+      </p>
+    </section>
+
+    <section id="learn" class="home-section learn-band" aria-labelledby="learn-title">
+      <header class="section-header">
+        <p class="section-header__index">01</p>
+        <div>
+          <h2 id="learn-title" class="section-header__title">
+            {{ en ? 'Learn with Poppy' : 'Aprender com a Poppy' }}
+          </h2>
+          <p class="section-header__lead">
+            {{
+              en
+                ? 'Free courses for people with ADHD, dyslexia, other ways of thinking, or who are just starting. Portuguese for now; English is on the way.'
+                : 'Cursos gratuitos, escritos para quem tem TDAH, dislexia, outras formas de pensar ou está começando agora. Cada lição termina com um projeto que funciona.'
+            }}
+          </p>
+        </div>
+      </header>
+
+      <ul v-if="!en" class="learn-tracks">
+        <li v-for="track in learnTracks" :key="track.slug">
+          <a class="learn-track" :href="`/aprender/#${track.slug}`">
+            <span class="learn-track__title">{{ track.title }}</span>
+            <span class="learn-track__summary">{{ track.summary }}</span>
+            <span class="learn-track__meta">{{ track.courses }} {{ track.courses === 1 ? 'curso' : 'cursos' }}</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="learn-band__note">
+        <template v-if="en">
+          <a class="text-link" href="/en/learn/">About the courses →</a>
+        </template>
+        <template v-else>
+          <a class="text-link" href="/aprender/">Ver todos os cursos →</a>
+          <span>
+            {{ lessonsReady }} {{ lessonsReady === 1 ? 'lição pronta' : 'lições prontas' }}, e o restante chega aos
+            poucos. No futuro, também uma biblioteca de cursos gratuitos de outros lugares, escolhidos com o mesmo
+            cuidado com acessibilidade.
+          </span>
+        </template>
       </p>
     </section>
 
     <section id="projects" class="home-section" aria-labelledby="projects-title">
       <header class="section-header">
-        <p class="section-header__index">01</p>
+        <p class="section-header__index">02</p>
         <div>
           <h2 id="projects-title" class="section-header__title">
             {{ en ? 'Featured projects' : 'Projetos em destaque' }}
@@ -104,7 +157,7 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
 
     <section class="home-section" aria-labelledby="others-title">
       <header class="section-header">
-        <p class="section-header__index">02</p>
+        <p class="section-header__index">03</p>
         <div>
           <h2 id="others-title" class="section-header__title">
             {{ en ? 'Also from the team' : 'Também da equipe' }}
@@ -137,7 +190,7 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
 
     <section id="docs" class="home-section" aria-labelledby="docs-title">
       <header class="section-header">
-        <p class="section-header__index">03</p>
+        <p class="section-header__index">04</p>
         <div>
           <h2 id="docs-title" class="section-header__title">
             {{ en ? 'Documentation' : 'Documentação' }}
@@ -164,10 +217,10 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
 
     <section v-if="latestPosts.length" class="home-section" aria-labelledby="journal-title">
       <header class="section-header">
-        <p class="section-header__index">04</p>
+        <p class="section-header__index">05</p>
         <div>
           <h2 id="journal-title" class="section-header__title">
-            {{ en ? 'From the journal' : 'Do caderno' }}
+            {{ en ? 'From the journal' : 'Do blog' }}
           </h2>
           <p class="section-header__lead">
             <a class="text-link" :href="`${root}/blog/`">{{ en ? 'All notes' : 'Todas as notas' }} →</a>

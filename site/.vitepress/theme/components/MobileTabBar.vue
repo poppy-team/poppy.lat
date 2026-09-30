@@ -23,9 +23,9 @@ const account = computed(() => accountsEnabled && locale.value !== 'en');
 onMounted(() => startSession());
 
 const tabs = computed(() => [
+  { key: 'learn', href: locale.value === 'en' ? '/en/learn/' : '/aprender/', label: copy.value.learn },
   { key: 'projects', href: `${root.value}/#projects`, label: copy.value.projects },
   { key: 'docs', href: `${root.value}/#docs`, label: copy.value.docs },
-  { key: 'learn', href: locale.value === 'en' ? '/en/learn/' : '/aprender/', label: copy.value.learn },
   { key: 'blog', href: `${root.value}/blog/`, label: copy.value.blog },
   account.value
     ? {

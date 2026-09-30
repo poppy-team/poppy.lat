@@ -292,9 +292,9 @@ export default defineConfig({
         // is not true for the journal, so the custom switcher is used instead.
         i18nRouting: false,
         nav: [
+          { text: siteCopy['pt-BR'].navigation.learn, link: '/aprender/', activeMatch: '^/aprender/' },
           { text: siteCopy['pt-BR'].navigation.projects, link: '/#projects' },
           { text: siteCopy['pt-BR'].navigation.docs, link: '/#docs' },
-          { text: siteCopy['pt-BR'].navigation.learn, link: '/aprender/', activeMatch: '^/aprender/' },
           { text: siteCopy['pt-BR'].navigation.blog, link: '/blog/' },
         ],
         sidebar: { ...projectSidebars('pt-BR'), ...courseSidebar() },
@@ -309,9 +309,9 @@ export default defineConfig({
       themeConfig: {
         i18nRouting: false,
         nav: [
+          { text: siteCopy.en.navigation.learn, link: '/en/learn/', activeMatch: '^/en/learn/' },
           { text: siteCopy.en.navigation.projects, link: '/en/#projects' },
           { text: siteCopy.en.navigation.docs, link: '/en/#docs' },
-          { text: siteCopy.en.navigation.learn, link: '/en/learn/', activeMatch: '^/en/learn/' },
           { text: siteCopy.en.navigation.blog, link: '/en/blog/' },
         ],
         sidebar: projectSidebars('en'),
@@ -339,7 +339,7 @@ export default defineConfig({
         },
       },
     },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/poppy-team' }],
+    // The GitHub and e-mail links live in the footer; the navbar keeps only places to go.
   },
 
   markdown: {

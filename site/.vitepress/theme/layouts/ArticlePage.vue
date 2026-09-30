@@ -22,7 +22,7 @@ const iso = computed(() => {
   <article id="main-content" class="article-page" tabindex="-1">
     <header class="article-page__header">
       <a class="article-page__back" :href="`${root}/blog/`">
-        <span aria-hidden="true">←</span> {{ locale === 'en' ? 'Journal' : 'Caderno' }}
+        <span aria-hidden="true">←</span> {{ locale === 'en' ? 'Journal' : 'Blog' }}
       </a>
       <h1 class="article-page__title">{{ frontmatter.title }}</h1>
       <p v-if="frontmatter.description" class="article-page__description">{{ frontmatter.description }}</p>

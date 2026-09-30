@@ -17,16 +17,17 @@ const root = computed(() => (props.locale === 'en' ? '/en' : ''));
 
 const section = computed(() => siteSection(route.path));
 
+// Ordered by emphasis: learning first, then what the team builds, then how it
+// is documented, then the blog. Contact lives in the footer.
 const links = computed(() => [
-  { key: 'projects', href: `${root.value}/#projects`, label: copy.value.navigation.projects },
-  { key: 'docs', href: `${root.value}/#docs`, label: copy.value.navigation.docs },
   {
     key: 'learn',
     href: props.locale === 'en' ? '/en/learn/' : '/aprender/',
     label: copy.value.navigation.learn,
   },
+  { key: 'projects', href: `${root.value}/#projects`, label: copy.value.navigation.projects },
+  { key: 'docs', href: `${root.value}/#docs`, label: copy.value.navigation.docs },
   { key: 'blog', href: `${root.value}/blog/`, label: copy.value.navigation.blog },
-  { key: 'contact', href: 'mailto:mail@poppy.lat', label: copy.value.navigation.contact },
 ]);
 </script>
 

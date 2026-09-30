@@ -24,9 +24,9 @@ O `viewBox` inclui o desenho inteiro e nada além dele: a tinta alcança as quat
 
 ## Fluxo de leitura
 
-- A home apresenta introdução, projetos em destaque, iniciativas secundárias e links de documentação/caderno.
+- A home apresenta introdução, projetos em destaque, iniciativas secundárias e links de documentação/blog.
 - A página de projeto apresenta propósito, princípios, exemplo estático, fonte e a lista das páginas de documentação daquele projeto.
-- O caderno tem um índice e páginas individuais renderizadas de Markdown.
+- O blog tem um índice e páginas individuais renderizadas de Markdown.
 - A página de documentação abre com o cabeçalho do projeto, que leva de volta à página editorial e ao repositório canônico.
 - O tema nativo do VitePress controla a navegação de docs, o índice de página e os blocos de código. A página 404 do site é o layout `not-found`, autorada em `/not-found/` e publicada como `404.html` por script, porque o VitePress reserva `404.md` e não pré-renderiza seu corpo.
 
