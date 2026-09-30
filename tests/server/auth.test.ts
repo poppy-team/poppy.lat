@@ -114,3 +114,43 @@ describe('login por link no e-mail', () => {
     expect(me.data.profile.badge).toBe('contributor');
   });
 });
+
+describe('conta sem perfil (cadastro que parou no meio)', () => {
+  it('o perfil é recriado sozinho e a pessoa segue como quem ainda precisa aceitar os Termos', async () => {
+    const harness = await createHarness();
+    const cookie = await harness.signIn('ana@example.com', { consent: false });
+
+    await harness.client.execute('DELETE FROM profiles');
+
+    const who = await harness.request('/api/whoami', { cookie });
+
+    expect(who.status).toBe(200);
+    expect(who.data.me.consented).toBe(false);
+    expect(who.data.me.profile.handle).toMatch(/^aluno-/u);
+    expect((await harness.client.execute('SELECT count(*) AS n FROM profiles')).rows[0]?.n).toBe(1);
+  });
+
+  it('o aceite de idade e Termos de uma conta sem perfil fica gravado e continua valendo', async () => {
+    const harness = await createHarness();
+    const cookie = await harness.signIn('ana@example.com', { consent: false });
+
+    await harness.client.execute('DELETE FROM profiles');
+
+    const accepted = await harness.request('/api/me/consent', { cookie, json: { birthDate: '1990-05-20', acceptTerms: true } });
+
+    expect(accepted.status).toBe(200);
+
+    // A later request, as after reloading the page, still sees it.
+    const who = await harness.request('/api/whoami', { cookie });
+
+    expect(who.data.me.consented).toBe(true);
+    expect((await harness.request('/api/me/notes', { cookie })).status).toBe(200);
+  });
+
+  it('health diz quais entradas sociais estão ligadas', async () => {
+    const harness = await createHarness();
+    const health = await harness.request('/api/health');
+
+    expect(health.data).toMatchObject({ ok: true, github: false, google: false });
+  });
+});
