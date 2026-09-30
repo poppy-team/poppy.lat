@@ -6,6 +6,8 @@ import { deps, readJson, requireRecentLogin, requireUser, type AppEnv } from '..
 import * as t from '../db/schema.ts';
 import { handleSchema } from '../lib/handle.ts';
 import { HttpError, iso } from '../lib/http.ts';
+import { deleteAccount } from '../lib/account.ts';
+import { ageOn, minimumAge, termsVersion } from '../lib/consent.ts';
 import { avatarMaxInputBytes, processAvatar } from '../lib/images.ts';
 import { isLinkService, normalizeLink } from '../lib/links.ts';
 import { loadProfile } from '../lib/profile.ts';
@@ -26,6 +28,8 @@ const linkInput = z.object({ value: z.string().min(1).max(200) }).strict();
 
 const deleteInput = z.object({ confirm: z.string().min(1).max(40) }).strict();
 
+const consentInput = z.object({ birthDate: z.string().max(10), acceptTerms: z.literal(true) }).strict();
+
 /** Everything about the logged-in person: their profile, their photo and their links. */
 export function profileRoutes() {
   const app = new Hono<AppEnv>();
@@ -40,15 +44,49 @@ export function profileRoutes() {
 
     const profile = await loadProfile(deps(c).db, user.id, { loggedIn: true });
 
-    return c.json({ me: { user: { id: user.id, name: user.name, email: user.email, role: user.role }, profile } });
+    return c.json({ me: { user: { id: user.id, name: user.name, email: user.email, role: user.role }, profile, consented: user.consented } });
   });
 
   app.get('/me', async (c) => {
-    const user = requireUser(c);
+    const user = requireUser(c, { beforeConsent: true });
     const { db } = deps(c);
     const profile = await loadProfile(db, user.id, { loggedIn: true });
 
     return c.json({ user: { id: user.id, name: user.name, email: user.email, role: user.role }, profile });
+  });
+
+  /**
+   * The age and Terms step, once per account (and again when the Terms
+   * change). The birth date is checked here and thrown away. Someone under 18
+   * cannot keep an account, so theirs is deleted on the spot.
+   */
+  app.post('/me/consent', async (c) => {
+    const user = requireUser(c, { beforeConsent: true });
+    const { client } = deps(c);
+
+    await rateLimit(client, 'consent', user.id, 10, 3600);
+
+    const input = await readJson(c, consentInput);
+    const age = ageOn(input.birthDate);
+
+    if (age === null) {
+      throw new HttpError(422, 'invalid_birth_date', 'Confira a data de nascimento.');
+    }
+
+    if (age < minimumAge) {
+      await deleteAccount(client, user.id);
+
+      throw new HttpError(403, 'underage', 'As contas do Aprender são só para maiores de 18 anos. Apagamos o que foi criado. As aulas continuam abertas para você, sem conta.');
+    }
+
+    const now = new Date().toISOString();
+
+    await client.execute({
+      sql: 'UPDATE profiles SET adult_confirmed_at = coalesce(adult_confirmed_at, ?), terms_version = ?, terms_accepted_at = ? WHERE user_id = ?',
+      args: [now, termsVersion, now, user.id],
+    });
+
+    return c.json({ consented: true, termsVersion });
   });
 
   app.put('/me/profile', async (c) => {
@@ -165,17 +203,21 @@ export function profileRoutes() {
 
   /** A copy of everything the site holds about the person, as one JSON file. */
   app.get('/me/export', async (c) => {
-    const user = requireUser(c);
+    const user = requireUser(c, { beforeConsent: true });
     const { db, client } = deps(c);
 
     await rateLimit(client, 'export', user.id, 5, 3600);
 
-    const [profile, notes, comments, progress, photo] = await Promise.all([
+    const [profile, notes, comments, progress, photo, consent] = await Promise.all([
       loadProfile(db, user.id, { loggedIn: true }),
       db.select().from(t.notes).where(eq(t.notes.userId, user.id)),
       db.select().from(t.comments).where(eq(t.comments.authorId, user.id)),
       db.select().from(t.lessonProgress).where(eq(t.lessonProgress.userId, user.id)),
       db.select({ bytes: t.profilePhotos.bytes }).from(t.profilePhotos).where(eq(t.profilePhotos.userId, user.id)),
+      db
+        .select({ adultConfirmedAt: t.profiles.adultConfirmedAt, termsVersion: t.profiles.termsVersion, termsAcceptedAt: t.profiles.termsAcceptedAt })
+        .from(t.profiles)
+        .where(eq(t.profiles.userId, user.id)),
     ]);
 
     c.header('Content-Disposition', 'attachment; filename="meus-dados-aprender.json"');
@@ -183,6 +225,7 @@ export function profileRoutes() {
     return c.json({
       exportedAt: new Date().toISOString(),
       account: { email: user.email, role: user.role },
+      consent: consent[0] ?? null,
       profile,
       photoWebpBase64: photo[0] ? Buffer.from(photo[0].bytes).toString('base64') : null,
       notes: notes.map((note) => ({ ...note, createdAt: iso(note.createdAt), updatedAt: iso(note.updatedAt) })),
@@ -191,13 +234,9 @@ export function profileRoutes() {
     });
   });
 
-  /**
-   * Deletes the account and what hangs from it. Comments that others have
-   * answered stay, without author and with the text replaced, so the
-   * conversation around them still makes sense; the rest are deleted.
-   */
+  /** Deletes the account and what hangs from it (see deleteAccount). */
   app.delete('/me', async (c) => {
-    const user = requireRecentLogin(c);
+    const user = requireRecentLogin(c, { beforeConsent: true });
     const { db, client } = deps(c);
     const input = await readJson(c, deleteInput);
     const [profile] = await db.select({ handle: t.profiles.handle }).from(t.profiles).where(eq(t.profiles.userId, user.id));
@@ -214,28 +253,7 @@ export function profileRoutes() {
       }
     }
 
-    await client.batch(
-      [
-        {
-          sql: `UPDATE comments SET author_id = NULL, body_md = '[removido]', status = 'deleted_by_author', is_pinned = 0, is_official = 0
-                WHERE author_id = ? AND EXISTS (SELECT 1 FROM comments child WHERE child.parent_id = comments.id AND (child.author_id IS NULL OR child.author_id <> ?))`,
-          args: [user.id, user.id],
-        },
-        { sql: 'DELETE FROM comments WHERE author_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM comment_reactions WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM reports WHERE reporter_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM notes WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM lesson_progress WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM profile_links WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM profile_photos WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM user_mutes WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM profiles WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM session WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM account WHERE user_id = ?', args: [user.id] },
-        { sql: 'DELETE FROM user WHERE id = ?', args: [user.id] },
-      ],
-      'write',
-    );
+    await deleteAccount(client, user.id);
 
     return c.json({ deleted: true });
   });

@@ -53,8 +53,12 @@ export async function createHarness() {
     return { status: response.status, data: data as any, headers: response.headers };
   }
 
-  /** Logs in through the real magic-link flow and returns the cookie of that session. */
-  async function signIn(email: string): Promise<string> {
+  /**
+   * Logs in through the real magic-link flow and returns the cookie of that
+   * session. Unless told otherwise it also passes the age and Terms step, as
+   * every account must before using the site.
+   */
+  async function signIn(email: string, options: { consent?: boolean } = {}): Promise<string> {
     const before = mails.length;
     const sent = await request('/api/auth/sign-in/magic-link', { json: { email } });
 
@@ -71,7 +75,17 @@ export async function createHarness() {
       throw new Error(`no session cookie: ${verified.status}`);
     }
 
-    return cookies.join('; ');
+    const cookie = cookies.join('; ');
+
+    if (options.consent ?? true) {
+      const consent = await request('/api/me/consent', { cookie, json: { birthDate: '1990-05-20', acceptTerms: true } });
+
+      if (consent.status !== 200) {
+        throw new Error(`consent failed: ${consent.status}`);
+      }
+    }
+
+    return cookie;
   }
 
   async function setRole(email: string, role: 'student' | 'contributor' | 'admin') {

@@ -44,7 +44,11 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
         <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
       </nav>
       <ThemeToggle />
-      <small class="site-footer__legal">© 2026 Poppy Team</small>
+      <small class="site-footer__legal">
+        © 2026 Poppy Team ·
+        <a href="/privacidade" :hreflang="activeLocale === 'en' ? 'pt-BR' : undefined">{{ copy.privacyLabel }}</a> ·
+        <a href="/termos" :hreflang="activeLocale === 'en' ? 'pt-BR' : undefined">{{ copy.termsLabel }}</a>
+      </small>
     </div>
   </footer>
 </template>

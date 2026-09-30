@@ -57,7 +57,7 @@ export function startSession(): void {
   void refreshMe().then(async (current) => {
     sessionStatus.value = 'ready';
 
-    if (current) {
+    if (current?.consented) {
       await syncProgress().catch(() => undefined);
     }
   });
