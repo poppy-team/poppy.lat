@@ -37,7 +37,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="acct-page" :class="{ 'acct-page--wide': !viewing }">
+  <main id="main-content" tabindex="-1" class="acct-page" :class="{ 'acct-page--wide': !viewing }">
     <template v-if="!accountsEnabled">
       <h1>Perfil</h1>
       <p>As contas ainda não estão ativas neste site.</p>
@@ -75,5 +75,5 @@ onMounted(async () => {
         </ul>
       </section>
     </template>
-  </div>
+  </main>
 </template>

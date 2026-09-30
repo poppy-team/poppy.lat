@@ -9,7 +9,7 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
 </script>
 
 <template>
-  <div id="main-content" class="not-found" tabindex="-1">
+  <main id="main-content" class="not-found" tabindex="-1">
     <p class="eyebrow">404</p>
     <h1 class="page-intro__title">{{ locale === 'en' ? 'This page does not exist.' : 'Esta página não existe.' }}</h1>
     <p class="page-intro__lead">
@@ -27,5 +27,5 @@ const root = computed(() => (locale.value === 'en' ? '/en' : ''));
         {{ locale === 'en' ? 'Projects' : 'Projetos' }}
       </a>
     </p>
-  </div>
+  </main>
 </template>

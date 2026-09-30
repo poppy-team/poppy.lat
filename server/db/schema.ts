@@ -86,6 +86,7 @@ export const profiles = sqliteTable('profiles', {
   isPublic: integer('is_public', { mode: 'boolean' }).notNull().default(false),
   showInRankings: integer('show_in_rankings', { mode: 'boolean' }).notNull().default(false),
   notificationsSeenAt: text('notifications_seen_at'),
+  notificationsClearedAt: text('notifications_cleared_at'),
   createdAt: text('created_at').notNull().default(now),
 });
 
@@ -208,6 +209,36 @@ export const lessonProgress = sqliteTable(
     updatedAt: text('updated_at').notNull().default(now),
   },
   (table) => [primaryKey({ columns: [table.userId, table.lessonId] })],
+);
+
+/** Extra permissions besides the base role. Today only "creator" (see migration 007). */
+export const userGrants = sqliteTable(
+  'user_grants',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    capability: text('capability').notNull(),
+    grantedBy: text('granted_by'),
+    createdAt: text('created_at').notNull().default(now),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.capability] })],
+);
+
+export const notificationState = sqliteTable(
+  'notification_state',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    commentId: text('comment_id')
+      .notNull()
+      .references(() => comments.id, { onDelete: 'cascade' }),
+    isRead: integer('is_read', { mode: 'boolean' }).notNull().default(false),
+    isDeleted: integer('is_deleted', { mode: 'boolean' }).notNull().default(false),
+    updatedAt: text('updated_at').notNull().default(now),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.commentId] })],
 );
 
 export const rateLimits = sqliteTable('rate_limits', {

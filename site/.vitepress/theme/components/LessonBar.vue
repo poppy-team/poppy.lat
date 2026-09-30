@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { onContentUpdated, useRoute } from 'vitepress';
 import { lessonAt, lessonRoute } from '../data/courses';
 import { applyCodeTab, syncCodeWrapButtons, useCourseState } from '../course-state';
@@ -25,6 +25,65 @@ function enhanceCode(): void {
 onMounted(enhanceCode);
 onContentUpdated(enhanceCode);
 watch(() => state.value.preferences.codeWrap, syncCodeWrapButtons);
+
+// Focus mode: a thin line shows how far down the lesson you are, and (if the
+// reader wants it) only the passage near the middle of the screen stays at
+// full strength, like a finger following the line.
+const progress = ref(0);
+let frame = 0;
+let current: Element | undefined;
+
+function markCurrentPassage(): void {
+  const active = state.value.preferences.focus && state.value.preferences.focusRuler;
+  const line = window.innerHeight * 0.4;
+  let next: Element | undefined;
+
+  if (active) {
+    for (const block of document.querySelectorAll('.vp-doc > div > *')) {
+      next = block;
+
+      if (block.getBoundingClientRect().bottom >= line) {
+        break;
+      }
+    }
+  }
+
+  if (next !== current) {
+    current?.classList.remove('is-current');
+    next?.classList.add('is-current');
+    current = next;
+  }
+}
+
+function updateReading(): void {
+  frame = 0;
+
+  const range = document.documentElement.scrollHeight - window.innerHeight;
+
+  progress.value = range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0;
+  markCurrentPassage();
+}
+
+function scheduleReading(): void {
+  if (!frame) {
+    frame = requestAnimationFrame(updateReading);
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', scheduleReading, { passive: true });
+  window.addEventListener('resize', scheduleReading);
+  updateReading();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scheduleReading);
+  window.removeEventListener('resize', scheduleReading);
+  cancelAnimationFrame(frame);
+});
+
+watch(() => [state.value.preferences.focus, state.value.preferences.focusRuler, place.value], scheduleReading, { flush: 'post' });
+onContentUpdated(scheduleReading);
 
 // Remembered for "continue where you left off" on the course landing. Set
 // after mount, once the stored state has been read, so it is not overwritten.
@@ -65,7 +124,7 @@ const moduleProgress = computed(() => ({
 </script>
 
 <template>
-  <div id="main-content" class="lesson-head" tabindex="-1">
+  <div id="main-content" class="lesson-head" role="region" aria-label="Sobre esta lição" tabindex="-1">
     <template v-if="place">
       <p class="lesson-head__kicker">
         <span>Lição {{ place.position }} de {{ place.module.lessons.length }}</span>
@@ -94,13 +153,16 @@ const moduleProgress = computed(() => ({
       </p>
     </template>
 
-    <button
-      v-if="state.preferences.focus"
-      type="button"
-      class="focus-exit"
-      @click="state.preferences.focus = false"
-    >
-      Sair do modo foco
-    </button>
+    <div class="focus-progress" aria-hidden="true"><span :style="{ transform: `scaleX(${progress})` }" /></div>
+
+    <Transition name="focus-tools">
+      <div v-if="state.preferences.focus" class="focus-tools">
+        <button type="button" class="focus-exit" @click="state.preferences.focus = false">Sair do modo foco</button>
+        <label class="focus-ruler">
+          <input v-model="state.preferences.focusRuler" type="checkbox" />
+          Destacar o trecho
+        </label>
+      </div>
+    </Transition>
   </div>
 </template>

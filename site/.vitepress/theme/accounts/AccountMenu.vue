@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vitepress';
-import { accountsEnabled, isStaff } from './api';
+import { accountsEnabled, canEnterPanel, isStaff } from './api';
 import Avatar from './Avatar.vue';
 import NotificationBell from './NotificationBell.vue';
 import { me, sessionStatus, signOut, startSession } from './session';
@@ -61,6 +61,7 @@ function onKeydown(event: KeyboardEvent): void {
         <li><a href="/conta/perfil">Meu perfil</a></li>
         <li><a href="/conta/anotacoes">Minhas anotações</a></li>
         <li v-if="isStaff(me)"><a href="/conta/moderacao">Moderação</a></li>
+        <li v-if="canEnterPanel(me)"><a href="/gestao">Gestão</a></li>
         <li><button type="button" @click="signOut">Sair</button></li>
       </ul>
     </template>

@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { api, ApiError, shortDateTime } from './api';
 import NoteEditor from './NoteEditor.vue';
 import { downloadNote, lessonTitle, type NoteFile } from './notes-export';
+import { countWords } from './note-link';
 
 /**
  * One note being written: title, editor, and saving. It saves by itself a
@@ -217,6 +218,7 @@ const statusText = computed(() => {
   }
 });
 
+const words = computed(() => countWords(body.value));
 const lessonLabel = computed(() => lessonTitle(lessonOfNote.value));
 const lessonHref = computed(() => (lessonOfNote.value ? `/aprender/${lessonOfNote.value}` : null));
 
@@ -247,7 +249,9 @@ function download(): void {
     </div>
 
     <div class="note-workspace__foot">
-      <p class="acct-muted" role="status" aria-live="polite">{{ statusText }}</p>
+      <p class="acct-muted" role="status" aria-live="polite">
+        {{ statusText }}<template v-if="words"> · {{ words }} {{ words === 1 ? 'palavra' : 'palavras' }}</template>
+      </p>
       <div>
         <button type="button" class="acct-btn acct-btn--quiet" :disabled="!body && !title" @click="download">Baixar .md</button>
         <button v-if="id" type="button" class="acct-btn acct-btn--quiet acct-btn--danger-text" @click="remove">Apagar</button>

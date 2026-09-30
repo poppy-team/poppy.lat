@@ -1,0 +1,115 @@
+/*
+ * Colour palettes.
+ *
+ * The site has one structure and several palettes. A palette is only a set of
+ * the semantic tokens from tokens.css, in a light and a dark version, so the
+ * light/dark switch keeps working inside every palette. "Poppy" is the default
+ * and lives in tokens.css; the others are chosen on the reading panel and the
+ * footer and set `data-palette` on <html>.
+ *
+ * Every pair below is checked by tests/palettes.test.ts: body text reaches
+ * 7:1 (AAA) on every surface, secondary and muted text 4.5:1, links 4.5:1 and
+ * the focus colour 3:1. A new palette that misses one fails the test.
+ *
+ * The logo never changes colour. On a dark palette it sits on a small light
+ * plate instead (see .wordmark__logo in custom.css).
+ */
+
+/* ------------------------------------------------------------ Tokyo Night -- */
+
+html[data-palette='tokyo-night'] {
+  --surface: #e1e2e7;
+  --surface-raised: #eceef3;
+  --surface-sunken: #d5d6dd;
+  --text: #343b58;
+  --text-soft: #45507a;
+  --text-muted: #4f5883;
+  --rule: #c4c8da;
+  --rule-strong: #a1a6c5;
+  --accent: #2e7de9;
+  --accent-ink: #2959aa;
+  --feature-plane: #c7d2f0;
+  --feature-ink: #2a4a9a;
+}
+
+html[data-palette='tokyo-night'].dark {
+  --code-bg: var(--surface-sunken);
+  --surface: #1a1b26;
+  --surface-raised: #20222f;
+  --surface-sunken: #15161e;
+  --text: #c0caf5;
+  --text-soft: #a9b1d6;
+  --text-muted: #9299bd;
+  --rule: #2f3350;
+  --rule-strong: #414868;
+  --accent: #7aa2f7;
+  --accent-ink: #9db9fa;
+  --feature-plane: #283052;
+  --feature-ink: #b4c8fb;
+}
+
+/* --------------------------------------------------------------- Gruvbox -- */
+
+html[data-palette='gruvbox'] {
+  --surface: #fbf1c7;
+  --surface-raised: #fdf6d6;
+  --surface-sunken: #f2e5bc;
+  --text: #3c3836;
+  --text-soft: #504945;
+  --text-muted: #665c54;
+  --rule: #d5c4a1;
+  --rule-strong: #bdae93;
+  --accent: #af3a03;
+  --accent-ink: #9d0006;
+  --feature-plane: #e0dfa8;
+  --feature-ink: #5e5a0a;
+}
+
+html[data-palette='gruvbox'].dark {
+  --code-bg: var(--surface-sunken);
+  --surface: #282828;
+  --surface-raised: #32302f;
+  --surface-sunken: #1d2021;
+  --text: #ebdbb2;
+  --text-soft: #d5c4a1;
+  --text-muted: #a89984;
+  --rule: #3c3836;
+  --rule-strong: #504945;
+  --accent: #fe8019;
+  --accent-ink: #fabd2f;
+  --feature-plane: #31351c;
+  --feature-ink: #c4c83a;
+}
+
+/* ------------------------------------------------------------------ Nord -- */
+
+html[data-palette='nord'] {
+  --surface: #eceff4;
+  --surface-raised: #f6f8fb;
+  --surface-sunken: #e3e8ef;
+  --text: #2e3440;
+  --text-soft: #434c5e;
+  --text-muted: #4c566a;
+  --rule: #d8dee9;
+  --rule-strong: #b7c0d1;
+  --accent: #5e81ac;
+  --accent-ink: #35587f;
+  --feature-plane: #d3e2e0;
+  --feature-ink: #2f5b3a;
+}
+
+html[data-palette='nord'].dark {
+  --code-bg: var(--surface-sunken);
+  --surface: #2e3440;
+  --surface-raised: #363d4a;
+  --surface-sunken: #272c36;
+  --text: #eceff4;
+  --text-soft: #d8dee9;
+  --text-muted: #a4aec2;
+  --rule: #434c5e;
+  --rule-strong: #5b667c;
+  --accent: #88c0d0;
+  --accent-ink: #a7d5e2;
+  --feature-plane: #354442;
+  --feature-ink: #b3cf9b;
+}

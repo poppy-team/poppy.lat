@@ -1,10 +1,11 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { deps, readJson, requireCan, requireRecentLogin, type AppEnv, type Ctx, type CurrentUser } from '../context.ts';
-import { can, outranks, type Role } from '../lib/can.ts';
+import { can, outranks, roles, type Role } from '../lib/can.ts';
 import { commentSelect, toViews, type Viewer } from '../lib/comments.ts';
 import { HttpError, iso } from '../lib/http.ts';
 import { rateLimit } from '../lib/rate-limit.ts';
+import { effectiveRole } from '../lib/role-sql.ts';
 import { text } from '../lib/text.ts';
 
 const reason = text(3, 300);
@@ -40,7 +41,7 @@ export function moderationRoutes() {
     const [row] = /^[a-z0-9-]{3,24}$/u.test(clean)
       ? (
           await deps(c).client.execute({
-            sql: `SELECT u.id, u.role, u.banned, p.handle FROM profiles p JOIN user u ON u.id = p.user_id WHERE p.handle = ?`,
+            sql: `SELECT u.id, ${effectiveRole('u')} AS role, u.banned, p.handle FROM profiles p JOIN user u ON u.id = p.user_id WHERE p.handle = ?`,
             args: [clean],
           })
         ).rows
@@ -67,7 +68,7 @@ export function moderationRoutes() {
   async function commentTarget(c: Ctx, id: string) {
     const [row] = (
       await deps(c).client.execute({
-        sql: `SELECT c.id, c.parent_id, c.status, c.author_id, coalesce(u.role, 'student') AS role
+        sql: `SELECT c.id, c.parent_id, c.status, c.author_id, coalesce(${effectiveRole('u')}, 'student') AS role
               FROM comments c LEFT JOIN user u ON u.id = c.author_id WHERE c.id = ?`,
         args: [id],
       })
@@ -394,16 +395,22 @@ export function moderationRoutes() {
 
     const { client } = deps(c);
     const target = await userByHandle(c, c.req.param('handle'));
-    const input = await readJson(c, z.object({ role: z.enum(['student', 'contributor', 'admin']), reason }).strict());
+    const input = await readJson(c, z.object({ role: z.enum(roles), reason }).strict());
 
     // Another admin cannot be changed from here, so an admin can never be
     // demoted by mistake and the last one can never be removed.
     mustOutrank(user, target);
     await rateLimit(client, 'role-change', user.id, 20, 3600);
 
+    // "Creator" is a grant on top of the student role (see migration 007); every other role clears it.
+    const base = input.role === 'creator' ? 'student' : input.role;
+
     await client.batch(
       [
-        { sql: 'UPDATE user SET role = ?, updated_at = ? WHERE id = ?', args: [input.role, Date.now(), target.id] },
+        { sql: 'UPDATE user SET role = ?, updated_at = ? WHERE id = ?', args: [base, Date.now(), target.id] },
+        input.role === 'creator'
+          ? { sql: `INSERT OR IGNORE INTO user_grants (user_id, capability, granted_by) VALUES (?, 'creator', ?)`, args: [target.id, user.id] }
+          : { sql: `DELETE FROM user_grants WHERE user_id = ? AND capability = 'creator'`, args: [target.id] },
         log(user, 'role_change', 'user', target.id, `${target.role} -> ${input.role}: ${input.reason}`),
       ],
       'write',

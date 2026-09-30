@@ -63,7 +63,7 @@ function completedCount(course: Course): number {
 </script>
 
 <template>
-  <div v-if="english" id="main-content" class="courses" tabindex="-1">
+  <main v-if="english" id="main-content" class="courses" tabindex="-1">
     <header class="courses-hero">
       <p class="eyebrow">Learn</p>
       <h1 class="courses-hero__title">Learn Ori and Aipo by building things</h1>
@@ -76,9 +76,9 @@ function completedCount(course: Course): number {
         <span class="courses-resume__title">Aprender</span>
       </a>
     </header>
-  </div>
+  </main>
 
-  <div v-else id="main-content" class="courses" tabindex="-1">
+  <main v-else id="main-content" class="courses" tabindex="-1">
     <header class="courses-hero">
       <p class="eyebrow">Aprender</p>
       <h1 class="courses-hero__title">Aprender Ori e Aipo construindo coisas</h1>
@@ -186,5 +186,5 @@ function completedCount(course: Course): number {
         <li><strong>Sem pressa e sem pontos.</strong> O progresso fica salvo neste navegador, só para você.</li>
       </ul>
     </section>
-  </div>
+  </main>
 </template>
