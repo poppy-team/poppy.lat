@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { accountsEnabled, api, type ProfileView } from './api';
+import { accountsEnabled, api, isStaff, type ProfileView } from './api';
 import ProfileDashboard from './ProfileDashboard.vue';
 import ProfileHead from './ProfileHead.vue';
-import { me, refreshMe, sessionStatus, startSession } from './session';
+import { me, refreshMe, sessionStatus, signOut, startSession } from './session';
 
 /**
  * `/conta/perfil` is your own profile: who you are, a panel to get back to
@@ -64,6 +64,16 @@ onMounted(async () => {
       </ProfileHead>
 
       <ProfileDashboard v-if="!viewing" :profile="profile" />
+
+      <!-- On a phone the account menu of the header is gone; its items live here. -->
+      <section v-if="!viewing" class="acct-card profile-account" aria-labelledby="profile-account">
+        <h2 id="profile-account">Conta</h2>
+        <ul>
+          <li><a href="/conta/anotacoes">Minhas anotações</a></li>
+          <li v-if="isStaff(me)"><a href="/conta/moderacao">Moderação</a></li>
+          <li><button type="button" @click="signOut">Sair</button></li>
+        </ul>
+      </section>
     </template>
   </div>
 </template>

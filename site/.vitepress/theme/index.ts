@@ -7,6 +7,8 @@ import DocsProjectHeader from './components/DocsProjectHeader.vue';
 import DocsBar from './components/DocsBar.vue';
 import LessonBar from './components/LessonBar.vue';
 import LessonFooter from './components/LessonFooter.vue';
+import MobileTabBar from './components/MobileTabBar.vue';
+import NotesFab from './accounts/NotesFab.vue';
 import HomePage from './layouts/HomePage.vue';
 import ProjectPage from './layouts/ProjectPage.vue';
 import DocsLanding from './layouts/DocsLanding.vue';
@@ -15,7 +17,7 @@ import BlogIndex from './layouts/BlogIndex.vue';
 import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
-import { rememberCodeTabs } from './course-state';
+import { rememberCodeTabs, rememberCodeWrap } from './course-state';
 import AccountMenu from './accounts/AccountMenu.vue';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
@@ -35,6 +37,7 @@ import './tokens.css';
 import './custom.css';
 import './courses.css';
 import './accounts/accounts.css';
+import './mobile.css';
 
 const { Layout } = DefaultTheme;
 
@@ -96,6 +99,12 @@ const RoutedLayout = defineComponent({
         'doc-before': () =>
           kind === 'documentation' ? [h(DocsBar)] : kind === 'course' ? [h(LessonBar)] : [],
         'doc-after': () => (kind === 'course' ? [h(LessonFooter)] : []),
+        // Fixed to the viewport: the tab bar of narrow screens on every page,
+        // and on lessons the round button that opens the lesson's notes.
+        'layout-bottom': () => [
+          h(MobileTabBar),
+          ...(kind === 'course' && !lang.value.startsWith('en') ? [h(NotesFab)] : []),
+        ],
         // The default theme's language menu leads to the other locale's home
         // and forgets the choice; the site's own switch goes to the same page
         // and remembers it, so it replaces the menu in the documentation and lesson bars.
@@ -136,5 +145,6 @@ export default {
     app.component('NotesPage', NotesPage);
     app.component('ModerationPage', ModerationPage);
     rememberCodeTabs();
+    rememberCodeWrap();
   },
 } satisfies Theme;

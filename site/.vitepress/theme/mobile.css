@@ -1,0 +1,320 @@
+/*
+ * Narrow screens: the site behaves like an app. Navigation moves to a tab bar
+ * at the bottom, within reach of the thumb, and the lesson notes open from a
+ * round button. Wide screens keep the header links and hide the tab bar.
+ */
+
+:root {
+  --tabbar-h: 3.75rem;
+}
+
+.tabbar {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Lesson notes button and panel, on every screen size.
+   -------------------------------------------------------------------------- */
+
+.notes-fab__button {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.5rem;
+  z-index: 44;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 3.25rem;
+  height: 3.25rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--feature-ink);
+  color: var(--feature-plane);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notes-fab__button:hover {
+  background: color-mix(in srgb, var(--feature-ink) 88%, var(--text));
+}
+
+.notes-fab__button:focus-visible,
+.notes-fab__close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.notes-fab__button[aria-expanded='true'] {
+  display: none;
+}
+
+.notes-fab__sheet {
+  position: fixed;
+  top: var(--vp-nav-height, 4rem);
+  right: 0;
+  bottom: 0;
+  z-index: 46;
+  display: flex;
+  flex-direction: column;
+  width: min(30rem, 100vw);
+  border-left: 1px solid var(--rule-strong);
+  background: var(--surface-raised);
+  box-shadow: -10px 0 30px rgb(0 0 0 / 0.14);
+}
+
+.notes-fab__sheet:focus {
+  outline: none;
+}
+
+.notes-fab__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.75rem var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.notes-fab__head h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.125rem;
+}
+
+.notes-fab__close {
+  min-height: 2.5rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.notes-fab__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3);
+}
+
+.notes-fab__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgb(0 0 0 / 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   Phones.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  body {
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+  }
+
+  /* The tabs replace the header links and the account button. */
+  .site-nav,
+  .account-menu__enter,
+  .account-menu__button {
+    display: none;
+  }
+
+  .tabbar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top: 1px solid var(--rule-strong);
+    background: var(--surface-raised);
+  }
+
+  .tabbar__tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    min-height: 2.75rem;
+    color: var(--text-soft);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .tabbar__tab[aria-current='page'] {
+    color: var(--accent-ink);
+  }
+
+  .tabbar__tab--feature[aria-current='page'] {
+    color: var(--feature-ink);
+  }
+
+  .tabbar__tab[aria-current='page']::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: currentColor;
+  }
+
+  .tabbar__tab:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: -4px;
+  }
+
+  /* The lesson and documentation navbar has little room: the language switch
+     moves into its menu (the hamburger), where it is one tap away. */
+  .VPNavBar .language-switch {
+    display: none;
+  }
+
+  .VPNavBar .account-menu {
+    margin-inline: 0 0.25rem;
+  }
+
+  /* The header keeps only the brand, the bell and the language. */
+  .site-header__inner {
+    flex-wrap: nowrap;
+  }
+
+  .notes-fab__button {
+    bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 0.75rem);
+    padding: 0;
+    justify-content: center;
+  }
+
+  .notes-fab__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* The sheet rises from the bottom and covers the tab bar. */
+  .notes-fab__sheet {
+    top: auto;
+    left: 0;
+    z-index: 60;
+    width: auto;
+    height: min(88dvh, 44rem);
+    border-left: 0;
+    border-top: 1px solid var(--rule-strong);
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 -10px 30px rgb(0 0 0 / 0.2);
+  }
+
+  .notes-fab__backdrop {
+    z-index: 58;
+  }
+
+  html[data-notes-open] {
+    overflow: hidden;
+  }
+
+  /* The lesson bar: the trail shrinks to one way back. */
+  .lesson-bar__root {
+    display: none;
+  }
+
+  .lesson-bar__up {
+    display: inline;
+  }
+
+  .reading-tools__panel {
+    right: auto;
+    left: 0;
+  }
+
+  .tool-btn {
+    min-height: 2.75rem;
+  }
+}
+
+/* The account items that the header menu offers on wide screens. */
+.profile-account {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .profile-account {
+    display: block;
+    margin-top: var(--space-3);
+  }
+
+  .profile-account h2 {
+    margin-top: 0;
+  }
+
+  .profile-account ul {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .profile-account a,
+  .profile-account button {
+    display: block;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0;
+    border: 0;
+    background: none;
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .profile-account li + li {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc div[class*='language-'] > .code-wrap {
+    transition: none;
+  }
+}
+
+/* Between phone and desktop widths the navbar of lessons and documentation
+   runs out of room: the search shrinks to its icon so nothing spills sideways. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .VPNavBarSearch .DocSearch-Button-Placeholder,
+  .VPNavBarSearch .DocSearch-Button-Keys {
+    display: none;
+  }
+
+  .VPNavBarSearch .DocSearch-Button {
+    width: 2.5rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .VPNavBar .account-menu {
+    margin-inline: 0.25rem;
+  }
+
+  .VPNavBar .language-switch {
+    margin-inline-start: 0.25rem;
+  }
+}

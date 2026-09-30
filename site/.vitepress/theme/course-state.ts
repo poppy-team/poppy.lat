@@ -1,4 +1,4 @@
-import { getCurrentInstance, onMounted, ref, watch } from 'vue';
+import { effectScope, getCurrentInstance, onMounted, ref, watch } from 'vue';
 
 /**
  * Course progress and reading preferences, kept in the reader's browser.
@@ -20,6 +20,8 @@ export interface ReadingPreferences {
   spacing: Spacing;
   font: ReadingFont;
   focus: boolean;
+  /** Wrap long lines in code blocks instead of scrolling sideways. */
+  codeWrap: boolean;
 }
 
 interface CourseState {
@@ -32,7 +34,7 @@ interface CourseState {
 
 const defaults: CourseState = {
   completed: [],
-  preferences: { size: 'normal', spacing: 'normal', font: 'default', focus: false },
+  preferences: { size: 'normal', spacing: 'normal', font: 'default', focus: false, codeWrap: false },
 };
 
 function load(): CourseState {
@@ -71,8 +73,15 @@ function loadOnce(): void {
 
   loaded = true;
   courseState.value = load();
-  watch(courseState, (state) => save(state), { deep: true });
-  watch(() => courseState.value.preferences, applyPreferences, { deep: true, immediate: true });
+
+  // The watchers live in a scope of their own. Created inside a hook they
+  // would belong to whichever component mounted first and stop when that
+  // component left the page, so after the first client-side navigation
+  // nothing was saved and the reading preferences did nothing.
+  effectScope(true).run(() => {
+    watch(courseState, (state) => save(state), { deep: true });
+    watch(() => courseState.value.preferences, applyPreferences, { deep: true, immediate: true });
+  });
 }
 
 /**
@@ -106,6 +115,7 @@ export function applyPreferences(preferences: ReadingPreferences): void {
   root.readingSpacing = preferences.spacing;
   root.readingFont = preferences.font;
   root.readingFocus = String(preferences.focus);
+  root.codeWrap = String(preferences.codeWrap);
 }
 
 export function isCompleted(route: string): boolean {
@@ -154,4 +164,46 @@ export function applyCodeTab(): void {
       label.click();
     }
   }
+}
+
+const wrapLabel = 'Quebrar linhas longas do código';
+
+/**
+ * Gives every code block of the page a button that wraps long lines, and
+ * keeps the buttons in step with the saved choice. One choice serves every
+ * block: a reader who wraps one wants them all wrapped, on every lesson.
+ */
+export function syncCodeWrapButtons(): void {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  const pressed = String(courseState.value.preferences.codeWrap);
+
+  for (const block of document.querySelectorAll<HTMLElement>('.vp-doc div[class*="language-"]')) {
+    let button = block.querySelector<HTMLButtonElement>(':scope > .code-wrap');
+
+    if (!button) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-wrap';
+      button.title = wrapLabel;
+      button.setAttribute('aria-label', wrapLabel);
+      block.append(button);
+    }
+
+    button.setAttribute('aria-pressed', pressed);
+  }
+}
+
+export function rememberCodeWrap(): void {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('.code-wrap')) {
+      courseState.value.preferences.codeWrap = !courseState.value.preferences.codeWrap;
+    }
+  });
 }
