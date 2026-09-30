@@ -19,14 +19,20 @@
     "test:e2e": "playwright test",
     "screenshots": "playwright test --grep @capture",
     "derive:allowlist": "node --experimental-strip-types scripts/derive-allowlist.ts",
-    "map:upstream": "node --experimental-strip-types scripts/map-upstream-docs.ts"
+    "map:upstream": "node --experimental-strip-types scripts/map-upstream-docs.ts",
+    "api": "node --experimental-strip-types server/dev.ts",
+    "db:migrate": "node --experimental-strip-types scripts/db-migrate.ts"
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "@hono/node-server": "^2.1.1",
     "@playwright/test": "^1.63.0",
+    "@types/markdown-it": "^14.2.0",
     "@vue/test-utils": "2.5.1",
+    "drizzle-kit": "^0.31.11",
     "typescript": "6.0.3",
     "vitepress": "1.6.4",
     "vitest": "5.0.2",
@@ -34,6 +40,22 @@
     "vue-tsc": "3.3.11"
   },
   "dependencies": {
-    "@poppy/project-data": "workspace:*"
+    "@better-auth/drizzle-adapter": "^1.7.6",
+    "@libsql/client": "^0.18.0",
+    "@poppy/project-data": "workspace:*",
+    "@tiptap/core": "^3.31.3",
+    "@tiptap/markdown": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
+    "better-auth": "^1.7.6",
+    "dompurify": "^3.4.16",
+    "drizzle-orm": "^0.45.3",
+    "emoji-picker-element": "^1.29.1",
+    "emoji-picker-element-data": "^1.8.0",
+    "fflate": "^0.8.3",
+    "hono": "^4.13.10",
+    "markdown-it": "^15.0.2",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.5"
   }
 }

@@ -5,6 +5,8 @@ import DefaultTheme from 'vitepress/theme';
 import ProjectSwitcher from './components/ProjectSwitcher.vue';
 import DocsProjectHeader from './components/DocsProjectHeader.vue';
 import DocsBar from './components/DocsBar.vue';
+import LessonBar from './components/LessonBar.vue';
+import LessonFooter from './components/LessonFooter.vue';
 import HomePage from './layouts/HomePage.vue';
 import ProjectPage from './layouts/ProjectPage.vue';
 import DocsLanding from './layouts/DocsLanding.vue';
@@ -12,6 +14,13 @@ import DocsCategoryIndex from './layouts/DocsCategoryIndex.vue';
 import BlogIndex from './layouts/BlogIndex.vue';
 import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
+import CoursesLanding from './layouts/CoursesLanding.vue';
+import { rememberCodeTabs } from './course-state';
+import AccountMenu from './accounts/AccountMenu.vue';
+import LoginPage from './accounts/LoginPage.vue';
+import ProfilePage from './accounts/ProfilePage.vue';
+import NotesPage from './accounts/NotesPage.vue';
+import ModerationPage from './accounts/ModerationPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import LanguageSwitch from './components/LanguageSwitch.vue';
 import SiteFooter from './components/SiteFooter.vue';
@@ -19,8 +28,12 @@ import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
 import '@fontsource-variable/inter/index.css';
 import '@fontsource-variable/jetbrains-mono/index.css';
+import '@fontsource/atkinson-hyperlegible/400.css';
+import '@fontsource/atkinson-hyperlegible/700.css';
 import './tokens.css';
 import './custom.css';
+import './courses.css';
+import './accounts/accounts.css';
 
 const { Layout } = DefaultTheme;
 
@@ -37,7 +50,12 @@ const { Layout } = DefaultTheme;
  * Mirrors the page-kind decision made in the site config, so the marker stays
  * correct after client-side navigation.
  */
-function pageKind(relativePath: string): 'documentation' | 'editorial' {
+function pageKind(relativePath: string): 'documentation' | 'course' | 'editorial' {
+  // A lesson is any page under `aprender/` other than the course landing.
+  if (/^aprender\/(?!index\.md$)/u.test(relativePath)) {
+    return 'course';
+  }
+
   // A documentation page is any page under `<project>/docs/`, in either locale.
   return /(^|\/)(en\/)?(ori|aipo|oride|prumo)\/docs\//u.test(relativePath)
     ? 'documentation'
@@ -74,13 +92,24 @@ const RoutedLayout = defineComponent({
         // Imported pages get the project bar at the top of the content column,
         // so it lines up with the text instead of spanning the sidebar. The
         // landing and category pages render it themselves.
-        'doc-before': () => (kind === 'documentation' ? [h(DocsBar)] : []),
+        'doc-before': () =>
+          kind === 'documentation' ? [h(DocsBar)] : kind === 'course' ? [h(LessonBar)] : [],
+        'doc-after': () => (kind === 'course' ? [h(LessonFooter)] : []),
         // The default theme's language menu leads to the other locale's home
         // and forgets the choice; the site's own switch goes to the same page
-        // and remembers it, so it replaces the menu in the documentation bar.
-        'nav-bar-content-after': () => (kind === 'documentation' ? [h(LanguageSwitch)] : []),
+        // and remembers it, so it replaces the menu in the documentation and lesson bars.
+        // The header of editorial pages carries the account menu and the switch itself.
+        'nav-bar-content-after': () =>
+          kind === 'documentation' || kind === 'course'
+            ? [...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []), h(LanguageSwitch)]
+            : [],
         'nav-screen-content-after': () =>
-          kind === 'documentation' ? [h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)])] : [],
+          kind === 'documentation' || kind === 'course'
+            ? [
+                ...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []),
+                h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)]),
+              ]
+            : [],
       });
     };
   },
@@ -99,5 +128,11 @@ export default {
     app.component('blog-index', BlogIndex);
     app.component('article', ArticlePage);
     app.component('not-found', NotFound);
+    app.component('courses-landing', CoursesLanding);
+    app.component('LoginPage', LoginPage);
+    app.component('ProfilePage', ProfilePage);
+    app.component('NotesPage', NotesPage);
+    app.component('ModerationPage', ModerationPage);
+    rememberCodeTabs();
   },
 } satisfies Theme;

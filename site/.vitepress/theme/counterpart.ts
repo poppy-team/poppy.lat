@@ -73,6 +73,17 @@ export function useCounterpart() {
       return locale.value === 'en' ? '/' : '/en/';
     }
 
+    // The learning area is written in Portuguese first; the English route is a
+    // single page that says so, and it links back to the Portuguese landing.
+    // Account pages exist only in Portuguese, so they lead to that same notice.
+    if (/^\/?(aprender|learn)\//u.test(stripped)) {
+      return locale.value === 'en' ? '/aprender/' : '/en/learn/';
+    }
+
+    if (/^\/?conta\//u.test(stripped)) {
+      return '/en/learn/';
+    }
+
     // A project's editorial page carries `project` in its front matter too, so
     // the path decides: only pages under `<project>/docs/` are documentation.
     const isDocumentationPage = /^(ori|aipo|oride|prumo)\/docs\//u.test(stripped);

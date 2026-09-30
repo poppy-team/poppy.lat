@@ -4,6 +4,7 @@ export interface NavigationCopy {
   home: string;
   projects: string;
   docs: string;
+  learn: string;
   blog: string;
   contact: string;
 }
@@ -29,6 +30,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       home: 'Início',
       projects: 'Projetos',
       docs: 'Documentação',
+      learn: 'Aprender',
       blog: 'Caderno',
       contact: 'Contato',
     },
@@ -46,6 +48,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       home: 'Home',
       projects: 'Projects',
       docs: 'Documentation',
+      learn: 'Learn',
       blog: 'Journal',
       contact: 'Contact',
     },

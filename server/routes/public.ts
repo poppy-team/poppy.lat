@@ -1,0 +1,50 @@
+import { eq } from 'drizzle-orm';
+import { Hono } from 'hono';
+import { deps, requireUser, type AppEnv } from '../context.ts';
+import * as t from '../db/schema.ts';
+import { HttpError } from '../lib/http.ts';
+import { loadProfile } from '../lib/profile.ts';
+
+export function publicRoutes() {
+  const app = new Hono<AppEnv>();
+
+  /** A public profile. A private one answers exactly like one that does not exist. */
+  app.get('/u/:handle', async (c) => {
+    const { db } = deps(c);
+    const viewer = c.get('user');
+    const [row] = await db
+      .select({ userId: t.profiles.userId, isPublic: t.profiles.isPublic })
+      .from(t.profiles)
+      .where(eq(t.profiles.handle, c.req.param('handle').toLowerCase()));
+
+    if (!row || (!row.isPublic && row.userId !== viewer?.id)) {
+      throw new HttpError(404, 'not_found', 'Perfil não encontrado.');
+    }
+
+    return c.json({ profile: await loadProfile(db, row.userId, { loggedIn: Boolean(viewer) }) });
+  });
+
+  /** Photos are only for people who are logged in; the address holds a random key. */
+  app.get('/avatar/:key', async (c) => {
+    requireUser(c);
+
+    const key = c.req.param('key');
+    const [photo] = /^[a-f0-9]{32}$/u.test(key)
+      ? await deps(c).db.select({ bytes: t.profilePhotos.bytes }).from(t.profilePhotos).where(eq(t.profilePhotos.photoKey, key))
+      : [];
+
+    if (!photo) {
+      throw new HttpError(404, 'not_found', 'Foto não encontrada.');
+    }
+
+    return new Response(new Uint8Array(photo.bytes), {
+      headers: {
+        'Content-Type': 'image/webp',
+        'Cache-Control': 'private, max-age=31536000, immutable',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  });
+
+  return app;
+}

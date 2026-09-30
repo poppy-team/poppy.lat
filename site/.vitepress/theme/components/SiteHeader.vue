@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
+import AccountMenu from '../accounts/AccountMenu.vue';
 import LanguageSwitch from './LanguageSwitch.vue';
 
 const props = defineProps<{
@@ -21,6 +22,10 @@ const section = computed(() => {
     return 'projects';
   }
 
+  if (path.startsWith('/aprender') || path.startsWith('/learn')) {
+    return 'learn';
+  }
+
   if (path.startsWith('/blog')) {
     return 'blog';
   }
@@ -31,6 +36,11 @@ const section = computed(() => {
 const links = computed(() => [
   { key: 'projects', href: `${root.value}/#projects`, label: copy.value.navigation.projects },
   { key: 'docs', href: `${root.value}/#docs`, label: copy.value.navigation.docs },
+  {
+    key: 'learn',
+    href: props.locale === 'en' ? '/en/learn/' : '/aprender/',
+    label: copy.value.navigation.learn,
+  },
   { key: 'blog', href: `${root.value}/blog/`, label: copy.value.navigation.blog },
   { key: 'contact', href: 'mailto:mail@poppy.lat', label: copy.value.navigation.contact },
 ]);
@@ -71,6 +81,7 @@ const links = computed(() => [
         </a>
       </nav>
 
+      <AccountMenu v-if="locale !== 'en'" />
       <LanguageSwitch />
     </div>
   </header>
