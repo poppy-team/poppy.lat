@@ -44,8 +44,8 @@ const { Layout } = DefaultTheme;
  * correct after client-side navigation.
  */
 function pageKind(relativePath: string): 'documentation' | 'course' | 'editorial' {
-  // A lesson is any page under `cursos/` other than the course landing.
-  if (/^cursos\/(?!index\.md$)/u.test(relativePath)) {
+  // A lesson is any page under `aprender/` other than the course landing.
+  if (/^aprender\/(?!index\.md$)/u.test(relativePath)) {
     return 'course';
   }
 

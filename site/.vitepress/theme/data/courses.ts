@@ -43,7 +43,7 @@ export interface CourseTrack {
   courses: Course[];
 }
 
-export const coursesRoot = '/cursos';
+export const coursesRoot = '/aprender';
 
 export const courseTracks: CourseTrack[] = [
   {

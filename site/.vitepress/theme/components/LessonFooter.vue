@@ -19,7 +19,7 @@ const current = computed(() =>
 const done = computed(() => isCompleted(current.value));
 
 const feedbackHref = computed(() => {
-  const title = `Curso: ${place.value?.lesson.title ?? ''}`;
+  const title = `Aprender: ${place.value?.lesson.title ?? ''}`;
   const body = `Lição: https://poppy.lat${current.value}\n\nO que ficou confuso ou pode melhorar?\n\n`;
 
   return `https://github.com/poppy-team/poppy.lat/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;

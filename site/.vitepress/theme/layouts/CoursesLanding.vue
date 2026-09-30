@@ -59,22 +59,22 @@ function completedCount(course: Course): number {
 <template>
   <div v-if="english" id="main-content" class="courses" tabindex="-1">
     <header class="courses-hero">
-      <p class="eyebrow">Courses</p>
+      <p class="eyebrow">Learn</p>
       <h1 class="courses-hero__title">Learn Ori and Aipo by building things</h1>
       <p class="courses-hero__summary">
-        Short lessons, one idea at a time, each ending with a project that works. The courses are being written in
+        Short lessons, one idea at a time, each ending with a project that works. The lessons are being written in
         Portuguese first; English versions will follow one full module at a time.
       </p>
-      <a class="courses-resume" href="/cursos/" lang="pt-BR">
-        <span class="courses-resume__label">Open the courses in Portuguese</span>
-        <span class="courses-resume__title">Cursos</span>
+      <a class="courses-resume" href="/aprender/" lang="pt-BR">
+        <span class="courses-resume__label">Open the lessons in Portuguese</span>
+        <span class="courses-resume__title">Aprender</span>
       </a>
     </header>
   </div>
 
   <div v-else id="main-content" class="courses" tabindex="-1">
     <header class="courses-hero">
-      <p class="eyebrow">Cursos</p>
+      <p class="eyebrow">Aprender</p>
       <h1 class="courses-hero__title">Aprender Ori e Aipo construindo coisas</h1>
       <p class="courses-hero__summary">
         Lições curtas, uma ideia por vez, sempre com um projeto que funciona no fim. Escritas para quem tem TDAH,

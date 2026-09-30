@@ -68,10 +68,10 @@ const counterpartHref = computed(() => {
     return locale.value === 'en' ? '/' : '/en/';
   }
 
-  // The courses are written in Portuguese first; the English route is a
+  // The learning area is written in Portuguese first; the English route is a
   // single page that says so, and it links back to the Portuguese landing.
-  if (/^\/?(cursos|courses)\//u.test(stripped)) {
-    return locale.value === 'en' ? '/cursos/' : '/en/courses/';
+  if (/^\/?(aprender|learn)\//u.test(stripped)) {
+    return locale.value === 'en' ? '/aprender/' : '/en/learn/';
   }
 
   const isDocumentationPage = typeof frontmatter.value.project === 'string';

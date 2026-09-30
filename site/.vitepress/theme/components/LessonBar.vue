@@ -51,7 +51,7 @@ const moduleProgress = computed(() => {
 <template>
   <div id="main-content" class="lesson-bar" tabindex="-1">
     <nav v-if="place" class="lesson-bar__trail" aria-label="Onde você está">
-      <a :href="`${coursesRoot}/`">Cursos</a>
+      <a :href="`${coursesRoot}/`">Aprender</a>
       <span aria-hidden="true">›</span>
       <a :href="`${coursesRoot}/#${place.course.slug}`">{{ place.course.title }}</a>
       <span aria-hidden="true">›</span>
