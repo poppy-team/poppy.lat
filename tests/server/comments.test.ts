@@ -253,6 +253,9 @@ describe('moderação', () => {
     expect((await h.request(`/api/mod/comments/${theirs.id}/hide`, { json: { reason: 'teste' }, cookie: mod })).status).toBe(403);
     expect((await h.request(`/api/mod/comments/${adminOwn.id}/hide`, { json: { reason: 'teste' }, cookie: mod })).status).toBe(403);
     expect((await h.request(`/api/mod/comments/${theirs.id}/hide`, { json: { reason: 'teste' }, cookie: admin })).status).toBe(200);
+    expect((await h.request(`/api/mod/comments/${adminOwn.id}/pin`, { json: { value: true }, cookie: mod })).status).toBe(403);
+    expect((await h.request(`/api/mod/comments/${adminOwn.id}/official`, { json: { value: true }, cookie: mod })).status).toBe(403);
+    expect((await h.request(`/api/mod/comments/${adminOwn.id}/pin`, { json: { value: true }, cookie: admin })).status).toBe(200);
   });
 
   it('fixar e resposta oficial', async () => {

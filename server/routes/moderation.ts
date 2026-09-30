@@ -207,6 +207,10 @@ export function moderationRoutes() {
     const target = await commentTarget(c, c.req.param('id'));
     const input = await readJson(c, z.object({ value: z.boolean() }).strict());
 
+    if (target.authorId !== user.id) {
+      mayActOnComment(user, target.role, target.authorId);
+    }
+
     if (target.parentId !== null || target.status !== 'visible') {
       throw new HttpError(422, 'not_pinnable', 'Só comentários principais e visíveis podem ser fixados.');
     }
@@ -226,6 +230,10 @@ export function moderationRoutes() {
     const user = requireCan(c, 'comment:official');
     const target = await commentTarget(c, c.req.param('id'));
     const input = await readJson(c, z.object({ value: z.boolean() }).strict());
+
+    if (target.authorId !== user.id) {
+      mayActOnComment(user, target.role, target.authorId);
+    }
 
     if (target.status !== 'visible' || (input.value && target.role === 'student')) {
       throw new HttpError(422, 'not_official', 'Só o comentário visível de quem é da equipe pode ser marcado como resposta oficial.');

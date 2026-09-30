@@ -16,6 +16,8 @@ export const sessionDays = 30;
  */
 export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
   const { db, env, mailer } = deps;
+  // Secure cookies follow the address, not NODE_ENV, so an https site never sends them in the clear.
+  const secure = env.SITE_URL.startsWith('https://');
   const github =
     env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET
       ? { github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET } }
@@ -44,8 +46,8 @@ export function createAuth(deps: { db: Db; env: Env; mailer: Mailer }) {
     account: { accountLinking: { enabled: true, trustedProviders: ['github'] } },
     socialProviders: github,
     advanced: {
-      useSecureCookies: env.NODE_ENV === 'production',
-      defaultCookieAttributes: { httpOnly: true, sameSite: 'lax', secure: env.NODE_ENV === 'production' },
+      useSecureCookies: secure,
+      defaultCookieAttributes: { httpOnly: true, sameSite: 'lax', secure },
       ipAddress: { ipAddressHeaders: ['x-real-ip', 'x-forwarded-for'] },
     },
     databaseHooks: {
