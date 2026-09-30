@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/guides/pt/themes.md"
 sourceBlob: "6cae80573e8f8d72ccc04835af23dfb1cd3093a3"
-revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
+revision: "1cd515630b8ceb57777d466bee4970fe7c2e30e0"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/guides/pt/themes.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `6cae80573e8f8d72ccc04835af23dfb1cd3093a3`.
+Fixado na revisão `1cd515630b8ceb57777d466bee4970fe7c2e30e0`, blob `6cae80573e8f8d72ccc04835af23dfb1cd3093a3`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Guia de Desenvolvimento de Temas no Oride
@@ -114,7 +114,7 @@ quote = "#565f89"
 | `heading` | Títulos Markdown | `# Título`, `## Subtítulo` |
 | `emphasis` | Itálico Markdown | `*itálico*` |
 | `strong` | Negrito Markdown | `**negrito**` |
-| `link` | Links Markdown | `[texto](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/pt/url)` |
+| `link` | Links Markdown | `[texto](https://github.com/poppy-team/oride/blob/1cd515630b8ceb57777d466bee4970fe7c2e30e0/docs/guides/pt/url)` |
 | `code` | Código inline em Markdown | `` `código` `` |
 | `list_marker` | Marcadores de listas Markdown | `-`, `*`, `1.` |
 | `quote` | Citações Markdown | `> citação em bloco` |

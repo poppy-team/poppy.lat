@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/guides/pt/guia-de-uso.md"
 sourceBlob: "a036731bf3aa33027b2e1de7744ef7750c3f3b74"
-revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
+revision: "1cd515630b8ceb57777d466bee4970fe7c2e30e0"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/guides/pt/guia-de-uso.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `a036731bf3aa33027b2e1de7744ef7750c3f3b74`.
+Fixado na revisão `1cd515630b8ceb57777d466bee4970fe7c2e30e0`, blob `a036731bf3aa33027b2e1de7744ef7750c3f3b74`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Manual do Usuário — Oride
@@ -54,7 +54,7 @@ oride --version
 
 ## 2. Layout da Interface
 
-![Interface do Oride](https://github.com/poppy-team/oride/blob/92a5262d466a8af9527cc49916ae438e217bb0e9/docs/guides/assets/oride-interface.png)
+![Interface do Oride](https://github.com/poppy-team/oride/blob/1cd515630b8ceb57777d466bee4970fe7c2e30e0/docs/guides/assets/oride-interface.png)
 
 A interface do Oride foi desenhada para eficiência máxima no terminal, aproveitando a biblioteca Ratatui:
 

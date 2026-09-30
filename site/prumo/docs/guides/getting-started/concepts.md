@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/getting-started/concepts.md"
 sourceBlob: "c2bd213a172779d82160bdcca3996588a19585db"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/getting-started/concepts.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `c2bd213a172779d82160bdcca3996588a19585db`.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `c2bd213a172779d82160bdcca3996588a19585db`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Conceitos Fundamentais e Modelo Mental

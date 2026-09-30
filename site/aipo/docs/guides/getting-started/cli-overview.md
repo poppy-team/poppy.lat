@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/getting-started/cli-overview.md"
 sourceBlob: "0effa09061283d39f07aaf7f790d8daa64c82b43"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/getting-started/cli-overview.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `0effa09061283d39f07aaf7f790d8daa64c82b43`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `0effa09061283d39f07aaf7f790d8daa64c82b43`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Guia do Utilitário de Linha de Comando (`aipo`)
@@ -113,5 +113,5 @@ aipo package cache prune .aipo/cache --lock aipo.lock --apply
 ```
 
 ::: tip 📖 Guia Aprofundado de Ferramentas
-Para mais detalhes sobre flags de compilação, WebAssembly, integração contínua e exemplos práticos, consulte o [Guia Completo de Ferramentas do Desenvolvedor](https://github.com/poppy-team/aipo-lang/blob/7d51026653301c3048a41e2cf4026e3429c3a3b9/docs/tools/).
+Para mais detalhes sobre flags de compilação, WebAssembly, integração contínua e exemplos práticos, consulte o [Guia Completo de Ferramentas do Desenvolvedor](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/tools/).
 :::

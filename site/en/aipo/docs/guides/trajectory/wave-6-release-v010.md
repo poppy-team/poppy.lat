@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/trajectory/wave-6-release-v010.md"
 sourceBlob: "62c1deff1c694880c64c41b446f5ef628277b5ec"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/trajectory/wave-6-release-v010.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `62c1deff1c694880c64c41b446f5ef628277b5ec`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `62c1deff1c694880c64c41b446f5ef628277b5ec`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Wave 6 — Towards Language Release v0.1.0

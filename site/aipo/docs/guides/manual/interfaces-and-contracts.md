@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/manual/interfaces-and-contracts.md"
 sourceBlob: "89e0538aa6264692ad914570849e67a9572acc2f"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/manual/interfaces-and-contracts.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `89e0538aa6264692ad914570849e67a9572acc2f`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `89e0538aa6264692ad914570849e67a9572acc2f`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Interfaces & Contratos

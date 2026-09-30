@@ -35,9 +35,9 @@ export interface VendoredDocSource {
 }
 
 export const ORI_REVISION = '42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f';
-export const AIPO_REVISION = '7d51026653301c3048a41e2cf4026e3429c3a3b9';
-export const ORIDE_REVISION = '92a5262d466a8af9527cc49916ae438e217bb0e9';
-export const PRUMO_REVISION = '0f643d1c4fa8ac789cee878fbcd035f214f4eb4a';
+export const AIPO_REVISION = '21ad042c30a8e684be68da712ceb9e56eb9c7774';
+export const ORIDE_REVISION = '1cd515630b8ceb57777d466bee4970fe7c2e30e0';
+export const PRUMO_REVISION = 'e91694d3959be1ed92757b34063efe0b2191821f';
 
 export const vendoredDocs: VendoredDocSource[] = [
   {
@@ -356,6 +356,8 @@ export const vendoredDocs: VendoredDocSource[] = [
         category: 'development',
         sourcePath: 'docs/ui-ux/keymap.md',
         sourceBlob: 'f16663fac7fadb5278b214dcaa607d29ef93fa2f',
+        englishSourcePath: 'docs/en/ui-ux/keymap.md',
+        englishSourceBlob: 'f914eaff26d1c4b3967ccf42214a513230975465',
         title: { 'pt-BR': 'Mapa de teclas', en: 'Key map' },
         description: {
           'pt-BR': 'Atalhos padrão e como remapeá-los.',
@@ -367,6 +369,8 @@ export const vendoredDocs: VendoredDocSource[] = [
         category: 'development',
         sourcePath: 'docs/ui-ux/layout.md',
         sourceBlob: '02b6110a00098b491a1620a9fbd5b78ad69e7b11',
+        englishSourcePath: 'docs/en/ui-ux/layout.md',
+        englishSourceBlob: '85a26df4efa5355e749c1d3bd71645730d12fde9',
         title: { 'pt-BR': 'Layout', en: 'Layout' },
         description: {
           'pt-BR': 'Como a superfície do editor se organiza em painéis.',

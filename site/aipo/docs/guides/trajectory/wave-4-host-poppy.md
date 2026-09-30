@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/trajectory/wave-4-host-poppy.md"
 sourceBlob: "b46a76187c729be450312416cc45d9925774d68d"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/trajectory/wave-4-host-poppy.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `b46a76187c729be450312416cc45d9925774d68d`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `b46a76187c729be450312416cc45d9925774d68d`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Wave 4 — Host ABI, Sandboxing & Poppy Engine

@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/governance/standards-and-testing.md"
 sourceBlob: "f0d33115348a86cb500b8a1c88bd6f0943688094"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/governance/standards-and-testing.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `f0d33115348a86cb500b8a1c88bd6f0943688094`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `f0d33115348a86cb500b8a1c88bd6f0943688094`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Code Standards & Testing Strategy

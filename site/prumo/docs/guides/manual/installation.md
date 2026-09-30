@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/manual/installation.md"
 sourceBlob: "1ba1749b36a918f2873f12da5e1e82e745a7c71c"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/manual/installation.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `1ba1749b36a918f2873f12da5e1e82e745a7c71c`.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `1ba1749b36a918f2873f12da5e1e82e745a7c71c`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Manual de Instalação
@@ -149,7 +149,7 @@ prumo-agent doctor ./my-project
 
 ## Depreciação e Aposentadoria do Python (ADR 002)
 
-O runtime e os testes em Python v0.3 (legacy) foram completamente removidos (consulte [ADR 002](https://github.com/poppy-team/prumo/blob/0f643d1c4fa8ac789cee878fbcd035f214f4eb4a/docs/adr/002-retire-python-runtime.md)). O Prumo v0.6 é distribuído exclusivamente em binário único compilado em Go, sem dependência de interpretadores externos, ambientes virtuais ou gerenciadores de pacotes Python.
+O runtime e os testes em Python v0.3 (legacy) foram completamente removidos (consulte [ADR 002](https://github.com/poppy-team/prumo/blob/e91694d3959be1ed92757b34063efe0b2191821f/docs/adr/002-retire-python-runtime.md)). O Prumo v0.6 é distribuído exclusivamente em binário único compilado em Go, sem dependência de interpretadores externos, ambientes virtuais ou gerenciadores de pacotes Python.
 
 ## Problemas comuns
 

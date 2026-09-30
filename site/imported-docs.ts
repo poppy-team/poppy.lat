@@ -996,11 +996,115 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "locale": "pt-BR"
     },
     {
+      "route": "/en/aipo/docs/development/adp/ADP-001-byte-and-core-types-as-values/",
+      "slug": "ADP-001-byte-and-core-types-as-values",
+      "category": "development",
+      "title": "ADP 001 Byte And Core Types As Values",
+      "description": "Aipo — ADP 001 Byte And Core Types As Values",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-002-construction-hooks-and-runtime-contracts/",
+      "slug": "ADP-002-construction-hooks-and-runtime-contracts",
+      "category": "development",
+      "title": "ADP 002 Construction Hooks And Runtime Contracts",
+      "description": "Aipo — ADP 002 Construction Hooks And Runtime Contracts",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-003-execution-budgets/",
+      "slug": "ADP-003-execution-budgets",
+      "category": "development",
+      "title": "ADP 003 Execution Budgets",
+      "description": "Aipo — ADP 003 Execution Budgets",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-004-unicode-identifier-policy/",
+      "slug": "ADP-004-unicode-identifier-policy",
+      "category": "development",
+      "title": "ADP 004 Unicode Identifier Policy",
+      "description": "Aipo — ADP 004 Unicode Identifier Policy",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-005-parser-recursion-bounds/",
+      "slug": "ADP-005-parser-recursion-bounds",
+      "category": "development",
+      "title": "ADP 005 Parser Recursion Bounds",
+      "description": "Aipo — ADP 005 Parser Recursion Bounds",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-006-wave3-wave4-open-decisions/",
+      "slug": "ADP-006-wave3-wave4-open-decisions",
+      "category": "development",
+      "title": "ADP 006 Wave3 Wave4 Open Decisions",
+      "description": "Aipo — ADP 006 Wave3 Wave4 Open Decisions",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-007-package-identity-and-distribution/",
+      "slug": "ADP-007-package-identity-and-distribution",
+      "category": "development",
+      "title": "ADP 007 Package Identity And Distribution",
+      "description": "Aipo — ADP 007 Package Identity And Distribution",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-008-v0.1.0-language-release/",
+      "slug": "ADP-008-v0.1.0-language-release",
+      "category": "development",
+      "title": "ADP 008 V0.1.0 Language Release",
+      "description": "Aipo — ADP 008 V0.1.0 Language Release",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-009-synchronous-c-abi/",
+      "slug": "ADP-009-synchronous-c-abi",
+      "category": "development",
+      "title": "ADP 009 Synchronous C Abi",
+      "description": "Aipo — ADP 009 Synchronous C Abi",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-010-interoperability-thin-proofs/",
+      "slug": "ADP-010-interoperability-thin-proofs",
+      "category": "development",
+      "title": "ADP 010 Interoperability Thin Proofs",
+      "description": "Aipo — ADP 010 Interoperability Thin Proofs",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/adp/ADP-011-performance-and-ergonomics-roadmap/",
+      "slug": "ADP-011-performance-and-ergonomics-roadmap",
+      "category": "development",
+      "title": "ADP 011 Performance And Ergonomics Roadmap",
+      "description": "Aipo — ADP 011 Performance And Ergonomics Roadmap",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/architecture/adr/001-architecture-baseline/",
+      "slug": "001-architecture-baseline",
+      "category": "development",
+      "title": "001 Architecture Baseline",
+      "description": "Aipo — 001 Architecture Baseline",
+      "locale": "en"
+    },
+    {
       "route": "/en/aipo/docs/development/architecture/bytecode-and-vm/",
       "slug": "bytecode-and-vm",
       "category": "development",
       "title": "Bytecode And Vm",
       "description": "Aipo — Bytecode And Vm",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/architecture/clean-code-contract/",
+      "slug": "clean-code-contract",
+      "category": "development",
+      "title": "Clean Code Contract",
+      "description": "Aipo — Clean Code Contract",
       "locale": "en"
     },
     {
@@ -1033,6 +1137,14 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "category": "development",
       "title": "Js Emitter",
       "description": "Aipo — Js Emitter",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/architecture/overview/",
+      "slug": "overview",
+      "category": "development",
+      "title": "Overview",
+      "description": "Aipo — Overview",
       "locale": "en"
     },
     {
@@ -1140,6 +1252,134 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "locale": "en"
     },
     {
+      "route": "/en/aipo/docs/development/design/zoe-visual-modernization-dossier/",
+      "slug": "zoe-visual-modernization-dossier",
+      "category": "development",
+      "title": "Zoe Visual Modernization Dossier",
+      "description": "Aipo — Zoe Visual Modernization Dossier",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G09-slice-s9/",
+      "slug": "P00-G09-slice-s9",
+      "category": "development",
+      "title": "P00 G09 Slice S9",
+      "description": "Aipo — P00 G09 Slice S9",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G10-backend-completion/",
+      "slug": "P00-G10-backend-completion",
+      "category": "development",
+      "title": "P00 G10 Backend Completion",
+      "description": "Aipo — P00 G10 Backend Completion",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G11-cli-and-formatter/",
+      "slug": "P00-G11-cli-and-formatter",
+      "category": "development",
+      "title": "P00 G11 Cli And Formatter",
+      "description": "Aipo — P00 G11 Cli And Formatter",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G12-conformance-and-mvp-gate/",
+      "slug": "P00-G12-conformance-and-mvp-gate",
+      "category": "development",
+      "title": "P00 G12 Conformance And Mvp Gate",
+      "description": "Aipo — P00 G12 Conformance And Mvp Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G13-construction-hooks-and-bytes/",
+      "slug": "P00-G13-construction-hooks-and-bytes",
+      "category": "development",
+      "title": "P00 G13 Construction Hooks And Bytes",
+      "description": "Aipo — P00 G13 Construction Hooks And Bytes",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G14-runtime-contract-enforcement/",
+      "slug": "P00-G14-runtime-contract-enforcement",
+      "category": "development",
+      "title": "P00 G14 Runtime Contract Enforcement",
+      "description": "Aipo — P00 G14 Runtime Contract Enforcement",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G15-static-contracts-and-interface-conformance/",
+      "slug": "P00-G15-static-contracts-and-interface-conformance",
+      "category": "development",
+      "title": "P00 G15 Static Contracts And Interface Conformance",
+      "description": "Aipo — P00 G15 Static Contracts And Interface Conformance",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P00-G16-wave-1-exit-review/",
+      "slug": "P00-G16-wave-1-exit-review",
+      "category": "development",
+      "title": "P00 G16 Wave 1 Exit Review",
+      "description": "Aipo — P00 G16 Wave 1 Exit Review",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P01-G01-js-parity-mvp-subset/",
+      "slug": "P01-G01-js-parity-mvp-subset",
+      "category": "development",
+      "title": "P01 G01 Js Parity Mvp Subset",
+      "description": "Aipo — P01 G01 Js Parity Mvp Subset",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P01-G02-deep-quality-gauntlet/",
+      "slug": "P01-G02-deep-quality-gauntlet",
+      "category": "development",
+      "title": "P01 G02 Deep Quality Gauntlet",
+      "description": "Aipo — P01 G02 Deep Quality Gauntlet",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P02-G01-wave3-types-and-values/",
+      "slug": "P02-G01-wave3-types-and-values",
+      "category": "development",
+      "title": "P02 G01 Wave3 Types And Values",
+      "description": "Aipo — P02 G01 Wave3 Types And Values",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P02-G02-wave3-stdlib-async/",
+      "slug": "P02-G02-wave3-stdlib-async",
+      "category": "development",
+      "title": "P02 G02 Wave3 Stdlib Async",
+      "description": "Aipo — P02 G02 Wave3 Stdlib Async",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P02-G03-wave3-async-syntax-and-diagnostics/",
+      "slug": "P02-G03-wave3-async-syntax-and-diagnostics",
+      "category": "development",
+      "title": "P02 G03 Wave3 Async Syntax And Diagnostics",
+      "description": "Aipo — P02 G03 Wave3 Async Syntax And Diagnostics",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P03-G01-host-abi/",
+      "slug": "P03-G01-host-abi",
+      "category": "development",
+      "title": "P03 G01 Host Abi",
+      "description": "Aipo — P03 G01 Host Abi",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/evidence/P03-G02-poppy-adapter-and-headless-demo/",
+      "slug": "P03-G02-poppy-adapter-and-headless-demo",
+      "category": "development",
+      "title": "P03 G02 Poppy Adapter And Headless Demo",
+      "description": "Aipo — P03 G02 Poppy Adapter And Headless Demo",
+      "locale": "en"
+    },
+    {
       "route": "/en/aipo/docs/development/evidence/conformance/",
       "slug": "conformance",
       "category": "development",
@@ -1188,6 +1428,14 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "locale": "en"
     },
     {
+      "route": "/en/aipo/docs/development/governance/repository-governance/",
+      "slug": "repository-governance",
+      "category": "development",
+      "title": "Repository Governance",
+      "description": "Aipo — Repository Governance",
+      "locale": "en"
+    },
+    {
       "route": "/en/aipo/docs/development/governance/security-and-threat-model/",
       "slug": "security-and-threat-model",
       "category": "development",
@@ -1201,6 +1449,22 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "category": "development",
       "title": "Standards And Testing",
       "description": "Aipo — Standards And Testing",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/performance/baseline/",
+      "slug": "baseline",
+      "category": "development",
+      "title": "Baseline",
+      "description": "Aipo — Baseline",
+      "locale": "en"
+    },
+    {
+      "route": "/en/aipo/docs/development/performance/cross-language/",
+      "slug": "cross-language",
+      "category": "development",
+      "title": "Cross Language",
+      "description": "Aipo — Cross Language",
       "locale": "en"
     },
     {
@@ -1526,6 +1790,22 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "locale": "pt-BR"
     },
     {
+      "route": "/en/oride/docs/development/keymap/",
+      "slug": "keymap",
+      "category": "development",
+      "title": "Key map",
+      "description": "Default shortcuts and how to remap them.",
+      "locale": "en"
+    },
+    {
+      "route": "/en/oride/docs/development/layout/",
+      "slug": "layout",
+      "category": "development",
+      "title": "Layout",
+      "description": "How the editor surface is organised into panels.",
+      "locale": "en"
+    },
+    {
       "route": "/en/oride/docs/guides/config/",
       "slug": "config",
       "category": "guides",
@@ -1806,6 +2086,246 @@ export const importedDocs: Record<string, ImportedDocPage[]> = {
       "title": "Doctor",
       "description": "Prumo — Doctor",
       "locale": "pt-BR"
+    },
+    {
+      "route": "/en/prumo/docs/development/CONTRIBUTING/",
+      "slug": "CONTRIBUTING",
+      "category": "development",
+      "title": "CONTRIBUTING",
+      "description": "Prumo — CONTRIBUTING",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/architecture/dependency-rules/",
+      "slug": "dependency-rules",
+      "category": "development",
+      "title": "Dependency Rules",
+      "description": "Prumo — Dependency Rules",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/architecture/overview/",
+      "slug": "overview",
+      "category": "development",
+      "title": "Overview",
+      "description": "Prumo — Overview",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/architecture/viewer/",
+      "slug": "viewer",
+      "category": "development",
+      "title": "Viewer",
+      "description": "Prumo — Viewer",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/authority/",
+      "slug": "authority",
+      "category": "development",
+      "title": "Authority",
+      "description": "Prumo — Authority",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/lpc/",
+      "slug": "lpc",
+      "category": "development",
+      "title": "Lpc",
+      "description": "Prumo — Lpc",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m10-exit-gate/",
+      "slug": "m10-exit-gate",
+      "category": "development",
+      "title": "M10 Exit Gate",
+      "description": "Prumo — M10 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m11-exit-gate/",
+      "slug": "m11-exit-gate",
+      "category": "development",
+      "title": "M11 Exit Gate",
+      "description": "Prumo — M11 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m12-exit-gate/",
+      "slug": "m12-exit-gate",
+      "category": "development",
+      "title": "M12 Exit Gate",
+      "description": "Prumo — M12 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m5-exit-gate/",
+      "slug": "m5-exit-gate",
+      "category": "development",
+      "title": "M5 Exit Gate",
+      "description": "Prumo — M5 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m6-exit-gate/",
+      "slug": "m6-exit-gate",
+      "category": "development",
+      "title": "M6 Exit Gate",
+      "description": "Prumo — M6 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m7-exit-gate/",
+      "slug": "m7-exit-gate",
+      "category": "development",
+      "title": "M7 Exit Gate",
+      "description": "Prumo — M7 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m8-exit-gate/",
+      "slug": "m8-exit-gate",
+      "category": "development",
+      "title": "M8 Exit Gate",
+      "description": "Prumo — M8 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/m9-exit-gate/",
+      "slug": "m9-exit-gate",
+      "category": "development",
+      "title": "M9 Exit Gate",
+      "description": "Prumo — M9 Exit Gate",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/governance/trust-model/",
+      "slug": "trust-model",
+      "category": "development",
+      "title": "Trust Model",
+      "description": "Prumo — Trust Model",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/harness/aci-tools/",
+      "slug": "aci-tools",
+      "category": "development",
+      "title": "Aci Tools",
+      "description": "Prumo — Aci Tools",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/harness/directives/",
+      "slug": "directives",
+      "category": "development",
+      "title": "Directives",
+      "description": "Prumo — Directives",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/workforce/agents/",
+      "slug": "agents",
+      "category": "development",
+      "title": "Agents",
+      "description": "Prumo — Agents",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/workforce/recipes/",
+      "slug": "recipes",
+      "category": "development",
+      "title": "Recipes",
+      "description": "Prumo — Recipes",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/development/workforce/skills/",
+      "slug": "skills",
+      "category": "development",
+      "title": "Skills",
+      "description": "Prumo — Skills",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/getting-started/adoption/",
+      "slug": "adoption",
+      "category": "guides",
+      "title": "Adoption",
+      "description": "Prumo — Adoption",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/getting-started/concepts/",
+      "slug": "concepts",
+      "category": "guides",
+      "title": "Concepts",
+      "description": "Prumo — Concepts",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/getting-started/first-project/",
+      "slug": "first-project",
+      "category": "guides",
+      "title": "First Project",
+      "description": "Prumo — First Project",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/getting-started/installation/",
+      "slug": "installation",
+      "category": "guides",
+      "title": "Installation",
+      "description": "Prumo — Installation",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/manual/connectors/",
+      "slug": "connectors",
+      "category": "guides",
+      "title": "Connectors",
+      "description": "Prumo — Connectors",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/manual/installation/",
+      "slug": "installation",
+      "category": "guides",
+      "title": "Installation",
+      "description": "Prumo — Installation",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/manual/uninstallation/",
+      "slug": "uninstallation",
+      "category": "guides",
+      "title": "Uninstallation",
+      "description": "Prumo — Uninstallation",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/manual/usage/",
+      "slug": "usage",
+      "category": "guides",
+      "title": "Usage",
+      "description": "Prumo — Usage",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/tools/cli-reference/",
+      "slug": "cli-reference",
+      "category": "guides",
+      "title": "Cli Reference",
+      "description": "Prumo — Cli Reference",
+      "locale": "en"
+    },
+    {
+      "route": "/en/prumo/docs/guides/tools/doctor/",
+      "slug": "doctor",
+      "category": "guides",
+      "title": "Doctor",
+      "description": "Prumo — Doctor",
+      "locale": "en"
     }
   ]
 };

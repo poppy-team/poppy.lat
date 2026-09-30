@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/performance-lessons.md"
 sourceBlob: "91fbcf299f86f471f8ec982bf367d3037f31eaee"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/performance-lessons.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `91fbcf299f86f471f8ec982bf367d3037f31eaee`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `91fbcf299f86f471f8ec982bf367d3037f31eaee`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # A Saga de Otimização & Rigor Metodológico

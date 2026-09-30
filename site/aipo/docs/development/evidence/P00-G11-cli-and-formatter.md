@@ -5,37 +5,37 @@ project: aipo
 category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G11-cli-and-formatter.md"
-sourceBlob: "39d5aeb9a769904c7380a373e5915aaf842b27d9"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+sourceBlob: "74127bc64d86e4a9de1b5fdc39883ec8a032b574"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G11-cli-and-formatter.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `39d5aeb9a769904c7380a373e5915aaf842b27d9`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `74127bc64d86e4a9de1b5fdc39883ec8a032b574`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
-# Evidence — P00-G11 / Slice S10 (CLI + Formatter)
+# Evidência — P00-G11 / Slice S10 (CLI + Formatter)
 
-**Goal:** `P00-G11` — CLI and Formatter: `aipo run`, `check`, `fmt`
-**Phase:** P00 (Foundation) · **Slice:** S10 · **Recorded:** 2026-09-15
-**Environment:** rustc 1.98.1 (48a229cea 2026-09-01), cargo 1.98.1 (797e8a9bc 2026-08-05), Linux
+**Goal:** `P00-G11` — CLI e Formatter: `aipo run`, `check`, `fmt`
+**Fase:** P00 (Foundation) · **Slice:** S10 · **Registrado em:** 2026-09-15
+**Ambiente:** rustc 1.98.1 (48a229cea 2026-09-01), cargo 1.98.1 (797e8a9bc 2026-08-05), Linux
 
-Proof attachments for the required gates. Commands are reproducible from the repository root.
+Anexos de prova dos gates exigidos. Os comandos são reproduzíveis a partir da raiz do repositório.
 
-## Deliverable
+## Entregável
 
-Two crates close the executable pipeline. Working backwards from the command surface in
+Duas crates fecham o pipeline executável. Trabalhando de trás para frente a partir da superfície de comandos em
 `docs/reference/cli.md`:
 
-| Crate | Responsibility |
+| Crate | Responsabilidade |
 |---|---|
-| `aipo-formatter` | deterministic, idempotent rendering of a source file from its token stream |
-| `aipo-cli` | argument parsing, the `source → syntax → HIR → sema → IR → bytecode → VM` orchestration, module resolution, diagnostic emission and exit codes |
+| `aipo-formatter` | renderização determinística e idempotente de um arquivo-fonte a partir de seu stream de tokens |
+| `aipo-cli` | parsing de argumentos, orquestração `source → syntax → HIR → sema → IR → bytecode → VM`, resolução de módulos, emissão de diagnósticos e exit codes |
 
-The workspace now holds the 14 crates the Wave 1 plan calls for
-(`cargo metadata` lists every crate under `crates/`).
+O workspace agora contém as 14 crates que o plano da Wave 1 prevê
+(`cargo metadata` lista todas as crates em `crates/`).
 
-### Command surface
+### Superfície de comandos
 
 ```
 aipo run <path> [--message-format=<human|jsonl>]
@@ -44,29 +44,29 @@ aipo fmt <paths...> [--check]
 aipo --version · aipo --help
 ```
 
-Exit codes are part of the contract and every one is exercised by a test:
+Os exit codes fazem parte do contrato e cada um é exercitado por um teste:
 
-| Code | Meaning |
+| Código | Significado |
 |---|---|
-| `0` | the program ran to completion, `check` found no error, or `fmt` wrote/verified the files |
-| `1` | language failure: any diagnostic of severity error, a bytecode verification failure, an uncaught runtime fault, or `fmt --check` drift |
-| `2` | usage error: unknown command or flag, missing argument, unreadable file |
+| `0` | o programa executou até o fim, `check` não encontrou erro, ou `fmt` escreveu/verificou os arquivos |
+| `1` | falha de linguagem: qualquer diagnóstico de severidade error, uma falha de verificação de bytecode, um fault de runtime não capturado, ou drift em `fmt --check` |
+| `2` | erro de uso: comando ou flag desconhecido, argumento ausente, arquivo ilegível |
 
-### Module resolution
+### Resolução de módulos
 
-`crates/aipo-cli/src/modules.rs` implements the S9 module model end to end, which the earlier
-slices had only specified:
+`crates/aipo-cli/src/modules.rs` implementa o modelo de módulos do S9 de ponta a ponta, que os
+slices anteriores haviam apenas especificado:
 
-- one `.aipo` file is one module, resolved as `<name>.aipo` next to the importing file;
-- `import m`, `import m: names`, `import m as alias` and `export` are all honored, and
-  dependencies are loaded before dependents so initialization order is a topological one;
-- **init once** holds under repeated imports (a module's top-level statements run once);
-- privacy is enforced by name resolution, not by a separate pass: a non-exported declaration is
-  renamed to `<module>::<name>` inside its own module, so an importer that names it gets an
-  ordinary `AIPO_SEM_EXPORT_UNKNOWN`, and the same rejection applies to reaching it through the
-  module namespace (`m.secret()`), which the namespace path would otherwise have allowed;
-- cycles (`AIPO_SEM_IMPORT_CYCLE`) and missing modules (`AIPO_SEM_UNKNOWN_MODULE`) are reported
-  as diagnostics rather than runtime faults.
+- um arquivo `.aipo` é um módulo, resolvido como `<name>.aipo` ao lado do arquivo que o importa;
+- `import m`, `import m: names`, `import m as alias` e `export` são todos respeitados, e
+  as dependências são carregadas antes dos dependentes, de modo que a ordem de inicialização é topológica;
+- **init once** vale sob imports repetidos (os statements de nível superior de um módulo executam uma vez);
+- a privacidade é imposta pela resolução de nomes, não por um passe separado: uma declaração não exportada é
+  renomeada para `<module>::<name>` dentro do seu próprio módulo, de modo que um importador que a nomeie recebe um
+  `AIPO_SEM_EXPORT_UNKNOWN` comum, e a mesma rejeição se aplica ao alcançá-la pelo
+  namespace do módulo (`m.secret()`), o que o caminho pelo namespace permitiria de outra forma;
+- ciclos (`AIPO_SEM_IMPORT_CYCLE`) e módulos ausentes (`AIPO_SEM_UNKNOWN_MODULE`) são reportados
+  como diagnósticos, e não como faults de runtime.
 
 ## Gate: `fmt`
 
@@ -82,7 +82,7 @@ $ cargo check --workspace --all-targets
     Finished `dev` profile [unoptimized + debuginfo] target(s)
 ```
 
-## Gate: `clippy` (workspace lints deny warnings)
+## Gate: `clippy` (os lints do workspace tratam warnings como erro)
 
 ```
 $ cargo clippy --workspace --all-targets -- -D warnings
@@ -96,13 +96,13 @@ $ cargo test --workspace
 total_passed=136 total_failed=0
 ```
 
-S10-owned suites:
+Suítes pertencentes ao S10:
 
-| Suite | Tests | What it pins |
+| Suíte | Testes | O que fixa |
 |---|---|---|
-| `aipo-cli/tests/conformance.rs` | 13 | program snapshots, failure fixtures, formatter drift, exit codes, JSONL, module cases |
-| `aipo-cli/tests/fuzz_smoke.rs` | 3 | random bytes, mutated programs and truncated programs never panic the pipeline |
-| `aipo-formatter` (`lib` + `tests/golden.rs`) | 6 + 4 | canonical rendering rules and idempotency over the formatting corpus |
+| `aipo-cli/tests/conformance.rs` | 13 | snapshots de programas, fixtures de falha, drift do formatter, exit codes, JSONL, casos de módulos |
+| `aipo-cli/tests/fuzz_smoke.rs` | 3 | bytes aleatórios, programas mutados e programas truncados nunca causam panic no pipeline |
+| `aipo-formatter` (`lib` + `tests/golden.rs`) | 6 + 4 | regras de renderização canônica e idempotência sobre o corpus de formatação |
 
 ## Gate: `doc`
 
@@ -114,15 +114,15 @@ $ cargo doc --workspace --no-deps
 
 ## Gate: `documentation_impact`
 
-- `docs/conformance/README.md` — corpus layout, snapshot matrix, regeneration workflow.
-- `docs/reference/cli.md` — already normative; every documented command, flag and exit code is
-  now backed by a test rather than by intent.
-- `CHANGELOG.md` — Wave 1 CLI and formatter entry.
+- `docs/conformance/README.md` — layout do corpus, matriz de snapshots, workflow de regeneração.
+- `docs/reference/cli.md` — já normativo; todo comando, flag e exit code documentado agora
+  é sustentado por um teste, e não por intenção.
+- `CHANGELOG.md` — entrada de CLI e formatter da Wave 1.
 
-## Known limitations (recorded, not hidden)
+## Limitações conhecidas (registradas, não escondidas)
 
-- `aipo fmt` renders from the token stream and normalizes whitespace, indentation and operator
-  spacing. It does not reorder or rewrite syntax, and it does not yet implement `aipo fmt`
-  over a directory or `*.aipo` glob beyond the paths given on the command line.
-- Named arguments are resolved at the call site only when the callee is a declared function
-  (see the S11 evidence record); a call through a stored function value keeps source order.
+- `aipo fmt` renderiza a partir do stream de tokens e normaliza whitespace, indentação e
+  espaçamento de operadores. Ele não reordena nem reescreve a sintaxe, e ainda não implementa `aipo fmt`
+  sobre um diretório ou glob `*.aipo` além dos caminhos informados na linha de comando.
+- Os argumentos nomeados são resolvidos apenas no ponto de chamada quando o callee é uma função declarada
+  (veja o registro de evidência do S11); uma chamada por meio de um valor de função armazenado mantém a ordem do código-fonte.

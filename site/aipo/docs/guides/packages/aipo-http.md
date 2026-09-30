@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/packages/aipo-http.md"
 sourceBlob: "120b616953c584c74a16f542aea35f12c0321e2a"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/packages/aipo-http.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `120b616953c584c74a16f542aea35f12c0321e2a`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `120b616953c584c74a16f542aea35f12c0321e2a`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # aipo.http — Framework HTTP e Roteador de Microsserviços

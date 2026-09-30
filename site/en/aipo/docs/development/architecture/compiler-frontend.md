@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/architecture/compiler-frontend.md"
 sourceBlob: "ed0ddc149a6b683487bdef1238619aa19b93fa21"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/architecture/compiler-frontend.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `ed0ddc149a6b683487bdef1238619aa19b93fa21`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ed0ddc149a6b683487bdef1238619aa19b93fa21`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Compiler Frontend

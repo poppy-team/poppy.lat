@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/getting-started/what-is-aipo.md"
 sourceBlob: "d7e78ce87a0d2b39bc7b39966e51077f09f92bd9"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/getting-started/what-is-aipo.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `d7e78ce87a0d2b39bc7b39966e51077f09f92bd9`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `d7e78ce87a0d2b39bc7b39966e51077f09f92bd9`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # What is Aipo?
