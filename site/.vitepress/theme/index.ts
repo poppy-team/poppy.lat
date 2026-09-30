@@ -26,6 +26,7 @@ import ProfilePage from './accounts/ProfilePage.vue';
 import ProfileEditPage from './accounts/ProfileEditPage.vue';
 import NotesPage from './accounts/NotesPage.vue';
 import ModerationPage from './accounts/ModerationPage.vue';
+import TeamPage from './accounts/TeamPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import LanguageSwitch from './components/LanguageSwitch.vue';
 import SiteFooter from './components/SiteFooter.vue';
@@ -144,6 +145,7 @@ export default {
     app.component('ProfileEditPage', ProfileEditPage);
     app.component('NotesPage', NotesPage);
     app.component('ModerationPage', ModerationPage);
+    app.component('TeamPage', TeamPage);
     rememberCodeTabs();
     rememberCodeWrap();
     registerServiceWorker();

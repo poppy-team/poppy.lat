@@ -2034,3 +2034,129 @@ html[data-window-open] {
   align-items: center;
   margin: 0 0 0.35rem;
 }
+
+
+/* --------------------------------------------------------------------------
+   Team page.
+   -------------------------------------------------------------------------- */
+
+.team-page {
+  width: min(100% - 2 * var(--content-gutter), 64rem);
+  margin: 0 auto;
+  padding: var(--space-5) 0 var(--space-6);
+}
+
+.team-page:focus {
+  outline: none;
+}
+
+.team-page__kicker {
+  margin: 0 0 var(--space-1);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.team-page__intro h1 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.team-page__intro p:last-child {
+  max-width: 40rem;
+  color: var(--text-soft);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team-card {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  justify-items: start;
+  padding: var(--space-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--surface-raised);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgb(0 0 0 / 0.1);
+}
+
+.team-card__name {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.team-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  align-items: center;
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.team-card__bio {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.team-page__join {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  background: var(--feature-plane);
+  color: var(--feature-ink);
+}
+
+.team-page__join h2 {
+  margin: 0 0 var(--space-1);
+  padding: 0;
+  border: 0;
+  font-size: var(--text-lg);
+}
+
+.team-page__join p {
+  margin: 0;
+}
+
+.team-page__join a {
+  color: inherit;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-card {
+    transition: none;
+  }
+
+  .team-card:hover {
+    transform: none;
+  }
+}

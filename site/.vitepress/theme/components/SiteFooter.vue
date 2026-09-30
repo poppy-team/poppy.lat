@@ -41,6 +41,7 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
         <a :href="activeLocale === 'en' ? '/en/learn/' : '/aprender/'">{{ copy.navigation.learn }}</a>
         <a :href="`${root}/#projects`">{{ copy.navigation.projects }}</a>
         <a :href="`${root}/blog/`">{{ copy.navigation.blog }}</a>
+        <a v-if="activeLocale === 'pt-BR'" href="/equipe">Equipe</a>
         <a href="https://github.com/poppy-team">{{ copy.githubLabel }}</a>
         <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
       </nav>
