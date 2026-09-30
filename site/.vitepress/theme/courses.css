@@ -334,6 +334,55 @@ html[data-reading-focus='true'][data-page='course'] .VPDoc .content-container {
   line-height: 1.65;
 }
 
+.courses-free {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: var(--space-2) 0 0;
+  color: var(--text-soft);
+}
+
+.courses-free__pill {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--feature-ink) 28%, transparent);
+  border-radius: 999px;
+  background: var(--feature-plane);
+  color: var(--feature-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.courses-invite {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: var(--space-2) 0 0;
+  color: var(--text-soft);
+}
+
+.courses-invite__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  background: var(--feature-ink);
+  color: var(--feature-plane);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.courses-invite__link:hover {
+  background: color-mix(in srgb, var(--feature-ink) 88%, var(--text));
+}
+
+.courses-invite__link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .courses-resume {
   display: grid;
   gap: 0.15rem;

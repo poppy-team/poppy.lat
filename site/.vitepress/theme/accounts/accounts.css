@@ -167,6 +167,94 @@
   width: min(100% - 2 * var(--content-gutter), 68rem);
 }
 
+.acct-page--login {
+  width: min(100% - 2 * var(--content-gutter), 64rem);
+}
+
+/* Sign-in: the welcome and the course summary on the left, the form beside
+   them. On a phone the order is welcome, form, courses. */
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-areas:
+    'intro form'
+    'courses form';
+  gap: var(--space-4) var(--space-5);
+  align-items: start;
+}
+
+.login__intro {
+  grid-area: intro;
+}
+
+.login__form {
+  grid-area: form;
+  margin-top: 0;
+}
+
+.login__courses {
+  grid-area: courses;
+}
+
+.login__intro p,
+.login__form > p:first-child {
+  margin: 0 0 var(--space-2);
+}
+
+.login__free {
+  display: inline-block;
+  margin: 0 0 var(--space-2);
+  padding: 0.2rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--feature-ink) 28%, transparent);
+  border-radius: 999px;
+  background: var(--feature-plane);
+  color: var(--feature-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.login__tracks,
+.login__course-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.login__tracks > li {
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.login__tracks > li > span {
+  font-size: var(--text-sm);
+}
+
+.login__course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.login__course-list li {
+  padding: 0.1rem 0.65rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 800px) {
+  .login {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'intro'
+      'form'
+      'courses';
+  }
+}
+
 .acct-page h1 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
