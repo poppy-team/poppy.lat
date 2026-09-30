@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/trajectory/wave-1-contracts.md"
 sourceBlob: "ba0fe72f95adf12941edb20a26399f5cb2402814"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/trajectory/wave-1-contracts.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ba0fe72f95adf12941edb20a26399f5cb2402814`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `ba0fe72f95adf12941edb20a26399f5cb2402814`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Wave 1 — Contracts, Rollback & Conformance

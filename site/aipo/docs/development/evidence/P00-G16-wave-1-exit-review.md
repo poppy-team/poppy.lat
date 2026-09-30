@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G16-wave-1-exit-review.md"
 sourceBlob: "90da12ca13336bfc446f304d24b48d5dbb22de2a"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G16-wave-1-exit-review.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `90da12ca13336bfc446f304d24b48d5dbb22de2a`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `90da12ca13336bfc446f304d24b48d5dbb22de2a`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidência — P00-G16 / Revisão de Saída da Wave 1

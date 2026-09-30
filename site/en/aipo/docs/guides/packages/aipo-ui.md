@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/packages/aipo-ui.md"
 sourceBlob: "239ffff03e645d6c60e628f396f511a698275fd6"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/packages/aipo-ui.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `239ffff03e645d6c60e628f396f511a698275fd6`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `239ffff03e645d6c60e628f396f511a698275fd6`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # aipo.ui — Universal Multiplatform UI Framework
@@ -24,7 +24,7 @@ The source repository remains canonical; this copy is refreshed through a sync p
 
 In the Aipo ecosystem, architectural separation of concerns is strictly preserved:
 
-- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/en/en/packages/aipo-html)**: Designed exclusively for standard web browsers. Operates directly on the host DOM tree (`<div>`, `<span>`, CSS, Tailwind).
+- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/d9f9557e04871546a92b7ca1fcbc7e6f116803f8/docs/en/en/packages/aipo-html)**: Designed exclusively for standard web browsers. Operates directly on the host DOM tree (`<div>`, `<span>`, CSS, Tailwind).
 - **`aipo.ui`**: 100% platform-agnostic. Constructs a declarative tree of layout nodes and high-level controls, computes spatial geometry via the Rust **Taffy** engine (CSS Flexbox and CSS Grid), and delegates rendering to decoupled backends.
 
 ```mermaid

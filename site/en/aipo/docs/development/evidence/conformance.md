@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/evidence/conformance.md"
 sourceBlob: "3da069d7aba61cd6774e69d833c010060c2ec1cb"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/evidence/conformance.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `3da069d7aba61cd6774e69d833c010060c2ec1cb`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `3da069d7aba61cd6774e69d833c010060c2ec1cb`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Language Conformance Matrix

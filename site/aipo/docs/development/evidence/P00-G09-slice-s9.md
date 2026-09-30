@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G09-slice-s9.md"
 sourceBlob: "7c5b734c04216830dbfda4212ed14521b5b47521"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G09-slice-s9.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `7c5b734c04216830dbfda4212ed14521b5b47521`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `7c5b734c04216830dbfda4212ed14521b5b47521`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidência — P00-G09 / Slice S9 (Runtime & Stdlib Mínima)

@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P02-G02-wave3-stdlib-async.md"
 sourceBlob: "0902d6aadfc14a115c16e33a9a68b25c655e420b"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P02-G02-wave3-stdlib-async.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `0902d6aadfc14a115c16e33a9a68b25c655e420b`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `0902d6aadfc14a115c16e33a9a68b25c655e420b`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidência — P02-G02 / Wave 3 Stdlib: Combinadores Assíncronos e Operações de Task

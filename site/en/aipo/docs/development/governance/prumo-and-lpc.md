@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/governance/prumo-and-lpc.md"
 sourceBlob: "3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/governance/prumo-and-lpc.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `3f8f2ea86b2142fa6bb254ba28c6ad2c37b530c9`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Prumo CLI & LPC Methodology

@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/adp/ADP-010-interoperability-thin-proofs.md"
 sourceBlob: "5262f4ed9e0f3e4b9d31e6fe8bb2e80d7f95b44c"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/adp/ADP-010-interoperability-thin-proofs.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `5262f4ed9e0f3e4b9d31e6fe8bb2e80d7f95b44c`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `5262f4ed9e0f3e4b9d31e6fe8bb2e80d7f95b44c`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # ADP-010 — Thin interoperability proofs for Rust, C and JavaScript

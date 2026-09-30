@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/architecture/overview.md"
 sourceBlob: "d3df00d71b0cab28e34019e39766f24f4dcf9d14"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/architecture/overview.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `d3df00d71b0cab28e34019e39766f24f4dcf9d14`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `d3df00d71b0cab28e34019e39766f24f4dcf9d14`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Aipo — Visão Geral da Arquitetura (Waves 1–2)

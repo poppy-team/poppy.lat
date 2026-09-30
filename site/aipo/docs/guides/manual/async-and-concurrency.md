@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/manual/async-and-concurrency.md"
 sourceBlob: "5de5c05ebf6e046fbc35b5a8023a983948569815"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/manual/async-and-concurrency.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `5de5c05ebf6e046fbc35b5a8023a983948569815`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `5de5c05ebf6e046fbc35b5a8023a983948569815`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Concorrência & Async

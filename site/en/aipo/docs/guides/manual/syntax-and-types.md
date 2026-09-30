@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/manual/syntax-and-types.md"
 sourceBlob: "aaad3d3d3003580a04d7a6f3ab23233f35f50d12"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/manual/syntax-and-types.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `aaad3d3d3003580a04d7a6f3ab23233f35f50d12`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `aaad3d3d3003580a04d7a6f3ab23233f35f50d12`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Syntax & Data Types

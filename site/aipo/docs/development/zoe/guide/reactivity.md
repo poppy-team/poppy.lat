@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/zoe/guide/reactivity.md"
 sourceBlob: "d6c293eed234a7a2fb9b37dc324ddffccffddec7"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/zoe/guide/reactivity.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `d6c293eed234a7a2fb9b37dc324ddffccffddec7`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `d6c293eed234a7a2fb9b37dc324ddffccffddec7`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Reatividade & Sinais no Zoe UI

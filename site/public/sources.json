@@ -267,7 +267,7 @@
     {
       "project": "aipo",
       "repository": "https://github.com/poppy-team/aipo-lang",
-      "revision": "21ad042c30a8e684be68da712ceb9e56eb9c7774",
+      "revision": "d9f9557e04871546a92b7ca1fcbc7e6f116803f8",
       "license": "MIT",
       "licenseFile": "LICENSE",
       "criterion": "srcExclude declarado em https://github.com/poppy-team/aipo-lang",

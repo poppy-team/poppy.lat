@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G15-static-contracts-and-interface-conformance.md"
 sourceBlob: "0bb08e1fae025574e34bebc1fcf8f155ddccc776"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G15-static-contracts-and-interface-conformance.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `0bb08e1fae025574e34bebc1fcf8f155ddccc776`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `0bb08e1fae025574e34bebc1fcf8f155ddccc776`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidência — P00-G15 / Contratos Estáticos e Conformidade de Interfaces

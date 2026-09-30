@@ -6,17 +6,17 @@ category: guides
 locale: en
 sourcePath: "docs/en/packages/aipo-zoe.md"
 sourceBlob: "604400db5201cb5e2fddd214162ef44158abc7af"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/packages/aipo-zoe.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `604400db5201cb5e2fddd214162ef44158abc7af`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `604400db5201cb5e2fddd214162ef44158abc7af`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # aipo.zoe — Declarative GUI Framework & Leona Engine
 
-`aipo.zoe` (Zoe UI) is the canonical framework of the Aipo programming language for building high-performance, data-rich declarative graphical user interfaces, featuring hardware-accelerated 60+ FPS GPU rendering via [`aipo-game-host`](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/en/en/packages/aipo-game), reactive state management with hooks (`use_state`), and the hierarchical **Leona** layout engine.
+`aipo.zoe` (Zoe UI) is the canonical framework of the Aipo programming language for building high-performance, data-rich declarative graphical user interfaces, featuring hardware-accelerated 60+ FPS GPU rendering via [`aipo-game-host`](https://github.com/poppy-team/aipo-lang/blob/d9f9557e04871546a92b7ca1fcbc7e6f116803f8/docs/en/en/packages/aipo-game), reactive state management with hooks (`use_state`), and the hierarchical **Leona** layout engine.
 
 ---
 

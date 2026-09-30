@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/adp/ADP-002-construction-hooks-and-runtime-contracts.md"
 sourceBlob: "8f03cfaab9c78508dd0cc7521ad6127eaa96bfab"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/adp/ADP-002-construction-hooks-and-runtime-contracts.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `8f03cfaab9c78508dd0cc7521ad6127eaa96bfab`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `8f03cfaab9c78508dd0cc7521ad6127eaa96bfab`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # ADP-002 — Hooks de construção, invariantes e contratos em runtime

@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/zoe/guide/layout-leona.md"
 sourceBlob: "5616d88b5e76e5f566d5c0e702969ad1d5e76db0"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/zoe/guide/layout-leona.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `5616d88b5e76e5f566d5c0e702969ad1d5e76db0`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `5616d88b5e76e5f566d5c0e702969ad1d5e76db0`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # The Leona 2.0 Layout Engine

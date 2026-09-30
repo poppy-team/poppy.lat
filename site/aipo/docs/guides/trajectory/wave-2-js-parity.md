@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/trajectory/wave-2-js-parity.md"
 sourceBlob: "82d4c1b7eac911c5cac34b4391ce964c5c5630f5"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/trajectory/wave-2-js-parity.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `82d4c1b7eac911c5cac34b4391ce964c5c5630f5`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `82d4c1b7eac911c5cac34b4391ce964c5c5630f5`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Wave 2 — Backend JavaScript & Deep Quality

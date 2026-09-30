@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/zoe/components/navigation.md"
 sourceBlob: "450750659c436777d72d523e6940ce1ba4e94293"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/zoe/components/navigation.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `450750659c436777d72d523e6940ce1ba4e94293`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `450750659c436777d72d523e6940ce1ba4e94293`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Navegação e Listas Hierárquicas

@@ -35,7 +35,7 @@ export interface VendoredDocSource {
 }
 
 export const ORI_REVISION = '42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f';
-export const AIPO_REVISION = '21ad042c30a8e684be68da712ceb9e56eb9c7774';
+export const AIPO_REVISION = 'd9f9557e04871546a92b7ca1fcbc7e6f116803f8';
 export const ORIDE_REVISION = '1cd515630b8ceb57777d466bee4970fe7c2e30e0';
 export const PRUMO_REVISION = 'e91694d3959be1ed92757b34063efe0b2191821f';
 

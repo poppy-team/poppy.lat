@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/design/zoe-visual-modernization-dossier.md"
 sourceBlob: "0c26bff72d8fb118d57e153404d640e48f291a12"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/design/zoe-visual-modernization-dossier.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `0c26bff72d8fb118d57e153404d640e48f291a12`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `0c26bff72d8fb118d57e153404d640e48f291a12`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Zoe UI (`aipo.zoe`) Visual and Architectural Modernization Dossier

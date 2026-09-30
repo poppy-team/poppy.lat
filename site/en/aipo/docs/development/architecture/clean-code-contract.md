@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/architecture/clean-code-contract.md"
 sourceBlob: "ee7d4aad5205f5072b44d938e0a54cdc73e9a442"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/architecture/clean-code-contract.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ee7d4aad5205f5072b44d938e0a54cdc73e9a442`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `ee7d4aad5205f5072b44d938e0a54cdc73e9a442`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Architecture and Clean Code Contract

@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/adp/ADP-003-execution-budgets.md"
 sourceBlob: "8e876d68c8b7c72e0de2e3ad196c8e23a731360a"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/adp/ADP-003-execution-budgets.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `8e876d68c8b7c72e0de2e3ad196c8e23a731360a`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `8e876d68c8b7c72e0de2e3ad196c8e23a731360a`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # ADP-003 — Orçamentos de Execução para Programas Não Confiáveis (fuel, memória, interrupção)

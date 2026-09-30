@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/adp/ADP-007-package-identity-and-distribution.md"
 sourceBlob: "b70f82eef2a32f52f6217757c70f6762ea6caa55"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/adp/ADP-007-package-identity-and-distribution.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `b70f82eef2a32f52f6217757c70f6762ea6caa55`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `b70f82eef2a32f52f6217757c70f6762ea6caa55`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # ADP-007 — Package identity and distribution

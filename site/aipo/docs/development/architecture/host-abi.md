@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/architecture/host-abi.md"
 sourceBlob: "ffcf3fb6eab4bdb27e2bcd7db462e35b4643a9cd"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/architecture/host-abi.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ffcf3fb6eab4bdb27e2bcd7db462e35b4643a9cd`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `ffcf3fb6eab4bdb27e2bcd7db462e35b4643a9cd`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Host ABI & Sandboxing

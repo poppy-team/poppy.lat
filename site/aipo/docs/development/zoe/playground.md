@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/zoe/playground.md"
 sourceBlob: "799d10a9c5dd94521c4d14b295bfce33d3338c71"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/zoe/playground.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `799d10a9c5dd94521c4d14b295bfce33d3338c71`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `799d10a9c5dd94521c4d14b295bfce33d3338c71`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Playground Interativo do Zoe UI

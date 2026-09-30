@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/evidence/P00-G11-cli-and-formatter.md"
 sourceBlob: "39d5aeb9a769904c7380a373e5915aaf842b27d9"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/evidence/P00-G11-cli-and-formatter.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `39d5aeb9a769904c7380a373e5915aaf842b27d9`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `39d5aeb9a769904c7380a373e5915aaf842b27d9`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Evidence — P00-G11 / Slice S10 (CLI + Formatter)

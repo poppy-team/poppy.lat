@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P03-G02-poppy-adapter-and-headless-demo.md"
 sourceBlob: "1e4033834d8839597b43d0f8eaabee3c814f32d4"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P03-G02-poppy-adapter-and-headless-demo.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `1e4033834d8839597b43d0f8eaabee3c814f32d4`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `1e4033834d8839597b43d0f8eaabee3c814f32d4`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidência — P03-G02 / Adapter Poppy e Demo Headless Determinística

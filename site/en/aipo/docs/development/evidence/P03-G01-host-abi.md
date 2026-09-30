@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/evidence/P03-G01-host-abi.md"
 sourceBlob: "2b2e0d83bd1d90cf4ba45b4f672659397a87cc10"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/evidence/P03-G01-host-abi.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `2b2e0d83bd1d90cf4ba45b4f672659397a87cc10`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `2b2e0d83bd1d90cf4ba45b4f672659397a87cc10`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Evidence — P03-G01 / Host ABI: Capability Model, Host Values and Generational Handles

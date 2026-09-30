@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/adp/ADP-003-execution-budgets.md"
 sourceBlob: "a22a3d3f2dab6c1b3fc10316fe0fe10c7e06d86d"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/adp/ADP-003-execution-budgets.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `a22a3d3f2dab6c1b3fc10316fe0fe10c7e06d86d`.
+Pinned to revision `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `a22a3d3f2dab6c1b3fc10316fe0fe10c7e06d86d`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # ADP-003 — Execution Budgets for Untrusted Programs (fuel, memory, interruption)

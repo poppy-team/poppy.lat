@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/packages/aipo-game.md"
 sourceBlob: "a9ab33a865a7ccf2815baaa60536a5782023a6e7"
-revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
+revision: "d9f9557e04871546a92b7ca1fcbc7e6f116803f8"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/packages/aipo-game.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `a9ab33a865a7ccf2815baaa60536a5782023a6e7`.
+Fixado na revisão `d9f9557e04871546a92b7ca1fcbc7e6f116803f8`, blob `a9ab33a865a7ccf2815baaa60536a5782023a6e7`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # aipo.game — Micro Game Engine 2D
