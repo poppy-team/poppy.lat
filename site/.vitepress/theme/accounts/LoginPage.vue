@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { courseTracks } from '../data/courses';
 import { accountsEnabled, api, ApiError } from './api';
 import { me, refreshMe } from './session';
 
@@ -83,7 +84,7 @@ async function withGithub(): Promise<void> {
 </script>
 
 <template>
-  <div class="acct-page acct-page--narrow">
+  <div class="acct-page" :class="accountsEnabled && !sent ? 'acct-page--login' : 'acct-page--narrow'">
     <template v-if="!accountsEnabled">
       <h1>Entrar</h1>
       <p>As contas ainda não estão ativas neste site. As lições continuam abertas para todo mundo.</p>
@@ -100,33 +101,62 @@ async function withGithub(): Promise<void> {
     </template>
 
     <template v-else>
-      <h1>Entrar ou criar conta</h1>
-      <p>
-        Sem senha para lembrar. Você recebe um link no e-mail e clica. Se ainda não tem conta, ela é criada
-        na hora, como <strong>Aluno</strong>.
-      </p>
+      <div class="login">
+        <header class="login__intro">
+          <p class="login__free">Tudo gratuito</p>
+          <h1>Entrar ou criar conta</h1>
+          <p>
+            Aprender Ori e Aipo, construindo projetos, não custa nada: as aulas, a conta, as anotações e os
+            comentários são gratuitos, sem cartão de crédito. A conta serve para guardar o seu progresso e as suas
+            anotações e para conversar em cada aula.
+          </p>
+          <p class="acct-muted">
+            Só quer ler? As aulas continuam abertas, <a href="/aprender/">veja os cursos sem entrar</a>.
+          </p>
+        </header>
 
-      <form class="acct-form" novalidate @submit.prevent="submit">
-        <label class="acct-field">
-          <span>Seu e-mail</span>
-          <input v-model="email" type="email" name="email" autocomplete="email" inputmode="email" required />
-        </label>
-        <button type="submit" class="acct-btn acct-btn--primary" :disabled="sending || !email.includes('@')">
-          {{ sending ? 'Enviando…' : 'Enviar o link' }}
-        </button>
-      </form>
+        <div class="login__form acct-card">
+          <p>
+            Sem senha para lembrar. Você recebe um link no e-mail e clica. Se ainda não tem conta, ela é criada
+            na hora, como <strong>Aluno</strong>.
+          </p>
 
-      <p v-if="error" class="acct-error" role="alert">{{ error }}</p>
+          <form class="acct-form" novalidate @submit.prevent="submit">
+            <label class="acct-field">
+              <span>Seu e-mail</span>
+              <input v-model="email" type="email" name="email" autocomplete="email" inputmode="email" required />
+            </label>
+            <button type="submit" class="acct-btn acct-btn--primary" :disabled="sending || !email.includes('@')">
+              {{ sending ? 'Enviando…' : 'Enviar o link' }}
+            </button>
+          </form>
 
-      <div v-if="github" class="acct-alt">
-        <p class="acct-muted">ou</p>
-        <button type="button" class="acct-btn" @click="withGithub">Entrar com GitHub</button>
+          <p v-if="error" class="acct-error" role="alert">{{ error }}</p>
+
+          <div v-if="github" class="acct-alt">
+            <p class="acct-muted">ou</p>
+            <button type="button" class="acct-btn" @click="withGithub">Entrar com GitHub</button>
+          </div>
+
+          <p class="acct-muted acct-fine">
+            Ao entrar você concorda com as <a href="/aprender/regras">regras da comunidade</a>. Guardamos só o que
+            você escreve aqui e o seu e-mail. Você pode baixar ou apagar tudo quando quiser, no seu perfil.
+          </p>
+        </div>
+
+        <section class="login__courses" aria-labelledby="login-courses">
+          <h2 id="login-courses">O que você encontra</h2>
+          <ul class="login__tracks">
+            <li v-for="track in courseTracks" :key="track.slug">
+              <strong>{{ track.title }}</strong>
+              <span class="acct-muted">{{ track.summary }}</span>
+              <ul class="login__course-list">
+                <li v-for="course in track.courses" :key="course.slug">{{ course.title }}</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
       </div>
-
-      <p class="acct-muted acct-fine">
-        Ao entrar você concorda com as <a href="/aprender/regras">regras da comunidade</a>. Guardamos só o que
-        você escreve aqui e o seu e-mail. Você pode baixar ou apagar tudo quando quiser, no seu perfil.
-      </p>
     </template>
   </div>
 </template>

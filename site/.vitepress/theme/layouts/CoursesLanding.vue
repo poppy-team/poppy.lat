@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { courseTracks, lessonAt, lessonRoute, type Course } from '../data/courses';
 import { useCourseState } from '../course-state';
+import { accountsEnabled } from '../accounts/api';
+import { me, sessionStatus } from '../accounts/session';
 
 /**
  * The course landing: three ways in, depending on where the reader starts,
@@ -39,6 +41,10 @@ const entries = [
     href: '#como-uma-linguagem-funciona',
   },
 ];
+
+// The invitation to sign in shows once the session is known, so it does not
+// flash for people who are already signed in.
+const invite = computed(() => accountsEnabled && sessionStatus.value === 'ready' && !me.value);
 
 const languageNames = { ori: 'Ori', aipo: 'Aipo' } as const;
 
@@ -79,6 +85,15 @@ function completedCount(course: Course): number {
       <p class="courses-hero__summary">
         Lições curtas, uma ideia por vez, sempre com um projeto que funciona no fim. Escritas para quem tem TDAH,
         dislexia, outras formas de pensar, ou está começando agora.
+      </p>
+      <p class="courses-free">
+        <span class="courses-free__pill">Tudo gratuito</span>
+        <span v-if="accountsEnabled">As lições, a conta, as anotações e os comentários não custam nada.</span>
+        <span v-else>As lições não custam nada e ficam abertas para todo mundo.</span>
+      </p>
+      <p v-if="invite" class="courses-invite">
+        <a class="courses-invite__link" href="/conta/entrar?voltar=/aprender/">Entrar ou criar conta</a>
+        <span>para guardar seu progresso, fazer anotações e comentar. Para ler, não precisa de conta.</span>
       </p>
       <a v-if="resume" class="courses-resume" :href="resume.href">
         <span class="courses-resume__label">Continue de onde parou</span>
