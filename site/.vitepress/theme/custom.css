@@ -32,7 +32,7 @@
   --vp-sidebar-bg-color: var(--surface);
   --vp-nav-bg-color: var(--surface);
   --vp-local-nav-bg-color: var(--surface);
-  --vp-code-block-bg: var(--surface-raised);
+  --vp-code-block-bg: var(--code-bg);
   --vp-code-bg: var(--surface-sunken);
   --vp-code-color: var(--text);
   --vp-code-font-size: 0.85em;
@@ -46,6 +46,36 @@ html[data-project]:not([data-project='']) {
   --vp-c-brand-2: var(--project-ink);
   --vp-c-brand-3: var(--project-ink);
   --vp-c-brand-soft: color-mix(in srgb, var(--project-plane) 80%, transparent);
+}
+
+/* Syntax colours. The default GitHub palette that VitePress ships has three
+   colours below 4.5:1 on the code background (comments, keywords, orange) and
+   the dark comment colour is at 3.1:1. Each is replaced by a darker (light
+   theme) or lighter (dark theme) shade of the same hue; the inline style that
+   Shiki writes is outranked with !important. */
+.vp-doc span[style*='--shiki-light:#D73A49'] {
+  --shiki-light: #b82535 !important;
+}
+
+.vp-doc span[style*='--shiki-light:#6A737D'] {
+  --shiki-light: #5a636d !important;
+}
+
+.vp-doc span[style*='--shiki-dark:#6A737D'] {
+  --shiki-dark: #959fa9 !important;
+}
+
+.vp-doc span[style*='--shiki-light:#22863A'] {
+  --shiki-light: #1b6e2f !important;
+}
+
+.vp-doc span[style*='--shiki-light:#E36209'] {
+  --shiki-light: #a84500 !important;
+}
+
+/* Inline code inside the coloured boxes keeps the text colour, so it stays legible in both themes. */
+.vp-doc .custom-block :is(code, a code) {
+  color: var(--text);
 }
 
 /* Code shows the characters that were typed: no `>=` drawn as `≥`. */
@@ -74,13 +104,20 @@ body {
   outline: none;
 }
 
-.wordmark__logo--dark,
-.dark .wordmark__logo--light {
+/*
+ * The logo was drawn for light backgrounds, so it is never inverted. On a dark
+ * theme the same drawing sits on a small paper-coloured plate; the plate is
+ * padding and a background, so the logo itself keeps its exact colours.
+ */
+.wordmark__logo--dark {
   display: none;
 }
 
-.dark .wordmark__logo--dark {
-  display: inline-block;
+.dark .wordmark__logo--light {
+  box-sizing: content-box;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--color-paper);
 }
 
 /* ---------------------------------------------------------- primitives -- */
@@ -176,6 +213,21 @@ body {
 }
 
 /* ---------------------------------------------------------------- shell -- */
+
+/* The "copied" note of the code button, in the page's language. */
+:root {
+  --vp-code-copy-copied-text-content: 'Copiado';
+}
+
+:root:lang(en) {
+  --vp-code-copy-copied-text-content: 'Copied';
+}
+
+/* The site has its own skip link, in the reader's language and aimed at the main text; the
+   default theme's English one would be a second, redundant stop. */
+.VPSkipLink {
+  display: none;
+}
 
 .skip-link {
   position: absolute;
@@ -2044,5 +2096,193 @@ html[data-page='documentation'] .site-header {
 
   .learn-band {
     padding: var(--space-3) var(--space-2);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Install the app (footer).
+   -------------------------------------------------------------------------- */
+
+.install-app {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.install-app__button {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.install-app__button:hover {
+  border-color: var(--text);
+}
+
+.install-app__button:focus-visible,
+.install-app__close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.install-app__hint {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+}
+
+.install-app__steps {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 22rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  font-size: var(--text-sm);
+}
+
+.install-app__steps ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.install-app__close {
+  justify-self: start;
+  min-height: 2.25rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* --------------------------------------------------------------------------
+   Palette picker (footer and reading panel).
+   -------------------------------------------------------------------------- */
+
+.site-footer__look {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.palette-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 24rem;
+  margin-top: 0.6rem;
+}
+
+.palette-picker__option {
+  position: relative;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.palette-picker__option:hover {
+  border-color: var(--text);
+}
+
+.palette-picker__option:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-raised));
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.palette-picker__option:has(input:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.palette-picker__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.palette-picker__swatch {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  width: 2.25rem;
+  height: 1.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+}
+
+.palette-picker__half {
+  position: relative;
+  flex: 1;
+  background: var(--p-bg);
+}
+
+.palette-picker__half::before,
+.palette-picker__half::after {
+  position: absolute;
+  content: '';
+}
+
+.palette-picker__half::before {
+  inset: 0.35rem auto auto 0.2rem;
+  width: 0.5rem;
+  height: 0.12rem;
+  border-radius: 2px;
+  background: var(--p-fg);
+}
+
+.palette-picker__half::after {
+  inset: auto 0.2rem 0.25rem auto;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--p-accent);
+}
+
+.palette-picker__text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.palette-picker__name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.palette-picker__hint {
+  color: var(--text-soft);
+  font-size: var(--text-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .palette-picker__option {
+    transition: none;
   }
 }

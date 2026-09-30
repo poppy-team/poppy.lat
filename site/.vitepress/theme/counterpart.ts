@@ -84,6 +84,11 @@ export function useCounterpart() {
       return '/en/learn/';
     }
 
+    // The team page is written in Portuguese only.
+    if (/^\/?equipe\/?$/u.test(stripped)) {
+      return '/en/';
+    }
+
     // A project's editorial page carries `project` in its front matter too, so
     // the path decides: only pages under `<project>/docs/` are documentation.
     const isDocumentationPage = /^(ori|aipo|oride|prumo)\/docs\//u.test(stripped);

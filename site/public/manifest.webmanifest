@@ -1,0 +1,25 @@
+{
+  "id": "/aprender/",
+  "name": "Poppy Team",
+  "short_name": "Poppy",
+  "description": "Aprenda a programar com lições acessíveis e conheça os projetos da Poppy Team.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/aprender/?origem=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f1eddf",
+  "theme_color": "#33483f",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "/assets/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/app-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Continuar aprendendo", "short_name": "Aprender", "url": "/aprender/?origem=atalho" },
+    { "name": "Minhas anotações", "short_name": "Anotações", "url": "/conta/anotacoes?origem=atalho" },
+    { "name": "Blog", "short_name": "Blog", "url": "/blog/?origem=atalho" }
+  ]
+}

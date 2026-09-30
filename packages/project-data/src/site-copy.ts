@@ -12,6 +12,7 @@ export interface NavigationCopy {
 export interface SiteCopy {
   skipLink: string;
   navigationLabel: string;
+  footerNavigationLabel: string;
   navigation: NavigationCopy;
   languageLabel: string;
   languageName: string;
@@ -26,6 +27,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   'pt-BR': {
     skipLink: 'Pular para o conteúdo',
     navigationLabel: 'Navegação principal',
+    footerNavigationLabel: 'Navegação do rodapé',
     navigation: {
       home: 'Início',
       projects: 'Projetos',
@@ -44,6 +46,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
     skipLink: 'Skip to content',
     navigationLabel: 'Primary navigation',
+    footerNavigationLabel: 'Footer navigation',
     navigation: {
       home: 'Home',
       projects: 'Projects',

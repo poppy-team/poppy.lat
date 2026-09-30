@@ -11,7 +11,7 @@ const notes = computed(() => posts.filter((post) => post.locale === locale.value
 </script>
 
 <template>
-  <div id="main-content" class="journal-page" tabindex="-1">
+  <main id="main-content" class="journal-page" tabindex="-1">
     <header class="page-intro">
       <p class="eyebrow">Poppy Team</p>
       <h1 class="page-intro__title">{{ locale === 'en' ? 'Journal' : 'Blog' }}</h1>
@@ -33,5 +33,5 @@ const notes = computed(() => posts.filter((post) => post.locale === locale.value
         </div>
       </li>
     </ul>
-  </div>
+  </main>
 </template>

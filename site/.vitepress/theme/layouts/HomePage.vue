@@ -37,7 +37,7 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
 </script>
 
 <template>
-  <div id="main-content" class="home" tabindex="-1">
+  <main id="main-content" class="home" tabindex="-1">
     <section class="hero">
       <p class="eyebrow">{{ en ? 'Poppy Team · research & tools' : 'Poppy Team · pesquisa e ferramentas' }}</p>
       <h1 class="hero__title">
@@ -238,5 +238,5 @@ const latestPosts = computed(() => posts.filter((post) => post.locale === locale
         </li>
       </ul>
     </section>
-  </div>
+  </main>
 </template>

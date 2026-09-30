@@ -12,6 +12,7 @@ interface ImportMeta {
   readonly env: {
     /** "1" turns on accounts, notes and comments; leave it unset for the plain static site. */
     readonly VITE_ACCOUNTS?: string;
+    readonly PROD: boolean;
   };
 }
 

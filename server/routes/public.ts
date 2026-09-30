@@ -1,9 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { and, asc, eq, inArray } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { deps, requireUser, type AppEnv } from '../context.ts';
 import * as t from '../db/schema.ts';
 import { HttpError } from '../lib/http.ts';
-import { loadProfile } from '../lib/profile.ts';
+import { loadProfile, type ProfileView } from '../lib/profile.ts';
 
 export function publicRoutes() {
   const app = new Hono<AppEnv>();
@@ -22,6 +22,35 @@ export function publicRoutes() {
     }
 
     return c.json({ profile: await loadProfile(db, row.userId, { loggedIn: Boolean(viewer) }) });
+  });
+
+  /**
+   * The team page: people who are contributors or admins and have chosen to
+   * make their profile public. A private profile is never listed, whatever the
+   * role. Photos and e-mail follow the same rule as any public profile.
+   */
+  app.get('/team', async (c) => {
+    const { db } = deps(c);
+    const viewer = c.get('user');
+    const rows = await db
+      .select({ userId: t.profiles.userId })
+      .from(t.profiles)
+      .innerJoin(t.user, eq(t.user.id, t.profiles.userId))
+      .where(and(eq(t.profiles.isPublic, true), inArray(t.user.role, ['contributor', 'admin'])))
+      .orderBy(asc(t.profiles.createdAt), asc(t.profiles.handle));
+    const members: ProfileView[] = [];
+
+    for (const row of rows) {
+      const profile = await loadProfile(db, row.userId, { loggedIn: Boolean(viewer) });
+
+      if (profile) {
+        members.push(profile);
+      }
+    }
+
+    c.header('Cache-Control', 'private, no-store');
+
+    return c.json({ members });
   });
 
   /** Photos are only for people who are logged in; the address holds a random key. */

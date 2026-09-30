@@ -18,7 +18,13 @@ const project = computed(() =>
 </script>
 
 <template>
-  <div id="main-content" class="docs-bar" tabindex="-1">
+  <div
+    id="main-content"
+    class="docs-bar"
+    role="region"
+    :aria-label="locale === 'en' ? 'Project documentation' : 'Documentação do projeto'"
+    tabindex="-1"
+  >
     <DocsProjectHeader v-if="project" :project="project" :locale="locale" />
     <ProjectSwitcher :locale="locale" :current="project" />
   </div>

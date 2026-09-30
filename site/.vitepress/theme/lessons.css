@@ -60,17 +60,28 @@ html[data-page='course'] .VPDoc .content.content {
 
 /* The sheet: the lesson itself, on a raised surface with a green edge. */
 html[data-page='course'] .VPDoc .content-container.content-container {
-  max-width: 46rem;
+  max-width: 64rem;
   margin: 0 auto;
-  padding: var(--space-4) clamp(1.125rem, 5vw, 3rem) var(--space-5);
+  padding: var(--space-4) clamp(1.125rem, 4vw, 3.5rem) var(--space-5);
   border: 1px solid var(--rule);
   border-top: 6px solid var(--feature-ink);
   border-radius: var(--radius);
   background: var(--surface-raised);
+  transition:
+    max-width 0.45s ease,
+    padding 0.45s ease,
+    background-color 0.45s ease,
+    border-color 0.45s ease;
 }
 
 html[data-page='course'] .vp-doc {
   max-width: none;
+}
+
+/* The text keeps a comfortable line length; code, tables, callouts and
+   media use the whole width of the sheet. */
+html[data-page='course'] .vp-doc > div > :is(p, ul, ol, h1, h2, h3, h4, h5, h6, blockquote) {
+  max-width: 72ch;
 }
 
 html[data-page='course'] .vp-doc h1 {
@@ -668,24 +679,150 @@ html[data-outline-open] {
 }
 
 /* --------------------------------------------------------------------------
-   Focus mode: only the lesson remains.
+   Focus mode: only the lesson remains. The bar slides away, the sheet melts
+   into the page and narrows to a calm column, a thin line shows progress and,
+   if wanted, only the passage being read keeps full strength.
    -------------------------------------------------------------------------- */
+
+html[data-page='course'] .lesson-top {
+  transition:
+    margin-top 0.4s ease,
+    opacity 0.3s ease,
+    visibility 0s linear 0s;
+}
+
+html[data-page='course'] body,
+html[data-page='course'] .Layout {
+  transition: background-color 0.45s ease;
+}
 
 html[data-reading-focus='true'][data-page='course'] {
   --vp-nav-height: 0px;
+  --lesson-bg: var(--surface-raised);
 }
 
-html[data-reading-focus='true'][data-page='course'] .lesson-top,
+html[data-reading-focus='true'][data-page='course'] .lesson-top {
+  margin-top: calc(-1 * var(--lesson-bar-h));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    margin-top 0.4s ease,
+    opacity 0.3s ease,
+    visibility 0s linear 0.4s;
+}
+
 html[data-reading-focus='true'][data-page='course'] .outline,
 html[data-reading-focus='true'][data-page='course'] .outline-backdrop,
 html[data-reading-focus='true'][data-page='course'] .site-footer,
-html[data-reading-focus='true'][data-page='course'] .tabbar {
+html[data-reading-focus='true'][data-page='course'] .tabbar,
+html[data-reading-focus='true'][data-page='course'] .lesson-footer .comments,
+html[data-reading-focus='true'][data-page='course'] .lesson-handout {
   display: none;
+}
+
+html[data-reading-focus='true'][data-page='course'] .VPDoc .content-container.content-container {
+  max-width: 50rem;
+  padding-top: var(--space-6);
+  border-color: transparent;
+  background: transparent;
+}
+
+html[data-page='course'] .vp-doc > div > * {
+  transition: opacity 0.3s ease;
+}
+
+html[data-reading-focus='true'][data-reading-ruler='true'][data-page='course'] .vp-doc > div > *:not(.is-current) {
+  opacity: 0.4;
+}
+
+.focus-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 55;
+  height: 3px;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.focus-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+html[data-reading-focus='true'][data-page='course'] .focus-progress {
+  opacity: 1;
+}
+
+.focus-tools {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.focus-exit {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.focus-ruler {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.focus-tools-enter-active,
+.focus-tools-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.focus-tools-enter-from,
+.focus-tools-leave-to {
+  opacity: 0;
+  transform: translateY(-0.5rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .outline,
-  .lesson-pager__link {
-    transition: none;
+  .lesson-pager__link,
+  .lesson-top,
+  .focus-progress,
+  .focus-tools-enter-active,
+  .focus-tools-leave-active,
+  html[data-page='course'] body,
+  html[data-page='course'] .Layout,
+  html[data-page='course'] .vp-doc > div > *,
+  html[data-page='course'] .VPDoc .content-container.content-container {
+    transition: none !important;
   }
 }
