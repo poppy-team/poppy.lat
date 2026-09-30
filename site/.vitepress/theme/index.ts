@@ -19,6 +19,7 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs, rememberCodeWrap } from './course-state';
+import { registerServiceWorker } from './app-install';
 import { watchVitepressAccessibility } from './vitepress-a11y';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
@@ -145,6 +146,7 @@ export default {
     app.component('ModerationPage', ModerationPage);
     rememberCodeTabs();
     rememberCodeWrap();
+    registerServiceWorker();
 
     if (typeof document !== 'undefined') {
       if (document.readyState === 'loading') {

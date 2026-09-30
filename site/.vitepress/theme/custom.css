@@ -2087,3 +2087,75 @@ html[data-page='documentation'] .site-header {
     padding: var(--space-3) var(--space-2);
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Install the app (footer).
+   -------------------------------------------------------------------------- */
+
+.install-app {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.install-app__button {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.install-app__button:hover {
+  border-color: var(--text);
+}
+
+.install-app__button:focus-visible,
+.install-app__close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.install-app__hint {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+}
+
+.install-app__steps {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 22rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  font-size: var(--text-sm);
+}
+
+.install-app__steps ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.install-app__close {
+  justify-self: start;
+  min-height: 2.25rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
