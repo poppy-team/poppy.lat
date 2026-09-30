@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/getting-started/cli-overview.md"
 sourceBlob: "ba15b2452e3e319e339bce70c68c08565a153510"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/getting-started/cli-overview.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `ba15b2452e3e319e339bce70c68c08565a153510`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `ba15b2452e3e319e339bce70c68c08565a153510`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Command-Line Interface Guide (`aipo`)
@@ -113,5 +113,5 @@ aipo package cache prune .aipo/cache --lock aipo.lock --apply
 ```
 
 ::: tip 📖 Comprehensive Tooling Guide
-For in-depth details on compiler flags, WebAssembly targets, CI/CD integrations, and real-world examples, visit the [Complete Developer Tooling Guide](https://github.com/poppy-team/aipo-lang/blob/7d51026653301c3048a41e2cf4026e3429c3a3b9/docs/en/en/tools/).
+For in-depth details on compiler flags, WebAssembly targets, CI/CD integrations, and real-world examples, visit the [Complete Developer Tooling Guide](https://github.com/poppy-team/aipo-lang/blob/21ad042c30a8e684be68da712ceb9e56eb9c7774/docs/en/en/tools/).
 :::

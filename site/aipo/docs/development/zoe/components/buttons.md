@@ -6,12 +6,12 @@ category: development
 locale: pt-BR
 sourcePath: "docs/zoe/components/buttons.md"
 sourceBlob: "85484e817205ead2e72ff4ef31dab34e4efae12a"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/zoe/components/buttons.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `85484e817205ead2e72ff4ef31dab34e4efae12a`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `85484e817205ead2e72ff4ef31dab34e4efae12a`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Botões e Controles de Seleção

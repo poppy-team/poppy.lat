@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/tools/doctor.md"
 sourceBlob: "3cd34e89b4d997c800e69a71312f4d6980da826e"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/tools/doctor.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `3cd34e89b4d997c800e69a71312f4d6980da826e`.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `3cd34e89b4d997c800e69a71312f4d6980da826e`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Diagnóstico do Repositório (`prumo doctor`)

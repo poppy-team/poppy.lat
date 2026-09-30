@@ -6,12 +6,12 @@ category: development
 locale: en
 sourcePath: "docs/en/architecture/js-emitter.md"
 sourceBlob: "dd9fe3f590d05731f4c5ad714c3268aae61cfd10"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/architecture/js-emitter.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `dd9fe3f590d05731f4c5ad714c3268aae61cfd10`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `dd9fe3f590d05731f4c5ad714c3268aae61cfd10`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # JavaScript Backend (`aipo-js`)

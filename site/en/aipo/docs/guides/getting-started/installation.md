@@ -6,12 +6,12 @@ category: guides
 locale: en
 sourcePath: "docs/en/getting-started/installation.md"
 sourceBlob: "68e0ff256dcc079b2ab0ea611d7157cd90c35201"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Static copy
 Copied from `docs/en/getting-started/installation.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `68e0ff256dcc079b2ab0ea611d7157cd90c35201`.
+Pinned to revision `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `68e0ff256dcc079b2ab0ea611d7157cd90c35201`.
 The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Installation & Setup

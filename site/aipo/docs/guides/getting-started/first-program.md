@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/getting-started/first-program.md"
 sourceBlob: "7914f423d7c025d6c935c154276b6786e507beab"
-revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
+revision: "21ad042c30a8e684be68da712ceb9e56eb9c7774"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/getting-started/first-program.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `7914f423d7c025d6c935c154276b6786e507beab`.
+Fixado na revisão `21ad042c30a8e684be68da712ceb9e56eb9c7774`, blob `7914f423d7c025d6c935c154276b6786e507beab`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Seu Primeiro Programa em 5 Minutos

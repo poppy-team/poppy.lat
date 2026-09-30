@@ -267,7 +267,7 @@
     {
       "project": "aipo",
       "repository": "https://github.com/poppy-team/aipo-lang",
-      "revision": "7d51026653301c3048a41e2cf4026e3429c3a3b9",
+      "revision": "21ad042c30a8e684be68da712ceb9e56eb9c7774",
       "license": "MIT",
       "licenseFile": "LICENSE",
       "criterion": "srcExclude declarado em https://github.com/poppy-team/aipo-lang",
@@ -291,7 +291,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/adp/ADP-003-execution-budgets.md",
-          "sourceBlob": "a22a3d3f2dab6c1b3fc10316fe0fe10c7e06d86d",
+          "sourceBlob": "8e876d68c8b7c72e0de2e3ad196c8e23a731360a",
           "localPath": "site/aipo/docs/development/adp/ADP-003-execution-budgets.md",
           "category": "development",
           "status": "vendored"
@@ -299,7 +299,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/adp/ADP-004-unicode-identifier-policy.md",
-          "sourceBlob": "cf59b1e3d61f173d4d68e453f7dd4e6f81eedeb2",
+          "sourceBlob": "afc69d639b4eb574321f2033ff27bc238a892b10",
           "localPath": "site/aipo/docs/development/adp/ADP-004-unicode-identifier-policy.md",
           "category": "development",
           "status": "vendored"
@@ -307,7 +307,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/adp/ADP-005-parser-recursion-bounds.md",
-          "sourceBlob": "5ac6edf9e5e28034ae3dcfe158a61b0a31147465",
+          "sourceBlob": "9c2a400025e014aae3b2d2509bbee36a8bc0117c",
           "localPath": "site/aipo/docs/development/adp/ADP-005-parser-recursion-bounds.md",
           "category": "development",
           "status": "vendored"
@@ -315,7 +315,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/adp/ADP-006-wave3-wave4-open-decisions.md",
-          "sourceBlob": "34e5aa8ced79e45cea9fed53f2caf1dc2e2fcef0",
+          "sourceBlob": "2f59397987788db9c737f5b9aff43202e3cdcc15",
           "localPath": "site/aipo/docs/development/adp/ADP-006-wave3-wave4-open-decisions.md",
           "category": "development",
           "status": "vendored"
@@ -419,7 +419,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/architecture/overview.md",
-          "sourceBlob": "b1310fcdbf259548737a40e22f7649ca7887bc98",
+          "sourceBlob": "d3df00d71b0cab28e34019e39766f24f4dcf9d14",
           "localPath": "site/aipo/docs/development/architecture/overview.md",
           "category": "development",
           "status": "vendored"
@@ -539,7 +539,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G09-slice-s9.md",
-          "sourceBlob": "6d594977b3ca8c08c7b6f8c297a4e6b879a7719f",
+          "sourceBlob": "7c5b734c04216830dbfda4212ed14521b5b47521",
           "localPath": "site/aipo/docs/development/evidence/P00-G09-slice-s9.md",
           "category": "development",
           "status": "vendored"
@@ -547,7 +547,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G10-backend-completion.md",
-          "sourceBlob": "1e9fbc8be934802bc02ad372e9598bb8d58d59ed",
+          "sourceBlob": "4d6e1a6bd13aff0eb30657d03ae5a81f62cd0735",
           "localPath": "site/aipo/docs/development/evidence/P00-G10-backend-completion.md",
           "category": "development",
           "status": "vendored"
@@ -555,7 +555,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G11-cli-and-formatter.md",
-          "sourceBlob": "39d5aeb9a769904c7380a373e5915aaf842b27d9",
+          "sourceBlob": "74127bc64d86e4a9de1b5fdc39883ec8a032b574",
           "localPath": "site/aipo/docs/development/evidence/P00-G11-cli-and-formatter.md",
           "category": "development",
           "status": "vendored"
@@ -563,7 +563,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G12-conformance-and-mvp-gate.md",
-          "sourceBlob": "e057ddc0397ff34514b6c19ff2f5a9bd1b6f54b1",
+          "sourceBlob": "2f4331e2513e0b19eec46ef78c92e38e682924be",
           "localPath": "site/aipo/docs/development/evidence/P00-G12-conformance-and-mvp-gate.md",
           "category": "development",
           "status": "vendored"
@@ -571,7 +571,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G13-construction-hooks-and-bytes.md",
-          "sourceBlob": "4a691a90d68f11d4eb822c7f88c1e07f537ff653",
+          "sourceBlob": "2d477a128192456868c54ea84b1664e517b9c8ac",
           "localPath": "site/aipo/docs/development/evidence/P00-G13-construction-hooks-and-bytes.md",
           "category": "development",
           "status": "vendored"
@@ -579,7 +579,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G14-runtime-contract-enforcement.md",
-          "sourceBlob": "a197815f3b88252d84e907f2beb5515c75f942ff",
+          "sourceBlob": "6debeea19ba630e8ce3b33dc5176066c5c5edd12",
           "localPath": "site/aipo/docs/development/evidence/P00-G14-runtime-contract-enforcement.md",
           "category": "development",
           "status": "vendored"
@@ -587,7 +587,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G15-static-contracts-and-interface-conformance.md",
-          "sourceBlob": "2ba70d580eb2db18f8b4d0beeb4d7b37d9a8b8c5",
+          "sourceBlob": "0bb08e1fae025574e34bebc1fcf8f155ddccc776",
           "localPath": "site/aipo/docs/development/evidence/P00-G15-static-contracts-and-interface-conformance.md",
           "category": "development",
           "status": "vendored"
@@ -595,7 +595,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P00-G16-wave-1-exit-review.md",
-          "sourceBlob": "45f360836fb16625e45e4711d217ddb535f3ed53",
+          "sourceBlob": "90da12ca13336bfc446f304d24b48d5dbb22de2a",
           "localPath": "site/aipo/docs/development/evidence/P00-G16-wave-1-exit-review.md",
           "category": "development",
           "status": "vendored"
@@ -603,7 +603,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P01-G01-js-parity-mvp-subset.md",
-          "sourceBlob": "d6e2d2d817684110b9dc9925226551b60f03ae53",
+          "sourceBlob": "e9505912e915eb8738879cc6b67a917d0fe10c0f",
           "localPath": "site/aipo/docs/development/evidence/P01-G01-js-parity-mvp-subset.md",
           "category": "development",
           "status": "vendored"
@@ -611,7 +611,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P01-G02-deep-quality-gauntlet.md",
-          "sourceBlob": "a7b3a1a3831895d8d3aa19196d3e22956db2df48",
+          "sourceBlob": "9c5679e888672483056089a207846aea4d192ec9",
           "localPath": "site/aipo/docs/development/evidence/P01-G02-deep-quality-gauntlet.md",
           "category": "development",
           "status": "vendored"
@@ -619,7 +619,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P02-G01-wave3-types-and-values.md",
-          "sourceBlob": "fce81b73da0898fe6efd7d64894d472f152abb7f",
+          "sourceBlob": "122904c9b4af31148d9735769492ebee3a8f4e70",
           "localPath": "site/aipo/docs/development/evidence/P02-G01-wave3-types-and-values.md",
           "category": "development",
           "status": "vendored"
@@ -627,7 +627,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P02-G02-wave3-stdlib-async.md",
-          "sourceBlob": "2fcae0285cdac972664891a0b8811527b3454085",
+          "sourceBlob": "0902d6aadfc14a115c16e33a9a68b25c655e420b",
           "localPath": "site/aipo/docs/development/evidence/P02-G02-wave3-stdlib-async.md",
           "category": "development",
           "status": "vendored"
@@ -635,7 +635,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md",
-          "sourceBlob": "3aa1de8c53a8b276c6cb89f9ed68d2d16674ba68",
+          "sourceBlob": "5e898a41674f7623b9d9f6efced8e052bcb6c6fa",
           "localPath": "site/aipo/docs/development/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md",
           "category": "development",
           "status": "vendored"
@@ -643,7 +643,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P03-G01-host-abi.md",
-          "sourceBlob": "2b2e0d83bd1d90cf4ba45b4f672659397a87cc10",
+          "sourceBlob": "6cbe9aa47bea98d9edb76447f15611286ee0278f",
           "localPath": "site/aipo/docs/development/evidence/P03-G01-host-abi.md",
           "category": "development",
           "status": "vendored"
@@ -651,7 +651,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/evidence/P03-G02-poppy-adapter-and-headless-demo.md",
-          "sourceBlob": "f3214996b2efbb048cf62fd09190a6891f567497",
+          "sourceBlob": "1e4033834d8839597b43d0f8eaabee3c814f32d4",
           "localPath": "site/aipo/docs/development/evidence/P03-G02-poppy-adapter-and-headless-demo.md",
           "category": "development",
           "status": "vendored"
@@ -731,7 +731,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/performance/baseline.md",
-          "sourceBlob": "c6e642b83682ac5de5d8d6268c6da56de6d0ef2f",
+          "sourceBlob": "10fb2ec9f10f024874755fa02f2a5acf5b0d8e91",
           "localPath": "site/aipo/docs/development/performance/baseline.md",
           "category": "development",
           "status": "vendored"
@@ -1010,9 +1010,113 @@
         },
         {
           "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-001-byte-and-core-types-as-values.md",
+          "sourceBlob": "3f1bebfb6207254eccbd578bb0ff6e7697c45e73",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-001-byte-and-core-types-as-values.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-002-construction-hooks-and-runtime-contracts.md",
+          "sourceBlob": "5d0dc5b07e5256df909e3fab652a277e266554e8",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-002-construction-hooks-and-runtime-contracts.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-003-execution-budgets.md",
+          "sourceBlob": "a22a3d3f2dab6c1b3fc10316fe0fe10c7e06d86d",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-003-execution-budgets.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-004-unicode-identifier-policy.md",
+          "sourceBlob": "cf59b1e3d61f173d4d68e453f7dd4e6f81eedeb2",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-004-unicode-identifier-policy.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-005-parser-recursion-bounds.md",
+          "sourceBlob": "5ac6edf9e5e28034ae3dcfe158a61b0a31147465",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-005-parser-recursion-bounds.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-006-wave3-wave4-open-decisions.md",
+          "sourceBlob": "34e5aa8ced79e45cea9fed53f2caf1dc2e2fcef0",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-006-wave3-wave4-open-decisions.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-007-package-identity-and-distribution.md",
+          "sourceBlob": "b70f82eef2a32f52f6217757c70f6762ea6caa55",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-007-package-identity-and-distribution.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-008-v0.1.0-language-release.md",
+          "sourceBlob": "84c0c5b671435217fa7602a679a230477af37635",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-008-v0.1.0-language-release.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-009-synchronous-c-abi.md",
+          "sourceBlob": "7da6038271708419d4783ebea10ddcfb044702dd",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-009-synchronous-c-abi.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-010-interoperability-thin-proofs.md",
+          "sourceBlob": "5262f4ed9e0f3e4b9d31e6fe8bb2e80d7f95b44c",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-010-interoperability-thin-proofs.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/adp/ADP-011-performance-and-ergonomics-roadmap.md",
+          "sourceBlob": "2c4e0f545a510a95a63ccc884e1233b25c198dc6",
+          "localPath": "site/en/aipo/docs/development/adp/ADP-011-performance-and-ergonomics-roadmap.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/adr/001-architecture-baseline.md",
+          "sourceBlob": "08f5da5f9f82c0eee6191d774074cac252c6eaab",
+          "localPath": "site/en/aipo/docs/development/architecture/adr/001-architecture-baseline.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
           "sourcePath": "docs/en/architecture/bytecode-and-vm.md",
           "sourceBlob": "6c6c5de8b91116f335617993bc0371f786a6d4c7",
           "localPath": "site/en/aipo/docs/development/architecture/bytecode-and-vm.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/clean-code-contract.md",
+          "sourceBlob": "ee7d4aad5205f5072b44d938e0a54cdc73e9a442",
+          "localPath": "site/en/aipo/docs/development/architecture/clean-code-contract.md",
           "category": "development",
           "status": "vendored"
         },
@@ -1045,6 +1149,14 @@
           "sourcePath": "docs/en/architecture/js-emitter.md",
           "sourceBlob": "dd9fe3f590d05731f4c5ad714c3268aae61cfd10",
           "localPath": "site/en/aipo/docs/development/architecture/js-emitter.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/overview.md",
+          "sourceBlob": "b1310fcdbf259548737a40e22f7649ca7887bc98",
+          "localPath": "site/en/aipo/docs/development/architecture/overview.md",
           "category": "development",
           "status": "vendored"
         },
@@ -1154,6 +1266,134 @@
         },
         {
           "locale": "en",
+          "sourcePath": "docs/en/design/zoe-visual-modernization-dossier.md",
+          "sourceBlob": "0c26bff72d8fb118d57e153404d640e48f291a12",
+          "localPath": "site/en/aipo/docs/development/design/zoe-visual-modernization-dossier.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G09-slice-s9.md",
+          "sourceBlob": "6d594977b3ca8c08c7b6f8c297a4e6b879a7719f",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G09-slice-s9.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G10-backend-completion.md",
+          "sourceBlob": "1e9fbc8be934802bc02ad372e9598bb8d58d59ed",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G10-backend-completion.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G11-cli-and-formatter.md",
+          "sourceBlob": "39d5aeb9a769904c7380a373e5915aaf842b27d9",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G11-cli-and-formatter.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G12-conformance-and-mvp-gate.md",
+          "sourceBlob": "e057ddc0397ff34514b6c19ff2f5a9bd1b6f54b1",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G12-conformance-and-mvp-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G13-construction-hooks-and-bytes.md",
+          "sourceBlob": "4a691a90d68f11d4eb822c7f88c1e07f537ff653",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G13-construction-hooks-and-bytes.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G14-runtime-contract-enforcement.md",
+          "sourceBlob": "a197815f3b88252d84e907f2beb5515c75f942ff",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G14-runtime-contract-enforcement.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G15-static-contracts-and-interface-conformance.md",
+          "sourceBlob": "2ba70d580eb2db18f8b4d0beeb4d7b37d9a8b8c5",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G15-static-contracts-and-interface-conformance.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P00-G16-wave-1-exit-review.md",
+          "sourceBlob": "45f360836fb16625e45e4711d217ddb535f3ed53",
+          "localPath": "site/en/aipo/docs/development/evidence/P00-G16-wave-1-exit-review.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P01-G01-js-parity-mvp-subset.md",
+          "sourceBlob": "d6e2d2d817684110b9dc9925226551b60f03ae53",
+          "localPath": "site/en/aipo/docs/development/evidence/P01-G01-js-parity-mvp-subset.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P01-G02-deep-quality-gauntlet.md",
+          "sourceBlob": "a7b3a1a3831895d8d3aa19196d3e22956db2df48",
+          "localPath": "site/en/aipo/docs/development/evidence/P01-G02-deep-quality-gauntlet.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P02-G01-wave3-types-and-values.md",
+          "sourceBlob": "fce81b73da0898fe6efd7d64894d472f152abb7f",
+          "localPath": "site/en/aipo/docs/development/evidence/P02-G01-wave3-types-and-values.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P02-G02-wave3-stdlib-async.md",
+          "sourceBlob": "2fcae0285cdac972664891a0b8811527b3454085",
+          "localPath": "site/en/aipo/docs/development/evidence/P02-G02-wave3-stdlib-async.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md",
+          "sourceBlob": "3aa1de8c53a8b276c6cb89f9ed68d2d16674ba68",
+          "localPath": "site/en/aipo/docs/development/evidence/P02-G03-wave3-async-syntax-and-diagnostics.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P03-G01-host-abi.md",
+          "sourceBlob": "2b2e0d83bd1d90cf4ba45b4f672659397a87cc10",
+          "localPath": "site/en/aipo/docs/development/evidence/P03-G01-host-abi.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/evidence/P03-G02-poppy-adapter-and-headless-demo.md",
+          "sourceBlob": "f3214996b2efbb048cf62fd09190a6891f567497",
+          "localPath": "site/en/aipo/docs/development/evidence/P03-G02-poppy-adapter-and-headless-demo.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
           "sourcePath": "docs/en/evidence/conformance.md",
           "sourceBlob": "3da069d7aba61cd6774e69d833c010060c2ec1cb",
           "localPath": "site/en/aipo/docs/development/evidence/conformance.md",
@@ -1202,6 +1442,14 @@
         },
         {
           "locale": "en",
+          "sourcePath": "docs/en/governance/repository-governance.md",
+          "sourceBlob": "2f3009325cdc4ae8d449c3edd8296d13d32a5ec7",
+          "localPath": "site/en/aipo/docs/development/governance/repository-governance.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
           "sourcePath": "docs/en/governance/security-and-threat-model.md",
           "sourceBlob": "244a70c926a8bfe777c020bb14ad74a91fae4da6",
           "localPath": "site/en/aipo/docs/development/governance/security-and-threat-model.md",
@@ -1213,6 +1461,22 @@
           "sourcePath": "docs/en/governance/standards-and-testing.md",
           "sourceBlob": "f0d33115348a86cb500b8a1c88bd6f0943688094",
           "localPath": "site/en/aipo/docs/development/governance/standards-and-testing.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/performance/baseline.md",
+          "sourceBlob": "c6e642b83682ac5de5d8d6268c6da56de6d0ef2f",
+          "localPath": "site/en/aipo/docs/development/performance/baseline.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/performance/cross-language.md",
+          "sourceBlob": "1a159ad771e87d4e78e5b390c5ef961ae880740d",
+          "localPath": "site/en/aipo/docs/development/performance/cross-language.md",
           "category": "development",
           "status": "vendored"
         },
@@ -1485,7 +1749,7 @@
     {
       "project": "oride",
       "repository": "https://github.com/poppy-team/oride",
-      "revision": "92a5262d466a8af9527cc49916ae438e217bb0e9",
+      "revision": "1cd515630b8ceb57777d466bee4970fe7c2e30e0",
       "license": "MIT",
       "licenseFile": "LICENSE",
       "criterion": "lista explícita em packages/project-data (7 páginas)",
@@ -1548,6 +1812,22 @@
         },
         {
           "locale": "en",
+          "sourcePath": "docs/en/ui-ux/keymap.md",
+          "sourceBlob": "f914eaff26d1c4b3967ccf42214a513230975465",
+          "localPath": "site/en/oride/docs/development/keymap.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/ui-ux/layout.md",
+          "sourceBlob": "85a26df4efa5355e749c1d3bd71645730d12fde9",
+          "localPath": "site/en/oride/docs/development/layout.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
           "sourcePath": "docs/guides/en/config.md",
           "sourceBlob": "5d1ad3b73791a3a05d67cdc8b8303aaf65dba1f5",
           "localPath": "site/en/oride/docs/guides/config.md",
@@ -1591,7 +1871,7 @@
     {
       "project": "prumo",
       "repository": "https://github.com/poppy-team/prumo",
-      "revision": "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a",
+      "revision": "e91694d3959be1ed92757b34063efe0b2191821f",
       "license": "MIT",
       "licenseFile": "LICENSE",
       "criterion": "srcExclude declarado em https://github.com/poppy-team/prumo",
@@ -1599,7 +1879,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/CONTRIBUTING.md",
-          "sourceBlob": "1ce697eb5c0fbd0aee3ea807a7db2ca02a7ec4c2",
+          "sourceBlob": "f911d2b0ec2afbb6d1eeba2f9e2117af82ce4718",
           "localPath": "site/prumo/docs/development/CONTRIBUTING.md",
           "category": "development",
           "status": "vendored"
@@ -1607,7 +1887,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/architecture/dependency-rules.md",
-          "sourceBlob": "6d467ccc2d16fa343cbbcdca69f1e3e29e68f75b",
+          "sourceBlob": "79c56d3dc4f91a15abcec3c66b4f43a2ff1626a3",
           "localPath": "site/prumo/docs/development/architecture/dependency-rules.md",
           "category": "development",
           "status": "vendored"
@@ -1615,7 +1895,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/architecture/overview.md",
-          "sourceBlob": "1d6123d069615f5236ea5561860b94b63706a26b",
+          "sourceBlob": "d088485fbed6537970c3e35cd8a14374d6cfa812",
           "localPath": "site/prumo/docs/development/architecture/overview.md",
           "category": "development",
           "status": "vendored"
@@ -1631,7 +1911,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/authority.md",
-          "sourceBlob": "90b76213a5b41e4fee7f2cf9303094d99e55340a",
+          "sourceBlob": "4a3383e4915037ba58a2762aad7b9be8d1073423",
           "localPath": "site/prumo/docs/development/governance/authority.md",
           "category": "development",
           "status": "vendored"
@@ -1647,7 +1927,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m10-exit-gate.md",
-          "sourceBlob": "56a727e477d157361f5459fa4241c085247978e5",
+          "sourceBlob": "1d0ae3949c369ac3c5b4c8a47c4796771e1204db",
           "localPath": "site/prumo/docs/development/governance/m10-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1655,7 +1935,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m11-exit-gate.md",
-          "sourceBlob": "d054e47155f147972d4e5ae16be2281f72c2e628",
+          "sourceBlob": "0bdb81a691102bd615efc648d1393e14bb4d3f1c",
           "localPath": "site/prumo/docs/development/governance/m11-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1663,7 +1943,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m12-exit-gate.md",
-          "sourceBlob": "6ecf5c02914debadb5dd9b46d77a23585e65603f",
+          "sourceBlob": "d0cdb67f7adb7a7bb582a0ea0fb080a12797bc93",
           "localPath": "site/prumo/docs/development/governance/m12-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1671,7 +1951,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m5-exit-gate.md",
-          "sourceBlob": "b9e09af8b8589c32372dc7426e0a6088f5378039",
+          "sourceBlob": "3012512a8cf57f036e4ee4a2e441d916a405f00f",
           "localPath": "site/prumo/docs/development/governance/m5-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1679,7 +1959,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m6-exit-gate.md",
-          "sourceBlob": "0ae8151ecf7db725da0e5bdeac147fb1e2a33fbb",
+          "sourceBlob": "77e2d14444f4db3d4c6bd9bbc933489ba6dd2b73",
           "localPath": "site/prumo/docs/development/governance/m6-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1687,7 +1967,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m7-exit-gate.md",
-          "sourceBlob": "b6204e12c5de6a1a01b2fddc4eb9fa02068c2517",
+          "sourceBlob": "6cbced75986ad2f6c822f500629c8a612755f191",
           "localPath": "site/prumo/docs/development/governance/m7-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1695,7 +1975,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m8-exit-gate.md",
-          "sourceBlob": "e77e173dd8f841937559f075ce3731489b2533b5",
+          "sourceBlob": "057a78dc1efd3efb8cf3cf4b92df3a6f203528ad",
           "localPath": "site/prumo/docs/development/governance/m8-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1703,7 +1983,7 @@
         {
           "locale": "pt-BR",
           "sourcePath": "docs/governance/m9-exit-gate.md",
-          "sourceBlob": "1273ebade2b999024c5aa4763aaa500239bb6ace",
+          "sourceBlob": "8442c7ae42f4c1489a53b68b4fe60aacb78faea1",
           "localPath": "site/prumo/docs/development/governance/m9-exit-gate.md",
           "category": "development",
           "status": "vendored"
@@ -1833,6 +2113,246 @@
           "sourcePath": "docs/tools/doctor.md",
           "sourceBlob": "3cd34e89b4d997c800e69a71312f4d6980da826e",
           "localPath": "site/prumo/docs/guides/tools/doctor.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/CONTRIBUTING.md",
+          "sourceBlob": "1ce697eb5c0fbd0aee3ea807a7db2ca02a7ec4c2",
+          "localPath": "site/en/prumo/docs/development/CONTRIBUTING.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/dependency-rules.md",
+          "sourceBlob": "6d467ccc2d16fa343cbbcdca69f1e3e29e68f75b",
+          "localPath": "site/en/prumo/docs/development/architecture/dependency-rules.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/overview.md",
+          "sourceBlob": "1d6123d069615f5236ea5561860b94b63706a26b",
+          "localPath": "site/en/prumo/docs/development/architecture/overview.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/architecture/viewer.md",
+          "sourceBlob": "e1c80c3148a3147f8ba8e8964715e6f94a25fdc8",
+          "localPath": "site/en/prumo/docs/development/architecture/viewer.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/authority.md",
+          "sourceBlob": "90b76213a5b41e4fee7f2cf9303094d99e55340a",
+          "localPath": "site/en/prumo/docs/development/governance/authority.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/lpc.md",
+          "sourceBlob": "66fe47b0fc357ec3dbfe628347799969c3fdda6f",
+          "localPath": "site/en/prumo/docs/development/governance/lpc.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m10-exit-gate.md",
+          "sourceBlob": "56a727e477d157361f5459fa4241c085247978e5",
+          "localPath": "site/en/prumo/docs/development/governance/m10-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m11-exit-gate.md",
+          "sourceBlob": "d054e47155f147972d4e5ae16be2281f72c2e628",
+          "localPath": "site/en/prumo/docs/development/governance/m11-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m12-exit-gate.md",
+          "sourceBlob": "6ecf5c02914debadb5dd9b46d77a23585e65603f",
+          "localPath": "site/en/prumo/docs/development/governance/m12-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m5-exit-gate.md",
+          "sourceBlob": "b9e09af8b8589c32372dc7426e0a6088f5378039",
+          "localPath": "site/en/prumo/docs/development/governance/m5-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m6-exit-gate.md",
+          "sourceBlob": "0ae8151ecf7db725da0e5bdeac147fb1e2a33fbb",
+          "localPath": "site/en/prumo/docs/development/governance/m6-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m7-exit-gate.md",
+          "sourceBlob": "b6204e12c5de6a1a01b2fddc4eb9fa02068c2517",
+          "localPath": "site/en/prumo/docs/development/governance/m7-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m8-exit-gate.md",
+          "sourceBlob": "e77e173dd8f841937559f075ce3731489b2533b5",
+          "localPath": "site/en/prumo/docs/development/governance/m8-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/m9-exit-gate.md",
+          "sourceBlob": "1273ebade2b999024c5aa4763aaa500239bb6ace",
+          "localPath": "site/en/prumo/docs/development/governance/m9-exit-gate.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/governance/trust-model.md",
+          "sourceBlob": "eb04c40165ed03fd933415a065a008c9927fb3ff",
+          "localPath": "site/en/prumo/docs/development/governance/trust-model.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/harness/aci-tools.md",
+          "sourceBlob": "c063cb99919f0d9c715359a96fea9e2d1ef37243",
+          "localPath": "site/en/prumo/docs/development/harness/aci-tools.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/harness/directives.md",
+          "sourceBlob": "c916d5f414fb9d0895c6a69b10fbad7e031cb09c",
+          "localPath": "site/en/prumo/docs/development/harness/directives.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/workforce/agents.md",
+          "sourceBlob": "0e18ed75b06c9a21c06c988a7c6bc6b908f96a50",
+          "localPath": "site/en/prumo/docs/development/workforce/agents.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/workforce/recipes.md",
+          "sourceBlob": "3091186f91f0fb8572c537729574d5be8e6817db",
+          "localPath": "site/en/prumo/docs/development/workforce/recipes.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/workforce/skills.md",
+          "sourceBlob": "e1733c3fdf35f36424b7ddfe1da92218a0e6ee14",
+          "localPath": "site/en/prumo/docs/development/workforce/skills.md",
+          "category": "development",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/adoption.md",
+          "sourceBlob": "e1edc1f859dcbeee27c5f3762b63b7a423a852af",
+          "localPath": "site/en/prumo/docs/guides/getting-started/adoption.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/concepts.md",
+          "sourceBlob": "3303d691a23da91be58cefe7769695665d5e13e0",
+          "localPath": "site/en/prumo/docs/guides/getting-started/concepts.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/first-project.md",
+          "sourceBlob": "10648ef1c87b1a2ceb551699dba072159b8df329",
+          "localPath": "site/en/prumo/docs/guides/getting-started/first-project.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/getting-started/installation.md",
+          "sourceBlob": "33b543441db8880ff7ee1112ab1df7612eec0fdc",
+          "localPath": "site/en/prumo/docs/guides/getting-started/installation.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/manual/connectors.md",
+          "sourceBlob": "155b3aa97d0fc46bba43261f12af819ada0716fa",
+          "localPath": "site/en/prumo/docs/guides/manual/connectors.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/manual/installation.md",
+          "sourceBlob": "97fb05a7a58183cb3dcd193f2a6252e05a599a7e",
+          "localPath": "site/en/prumo/docs/guides/manual/installation.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/manual/uninstallation.md",
+          "sourceBlob": "80590e1bde9b95cb601d94eed2097186347f0826",
+          "localPath": "site/en/prumo/docs/guides/manual/uninstallation.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/manual/usage.md",
+          "sourceBlob": "4ab63a4e7b4ccd2d13f864ac72a3002de1d4272f",
+          "localPath": "site/en/prumo/docs/guides/manual/usage.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/tools/cli-reference.md",
+          "sourceBlob": "0b5c470291bdce535c079a85df5b0d3b96f985b4",
+          "localPath": "site/en/prumo/docs/guides/tools/cli-reference.md",
+          "category": "guides",
+          "status": "vendored"
+        },
+        {
+          "locale": "en",
+          "sourcePath": "docs/en/tools/doctor.md",
+          "sourceBlob": "48df8392dd53fa981e3fd161be13c9aa423fb6a1",
+          "localPath": "site/en/prumo/docs/guides/tools/doctor.md",
           "category": "guides",
           "status": "vendored"
         }

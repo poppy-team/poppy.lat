@@ -6,12 +6,12 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/getting-started/first-project.md"
 sourceBlob: "b136dfffaa8a2f602a0c110d1a20611a98030afb"
-revision: "0f643d1c4fa8ac789cee878fbcd035f214f4eb4a"
+revision: "e91694d3959be1ed92757b34063efe0b2191821f"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/getting-started/first-project.md` em [https://github.com/poppy-team/prumo](https://github.com/poppy-team/prumo) (MIT).
-Fixado na revisão `0f643d1c4fa8ac789cee878fbcd035f214f4eb4a`, blob `b136dfffaa8a2f602a0c110d1a20611a98030afb`.
+Fixado na revisão `e91694d3959be1ed92757b34063efe0b2191821f`, blob `b136dfffaa8a2f602a0c110d1a20611a98030afb`.
 O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Primeiro Projeto com o Prumo (5 minutos)
