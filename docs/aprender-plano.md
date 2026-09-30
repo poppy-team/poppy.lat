@@ -95,6 +95,16 @@ Todas as lições têm a **mesma forma**. Previsibilidade reduz esforço para to
 8. **Palavras novas:** glossário da lição.
 9. **Próximo passo:** um link, uma frase.
 
+### A casca visual da lição
+
+A lição **não usa** o chrome da documentação (navbar, barra lateral, "nesta página"). Quem estuda precisa saber, só de olhar, que está numa aula e não numa página de referência. Por isso:
+
+- **Barra própria, verde e calma:** botão "Conteúdo", marca, curso › módulo, "Modo foco", "Leitura" e conta. O resto do site fica dentro do painel de conteúdo.
+- **Painel de conteúdo:** todos os cursos, módulos e lições, com ✓ nas concluídas, a atual marcada e "em breve" nas que ainda não existem. Abre com foco preso e fecha com Escape.
+- **Folha única:** uma coluna centrada, sobre fundo levemente esverdeado, com filete verde no topo. Acima do título: "Lição N de M · curso" e um marcador com um traço por lição do módulo (feita, atual, em breve).
+- **Fim da lição:** marcar como concluída, lição anterior e próxima, feedback e conversa.
+- **Espaço para vídeo:** `.lesson-media` ocupa a largura do texto (16:9) e `.lesson-media--wide` passa um pouco dela. Nada carrega de terceiros sozinho: incorporar um vídeo é decisão de quem escreve a lição e exige liberar o provedor na Content-Security-Policy (`frame-src`), com revisão de segurança. Preferir `youtube-nocookie.com` e mostrar sempre a transcrição ao lado.
+
 Regras de escrita:
 - Um conceito novo por lição. Se precisar de dois, vira duas lições.
 - Frases curtas, voz ativa, português do dia a dia. Termo técnico sempre explicado na primeira vez.

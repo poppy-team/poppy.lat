@@ -228,20 +228,6 @@
     overflow: hidden;
   }
 
-  /* The lesson bar: the trail shrinks to one way back. */
-  .lesson-bar__root {
-    display: none;
-  }
-
-  .lesson-bar__up {
-    display: inline;
-  }
-
-  .reading-tools__panel {
-    right: auto;
-    left: 0;
-  }
-
   .tool-btn {
     min-height: 2.75rem;
   }

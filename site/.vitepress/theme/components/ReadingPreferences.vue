@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCourseState } from '../course-state';
+import ThemeToggle from './ThemeToggle.vue';
 
 /**
  * Reading controls for the lessons. Spacing and size come first because they
@@ -59,7 +60,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
         <path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" />
         <circle cx="12" cy="12" r="2.5" />
       </svg>
-      {{ state.preferences.focus ? 'Sair do foco' : 'Modo foco' }}
+      <span class="tool-btn__label">{{ state.preferences.focus ? 'Sair do foco' : 'Modo foco' }}</span>
     </button>
 
     <button
@@ -72,7 +73,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 19 8 6l5 13M5 15h6M15 19l3.5-9 3.5 9M16.5 16.5h4" />
       </svg>
-      Leitura
+      <span class="tool-btn__label">Leitura</span>
     </button>
 
     <div v-show="open" id="reading-tools-panel" class="reading-tools__panel" role="group" aria-label="Preferências de leitura">
@@ -114,6 +115,11 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
           <input v-model="state.preferences.codeWrap" type="checkbox" />
           Quebrar linhas longas
         </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Aparência</legend>
+        <ThemeToggle />
       </fieldset>
 
       <p class="reading-tools__note">

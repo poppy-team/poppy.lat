@@ -14,7 +14,7 @@ async function openLessonFromLanding(page: import('@playwright/test').Page): Pro
   await page.goto('/aprender/');
   await page.locator(`a[href$="${lesson}"]:visible`).first().click();
   await expect(page).toHaveURL(new RegExp(`${lesson}$`, 'u'));
-  await expect(page.locator('.lesson-bar')).toBeVisible();
+  await expect(page.locator('.lesson-head')).toBeVisible();
 }
 
 test.describe('preferencias de leitura', () => {
@@ -50,6 +50,69 @@ test.describe('preferencias de leitura', () => {
     await page.keyboard.press('Escape');
     await expect(page.locator('#reading-tools-panel')).toBeHidden();
     await expect(toggle).toBeFocused();
+  });
+});
+
+test.describe('estrutura propria das aulas', () => {
+  test('a aula nao usa a barra lateral nem o menu da documentacao', async ({ page }) => {
+    await page.goto(lesson);
+
+    await expect(page.locator('.lesson-top')).toBeVisible();
+    await expect(page.locator('.VPNav')).toBeHidden();
+    await expect(page.locator('.VPSidebar')).toBeHidden();
+    await expect(page.locator('.VPDoc .aside')).toBeHidden();
+  });
+
+  test('o painel de conteudo abre, marca a licao atual e fecha com Escape', async ({ page }) => {
+    await page.goto(lesson);
+
+    const open = page.getByRole('button', { name: 'Conteúdo' });
+    await open.click();
+
+    const panel = page.getByRole('dialog', { name: 'Conteúdo dos cursos' });
+    await expect(panel).toBeVisible();
+    await expect(panel.locator('a[aria-current="page"]')).toHaveText(/Seu primeiro programa/u);
+    await expect(panel.getByText('Várias linhas de texto')).toContainText('em breve');
+
+    await page.keyboard.press('Escape');
+    await expect(panel).toBeHidden();
+    await expect(open).toBeFocused();
+  });
+
+  test('o painel mantem o foco dentro dele enquanto esta aberto', async ({ page }) => {
+    await page.goto(lesson);
+    await page.getByRole('button', { name: 'Conteúdo' }).click();
+
+    for (let step = 0; step < 40; step += 1) {
+      await page.keyboard.press('Tab');
+      expect(await page.evaluate(() => Boolean(document.activeElement?.closest('#course-outline')))).toBe(true);
+    }
+  });
+
+  test('o fim da aula mostra o caminho para seguir', async ({ page }) => {
+    await page.goto(lesson);
+
+    await expect(page.locator('.lesson-pager a')).toHaveCount(1);
+    await expect(page.locator('.lesson-steps li')).toHaveCount(4);
+  });
+
+  test('no celular a barra da aula cabe na tela e o painel cobre a barra de abas', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(lesson);
+    await page.getByRole('button', { name: 'Conteúdo' }).click();
+
+    const panel = page.locator('#course-outline');
+    await expect(panel).toBeVisible();
+
+    const covered = await page.evaluate(() => {
+      const tabs = document.querySelector('.tabbar')!.getBoundingClientRect();
+      const hit = document.elementFromPoint(tabs.x + tabs.width / 2, tabs.y + tabs.height / 2);
+
+      return Boolean(hit?.closest('#course-outline, .outline-backdrop'));
+    });
+
+    expect(covered).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 });
 

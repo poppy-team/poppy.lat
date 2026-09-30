@@ -6,6 +6,7 @@ import ProjectSwitcher from './components/ProjectSwitcher.vue';
 import DocsProjectHeader from './components/DocsProjectHeader.vue';
 import DocsBar from './components/DocsBar.vue';
 import LessonBar from './components/LessonBar.vue';
+import LessonTopBar from './components/LessonTopBar.vue';
 import LessonFooter from './components/LessonFooter.vue';
 import MobileTabBar from './components/MobileTabBar.vue';
 import NotesFab from './accounts/NotesFab.vue';
@@ -18,7 +19,6 @@ import ArticlePage from './layouts/ArticlePage.vue';
 import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs, rememberCodeWrap } from './course-state';
-import AccountMenu from './accounts/AccountMenu.vue';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
 import ProfileEditPage from './accounts/ProfileEditPage.vue';
@@ -36,6 +36,7 @@ import '@fontsource/atkinson-hyperlegible/700.css';
 import './tokens.css';
 import './custom.css';
 import './courses.css';
+import './lessons.css';
 import './accounts/accounts.css';
 import './mobile.css';
 
@@ -91,6 +92,8 @@ const RoutedLayout = defineComponent({
             siteCopy[lang.value.startsWith('en') ? 'en' : 'pt-BR'].skipLink,
           ),
           h(SiteChrome),
+          // Lessons have a bar of their own instead of the site header.
+          ...(kind === 'course' ? [h(LessonTopBar)] : []),
           h(SiteFooter),
         ],
         // Imported pages get the project bar at the top of the content column,
@@ -107,19 +110,12 @@ const RoutedLayout = defineComponent({
         ],
         // The default theme's language menu leads to the other locale's home
         // and forgets the choice; the site's own switch goes to the same page
-        // and remembers it, so it replaces the menu in the documentation and lesson bars.
-        // The header of editorial pages carries the account menu and the switch itself.
-        'nav-bar-content-after': () =>
-          kind === 'documentation' || kind === 'course'
-            ? [...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []), h(LanguageSwitch)]
-            : [],
+        // and remembers it, so it replaces the menu in the documentation bar.
+        // Lessons have their own bar and no switch (they exist only in Portuguese);
+        // the header of editorial pages carries the account menu and the switch itself.
+        'nav-bar-content-after': () => (kind === 'documentation' ? [h(LanguageSwitch)] : []),
         'nav-screen-content-after': () =>
-          kind === 'documentation' || kind === 'course'
-            ? [
-                ...(kind === 'course' && !lang.value.startsWith('en') ? [h(AccountMenu)] : []),
-                h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)]),
-              ]
-            : [],
+          kind === 'documentation' ? [h('div', { class: 'nav-screen-language' }, [h(LanguageSwitch)])] : [],
       });
     };
   },
