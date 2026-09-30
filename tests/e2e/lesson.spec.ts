@@ -116,6 +116,31 @@ test.describe('estrutura propria das aulas', () => {
   });
 });
 
+test.describe('apostila', () => {
+  test('o fim do curso oferece a apostila em Markdown e o arquivo existe', async ({ page, request }) => {
+    await page.goto(lesson);
+
+    const link = page.getByRole('link', { name: /Baixar a apostila/u });
+    await expect(link).toHaveAttribute('href', '/apostilas/pensar-em-codigo.md');
+    await expect(link).toHaveAttribute('download', '');
+
+    const response = await request.get('/apostilas/pensar-em-codigo.md');
+    expect(response.ok()).toBe(true);
+
+    const text = await response.text();
+    expect(text).toContain('# Pensar em código');
+    expect(text).toContain('### Lição 1: Seu primeiro programa');
+    expect(text).not.toContain(':::');
+  });
+
+  test('o cartao do curso na pagina Aprender tambem leva a apostila', async ({ page }) => {
+    await page.goto('/aprender/');
+
+    await expect(page.locator('#pensar-em-codigo').getByRole('link', { name: /Baixar a apostila/u })).toBeVisible();
+    await expect(page.locator('#comece-aqui').getByRole('link', { name: /Baixar a apostila/u })).toHaveCount(0);
+  });
+});
+
 test.describe('codigo', () => {
   test('o botao de quebra de linha vale para todos os blocos e fica salvo', async ({ page }) => {
     await page.goto(lesson);

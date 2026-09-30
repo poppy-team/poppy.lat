@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import {
   defineConfig,
@@ -15,6 +15,7 @@ import {
   type Locale,
 } from '@poppy/project-data';
 import { docsIndex, docsPageFor, type DocsIndexPage } from './docs-index.ts';
+import { buildAllHandouts } from './handout.ts';
 
 const locales = {
   root: {
@@ -144,6 +145,35 @@ function projectSidebars(locale: Locale): DefaultTheme.SidebarMulti {
   );
 }
 
+const siteDirectory = path.resolve(import.meta.dirname, '..');
+const today = (): string => new Date().toISOString().slice(0, 10);
+
+/**
+ * The apostilas are made from the lesson pages, so in development they are
+ * answered on the fly (always current) and in a build they are written to the
+ * output next to the pages (see `buildEnd`).
+ */
+function handoutsModule(): Plugin {
+  return {
+    name: 'poppy:handouts',
+    configureServer(server) {
+      server.middlewares.use((request, response, next) => {
+        const pathname = (request.url ?? '').split('?')[0];
+        const found = buildAllHandouts(siteDirectory, today()).find((handout) => handout.href === pathname);
+
+        if (!found) {
+          next();
+
+          return;
+        }
+
+        response.setHeader('content-type', 'text/markdown; charset=utf-8');
+        response.end(found.markdown);
+      });
+    },
+  };
+}
+
 /**
  * Serves the enriched documentation index to the theme, which renders in the
  * browser and cannot read the page files itself.
@@ -204,6 +234,16 @@ function pageKind(relativePath: string): 'documentation' | 'course' | 'editorial
 }
 
 export default defineConfig({
+  buildEnd(siteConfig) {
+    const folder = path.join(siteConfig.outDir, 'apostilas');
+
+    mkdirSync(folder, { recursive: true });
+
+    for (const handout of buildAllHandouts(siteDirectory, today())) {
+      writeFileSync(path.join(folder, path.basename(handout.href)), handout.markdown, 'utf8');
+    }
+  },
+
   transformPageData(pageData) {
     // Imported pages carry a title made from their file name; the heading the
     // page opens with is the real one, and it is what the tab should show.
@@ -320,7 +360,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [importedDocsModule()],
+    plugins: [importedDocsModule(), handoutsModule()],
     // In development the API runs on its own port (`pnpm api`); the site talks
     // to it through the same address, so cookies and the Origin check behave as in production.
     server: { proxy: { '/api': { target: 'http://127.0.0.1:8787' } } },
