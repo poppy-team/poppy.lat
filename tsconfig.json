@@ -19,6 +19,6 @@
     "jsx": "preserve",
     "noEmit": true
   },
-  "include": ["site/.vitepress/**/*.ts", "site/.vitepress/**/*.vue", "tests/**/*.ts", "vitest.config.ts"],
+  "include": ["site/.vitepress/**/*.ts", "site/.vitepress/**/*.vue", "server/**/*.ts", "api/**/*.ts", "scripts/db-*.ts", "tests/**/*.ts", "vitest.config.ts"],
   "exclude": ["node_modules", "site/.vitepress/cache", "site/.vitepress/dist"]
 }

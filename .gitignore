@@ -25,3 +25,7 @@ dist/
 screenshots/
 test-results/
 playwright-report/
+
+# Local database (development)
+local.db
+local.db-*
