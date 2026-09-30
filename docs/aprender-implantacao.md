@@ -17,7 +17,7 @@ VITE_ACCOUNTS=1 pnpm dev --host 127.0.0.1 # site em http://127.0.0.1:5173, /api 
 
 ## Publicar (Vercel + Turso)
 
-A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, que junta `server/` em `server-dist/handler.mjs` (esbuild, dependências de fora ficam em `node_modules`). `api/[...route].js` só reexporta esse arquivo. Não volte a apontar a função para um `.ts`: a Vercel não empacota os outros arquivos `.ts` de `server/` e a função cai com `ERR_MODULE_NOT_FOUND`.
+A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, que junta `server/` em `server-dist/handler.mjs` (esbuild, dependências de fora ficam em `node_modules`). `api/index.js` só reexporta esse arquivo, e o `vercel.json` manda tudo o que começa com `/api/` para ele (um nome de arquivo com `[...route]` só casou com um trecho de caminho, e `/api/auth/...` dava 404). Não volte a apontar a função para um `.ts`: a Vercel não empacota os outros arquivos `.ts` de `server/` e a função cai com `ERR_MODULE_NOT_FOUND`.
 
 1. **Turso:** criar o banco na nuvem com a CLI oficial (`~/.turso/turso db create poppy-aprender`; o comando `turso` de algumas instalações é o motor local `tursodb` e não conhece `db create`), pegar a URL (`turso db show poppy-aprender --url`) e um token só deste banco (`turso db tokens create poppy-aprender`).
 2. **Migrações:** `TURSO_DATABASE_URL=... TURSO_AUTH_TOKEN=... pnpm db:migrate` antes de cada publicação que traga um arquivo novo em `server/db/migrations/`. Elas nunca rodam sozinhas em produção.
@@ -35,7 +35,7 @@ A função da API é gerada no build: `pnpm build` roda antes `pnpm build:api`, 
 4. **Primeiro admin:** entre uma vez pelo site e rode no Turso `UPDATE user SET role='admin' WHERE email='...'`. Depois disso, papéis se mudam pela página de Moderação.
 **Estado atual (2026-09-30):** já estão no projeto `poppy-website` da Vercel, só em Production, `SITE_URL`, `MAIL_FROM`, `RESEND_API_KEY` (sensível, só envio) e `AUTH_SECRET` (sensível). Faltam `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` e, por último, `VITE_ACCOUNTS=1`. Não ligue `VITE_ACCOUNTS` antes do Turso, senão a interface aparece sem API. Os Previews ainda não têm variáveis: como o `SITE_URL` é fixo, um Preview precisaria do próprio endereço.
 
-5. **Confirmar em um Preview antes do Production:** o formato do handler em `api/[...route].ts` (exports `GET/POST/PUT/DELETE` com Hono) segue a documentação da Vercel, mas só um deploy real confirma. Teste `/api/health`, o login completo e o envio de foto.
+5. **Confirmar em um Preview antes do Production:** o formato do handler em `api/index.js` (exports `GET/POST/PUT/DELETE` com Hono, mais o rewrite de `/api/:path*`) só se confirma com um deploy real. Teste `/api/health`, `/api/auth/ok`, o login completo e o envio de foto.
 
 ## O que está e o que não está pronto
 

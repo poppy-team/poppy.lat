@@ -5,6 +5,12 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api"
+    }
+  ],
   "redirects": [
     {
       "source": "/ori/docs/guides/first-project",
