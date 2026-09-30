@@ -4,64 +4,64 @@ description: "Aipo — Wave 0 Mvp"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/trajectory/wave-0-mvp.md"
+sourcePath: "docs/en/trajectory/wave-0-mvp.md"
 sourceBlob: "39633d19b0faf7b34591714c2d7161409a551859"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/trajectory/wave-0-mvp.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `39633d19b0faf7b34591714c2d7161409a551859`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/trajectory/wave-0-mvp.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `39633d19b0faf7b34591714c2d7161409a551859`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Wave 0 — MVP da Linguagem em 11 Slices
+# Wave 0 — Language MVP across 11 Slices
 
-A **Wave 0** estabeleceu os alicerces fundamentais da linguagem Aipo através de 11 fatias verticais (*vertical slices*) rigorosamente integradas e testadas.
+**Wave 0** established the foundational architecture of the Aipo programming language through 11 tightly integrated and thoroughly tested vertical slices.
 
 ---
 
-## Estrutura dos 11 Slices
+## The 11 Slices Structure
 
 ### S1: Workspace, Source & Diagnostics (`aipo-source`, `aipo-diagnostics`)
-- Configuração do workspace em Rust com edição 2024.
-- Representação canônica de arquivos de código-fonte (`Source`) com cálculo seguro de limites de caracteres UTF-8 (`is_char_boundary`).
-- Estrutura de diagnósticos com códigos de erro estáveis, spans de localização precisos e mensagens amigáveis.
+- Rust workspace configuration using the 2024 edition.
+- Canonical representation of source files (`Source`) with UTF-8 boundary safety (`is_char_boundary`).
+- Structured diagnostic system with stable error codes, precise source spans, and human-readable error messages.
 
 ### S2: Lexer Core (`aipo-lexer`)
-- Tokenizador de alta performance sem alocação desnecessária para palavras-chave e identificadores.
-- Rejeição rigorosa de literais numéricos malformados (`1.e5`, `1._5`) emitindo `AIPO_LEX_INVALID_NUMBER`.
+- Zero-copy, high-performance tokenizer for keywords, operators, and identifiers.
+- Strict rejection of malformed numeric literals (`1.e5`, `1._5`), emitting `AIPO_LEX_INVALID_NUMBER`.
 
 ### S3: Parser Core & AST (`aipo-syntax`, `aipo-ast`)
-- Parser descendente recursivo com recuperação automática de erros (`synchronize`).
-- Árvore sintática abstrata tipada cobrindo expressões de valor, estruturas, funções e declarações em nível de topo.
+- Recursive-descent parser featuring automatic panic-mode error recovery (`synchronize`).
+- Fully typed Abstract Syntax Tree (AST) covering value expressions, struct definitions, functions, and top-level declarations.
 
 ### S4: HIR Lowering (`aipo-hir`)
-- Conversão da AST em High-level Intermediate Representation (HIR).
-- Desaçucaramento de sintaxes idiomáticas e unificação de spans para hooks estruturais.
+- AST lowering into High-level Intermediate Representation (HIR).
+- Desugaring of syntactic constructs and unified span attribution for structural hooks.
 
 ### S5: Semantic Analysis (`aipo-sema`)
-- Tabela de símbolos léxica com suporte a escopos aninhados e sombras controladas.
-- Validação estática de declarações `struct`, detecção de campos duplicados e verificação inicial de tipos.
+- Lexical symbol tables supporting nested scopes and controlled variable shadowing.
+- Static validation of `struct` declarations, duplicate field detection, and initial type checking.
 
 ### S6: Core IR & Bytecode (`aipo-ir`, `aipo-bytecode`)
-- Representação intermediária linearizada focada em controle de fluxo explícito.
-- Emissor de bytecode determinístico gerando instruções compactas para a máquina virtual.
+- Linear intermediate representation optimized for explicit control flow.
+- Deterministic bytecode compiler generating compact instructions for the virtual machine.
 
 ### S7: VM Core (`aipo-vm`)
-- Interpretador baseado em pilha e registradores lógicos de execução contínua.
-- Pilha de frames de chamada (`CallFrame`) com isolamento seguro de locais e temporários.
+- Stack- and register-aware bytecode interpreter for sequential execution.
+- Call frame stack (`CallFrame`) maintaining strict isolation across local variables and evaluation temporaries.
 
 ### S8: Data & Errors (`aipo-vm`)
-- Modelo de valores `Value` com representação otimizada.
-- Sistema de falhas estruturadas (`VmFault`) mapeadas para diagnósticos amigáveis ao usuário.
+- Optimized `Value` representation.
+- Structured fault subsystem (`VmFault`) seamlessly mapped to rich diagnostic reports.
 
-### S9: Runtime & Stdlib Mínima (`aipo-runtime`, `aipo-stdlib`)
-- Registro de funções nativas do host.
-- Módulos matemáticos básicos, manipulação de texto e saída padrão (`print`).
+### S9: Runtime & Minimal Stdlib (`aipo-runtime`, `aipo-stdlib`)
+- Host runtime registration for native built-in functions.
+- Core mathematical helpers, string manipulation, and standard output (`print`).
 
 ### S10: CLI & Formatter (`aipo-cli`, `aipo-formatter`)
-- Subcomandos de linha de comando `aipo run`, `aipo check` e `aipo disasm`.
-- Formatador automático de código baseado em regras canônicas de indentação e espaçamento.
+- Unified command-line interface: `aipo run`, `aipo check`, and `aipo disasm`.
+- Canonical automatic code formatter enforcing consistent indentation and spacing rules.
 
-### S11: Suíte de Conformance Inicial
-- Conjunto inicial de testes end-to-end garantindo que programas canônicos compilam e executam com a saída exata esperada.
+### S11: Initial Conformance Suite
+- Baseline end-to-end integration test suite verifying that canonical test programs compile and run with deterministic, expected output.

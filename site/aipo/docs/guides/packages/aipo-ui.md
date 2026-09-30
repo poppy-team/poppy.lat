@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/packages/aipo-ui.md"
 sourceBlob: "15800b75364d269bb3206054950cda9516be2b09"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/packages/aipo-ui.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `15800b75364d269bb3206054950cda9516be2b09`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `15800b75364d269bb3206054950cda9516be2b09`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # aipo.ui — Framework Universal de Interface Multiplataforma
 
@@ -24,7 +24,7 @@ O repositório de origem permanece canônico; esta cópia não é atualizada aut
 
 No ecossistema Aipo, a separação de responsabilidades é rigorosa:
 
-- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/3a5ce6737d42ae75470f7798680ebc95b3ac761c/docs/packages/aipo-html)**: Projetado exclusivamente para a web tradicional. Opera sobre a árvore DOM do navegador (`<div>`, `<span>`, CSS web, Tailwind).
+- **[`aipo.html`](https://github.com/poppy-team/aipo-lang/blob/7d51026653301c3048a41e2cf4026e3429c3a3b9/docs/packages/aipo-html)**: Projetado exclusivamente para a web tradicional. Opera sobre a árvore DOM do navegador (`<div>`, `<span>`, CSS web, Tailwind).
 - **`aipo.ui`**: 100% agnóstico de plataforma. Constrói uma árvore declarativa de nós de layout e controles de alto nível, calcula a geometria espacial com o motor Rust **Taffy** e delega o desenho a renderizadores desacoplados.
 
 ```mermaid

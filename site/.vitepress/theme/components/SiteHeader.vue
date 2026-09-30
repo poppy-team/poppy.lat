@@ -2,10 +2,10 @@
 import { computed } from 'vue';
 import { useRoute } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
+import LanguageSwitch from './LanguageSwitch.vue';
 
 const props = defineProps<{
   locale: Locale;
-  languageHref: string;
 }>();
 
 const route = useRoute();
@@ -71,14 +71,7 @@ const links = computed(() => [
         </a>
       </nav>
 
-      <a
-        class="language-switch"
-        :href="languageHref"
-        :lang="locale === 'en' ? 'pt-BR' : 'en'"
-        :aria-label="copy.languageLabel"
-      >
-        {{ locale === 'en' ? 'PT' : 'EN' }}
-      </a>
+      <LanguageSwitch />
     </div>
   </header>
 </template>

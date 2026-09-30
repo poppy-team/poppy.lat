@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G10-backend-completion.md"
 sourceBlob: "1e9fbc8be934802bc02ad372e9598bb8d58d59ed"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G10-backend-completion.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `1e9fbc8be934802bc02ad372e9598bb8d58d59ed`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `1e9fbc8be934802bc02ad372e9598bb8d58d59ed`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidence — P00-G10 / Backend Completion (gaps inside S1–S9)
 

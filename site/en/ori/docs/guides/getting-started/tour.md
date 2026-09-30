@@ -9,10 +9,10 @@ sourceBlob: "2a6b04b97c4cd087bf433e45116feea420c92ac4"
 revision: "42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/language/tour.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
-Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `2a6b04b97c4cd087bf433e45116feea420c92ac4`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/language/tour.md` in [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
+Pinned to revision `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `2a6b04b97c4cd087bf433e45116feea420c92ac4`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Ori language tour (S3)
 

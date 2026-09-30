@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/language/tour.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
 Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `25f82a033a7b8e9e56e069791624f1f58a82ddfb`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Tour da linguagem Ori (S3)
 

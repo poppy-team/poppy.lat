@@ -4,350 +4,351 @@ description: "Aipo — Syntax And Types"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/manual/syntax-and-types.md"
+sourcePath: "docs/en/manual/syntax-and-types.md"
 sourceBlob: "aaad3d3d3003580a04d7a6f3ab23233f35f50d12"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/manual/syntax-and-types.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `aaad3d3d3003580a04d7a6f3ab23233f35f50d12`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/manual/syntax-and-types.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `aaad3d3d3003580a04d7a6f3ab23233f35f50d12`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Sintaxe & Tipos de Dados
+# Syntax & Data Types
 
-O Aipo foi projetado para oferecer uma sintaxe enxuta, determinística e livre de comportamentos implícitos perigosos. Esta seção detalha o sistema de tipos, as melhores práticas canônicas de escrita e o uso das ferramentas modernas da linguagem.
+Aipo was engineered to offer lean, deterministic syntax free from dangerous implicit behaviors. This section details the type system, canonical best practices for writing idiomatic code, and modern language features.
 
 ---
 
-## O Jeito Aipo: Princípios de Escrita Idiomática
+## The Aipo Way: Principles of Idiomatic Writing
 
-Para garantir código limpo, de alta performance e fácil de ler (especialmente convidativo para desenvolvedores com TDAH e dislexia), o Aipo estabelece regras canônicas claras:
+To guarantee clean, high-performance, and accessible code (especially welcoming for developers with ADHD and dyslexia), Aipo establishes clear canonical rules:
 
-| Prática Canônica (O Jeito Aipo) | Anti-Padrão a Evitar | Por que isso importa? |
+| Canonical Practice (The Aipo Way) | Anti-Pattern to Avoid | Why this matters |
 | :--- | :--- | :--- |
-| `let nome = "Dev"` (Imutabilidade por padrão) | `var nome = "Dev"` sem necessidade de mutação | Previne mutações acidentais e facilita o raciocínio determinístico sobre o estado. |
-| `struct Ponto { x, var y = 0 }` (Campos imutáveis por padrão) | Mutações globais ou campos mutáveis desnecessários | Mantém integridade de estruturas; mutabilidade exige intenção explícita com `var`. |
-| `Usuario{ nome: "Ana", idade: 28 }` (Chave-valor com `:`) | Sintaxe divergente de mapeamento | Dois-pontos unifica a sintaxe de associação em dicionários e structs sem conflito motor. |
-| `if condicao { ... }` (Blocos com chaves) | Parênteses redundantes ao redor de condições | Sintaxe enxuta, sem parênteses extras e compatível com realce visual por pares (*rainbow brackets*). |
-| `fn depositar(var self, valor)` (Receptor mutável explícito) | Efeitos colaterais ocultos em métodos | `var` é a palavra universal de mutabilidade na linguagem, tornando efeitos colaterais visíveis. |
-| `a // b` e `a //= b` (Divisão inteira) | Conversões manuais truncadas | Operador aritmético canônico expressivo e simétrico com `+`, `-`, `*`, `/`. |
-| `f"Usuário {id}: {email}"` (Interpolação direta) | Concatenação `"Usuário " + String(id) + ": " + email` | Interpolação direta elimina ruído visual e múltiplas alocações temporárias no heap. |
-| `r"C:\dados\relatorio.csv"` (Strings brutas) | Sequências de escape `"C:\\dados\\relatorio.csv"` | Strings brutas eliminam o excesso de barras invertidas em caminhos de arquivos e regex. |
-| `let cidade = usuario?.perfil?.cidade` (Navegação segura) | Encadeamentos defensivos `if usuario != none and ...` | Navegação segura evita verificações aninhadas redundantes de nulidade. |
-| `let porta = ler_porta() or_else 8080` (Fallback `or_else`) | Tratamento burocrático `attempt { porta = ... } failed ...` | `or_else` fornece valores padrão imediatos em expressões sujeitas a falha. |
-| `dados |> filtrar() |> calcular()` (Pipeline `\|>`) | Aninhamento profundo `calcular(filtrar(dados))` | O operador pipeline expressa transformações na ordem natural de execução dos dados. |
-| `lista.add(item)` (Inserção universal) | Métodos heterogêneos de coleção | `.add()` é a operação canônica universal de inserção em listas e conjuntos. |
-| `dados.lazy().filter(...).collect()` (Avaliação lazy) | Múltiplas etapas intermediárias no heap | `.lazy()` consome memória constante sem gerar listas temporárias intermediárias. |
+| `let name = "Dev"` (Immutable by default) | `var name = "Dev"` without need for mutation | Prevents accidental mutation and simplifies deterministic reasoning about state. |
+| `struct Point { x, var y = 0 }` (Immutable fields by default) | Global mutations or unstructured state | Guarantees struct integrity; mutation requires explicit intent via `var`. |
+| `User{ name: "Ana", age: 28 }` (Key-value with `:`) | Divergent mapping syntax | Colon unifies key-value association across dictionaries and structs without motor confusion. |
+| `if condition { ... }` (Brace blocks) | Redundant parentheses around conditions | Lean syntax without parenthesis clutter, fully compatible with native rainbow brackets and code folding. |
+| `fn deposit(var self, amount)` (Explicit mutator receiver) | Hidden side effects in methods | `var` is the universal keyword for mutability, making side effects visually clear. |
+| `a // b` and `a //= b` (Integer division) | Truncated manual casts | Expressive and symmetric canonical arithmetic operator alongside `+`, `-`, `*`, `/`. |
+| `f"User {id}: {email}"` (Direct interpolation) | String concatenation `"User " + String(id) + ": " + email` | Direct interpolation eliminates visual clutter and intermediate heap allocations. |
+| `r"C:\data\report.csv"` (Raw strings) | Escape sequences `"C:\\data\\report.csv"` | Raw strings eliminate backslash pollution in file paths and regex patterns. |
+| `let city = user?.profile?.city` (Safe navigation) | Defensive cascading `if user != none and ...` | Safe navigation avoids redundant nested null-checking boilerplate. |
+| `let port = load_port() or_else 8080` (Fallback `or_else`) | Heavy error handling `attempt { port = ... } failed ...` | `or_else` provides immediate default values in failure-prone expressions. |
+| `data |> filter() |> calculate()` (Pipeline `\|>`) | Deep nesting `calculate(filter(data))` | The pipeline operator expresses data transformations in natural left-to-right order. |
+| `list.add(item)` (Universal insertion) | Heterogeneous collection operations | `.add()` is the universal canonical insertion method for lists and sets. |
+| `data.lazy().filter(...).collect()` (Lazy evaluation) | Intermediate heap allocations | `.lazy()` consumes constant memory without allocating temporary intermediate lists. |
 
 ---
 
-## 1. Strings Modernas no Aipo
+## 1. Modern Strings in Aipo
 
-O manuseio de texto no Aipo é robusto, expressivo e matematicamente previsível. Toda string é garantida em **UTF-8 válido com normalização canônica NFC automática**.
+Text handling in Aipo is robust, expressive, and mathematically predictable. Every string is guaranteed to be **valid UTF-8 with automatic Unicode NFC canonical normalization**.
 
-### Interpolação de Strings (`f"..."`)
-A interpolação com o prefixo `f` é o padrão canônico para formatar mensagens e compor textos:
+### String Interpolation (`f"..."`)
+Interpolation with the `f` prefix is the canonical way to format messages and compose text:
 
 ```aipo
-let usuario = "Alice"
-let pontuacao = 98.5
-let nivel = 4
+let user = "Alice"
+let score = 98.5
+let level = 4
 
-# Interpolação com variáveis e expressões numéricas
-let relatorio = f"Jogador: {usuario} | Nível: {nivel} | Pontos: {pontuacao}"
-io.println(relatorio)
-# Imprime: "Jogador: Alice | Nível: 4 | Pontos: 98.5"
+# Interpolation with variables and numeric expressions
+let report = f"Player: {user} | Level: {level} | Points: {score}"
+io.println(report)
+# Prints: "Player: Alice | Level: 4 | Points: 98.5"
 
-# Executando operações dentro das chaves interpoladas
+# Executing operations directly inside interpolated braces
 let delta = 1.5
-io.println(f"Próxima meta: {pontuacao + delta}") # 100.0
+io.println(f"Next milestone: {score + delta}") # 100.0
 ```
 
-#### Escapando Chaves Literais
-Se precisar incluir os caracteres `{` ou `}` literalmente dentro de uma f-string, duplique-os (<code>&#123;&#123;</code> e <code>&#125;&#125;</code>):
+#### Escaping Literal Braces
+If you need to include literal `{` or `}` characters inside an f-string, duplicate them (<code>&#123;&#123;</code> and <code>&#125;&#125;</code>):
 
 ```aipo
-let chave = "token"
-let valor = "xyz123"
+let key = "token"
+let value = "xyz123"
 
-# Renderiza um objeto JSON com chaves literais e valor interpolado
-let json_payload = f"{{\"{chave}\": \"{valor}\"}}"
+# Renders a JSON object with literal braces and interpolated values
+let json_payload = f"{{\"{key}\": \"{value}\"}}"
 io.println(json_payload) # {"token": "xyz123"}
 ```
 
 ---
 
-### Strings Brutas (`r"..."`)
-Em linguagens convencionais, escrever caminhos de arquivo no Windows ou expressões regulares exige dobrar todas as barras invertidas (`\\\\`), gerando poluição visual que dificulta a leitura. 
+### Raw Strings (`r"..."`)
+In conventional languages, writing host file paths on Windows or regular expressions requires doubling every backslash (`\\\\`), generating visual noise that impairs readability.
 
-Com as **Raw Strings** do Aipo (`r"..."`), as barras invertidas são lidas literalmente:
+With Aipo's **Raw Strings** (`r"..."`), backslashes are preserved literally:
 
 ```aipo
-# 1. Caminhos de arquivo do sistema hospedeiro
-let caminho_windows = r"C:\Users\dev\AppData\Local\Aipo\config.toml"
-io.println(caminho_windows)
-# Imprime literalmente: C:\Users\dev\AppData\Local\Aipo\config.toml
+# 1. Host system file paths
+let windows_path = r"C:\Users\dev\AppData\Local\Aipo\config.toml"
+io.println(windows_path)
+# Prints literally: C:\Users\dev\AppData\Local\Aipo\config.toml
 
-# 2. Padrões de expressões regulares limpos e sem escape duplo
-let padrao_email = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-io.println(padrao_email)
+# 2. Clean regular expression patterns without double backslashes
+let email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+io.println(email_pattern)
 ```
 
 ---
 
-### Strings Multilinha (`"""..."""` e `r"""..."""`)
-Para blocos extensos de texto, documentação inline, consultas SQL ou templates, utilize as aspas triplas. Elas preservam formatação, identação e quebras de linha com clareza:
+### Multiline Strings (`"""..."""` and `r"""..."""`)
+For long blocks of text, inline documentation, SQL queries, or templates, use triple quotes. They preserve formatting, indentation, and line breaks with clarity:
 
 ```aipo
-let consulta_sql = """
-SELECT u.id, u.nome, p.cargo
-FROM usuarios u
-JOIN permissoes p ON p.usuario_id = u.id
-WHERE u.ativo = true
-ORDER BY u.nome ASC
+let sql_query = """
+SELECT u.id, u.name, p.role
+FROM users u
+JOIN permissions p ON p.user_id = u.id
+WHERE u.active = true
+ORDER BY u.name ASC
 """
 
-io.println(consulta_sql)
+io.println(sql_query)
 ```
 
 ---
 
 ### Raw Format Strings (`fr"..."` / `rf"..."`)
-Quando você precisa compor um padrão regex dinâmico ou um caminho que contenha variáveis interpoladas sem ter que escapar barras invertidas, combine ambos os prefixos:
+When you need to compose a dynamic regex pattern or a system path containing interpolated variables without escaping backslashes, combine both prefixes:
 
 ```aipo
-let pasta = "logs"
-let extensao = "txt"
+let folder = "logs"
+let extension = "txt"
 
-# Combina raw string (barras não escapadas) com interpolação de variáveis:
-let caminho_dinamico = fr"C:\sistema\{pasta}\app.{extensao}"
-io.println(caminho_dinamico)
-# Imprime: C:\sistema\logs\app.txt
+# Combines raw string semantics (unescaped backslashes) with variable interpolation:
+let dynamic_path = fr"C:\system\{folder}\app.{extension}"
+io.println(dynamic_path)
+# Prints: C:\system\logs\app.txt
 ```
 
 ---
 
-### Conversão Binária de Strings (`.encode()` e `.decode()`)
-Em operações de rede e gravação de arquivos binários, strings e buffers `Bytes` convertem-se diretamente sem dependências externas:
+### Binary String Conversion (`.encode()` and `.decode()`)
+For networking and binary file I/O, strings and `Bytes` buffers convert directly without third-party dependencies:
 
 ```aipo
-let mensagem = "Aipo determinístico"
+let message = "Deterministic Aipo"
 
-# Converte String UTF-8 para buffer bruto de Bytes
-let bytes_brutos = mensagem.encode()
-io.println(f"Tamanho em bytes: {bytes_brutos.len()}")
+# Converts UTF-8 String into a raw Bytes buffer
+let raw_bytes = message.encode()
+io.println(f"Byte size: {raw_bytes.len()}")
 
-# Decodifica buffer Bytes de volta para String UTF-8 NFC
-let texto_original = bytes_brutos.decode()
-io.println(texto_original) # "Aipo determinístico"
+# Decodes Bytes buffer back into a normalized UTF-8 NFC String
+let original_text = raw_bytes.decode()
+io.println(original_text) # "Deterministic Aipo"
 ```
 
 ---
 
-## 2. Variáveis e Imutabilidade
+## 2. Variables and Immutability
 
-O Aipo adota o princípio de imutabilidade padrão (*immutable-by-default*) de forma consistente em todos os escopos:
+Aipo adopts the immutable-by-default principle consistently across all scopes:
 
 ```aipo
-# Imutável: o compilador impede reatribuições posteriores
-let taxa_servico = 0.15
+# Immutable: compiler prevents subsequent reassignments
+let service_fee = 0.15
 
-# Mutável: reservado para acumuladores ou estados locais em laços
-var total_acumulado = 100.0
-total_acumulado += 25.0
-io.println(total_acumulado) # 125.0
+# Mutable: reserved for loop accumulators or local state
+var accumulated_total = 100.0
+accumulated_total += 25.0
+io.println(accumulated_total) # 125.0
 ```
 
-::: tip Regra de Ouro
-Sempre inicie novas declarações com `let`. Apenas altere para `var` se a variável for explicitamente modificada no fluxo local.
+::: tip Golden Rule
+Always start new variable declarations with `let`. Only change to `var` if the variable is explicitly mutated in the local execution flow.
 :::
 
 ---
 
-## 3. Tipos Primitivos & Aritmética Segura
+## 3. Primitive Types & Safe Arithmetic
 
-### Inteiros (`Int`)
-Inteiros assinados de 64 bits (`i64`). Suportam representações em diferentes bases numéricas e separadores visuais com sublinhado (`_`):
+### Integers (`Int`)
+Signed 64-bit integers (`i64`). Supports base prefixes and visual grouping with underscores (`_`):
 
 ```aipo
 let decimal = 42
-let milhao = 1_000_000    # Separador para facilitar a leitura visual
+let million = 1_000_000   # Visual separator for effortless readability
 let hexadecimal = 0xFF   # 255
-let binario = 0b101010   # 42
+let binary = 0b101010    # 42
 let octal = 0o777        # 511
 ```
 
-### Ponto Flutuante (`Float`)
-Números de precisão dupla de 64 bits (IEEE 754).
+### Floating-Point (`Float`)
+64-bit IEEE 754 double-precision numbers:
+
 ```aipo
 let pi = 3.14159
-let fracionario = 0.005
+let fractional = 0.005
 ```
 
-### Divisão Precisa (`/`) vs Divisão Inteira (`//`)
-No Aipo, o operador `/` sempre retorna um `Float`. Para realizar divisão inteira truncada, utilize o operador simétrico `//`:
+### Real Division (`/`) vs Truncated Integer Division (`//`)
+In Aipo, the `/` operator always returns a `Float`. To perform truncated integer division, use the symmetric `//` operator:
 
 ```aipo
 let a = 10
 let b = 3
 
-let divisao_real = a / b     # 3.3333333333333335 (Float)
-let divisao_inteira = a // b # 3 (Int)
+let real_div = a / b     # 3.3333333333333335 (Float)
+let integer_div = a // b # 3 (Int)
 
-# Atribuição composta simétrica
-var valor = 20
-valor //= 3
-io.println(valor) # 6
+# Symmetric compound assignment
+var value = 20
+value //= 3
+io.println(value) # 6
 ```
 
-::: warning Sem NaN ou Infinito Silencioso
-O modelo de valores do Aipo proíbe valores corrompidos como `NaN` ou `Infinity`. Operações inválidas (como divisão por zero ou raiz de número negativo) geram falhas estruturadas imediatamente.
+::: warning No Silent NaN or Infinity
+Aipo's value model strictly forbids corrupted values like `NaN` or `Infinity`. Invalid mathematical operations (such as division by zero or square roots of negative numbers) trigger structured runtime failures immediately.
 :::
 
 ---
 
-## 4. Coleções Idiomáticas
+## 4. Idiomatic Collections
 
-### 1. Listas (`List`)
-Vetores dinâmicos ordenados indexados a partir de `0`.
-- Inserção de elementos: utilize `.add(item)` (o Aipo padroniza `.add` para listas e conjuntos).
-- Indexação reversa: índices negativos contam a partir do final (`[-1]` acessa o último elemento).
-- Suporte a vírgula final (*trailing comma*) em declarações multilinha.
+### 1. Lists (`List`)
+Ordered dynamic arrays indexed from `0`.
+- Element insertion: use `.add(item)` (Aipo standardizes on `.add` across lists and sets).
+- Reverse indexing: negative indices count from the end (`[-1]` accesses the last element).
+- Trailing commas are fully supported in multiline lists.
 
 ```aipo
-let linguagens = [
+let languages = [
     "Rust",
     "Aipo",
     "TypeScript",
 ]
 
-linguagens.add("Odin")
+languages.add("Odin")
 
-io.println(linguagens[0])  # "Rust"
-io.println(linguagens[-1]) # "Odin"
-io.println(linguagens.len()) # 4
+io.println(languages[0])   # "Rust"
+io.println(languages[-1])  # "Odin"
+io.println(languages.len()) # 4
 ```
 
-### 2. Dicionários (`Dict`)
-Mapas associativos chave-valor indexados com `{}`. Preservam rigorosamente a ordem de inserção original:
+### 2. Dictionaries (`Dict`)
+Associative key-value maps declared with `{}` that strictly preserve original insertion order:
 
 ```aipo
-let configuracao = {
-    "servidor": "api.aipo.dev",
-    "porta": 8443,
+let config = {
+    "server": "api.aipo.dev",
+    "port": 8443,
     "ssl": true,
 }
 
-# Verificação explícita de presença com .has()
-if configuracao.has("porta") {
-    let porta = configuracao["porta"]
-    io.println(f"Porta configurada: {porta}")
+# Explicit presence verification with .has()
+if config.has("port") {
+    let port = config["port"]
+    io.println(f"Configured port: {port}")
 }
 ```
 
-::: tip Por que não existe `dict.get()`?
-O Aipo elimina o método `get(chave)` para evitar a armadilha clássica onde não é possível saber se o retorno `none` significa que a chave não existe ou se a chave existe e seu valor atribuído é explicitamente `none`. Em Aipo, use `dict.has(chave)` para checar presença e `dict[chave]` para recuperar o valor.
+::: tip Why is there no `dict.get()` method?
+Aipo intentionally omits `get(key)` to prevent the classic ambiguity where a `none` return value could mean either that the key does not exist or that the key exists with an explicit value of `none`. In Aipo, use `dict.has(key)` to check existence and `dict[key]` to retrieve the value.
 :::
 
-### 3. Conjuntos com Ordem de Inserção (`Set`)
-Armazenam valores únicos e mantêm a ordem em que foram inseridos:
+### 3. Insertion-Ordered Sets (`Set`)
+Store unique elements while preserving the order in which they were first added:
 
 ```aipo
-let tags = Set(["backend", "compilador", "backend"]) # Duplicata descartada
+let tags = Set(["backend", "compiler", "backend"]) # Duplicate discarded
 
 tags.add("cli")
 io.println(tags.has("backend")) # true
 io.println(tags.len())           # 3
-io.println(tags.to_list())       # ["backend", "compilador", "cli"]
+io.println(tags.to_list())       # ["backend", "compiler", "cli"]
 ```
 
-### 4. Sequências Lazy (`Sequence`)
-Para processar grandes volumes de dados sem alocar coleções intermediárias, crie uma sequência com `.lazy()`:
+### 4. Lazy Sequences (`Sequence`)
+To process high-volume datasets without allocating intermediate collections, create an on-demand sequence with `.lazy()`:
 
 ```aipo
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-# O encadeamento abaixo executa sob demanda em memória constante:
-let pares_triplicados = numeros.lazy()
+# The pipeline below evaluates on demand in constant memory:
+let tripled_evens = numbers.lazy()
     .filter(x => x % 2 == 0)
     .map(x => x * 3)
     .take(2)
     .collect()
 
-io.println(pares_triplicados) # [6, 12]
+io.println(tripled_evens) # [6, 12]
 ```
 
 ---
 
-## 5. Operadores Modernos e Expressivos
+## 5. Modern & Expressive Operators
 
-### Navegação Segura (`?.`)
-Evita checagens manuais de `none`. Se qualquer elo da cadeia for `none`, o resultado final é `none` sem disparar erro:
+### Safe Navigation (`?.`)
+Avoids nested null checks. If any link in the chain is `none`, the entire expression resolves to `none` without throwing a runtime error:
 
 ```aipo
-struct Endereco {
-    cidade
+struct Address {
+    city
 }
 
-struct Usuario {
-    endereco
+struct User {
+    address
 }
 
-# Instanciação simétrica usando dois-pontos (:) consistente:
-let u1 = Usuario{ endereco: Endereco{ cidade: "Curitiba" } }
-let u2 = Usuario{ endereco: none }
+# Symmetric instantiation using consistent colon (:) syntax:
+let u1 = User{ address: Address{ city: "Curitiba" } }
+let u2 = User{ address: none }
 
-io.println(u1?.endereco?.cidade) # "Curitiba"
-io.println(u2?.endereco?.cidade) # none
+io.println(u1?.address?.city) # "Curitiba"
+io.println(u2?.address?.city) # none
 ```
 
-### Operador de Fallback para Falhas (`or_else`)
-Permite fornecer um valor de recuperação imediato se uma expressão disparar um `fail`, sem a necessidade de abrir um bloco `attempt`:
+### Failure Fallback Operator (`or_else`)
+Provides an immediate fallback value if an expression produces a `fail`, without needing an explicit `attempt` block:
 
 ```aipo
-fn carregar_porta(ambiente) {
-    if ambiente == "producao" {
+fn load_port(env) {
+    if env == "production" {
         return 443
     }
-    return fail("ambiente desconhecido")
+    return fail("unknown environment")
 }
 
-# Se carregar_porta() disparar fail, o operador or_else assume o valor à direita:
-let porta = carregar_porta("teste") or_else 8080
-io.println(f"Porta ativa: {porta}") # 8080
+# If load_port() produces a fail, or_else evaluates the right-hand fallback:
+let port = load_port("test") or_else 8080
+io.println(f"Active port: {port}") # 8080
 ```
 
-### Operador Pipeline (`|>`)
-Permite estruturar transformações de dados em uma sequência natural da esquerda para a direita:
+### Pipeline Operator (`|>`)
+Allows data transformations to be organized in a natural left-to-right sequence:
 
 ```aipo
-fn limpar(txt) {
+fn clean(txt) {
     return txt.trim()
 }
 
-fn destacar(txt, prefixo) {
-    return prefixo + txt
+fn highlight(txt, prefix) {
+    return prefix + txt
 }
 
-# "  alerta  " é passado como primeiro argumento para limpar(), e o resultado para destacar():
-let rotulo = "  alerta  " |> limpar() |> destacar("[URGENTE] ")
-io.println(rotulo) # "[URGENTE] alerta"
+# "  alert  " is passed as first argument to clean(), and result to highlight():
+let label = "  alert  " |> clean() |> highlight("[URGENTE] ")
+io.println(label) # "[URGENTE] alert"
 ```
 
-### Verificação de Tipos (`is`)
-Verifica se um valor pertence a um tipo concreto da linguagem:
+### Type Checking (`is`)
+Checks whether a value matches a concrete language type:
 
 ```aipo
-let valor = 42
+let value = 42
 
-if valor is Int {
-    io.println("É um inteiro seguro de 64 bits")
+if value is Int {
+    io.println("It is a safe 64-bit integer")
 }
 
-# Para verificar ausência de valor, use igualdade direta com none:
-let dado = none
-if dado == none {
-    io.println("Valor nulo")
+# To check for absence of value, check equality with none directly:
+let data = none
+if data == none {
+    io.println("Value is null")
 }
 ```

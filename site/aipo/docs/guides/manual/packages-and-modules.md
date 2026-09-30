@@ -6,13 +6,13 @@ category: guides
 locale: pt-BR
 sourcePath: "docs/manual/packages-and-modules.md"
 sourceBlob: "34dd262530b3955b8dbf24d3fab6bef732550d63"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/manual/packages-and-modules.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `34dd262530b3955b8dbf24d3fab6bef732550d63`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `34dd262530b3955b8dbf24d3fab6bef732550d63`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Pacotes & Módulos
 

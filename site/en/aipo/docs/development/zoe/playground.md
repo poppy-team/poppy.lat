@@ -4,34 +4,34 @@ description: "Aipo — Playground"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/playground.md"
+sourcePath: "docs/en/zoe/playground.md"
 sourceBlob: "9db9295e10d740cc3502ad4653acc05471dd5bc6"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/playground.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `9db9295e10d740cc3502ad4653acc05471dd5bc6`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/playground.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `9db9295e10d740cc3502ad4653acc05471dd5bc6`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Playground Interativo do Zoe UI
+# Interactive Zoe UI Playground
 
-Experimente o **Zoe UI** e o motor de layout **Leona** diretamente na documentação.
+Explore **Zoe UI** and the **Leona** layout engine directly inside the documentation.
 
 ---
 
-## Demonstração Viva de Componentes
+## Live Interactive Code Example
 
-O Zoe UI oferece uma vasta gama de primitivas com tema Catppuccin calibrado. Abaixo você encontra um exemplo completo combinando o layout split, scrubber inputs, visualizador e gráficos de nós:
+Zoe UI features a rich suite of built-in components styled with the Catppuccin palette. Below is an example combining split views, scrubber inputs, and the code editor:
 
 ```aipo
 import aipo.zoe as zoe
 
 fn view() {
-    let valor_x = zoe.use_state(12.5)
-    let editor_script = zoe.use_state("fn on_start() {\n    print(\"Zoe UI Ativo!\")\n}")
+    let pos_x = zoe.use_state(12.5)
+    let script = zoe.use_state("fn on_start() {\n    print(\"Zoe UI Studio!\")\n}")
 
-    let barra_topo = zoe.row({
+    let header = zoe.row({
         "height": 40.0,
         "background": zoe.color.mantle,
         "align_items": "center",
@@ -45,24 +45,24 @@ fn view() {
     ])
 
     let editor = zoe.code_editor({
-        "code": editor_script,
+        "code": script,
         "height": 240.0
     })
 
     let inspector = zoe.column({ "gap": 10.0, "padding": 12.0, "background": zoe.color.base }, [
-        zoe.label("Coordenada Transform:", { "font_size": 12.0, "color": zoe.color.lavender }),
+        zoe.label("Transform Coordinates:", { "font_size": 12.0, "color": zoe.color.lavender }),
         zoe.scrubber_input({
             "label": "X",
-            "value": valor_x,
+            "value": pos_x,
             "min": -100.0,
             "max": 100.0,
             "width": "100%"
         }),
-        zoe.button("Executar Código", _ => print("Executando..."), { "variant": "primary" })
+        zoe.button("Run Script", _ => print("Executing..."), { "variant": "primary" })
     ])
 
     return zoe.column({ "width": "100%", "height": "100%" }, [
-        barra_topo,
+        header,
         zoe.split_view({ "split": 0.65 }, editor, inspector)
     ])
 }
@@ -82,14 +82,10 @@ fn draw() {
 
 ---
 
-## 💻 Como Rodar Localmente
+## 💻 Running Locally
 
-Para rodar este ou qualquer exemplo do Zoe UI localmente em sua máquina com aceleração por hardware nativa:
+To run the full integrated editor with GPU acceleration on your local machine:
 
 ```bash
-# Clone ou acesse o repositório
-cd aipo-lang
-
-# Execute o exemplo do Editor Integrado (Game Engine + 3D Viewport + Shaders SDF):
 cargo run -p aipo-game-host -- packages/aipo-zoe/examples/editor.aipo
 ```

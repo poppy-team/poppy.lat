@@ -162,6 +162,12 @@ function categoryFor(relativePath: string): DocsCategory {
 
 interface UpstreamPage {
   relativePath: string;
+  /**
+   * Path under the docs root as it exists upstream, including the `en/` prefix
+   * of the English tree. `relativePath` drops that prefix so routes never nest
+   * twice, which is why it cannot name the file to read.
+   */
+  sourceRelative: string;
   category: DocsCategory;
   blob: string;
 }
@@ -234,7 +240,12 @@ async function collectPages(
       { encoding: 'utf8' },
     ).trim();
 
-    found.push({ relativePath: routePath, category: categoryFor(relativeToDocs), blob });
+    found.push({
+      relativePath: routePath,
+      sourceRelative: relativeToDocs,
+      category: categoryFor(relativeToDocs),
+      blob,
+    });
   }
 
   return found.sort((a, b) => a.relativePath.localeCompare(b.relativePath));
@@ -282,18 +293,32 @@ function frontmatterFor(
   ].join('\n');
 }
 
-function provenanceBlock(source: {
-  path: string;
-  repository: string;
-  revision: string;
-  blob: string;
-  license: string;
-}): string {
+function provenanceBlock(
+  source: {
+    path: string;
+    repository: string;
+    revision: string;
+    blob: string;
+    license: string;
+  },
+  locale: string,
+): string {
+  if (locale === 'en') {
+    return [
+      '::: info Static copy',
+      `Copied from \`${source.path}\` in [${source.repository}](${source.repository}) (${source.license}).`,
+      `Pinned to revision \`${source.revision}\`, blob \`${source.blob}\`.`,
+      'The source repository remains canonical; this copy is refreshed through a sync pull request, not live.',
+      ':::',
+      '',
+    ].join('\n');
+  }
+
   return [
     '::: info Cópia estática',
     `Copiado de \`${source.path}\` em [${source.repository}](${source.repository}) (${source.license}).`,
     `Fixado na revisão \`${source.revision}\`, blob \`${source.blob}\`.`,
-    'O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.',
+    'O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.',
     ':::',
     '',
   ].join('\n');
@@ -643,7 +668,7 @@ for (const project of upstreamProjects) {
               revision,
               blob,
               license,
-            }) +
+            }, variant.locale) +
             rewriteLinks(body, [], (label, target, anchor) => {
               const resolved = path.posix.normalize(
                 path.posix.join(path.posix.dirname(variant.upstreamPath), target),
@@ -679,6 +704,7 @@ for (const project of upstreamProjects) {
     const asPages = (entries: { category: DocsCategory; slug: string }[]): UpstreamPage[] =>
       entries.map((entry) => ({
         relativePath: `${entry.slug}.md`,
+        sourceRelative: `${entry.slug}.md`,
         category: entry.category,
         blob: '',
       }));
@@ -726,7 +752,7 @@ for (const project of upstreamProjects) {
   for (const pass of passes) {
     for (const page of pass.pages) {
       const sourcePath = path
-        .join(project.docsRoot, page.relativePath)
+        .join(project.docsRoot, page.sourceRelative)
         .split(path.sep)
         .join('/');
 
@@ -760,7 +786,7 @@ for (const project of upstreamProjects) {
             revision,
             blob: page.blob,
             license,
-          }) +
+          }, pass.locale) +
           rewriteLinks(body, pass.pages, (label, target, anchor) =>
             pointAtUpstream(
               label,

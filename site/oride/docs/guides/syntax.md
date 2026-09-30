@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/guides/pt/syntax.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
 Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `56ff14947f010361ec7b89f3e2b6f9f2dd4fbaac`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Syntax highlight
 

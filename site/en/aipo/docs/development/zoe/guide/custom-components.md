@@ -4,75 +4,59 @@ description: "Aipo — Custom Components"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/guide/custom-components.md"
+sourcePath: "docs/en/zoe/guide/custom-components.md"
 sourceBlob: "ef314fc5c310c809195cab25c61b6a9b6bc068ec"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/guide/custom-components.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `ef314fc5c310c809195cab25c61b6a9b6bc068ec`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/guide/custom-components.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `ef314fc5c310c809195cab25c61b6a9b6bc068ec`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Criando Componentes Customizados
+# Creating Custom Components
 
-Uma das maiores forças do Zoe UI é seu protocolo aberto e uniforme de autoria de componentes. Qualquer desenvolvedor pode criar novos elementos sem wrappers nativos ou forks da biblioteca.
-
----
-
-## 1. O Contrato Canônico de Componente
-
-Todo componente no Zoe é uma função em Aipo que recebe um dicionário de propriedades (`props`) e, opcionalmente, uma lista de filhos (`children`), retornando um `ElementNode`:
+Zoe UI features a standardized, extensible component authoring contract:
 
 ```aipo
-fn make_meu_componente(props: Dict = {}, children: List = []) {
+fn make_custom_badge(props: Dict = {}, children: List = []) {
     let width_val = if props.has("width") then props["width"] else "auto"
-    let height_val = if props.has("height") then props["height"] else 32.0
+    let height_val = if props.has("height") then props["height"] else 26.0
 
     return zoe.rect(
         {
-            "tag": "meu_componente",
+            "tag": "custom_badge",
             "direction": "row",
             "align_items": "center",
             "width": width_val,
             "height": height_val,
-            "padding_x": 12.0,
-            "gap": 8.0,
-            "background": zoe.color.surface_0,
-            "border_width": 1.0,
-            "border_color": zoe.color.surface_2,
-            "border_radius": 6.0
+            "padding_x": 8.0,
+            "gap": 6.0,
+            "background": zoe.color.surface_1,
+            "border_radius": 4.0
         },
         children
     )
 }
 ```
 
----
+### Custom GPU Painting (`on_custom_draw`)
 
-## 2. Desenho Customizado em GPU (`on_custom_draw`)
-
-Para componentes que necessitam desenhar primitivas especializadas (como cabos de Bézier, formas vetoriais, osciloscópios ou editores gráficos), utilize o gancho `on_custom_draw`:
+For specialized vector rendering (Bézier curves, radar charts, dials), provide `on_custom_draw`:
 
 ```aipo
-fn make_radar_chart(props: Dict = {}) {
+fn make_custom_dial() {
     let on_custom_draw = fn(node) {
-        if node == none or node.layout == none {
-            return
-        }
+        if node == none or node.layout == none { return }
         let r = node.layout
-        
-        # Desenha um círculo central
-        host_draw_circle(r.x + r.width / 2.0, r.y + r.height / 2.0, 30.0, 0.2, 0.6, 0.9, 0.8)
+        host_draw_circle(r.x + r.width / 2.0, r.y + r.height / 2.0, 24.0, 0.4, 0.7, 0.9, 1.0)
     }
 
     return zoe.rect({
-        "tag": "radar_chart",
-        "width": 200.0,
-        "height": 200.0,
+        "tag": "dial",
+        "width": 64.0,
+        "height": 64.0,
         "on_custom_draw": on_custom_draw
     }, [])
 }
 ```
-
-Ao registrar `on_custom_draw`, o nó participa normalmente de todas as passadas de layout do Leona e recebe a geometria final `node.layout.x`, `node.layout.y`, `node.layout.width`, `node.layout.height`.

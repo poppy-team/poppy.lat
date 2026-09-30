@@ -4,52 +4,52 @@ description: "Aipo — Aipo Zoe"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/packages/aipo-zoe.md"
+sourcePath: "docs/en/packages/aipo-zoe.md"
 sourceBlob: "604400db5201cb5e2fddd214162ef44158abc7af"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/packages/aipo-zoe.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `604400db5201cb5e2fddd214162ef44158abc7af`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/packages/aipo-zoe.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `604400db5201cb5e2fddd214162ef44158abc7af`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# aipo.zoe — Framework Declarativo de GUI e Engine Leona
+# aipo.zoe — Declarative GUI Framework & Leona Engine
 
-`aipo.zoe` (Zoe UI) é o framework canônico da linguagem Aipo para construção de interfaces gráficas declarativas de alto desempenho e ricas em dados, com renderização acelerada por GPU a 60+ FPS via [`aipo-game-host`](https://github.com/poppy-team/aipo-lang/blob/3a5ce6737d42ae75470f7798680ebc95b3ac761c/docs/packages/aipo-game), gerenciamento reativo de estado com hooks (`use_state`) e o motor de layout hierárquico **Leona**.
+`aipo.zoe` (Zoe UI) is the canonical framework of the Aipo programming language for building high-performance, data-rich declarative graphical user interfaces, featuring hardware-accelerated 60+ FPS GPU rendering via [`aipo-game-host`](https://github.com/poppy-team/aipo-lang/blob/7d51026653301c3048a41e2cf4026e3429c3a3b9/docs/en/en/packages/aipo-game), reactive state management with hooks (`use_state`), and the hierarchical **Leona** layout engine.
 
 ---
 
-## 1. Visão Geral & Filosofia de Design
+## 1. Overview & Design Philosophy
 
-O Zoe UI foi concebido com uma premissa inegociável: **código puramente escrito em Aipo**, eliminando camadas pesadas de C++, Electron ou wrappers de widgets do sistema operacional, sem sacrificar a aceleração por hardware ou a ergonomia moderna.
+Zoe UI was engineered with a non-negotiable principle: **pure code written in Aipo**, eliminating heavy layers of C++, Electron, or operating system widget wrappers, without sacrificing hardware acceleration or modern ergonomics.
 
 ```mermaid
 graph TD
-    UserCode["Aplicação Declarativa (zoe.column, zoe.card, zoe.use_state)"] --> ZoeRuntime["Runtime Zoe (Hooks de Sinais, Reatividade & Eventos)"]
-    ZoeRuntime --> LeonaEngine["Engine de Layout Leona (Flexbox, Box Constraints, Dimensões e Alinhamentos)"]
+    UserCode["Declarative App (zoe.column, zoe.card, zoe.use_state)"] --> ZoeRuntime["Zoe Runtime (Signal Hooks, Reactivity & Event Dispatch)"]
+    ZoeRuntime --> LeonaEngine["Leona Layout Engine (Flexbox, Box Constraints, Sizing & Alignment)"]
     LeonaEngine --> Renderer["Zoe GPU Renderer (Hit Testing, Scissor/Clipping, Hover/Active Feedback)"]
     Renderer --> HostABI["Host Bridge FFI (Miniquad / WebGL / Wasm)"]
 ```
 
-### Pilares Fundamentais:
-1. **Zero Bloat Nativo na Camada de UI:** Toda a hierarquia de componentes, o cálculo de caixas delimitadoras e o gerenciamento de eventos são expressos na própria sintaxe da Aipo.
-2. **Reatividade Previsível e Determinística:** Mudanças de estado notificam o ciclo de atualização (`step(dt)`), orquestrando reavaliação limpa e livre de *side-effects* fantasmas.
-3. **Foco em Ferramentas e Game Engines:** Suporte de primeira classe para viewports com recorte em GPU (*scissor*), splitters redimensionáveis, abas de hierarquia, câmera orbital 2D/3D e gizmos de transformação visual.
-4. **Multiplataforma por Natureza:** Executa hoje na máquina virtual nativa de desktop (Linux, macOS, Windows) e possui alinhamento estrutural para WebAssembly (`aipo-wasm`) e JavaScript (`aipo-js`).
+### Core Tenets:
+1. **Zero Native Bloat in the UI Layer:** The entire component tree, bounding box calculation, and event management are expressed in pure Aipo syntax.
+2. **Predictable & Deterministic Reactivity:** State changes trigger clean updates through the frame cycle (`step(dt)`), orchestrating re-evaluation free of ghost side-effects.
+3. **Tooling & Game Engine First:** First-class support for GPU scissor-clipped viewports, resizable splitters, hierarchy tabs, 2D/3D orbit cameras, and visual transformation gizmos.
+4. **Cross-Platform by Design:** Runs on desktop native VMs (Linux, macOS, Windows) and is architecturally aligned for WebAssembly (`aipo-wasm`) and JavaScript (`aipo-js`).
 
 ---
 
-## 2. Instalação & Uso Básico
+## 2. Installation & Quickstart
 
-Adicione ao `aipo.toml` do seu projeto:
+Add the dependency to your project's `aipo.toml`:
 
 ```toml
 [dependencies]
 "aipo.zoe" = { path = "packages/aipo-zoe" }
 ```
 
-### Exemplo: Contador Reativo com Design System Embutido
+### Quickstart: Reactive Counter with Built-in Design System
 
 ```aipo
 import aipo.zoe as zoe
@@ -58,16 +58,16 @@ fn view() {
     let count = zoe.use_state(0)
 
     return zoe.center({ "background": zoe.color.base, "gap": 16.0 }, [
-        zoe.label(f"Contador: {count.get()}", {
+        zoe.label(f"Counter: {count.get()}", {
             "font_size": 24.0,
             "color": zoe.color.text
         }),
         zoe.row({ "gap": 12.0 }, [
-            zoe.button("+1 Incrementar", _ => zoe.set_state(count, count.get() + 1), {
+            zoe.button("+1 Increment", _ => zoe.set_state(count, count.get() + 1), {
                 "variant": "primary",
                 "background": zoe.color.blue
             }),
-            zoe.button("Zerar", _ => zoe.set_state(count, 0), {
+            zoe.button("Reset", _ => zoe.set_state(count, 0), {
                 "variant": "danger",
                 "background": zoe.color.red
             })
@@ -90,83 +90,83 @@ fn draw() {
 
 ---
 
-## 3. Análise Comparativa de Mercado (Inspirações Filosóficas)
+## 3. Market Comparative Analysis (Philosophical Inspirations)
 
-Para planejar a evolução do Zoe UI, analisamos as melhores ferramentas do mercado que compartilham a mesma filosofia: *UI declarativa desenhada diretamente em GPU/Canvas na própria linguagem*:
+To plan Zoe UI's maturation, we analyzed the best industry tools that share the same philosophy: *declarative UI drawn directly onto a GPU/Canvas surface in the host language itself*:
 
-| Framework / Biblioteca | Substrato / Linguagem | Pontos em Comum com o Zoe | Lições & Inspirações Práticas |
+| Framework / Library | Substrate / Language | Shared Philosophy with Zoe | Practical Lessons & Inspirations |
 | :--- | :--- | :--- | :--- |
-| **[Freya GUI](https://freyaui.dev/)** | Rust + **Torin Layout** + Skia | O parente mais próximo. Possui sua própria engine de layout orientada a nós (**Torin**), reatividade por sinais e renderização em canvas. | **Cache de nós de layout:** Torin só recalcula nós cujas propriedades, tamanho disponível ou filhos foram alterados. |
-| **[Flutter](https://flutter.dev/)** | Dart + Impeller/Skia | Renderização direta em GPU sem widgets do SO; árvore declarativa pura na linguagem hospedeira. | **Protocolo Bidirecional de Layout:** *"Constraints descem, tamanhos sobem, pai define posição"*. Elimina ambiguidades e roda em $O(N)$ rigoroso. |
-| **[Egui](https://github.com/emilk/egui)** | Rust (Immediate Mode) | Foco absoluto em ferramentas de desenvolvedor, game engines, debuggers e editores visuais leves. | **Camadas de sobreposição flutuante (Overlays/Portals):** Menus de contexto com clique direito, tooltips com atraso de hover e janelas modais simples. |
-| **[SolidJS](https://www.solidjs.com/)** | TypeScript (Fine-Grained Signals) | Reatividade cirúrgica sem a sobrecarga de reconciliação de Virtual DOM completo. | **Sinais finos e computados (`use_memo` / `use_effect`):** Disparar re-layout granular apenas na sub-árvore afetada, em vez de invalidar a janela inteira. |
-| **[Slint](https://slint.dev/)** | Rust/C++ | Interface declarativa com memória linear microscópica e propriedades vinculadas. | **Constraints mínimos e máximos:** `min_width`, `max_width`, `min_height`, `max_height` como cidadãos de primeira classe no layout. |
+| **[Freya GUI](https://freyaui.dev/)** | Rust + **Torin Layout** + Skia | Closest architectural sibling. Has its own node-oriented layout engine (**Torin**), signal reactivity, and canvas rendering. | **Layout node caching:** Torin only recalculates nodes whose properties, available bounds, or children changed. |
+| **[Flutter](https://flutter.dev/)** | Dart + Impeller/Skia | Direct GPU canvas rendering without OS widgets; pure declarative tree in the language. | **Bidirectional Layout Protocol:** *"Constraints go down, sizes go up, parent sets position"*. Eliminates ambiguities and runs in strict $O(N)$. |
+| **[Egui](https://github.com/emilk/egui)** | Rust (Immediate Mode) | Uncompromising focus on developer tools, game engines, debuggers, and lightweight visual editors. | **Floating Overlay Layers (Portals/Overlays):** Right-click context menus, hover-delayed tooltips, and straightforward modal dialogs. |
+| **[SolidJS](https://www.solidjs.com/)** | TypeScript (Fine-Grained Signals) | Surgical reactivity without full Virtual DOM reconciliation overhead. | **Fine & Computed Signals (`use_memo` / `use_effect`):** Trigger granular re-layout only on affected subtrees instead of invalidating the entire window. |
+| **[Slint](https://slint.dev/)** | Rust/C++ | Declarative interface with microscopic memory footprint and property bindings. | **Explicit Min/Max Constraints:** `min_width`, `max_width`, `min_height`, `max_height` as first-class layout citizens. |
 
 ---
 
-## 4. Eixos de Amadurecimento Arquitetural
+## 4. Architectural Maturation Axes
 
-A partir da auditoria da base de código do Zoe UI, definem-se 6 eixos estratégicos de aprimoramento:
+Based on the audit of Zoe UI's codebase, six strategic improvement axes are established:
 
-### Eixo 1: Engine de Layout Leona 2.0 (Constraints & Cache)
-* **Medição Bidirecional (Constraints Go Down, Sizes Go Up):**
-  A engine Leona adotará duas passadas limpas:
-  1. *Passada de Medição (Bottom-Up):* Filhos reportam tamanho intrínseco mínimo e ideal ao container pai.
-  2. *Passada de Posicionamento (Top-Down):* O container pai impõe limites restritivos e calcula posições absolutas `(x, y)`.
-* **Constraints Mínimos e Máximos:** Suporte nativo a `min_width`, `max_width`, `min_height` e `max_height` em todos os elementos e containers.
-* **Quebra de Linha em Múltiplas Linhas (`wrap: true`):** Suporte a layout em grade fluida para paletas de ferramentas, galerias de mídia e grupos de tags.
-* **Cache de Layout (Torin-Style):** Elementos estáticos com mesmas restrições reutilizam a geometria pré-computada em $O(1)$.
-* **Medição Tipográfica Real via Host:** Substituição da aproximação monospace fixa por `host_measure_text(text, font_size) -> [w, h]` na camada de host.
+### Axis 1: Leona Layout Engine 2.0 (Constraints & Cache)
+* **Bidirectional Measurement (Constraints Go Down, Sizes Go Up):**
+  Leona will adopt two clean passes:
+  1. *Measurement Pass (Bottom-Up):* Children report their intrinsic minimum and preferred size to the parent container.
+  2. *Positioning Pass (Top-Down):* The parent container imposes boundary constraints and computes final absolute `(x, y)` coordinates.
+* **Min/Max Constraints:** Native support for `min_width`, `max_width`, `min_height`, and `max_height` on all elements and containers.
+* **Multi-Line Flow (`wrap: true`):** Flowing layouts for tool palettes, media galleries, and tag collections.
+* **Layout Caching (Torin-Style):** Static elements with identical constraints reuse precomputed geometry in $O(1)$.
+* **Host Typography Measurement:** Replacing monospace estimations with `host_measure_text(text, font_size) -> [w, h]` in the host layer.
 
-### Eixo 2: Reatividade Fina & Hooks Avançados
-* **`use_memo`:** Cálculo de estado derivado com cache dependente de sinais:
+### Axis 2: Fine-Grained Reactivity & Advanced Hooks
+* **`use_memo`:** Computed derived state cached by signal dependencies:
   ```aipo
   let filtered = zoe.use_memo([query, items], fn() {
       return items.get().filter(it => it.contains(query.get()))
   })
   ```
-* **`use_effect`:** Disparo de rotinas assíncronas ou logging apenas quando sinais específicos mudarem.
-* **Invalidação Sub-árvore:** Eliminação do `rebuild_tree()` global para isolar componentes não alterados.
+* **`use_effect`:** Side effects and async triggers executed only when specified signals change.
+* **Subtree Invalidation:** Eliminating global `rebuild_tree()` to isolate unmutated components.
 
-### Eixo 3: Camada de Superfícies Flutuantes (Portals & Overlays)
-* **Pilha de Overlays (`OverlayStack`):** Renderização garantida acima da árvore base após a resolução de clipping.
-* **Dropdowns Flutuantes Reais:** O `dropdown_select` abre uma lista de opções flutuante com sombra e borda que se sobrepõe a painéis adjacentes.
-* **Tooltips Automáticos:** Balões informativos flutuantes disparados por hover prolongado (`tooltip: "Texto explicativo"`).
-* **Modais e Diálogos de Confirmação:** Fundo escurecido (*scrim*) com aprisionamento de foco (*focus trap*) e bloqueio de cliques externos.
-* **Menus de Contexto:** Pop-ups acionados por clique direito do mouse em qualquer componente.
+### Axis 3: Floating Surfaces (Portals & Overlays)
+* **Overlay Stack (`OverlayStack`):** Guaranteed top-level rendering pass after base-tree scissor clipping resolves.
+* **True Floating Dropdowns:** `dropdown_select` opening a hovering options panel with shadow and border over adjacent UI panels.
+* **Automatic Tooltips:** Floating popover bubbles triggered by sustained hover (`tooltip: "Tooltip description"`).
+* **Modals & Confirmation Dialogs:** Backdrop dimming (*scrim*) with focus trapping and external click shielding.
+* **Context Menus:** Right-click contextual popups triggered on any component.
 
-### Eixo 4: Sistema de Entrada, Foco e Acessibilidade
-* **Navegação por Teclado:** Suporte à tecla `Tab` e `Shift+Tab` para ciclar foco entre botões, campos de texto e seletores.
-* **Ativação por Teclado:** Teclas `Space` e `Enter` ativam controles focados; setas direcionais ajustam sliders e seletores.
-* **Anel de Foco (*Focus Ring*):** Destaque visual consistente indicando o elemento atualmente ativo.
-* **Gestão Semântica do Cursor:** Indicação ao host para alternar entre ponteiro normal, `pointer` (botões), `ibeam` (inputs) e `resize_ew` / `resize_ns` (splitters).
+### Axis 4: Input, Focus & Accessibility System
+* **Keyboard Navigation:** `Tab` and `Shift+Tab` cycles focus across buttons, text fields, and selectors.
+* **Keyboard Activation:** `Space` and `Enter` trigger focused controls; arrow keys adjust sliders and selectors.
+* **Focus Ring:** Consistent visual focus outline indicating the active element.
+* **Semantic Cursor Management:** Instructing the host to switch between default pointer, `pointer` (buttons), `ibeam` (inputs), and `resize_ew` / `resize_ns` (splitters).
 
-### Eixo 5: Componentes Especializados para Ferramentas e Games
-* **`tree_view` (Hierarquia Colapsável):** Essencial para editores de cena, grafos de nós e navegadores de arquivos com suporte a expansão, recolhimento e seleção.
-* **`virtual_list` (Lista Virtualizada):** Projeta em tela somente os itens visíveis no visor da janela, viabilizando coleções de mais de 10.000 itens com consumo estável de memória $O(1)$.
-* **`text_area` Multilinha:** Suporte a quebra automática de texto, edição multilinha, seleção de texto com cursor e atalhos de área de transferência.
+### Axis 5: Tooling & Game Engine Specialized Controls
+* **`tree_view` (Collapsible Hierarchy):** Crucial for scene entity trees, node graphs, and asset browsers with expand/collapse and selection.
+* **`virtual_list` (Virtual List):** Only renders elements visible in the viewport, supporting 10,000+ items with constant $O(1)$ memory usage.
+* **Multiline `text_area`:** Support for automatic line wrapping, multiline editing, text selection, and clipboard shortcuts.
 
-### Eixo 6: Motor de Animação e Interpolação Conectado ao Delta Time
-* **`use_spring` e `use_tween`:** Interpolação física e linear suave aproveitando o parâmetro `dt` já presente no método `step(dt)`:
+### Axis 6: Delta-Time Animation & Interpolation Engine
+* **`use_spring` and `use_tween`:** Smooth physics-based and linear interpolation using the existing `dt` parameter in `step(dt)`:
   ```aipo
   let anim_pos = zoe.use_spring(is_open.get() ? 280.0 : 0.0, { "stiffness": 150.0, "damping": 15.0 })
   ```
 
 ---
 
-## 5. Roadmap de Implementação e Evolução 2.0
+## 5. Implementation Roadmap & Evolution 2.0
 
-| Marco | Nome | Status | Entregáveis Técnicos |
+| Milestone | Title | Status | Technical Deliverables |
 | :---: | :--- | :---: | :--- |
-| **M1** | **Floating Overlays & Menus** | Concluído | `OverlayStack` no renderizador; dropdown flutuante real; tooltips automáticos. |
-| **M2** | **Leona Constraints & Intrinsic Wrap** | Concluído | `min_*`, `max_*`, `wrap: true`, contêiner espacial `stack` e medições intrínsecas. |
-| **M3** | **Reatividade Fina & Memoização** | Concluído | Hooks `use_memo` e `use_effect`; invalidação seletiva de nós sujos (*dirty subtrees*). |
-| **M4** | **Navegação de Teclado & Foco** | Concluído | Ciclo de foco `Tab`/`Shift+Tab`, anéis visuais de foco e atalhos globais. |
-| **M5** | **Componentes de Ferramentas** | Concluído | Componente hierárquico `tree_view` e lista virtualizada `virtual_list`. |
-| **M6** | **Micro-animações & Inspetor DevTools** | Concluído | Interpolações contínuas `use_tween` e inspetor de geometria de layout com <kbd>F12</kbd>. |
-| **M7** | **Design Tokens & Ícones Vetoriais** | Concluído | `tokens.aipo`, motor nativo com `tiny-skia` + cache GPU `Texture2D`, ícones Lucide/Heroicons/Tabler/Devicons e componentes de precisão (`scrubber_input`, `segmented_group`, `hierarchy_tree`). |
-| **M8** | **Motor Tipográfico Subpixel & Fonte Inter** | ✅ Concluído | Integração de `fontdue`, fonte Inter TTF embutida no binário, `host_measure_text` e `host_font_metrics`. |
-| **M9** | **Shaders Analíticos de UI (GPU SDF)** | ✅ Concluído | Fragment Shader SDF para quads arredondados analíticos, bordas contínuas de 1px e inner highlight físico na GPU (`host_draw_sdf_rect`). |
-| **M10** | **Leona 2.0 (Flexbox & Alinhamento Baseline)** | Planejado | Passada de medição intrínseca orientada a glifos, flex clamping estrito sem transbordamento e alinhamento por baseline tipográfica. |
-| **M11** | **Protocolo de Componentes & Widgets Avançados** | Planejado | Contrato universal de componentes, `code_editor` com syntax highlighting e virtualização, e `node_graph` vetorial para blueprints/shaders. |
-| **M12** | **Site Documental Dedicado & Playground Wasm** | Planejado | Microsite dedicado com catálogo interativo de componentes (Storybook-style) e playground WebAssembly compilando Aipo ao vivo no navegador. |
+| **M1** | **Floating Overlays & Menus** | Completed | `OverlayStack` in the renderer; true floating dropdowns; automatic tooltips. |
+| **M2** | **Leona Constraints & Intrinsic Wrap** | Completed | `min_*`, `max_*`, `wrap: true`, spatial `stack` container, and intrinsic measurements. |
+| **M3** | **Fine-Grained Reactivity & Memoization** | Completed | `use_memo` and `use_effect` hooks; selective dirty subtree invalidation. |
+| **M4** | **Keyboard Navigation & Focus** | Completed | Focus traversal via `Tab`/`Shift+Tab`, visual focus rings, and global shortcuts. |
+| **M5** | **Productivity & Tooling Controls** | Completed | Hierarchical `tree_view` and virtualized `virtual_list` component. |
+| **M6** | **Micro-animations & DevTools Inspector** | Completed | Continuous `use_tween` interpolation and live layout geometry inspector with <kbd>F12</kbd>. |
+| **M7** | **Design Tokens & Vector Icons** | Completed | `tokens.aipo`, native vector engine with `tiny-skia` + GPU `Texture2D` cache, Lucide/Heroicons/Tabler/Devicons icons, and precision controls (`scrubber_input`, `segmented_group`, `hierarchy_tree`). |
+| **M8** | **Subpixel Typography Engine & Inter Font** | ✅ Completed | `fontdue` integration, embedded Inter TTF font, `host_measure_text`, and `host_font_metrics`. |
+| **M9** | **Analytical UI Shaders (GPU SDF)** | ✅ Completed | SDF Fragment Shader for analytical rounded quads, continuous 1px borders, and physical top inner highlight on GPU (`host_draw_sdf_rect`). |
+| **M10** | **Leona 2.0 (Flexbox & Baseline Alignment)** | Planned | Glyph-driven intrinsic measurement pass, strict flex clamping without overflow, and font baseline alignment. |
+| **M11** | **Component Protocol & Advanced Widgets** | Planned | Universal component contract, virtualized `code_editor` with Aipo lexical highlighting, and vector `node_graph` for blueprints/shaders. |
+| **M12** | **Dedicated Docs Site & Wasm Playground** | Planned | Dedicated microsite with Storybook-style interactive component showcase and WebAssembly playground running live Aipo in browser canvas. |

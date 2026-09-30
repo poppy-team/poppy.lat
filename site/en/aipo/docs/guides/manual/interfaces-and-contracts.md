@@ -4,165 +4,165 @@ description: "Aipo — Interfaces And Contracts"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/manual/interfaces-and-contracts.md"
+sourcePath: "docs/en/manual/interfaces-and-contracts.md"
 sourceBlob: "984a9bb264c3b159ad9e7d8861c597325284b829"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/manual/interfaces-and-contracts.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `984a9bb264c3b159ad9e7d8861c597325284b829`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/manual/interfaces-and-contracts.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `984a9bb264c3b159ad9e7d8861c597325284b829`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Interfaces & Contratos
+# Interfaces & Contracts
 
-O sistema de tipos do Aipo une a ergonomia da tipagem dinâmica com a precisão dos **contratos de assinatura**, **invariantes de dados** e **interfaces com subtipagem estrutural automática**.
+Aipo bridges dynamic flexibility with **signature contracts**, **structural invariants**, and **automatic structural interface subtyping**.
 
 ---
 
-## Estruturas (`struct`)
+## Structs (`struct`)
 
-Estruturas agregam campos nomeados e são delimitadas por chaves `{ ... }`. 
+Structures define aggregate types delimited by curly braces `{ ... }`.
 
-Por padrão de design seguro e previsível, **todos os campos de uma estrutura são imutáveis**. Quando for necessário permitir mutação de um campo durante o ciclo de vida da instância, declare-o explicitamente com a palavra-chave `var`:
+By safe and predictable design default, **all fields in a struct are immutable**. When a field must be mutable during the instance lifecycle, declare it explicitly with the `var` keyword:
 
 ```aipo
-struct Servidor {
+struct Server {
     id
-    criado_em
+    created_at
     var status = "offline"
-    var carga = 0.0
+    var cpu_load = 0.0
 }
 
-# Instanciação estrutural usando chave-valor simétrico com ':'
-let s = Servidor{
+# Structural instantiation using symmetric key-value ':'
+let s = Server{
     id: "srv-1",
-    criado_em: 1600000000,
+    created_at: 1600000000,
     status: "online",
-    carga: 0.42,
+    cpu_load: 0.42,
 }
 
 io.println(s.id)     # "srv-1"
 io.println(s.status) # "online"
 ```
 
-Tentar reatribuir um campo imutável após a construção da instância dispara o diagnóstico semântico estático `AIPO_SEM_IMMUTABLE_FIELD_REASSIGN`.
+Reassigning an immutable field after construction triggers the static semantic diagnostic `AIPO_SEM_IMMUTABLE_FIELD_REASSIGN`.
 
 ---
 
-## Hook de Construção (`init`)
+## Construction Hook (`init`)
 
-O hook `init` é declarado dentro do bloco `impl StructName { ... }` e permite validar, transformar e inicializar os campos da instância antes de sua publicação final:
+The `init` hook is declared inside an `impl StructName { ... }` block to validate, normalize, and initialize instance fields before publication:
 
 ```aipo
-struct Usuario {
+struct User {
     email
-    nome
+    name
 }
 
-impl Usuario {
-    init(email, nome) {
+impl User {
+    init(email, name) {
         if not email.contains("@") {
-            return fail("Formato de e-mail inválido")
+            return fail("Invalid email address format")
         }
         self.email = email
-        self.nome = nome
+        self.name = name
     }
 }
 
-let u = Usuario{ email: "user@example.com", nome: "Dev" }
+let u = User{ email: "user@example.com", name: "Dev" }
 io.println(u.email) # "user@example.com"
 ```
 
 ---
 
-## Invariantes Estruturais (`invariant`)
+## Structural Invariants (`invariant`)
 
-As invariantes declaram predicados lógicos dentro do bloco `impl` que **devem permanecer verdadeiros durante todo o ciclo de vida do objeto**:
+Invariants declare logical predicates inside the `impl` block that **must remain true throughout the lifetime of the object**:
 
 ```aipo
-struct Intervalo {
-    var inicio = 0
-    var fim = 0
+struct Interval {
+    var start = 0
+    var end_val = 0
 }
 
-impl Intervalo {
-    init(inicio, fim) {
-        self.inicio = inicio
-        self.fim = fim
+impl Interval {
+    init(start, end_val) {
+        self.start = start
+        self.end_val = end_val
     }
 
     invariant {
-        self.inicio <= self.fim
+        self.start <= self.end_val
     }
 }
 
-let inter = Intervalo{ inicio: 5, fim: 10 }
-io.println(inter.inicio) # 5
-io.println(inter.fim)    # 10
+let inter = Interval{ start: 5, end_val: 10 }
+io.println(inter.start)   # 5
+io.println(inter.end_val) # 10
 ```
 
-Sempre que um campo de uma estrutura com bloco `invariant` for alterado, o motor de execução verifica automaticamente o predicado. Caso a verificação falhe, a operação é rejeitada. Se estiver dentro de um bloco `attempt { ... }`, as mutações anteriores sofrem rollback automático pelo journal transacional.
+Whenever a field is mutated, the invariant predicate is automatically re-evaluated. If it fails, the operation is rejected. Inside an `attempt { ... }` block, provisional mutations are automatically rolled back by the transaction journal.
 
 ---
 
-## Métodos e Mutabilidade Universal (`var self`)
+## Methods and Universal Mutability (`var self`)
 
-Métodos associados a um tipo são definidos dentro de blocos `impl StructName { ... }`. 
+Methods associated with a type are defined inside `impl StructName { ... }` blocks.
 
-Por padrão de segurança, o receptor `self` é **somente leitura**. Quando um método precisa alterar o estado interno da instância, ele declara explicitamente `var self`, alinhando a mutabilidade de métodos à mesma regra universal de variáveis da linguagem:
+By default, the `self` receiver is **read-only**. When a method needs to mutate internal instance state, it explicitly declares `var self`, harmonizing method mutability with the universal variable rules of the language:
 
 ```aipo
-struct Contador {
-    var valor = 0
+struct Counter {
+    var count = 0
 }
 
-impl Contador {
-    # Método de leitura: self é imutável
-    fn atual(self) -> Int {
-        return self.valor
+impl Counter {
+    # Read-only method: self is immutable
+    fn current(self) -> Int {
+        return self.count
     }
 
-    # Método mutador: var self declara explicitamente a intenção de modificar
-    fn incrementar(var self) {
-        self.valor += 1
+    # Mutator method: var self explicitly signals state modification
+    fn increment(var self) {
+        self.count += 1
     }
 }
 ```
 
 ---
 
-## Interfaces e Subtipagem Estrutural Automática (`interface`)
+## Interfaces and Automatic Structural Subtyping (`interface`)
 
-Interfaces declaram contratos estruturais de métodos. Em Aipo, conformidade não exige declarações burocráticas no topo do arquivo: **a subtipagem é estrutural e automática** (modelo inspirado em linguagens modernas de alta produtividade como Go e Luau).
+Interfaces define method contracts. In Aipo, interface conformance requires no ceremony or orphan statements: **subtyping is structural and automatic** (inspired by modern languages like Go and Luau).
 
-Se uma estrutura implementa todos os métodos exigidos por uma `interface` com assinaturas e contratos compatíveis (incluindo aridade e mutabilidade de `self`), ela **automaticamente satisfaz a interface**, sem necessidade de nenhum comando adicional:
+If a struct implements all methods required by an `interface` with compatible signatures and contracts (including receiver mutability `var self` vs `self`), it **automatically satisfies the interface**:
 
 ```aipo
-interface Renderizavel {
-    fn desenhar(self) -> String
+interface Drawable {
+    fn draw(self) -> String
 }
 
-struct Botao {
-    texto
+struct Button {
+    label
 }
 
-impl Botao {
-    fn desenhar(self) -> String {
-        return f"[Botão: {self.texto}]"
+impl Button {
+    fn draw(self) -> String {
+        return f"[Button: {self.label}]"
     }
 }
 
-# Botao satisfaz Renderizavel automaticamente por correspondência estrutural de métodos.
-# Nenhuma declaração explícita de implementação é necessária.
+# Button satisfies Drawable automatically via structural method matching.
+# No explicit implementation declaration is required.
 
-# Aceita qualquer valor que satisfaça a interface Renderizavel
-fn renderizar_elemento(item: Renderizavel) -> String {
-    return item.desenhar()
+# Function accepting any type that fulfills the Drawable contract
+fn render_element(item: Drawable) -> String {
+    return item.draw()
 }
 
-let btn = Botao{ texto: "Salvar" }
-io.println(renderizar_elemento(btn)) # "[Botão: Salvar]"
+let btn = Button{ label: "Submit" }
+io.println(render_element(btn)) # "[Button: Submit]"
 ```
 
-A conformidade é verificada estaticamente pelo analisador semântico (`aipo-sema`), checando a existência dos métodos, número de argumentos, tipos de parâmetros e retornos, e a mutabilidade compatível do receptor (`self` vs `var self`).
+Conformance is verified statically by the semantic analyzer (`aipo-sema`), checking method existence, parameter arity, parameter and return types, and receiver mutability compatibility (`self` vs `var self`).

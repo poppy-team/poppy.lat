@@ -4,36 +4,36 @@ description: "Aipo — Aipo Http"
 project: aipo
 category: guides
 locale: en
-sourcePath: "docs/packages/aipo-http.md"
+sourcePath: "docs/en/packages/aipo-http.md"
 sourceBlob: "e1dd134f93733b4a66fcf2f3be57963a9c1fe2e4"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/packages/aipo-http.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `e1dd134f93733b4a66fcf2f3be57963a9c1fe2e4`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/packages/aipo-http.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `e1dd134f93733b4a66fcf2f3be57963a9c1fe2e4`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# aipo.http — Framework HTTP e Roteador de Microsserviços
+# aipo.http — HTTP Microservices Framework & Router
 
-`aipo.http` é o framework oficial da linguagem Aipo para construção de APIs REST, microsserviços e aplicações web backend de alta performance.
+`aipo.http` is the official backend framework for the Aipo programming language, designed for high-performance REST APIs, microservices, and web servers.
 
-O framework é desenhado seguindo a filosofia minimalista e determinística do Aipo:
-1. **Roteador Zero-Regex em Árvore de Segmentos (*Segment/Radix Trie*):** busca estática, parâmetros dinâmicos (`:param`) e coringas (`*wildcard`) sem compilar ou executar expressões regulares em runtime.
-2. **Pipeline de Middlewares Estilo Cebola (*Onion-Style*):** execução de middlewares antes e depois dos handlers com encadeamento de `next()`, permitindo transformações de resposta e controle de fluxo.
-3. **Middlewares Canônicos Embutidos:**
-   - `cors`: suporte completo a Cross-Origin Resource Sharing com preflight OPTIONS (204).
-   - `logger`: auditoria estruturada de requisições e respostas.
-   - `recover`: interceptação segura de erros e exceções não tratadas retornando status 500 JSON.
-4. **Context Engine Tipado (`Context`):** métodos ergonômicos para leitura de query strings, parâmetros de rota, cabeçalhos, corpo JSON e respostas imediatas (`json`, `text`, `html`, `status`).
-5. **Agrupamento de Rotas (*Route Groups*):** prefixos aninhados (`/api/v1`) com middlewares específicos por grupo.
-6. **Desacoplamento e Testabilidade Pura:** o dispatcher `app.handle_request(req_dict)` aceita dicionários e devolve dicionários sem acoplamento a sockets do sistema operacional, tornando testes unitários ultrarrápidos e facilitando adaptadores para qualquer runtime (Node/Bun via backend JS ou Sockets nativos via Host).
+It is built following Aipo's core minimalist and deterministic philosophy:
+1. **Zero-Regex Segment/Radix Router:** Static paths, dynamic parameters (`:param`), and wildcards (`*wildcard`) without runtime regular expression parsing.
+2. **Onion-Style Middleware Pipeline:** Pre- and post-processing with chained `next()` calls, enabling response transformations, audit trails, and short-circuit controls.
+3. **Built-in Canonical Middlewares:**
+   - `cors`: Cross-Origin Resource Sharing with automatic preflight OPTIONS (204).
+   - `logger`: Structured logging for request methods, paths, and status codes.
+   - `recover`: Traps unhandled runtime faults, returning 500 JSON without crashing the runtime.
+4. **Typed Context Engine (`Context`):** High-ergonomics access to query strings, route parameters, headers, JSON body decoding, and immediate response builders (`json`, `text`, `html`, `status`).
+5. **Route Grouping (`group`):** Nested prefixes (`/api/v1`) with group-scoped middlewares.
+6. **Pure Decoupled Testing:** Handlers operate via `app.handle_request(req_dict)`, allowing deterministic unit tests without binding OS sockets.
 
 ---
 
-## 1. Instalação e Configuração
+## 1. Installation
 
-No arquivo `aipo.toml` do seu projeto:
+In your project's `aipo.toml`:
 
 ```toml
 [dependencies]
@@ -42,19 +42,19 @@ No arquivo `aipo.toml` do seu projeto:
 
 ---
 
-## 2. Inicialização e Roteamento Básico
+## 2. Basic Setup and Routing
 
 ```aipo
 import aipo.http as http
 
 let app = http.create()
 
-# Resposta em texto puro
+# Plain text response
 app.get("/", fn (c) {
-    c.text("Bem-vindo à API Aipo!")
+    c.text("Welcome to Aipo HTTP!")
 })
 
-# Resposta em JSON
+# JSON response
 app.get("/api/health", fn (c) {
     c.json({
         "status": "healthy",
@@ -62,52 +62,50 @@ app.get("/api/health", fn (c) {
     })
 })
 
-# Resposta em HTML
+# HTML response
 app.get("/welcome", fn (c) {
-    c.html("<h1>Portal Aipo HTTP</h1>")
+    c.html("<h1>Aipo HTTP Portal</h1>")
 })
 ```
 
 ---
 
-## 3. Parâmetros de Rota e Coringas
-
-O roteador suporta parâmetros dinâmicos iniciados por `:` e coringas iniciados por `*`:
+## 3. Path Parameters and Wildcards
 
 ```aipo
-# Parâmetro simples
+# Single parameter
 app.get("/users/:id", fn (c) {
     let user_id = c.param("id")
-    c.json({ "id": user_id, "name": "Desenvolvedor" })
+    c.json({ "id": user_id, "name": "Developer" })
 })
 
-# Parâmetros múltiplos aninhados
+# Nested parameters
 app.get("/orgs/:org/repos/:repo", fn (c) {
     let org = c.param("org")
     let repo = c.param("repo")
-    c.text(f"Repositório: {org}/{repo}")
+    c.text(f"Repository: {org}/{repo}")
 })
 
-# Rota coringa (catch-all) para arquivos estáticos
+# Wildcard catch-all for static assets
 app.get("/static/*filepath", fn (c) {
     let file = c.param("filepath")
-    c.text(f"Servindo arquivo: {file}")
+    c.text(f"Serving file: {file}")
 })
 ```
 
 ---
 
-## 4. Query Strings e Corpo da Requisição (JSON)
+## 4. Query Strings & JSON Body Parsing
 
 ```aipo
-# Leitura de query parameters (?q=busca&page=2)
+# Query parameters (?q=search&page=2)
 app.get("/search", fn (c) {
     let query = c.query_param("q")
     let page = c.query_param("page")
     c.json({ "query": query, "page": page })
 })
 
-# Criação de recursos com corpo JSON
+# POST request with JSON payload
 app.post("/users", fn (c) {
     let payload = c.body_json()
     c.status(201)
@@ -121,64 +119,61 @@ app.post("/users", fn (c) {
 
 ---
 
-## 5. Pipeline de Middlewares Estilo Cebola
+## 5. Onion Middleware Pipeline
 
-Middlewares são funções `fn (ctx, next)` que podem inspecionar ou alterar a requisição antes e depois da execução:
+Middlewares follow the `fn (ctx, next)` signature:
 
 ```aipo
 let app = http.create()
 
-# Middleware de auditoria de tempo e cabeçalho
+# Audit & custom header middleware
 app.use(fn (c, next) {
     c.set_header("x-server", "aipo-engine")
     let res = next()
-    # Executado no retorno (fase de saída da cebola)
     return res
 })
 
-# Middleware de proteção com curto-circuito (Auth)
+# Auth guard with short-circuit
 app.use(fn (c, next) {
     let token = c.header("Authorization")
-    if token != "Bearer meu-token-secreto" {
+    if token != "Bearer secret-token" {
         c.status(401)
-        c.json({ "error": "Não autorizado" })
-        return none # Interrompe a cadeia imediatamente
+        c.json({ "error": "Unauthorized" })
+        return none # Halts pipeline execution
     }
     return next()
 })
 ```
 
-### Middlewares Embutidos
+### Built-in Middlewares
 
 ```aipo
-# CORS configurável com suporte a preflight OPTIONS
+# CORS configuration
 app.use(http.cors({
-    "origin": "https://meudominio.com",
+    "origin": "https://example.com",
     "methods": "GET, POST, PUT, DELETE"
 }))
 
-# Logger padrão
+# Request logger
 app.use(http.logger())
 
-# Recuperação de pânico/falhas com status 500 JSON
+# Panic / runtime fault recovery
 app.use(http.recover())
 ```
 
 ---
 
-## 6. Agrupamento de Rotas (`group`)
-
-Organize rotas em submódulos com prefixos comuns e regras dedicadas:
+## 6. Route Grouping (`group`)
 
 ```aipo
 let api_v1 = app.group("/api/v1")
 
-# Rota registrada como /api/v1/status
+# Registered as /api/v1/status
 api_v1.get("/status", fn (c) {
     c.json({ "version": "1.0.0" })
 })
 
-# Rota registrada como /api/v1/users
+# Registered as /api/v1/users
 api_v1.get("/users", fn (c) {
     c.json([])
 })
@@ -186,9 +181,9 @@ api_v1.get("/users", fn (c) {
 
 ---
 
-## 7. Testabilidade Pura sem Portas ou Rede
+## 7. Zero-Network Testability
 
-Qualquer aplicação pode ser testada em milissegundos sem abrir portas locais:
+Execute tests in memory with pure dictionaries:
 
 ```aipo
 let app = http.create()

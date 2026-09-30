@@ -4,72 +4,62 @@ description: "Aipo — Reactivity"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/guide/reactivity.md"
+sourcePath: "docs/en/zoe/guide/reactivity.md"
 sourceBlob: "1703397a67aba6f958a2a4f541c018ef599c4986"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/guide/reactivity.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `1703397a67aba6f958a2a4f541c018ef599c4986`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/guide/reactivity.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `1703397a67aba6f958a2a4f541c018ef599c4986`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Reatividade & Sinais no Zoe UI
+# Reactivity & Signals in Zoe UI
 
-O Zoe UI adota um modelo reativo baseado em **Sinais (*Signals*)**, combinando ergonomia declarativa a alto desempenho sem reconciliações virtuais pesadas de DOM.
+Zoe UI adopts a signal-based reactivity model, delivering clean ergonomics without virtual DOM overhead.
 
 ---
 
-## 1. `use_state` e `set_state`
+## 1. `use_state` and `set_state`
 
-Para declarar estado local reativo, use `zoe.use_state`:
+Declare local reactive state using `zoe.use_state`:
 
 ```aipo
 import aipo.zoe as zoe
 
 fn view() {
-    let name = zoe.use_state("Aventureiro")
+    let name = zoe.use_state("Adventurer")
     let hp = zoe.use_state(100.0)
 
     return zoe.column({ "gap": 8.0 }, [
-        zoe.label(f"Herói: {name.get()} (HP: {hp.get()})"),
-        zoe.button("Tomar Dano", _ => {
-            let novo_hp = hp.get() - 15.0
-            zoe.set_state(hp, if novo_hp < 0.0 then 0.0 else novo_hp)
+        zoe.label(f"Hero: {name.get()} (HP: {hp.get()})"),
+        zoe.button("Take Damage", _ => {
+            let next_hp = hp.get() - 15.0
+            zoe.set_state(hp, if next_hp < 0.0 then 0.0 else next_hp)
         })
     ])
 }
 ```
 
-- `sig.get()`: Lê o valor atual contido no sinal.
-- `zoe.set_state(sig, novo_valor)`: Atualiza o sinal e notifica o ciclo do framework que a árvore deve ser reconstruída.
-
 ---
 
 ## 2. `use_memo`
 
-Para valores calculados onerosos que dependem de outros estados:
+Cache expensive calculations dependent on other signals:
 
 ```aipo
-let total_itens = zoe.use_memo(fn() {
-    return inventario.get().len()
-}, [inventario.get()])
+let total_items = zoe.use_memo(fn() {
+    return inventory.get().len()
+}, [inventory.get()])
 ```
-
-O valor é armazenado em cache e recalculado somente quando as dependências na lista forem alteradas.
 
 ---
 
-## 3. `use_tween` (Animações Suaves Interativas)
+## 3. `use_tween`
 
-O Zoe UI inclui interpolação suave (*tweening*) integrada aos sinais do framework:
+Animate smoothly with built-in tweening:
 
 ```aipo
-# Anima de 0.0 até 100.0 em 0.5 segundos com easing ease_out
-let progresso = zoe.use_tween(0.0, 100.0, 0.5, "ease_out")
-
-# Durante o frame draw:
-let x_animado = progresso.get()
+let anim_progress = zoe.use_tween(0.0, 100.0, 0.5, "ease_out")
+let current_val = anim_progress.get()
 ```
-
-O framework atualiza todos os tweens ativos a cada chamada de `zoe.step(dt)`, fornecendo movimentação e transição fluida a 60 FPS sem código manual de física.

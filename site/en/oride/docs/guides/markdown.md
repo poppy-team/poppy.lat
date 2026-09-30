@@ -9,10 +9,10 @@ sourceBlob: "c871b2d50535ddf415ec663012a35b6ef559cbd8"
 revision: "92a5262d466a8af9527cc49916ae438e217bb0e9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/guides/en/markdown.md` em [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
-Fixado na revisão `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `c871b2d50535ddf415ec663012a35b6ef559cbd8`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/guides/en/markdown.md` in [https://github.com/poppy-team/oride](https://github.com/poppy-team/oride) (MIT).
+Pinned to revision `92a5262d466a8af9527cc49916ae438e217bb0e9`, blob `c871b2d50535ddf415ec663012a35b6ef559cbd8`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
 # Markdown in Oride
 

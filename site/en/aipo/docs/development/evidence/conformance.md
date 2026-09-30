@@ -4,51 +4,51 @@ description: "Aipo — Conformance"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/evidence/conformance.md"
+sourcePath: "docs/en/evidence/conformance.md"
 sourceBlob: "3da069d7aba61cd6774e69d833c010060c2ec1cb"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/evidence/conformance.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `3da069d7aba61cd6774e69d833c010060c2ec1cb`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/evidence/conformance.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `3da069d7aba61cd6774e69d833c010060c2ec1cb`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Matriz de Conformance da Linguagem
+# Language Conformance Matrix
 
-A suíte de conformidade (*conformance suite*) do Aipo é a garantia de que as decisões semânticas da especificação são rigorosamente obedecidas em todas as execuções.
+The Aipo **conformance suite** guarantees that language semantics and specifications are maintained across all builds and targets.
 
 ---
 
-## Estrutura da Suíte de Conformance
+## Conformance Suite Architecture
 
-A suíte reside em `docs/conformance/` e é dividida em três pilares:
+Located under `docs/conformance/`, the suite is divided into three primary pillars:
 
-### 1. Programas Canônicos (`docs/conformance/programs/`)
-Mais de 28 programas completos cobrindo:
-- `01_hello.aipo`: Inicialização, strings e saída padrão.
-- `02_recursion.aipo`: Profundidade de chamadas e isolamento de frames.
-- `03_control_flow.aipo`: Condicionais `if/else`, laços `while`, `loop` e `repeat`.
-- `04_collections.aipo`: Operações em listas e dicionários.
-- `05_structs_and_impl.aipo`: Declaração de estruturas e métodos associados.
-- `06_closures.aipo`: Captura léxica e upvalues compartilhados.
-- `08_failures.aipo`: Disparo de falhas com `fail`.
-- `12_bytes.aipo`: Manipulação e packing binário em `Bytes`.
-- `13_init_and_invariant.aipo`: Hooks `init()` e validação de `invariant()`.
-- `15_invariant_on_mutation.aipo`: Interceptação de invariantes em mutações de campos.
-- `16_interface_contracts.aipo`: Validação de contratos em tempo de execução.
-- `21_attempt_recovery_and_journal.aipo`: Rollback transacional atômico de estruturas.
-- `24_async_functions_and_await.aipo`: Funções assíncronas e bloco `await do`.
-- `26_async_combinators.aipo`: Combinadores de tarefas (`task.all`, `task.race`, etc.).
-- `28_time_clock_capability.aipo`: Proteção da capability `clock` na Host ABI.
+### 1. Canonical Programs (`docs/conformance/programs/`)
+Over 28 end-to-end integration programs:
+- `01_hello.aipo`: Initialization, string literals, and standard output.
+- `02_recursion.aipo`: Stack frame depth and scope isolation.
+- `03_control_flow.aipo`: `if/else` conditionals, `while`, `loop`, and `repeat` cycles.
+- `04_collections.aipo`: List and dictionary operations.
+- `05_structs_and_impl.aipo`: Struct declarations and associated method blocks.
+- `06_closures.aipo`: Lexical captures and shared mutable upvalues.
+- `08_failures.aipo`: Operational fault handling via `fail`.
+- `12_bytes.aipo`: Binary data packaging and byte manipulation.
+- `13_init_and_invariant.aipo`: `init()` hooks and `invariant()` predicates.
+- `15_invariant_on_mutation.aipo`: Invariant validation upon struct field mutations.
+- `16_interface_contracts.aipo`: Runtime structural interface contract enforcement.
+- `21_attempt_recovery_and_journal.aipo`: Transactional atomic state rollback.
+- `24_async_functions_and_await.aipo`: `async fn` definitions and `await do` blocks.
+- `26_async_combinators.aipo`: Async task combinators (`task.all`, `task.race`, etc.).
+- `28_time_clock_capability.aipo`: Sandboxed `clock` capability verification in Host ABI.
 
-### 2. Suíte de Diagnósticos (`docs/conformance/diagnostics/`)
-Testes negativos que garantem que códigos malformados ou ilegais são rejeitados com diagnósticos precisos:
-- `AIPO_LEX_INVALID_NUMBER`: Literais numéricos com ponto sem dígitos seguintes.
-- `AIPO_SEM_FIXED_REASSIGN`: Tentativa de mutação em campos imutáveis `fixed`.
-- `AIPO_SEM_AWAIT_IN_SUBEXPRESSION`: Uso de `await` fora de blocos sequenciais.
-- `AIPO_SEM_FORGOTTEN_TASK`: Criação de tarefa assíncrona não aguardada.
-- `AIPO_RT_AWAIT_CYCLE`: Detecção de deadlocks e ciclos entre tarefas concorrentes.
+### 2. Diagnostic Assertions (`docs/conformance/diagnostics/`)
+Negative test cases verifying that invalid syntax or illegal operations emit precise diagnostics:
+- `AIPO_LEX_INVALID_NUMBER`: Malformed decimal numbers lacking trailing digits.
+- `AIPO_SEM_FIXED_REASSIGN`: Attempting to mutate an immutable `fixed` field.
+- `AIPO_SEM_AWAIT_IN_SUBEXPRESSION`: Using `await` outside a sequential block.
+- `AIPO_SEM_FORGOTTEN_TASK`: Spawning an unawaited, unmanaged asynchronous task.
+- `AIPO_RT_AWAIT_CYCLE`: Runtime task await cycle and deadlock detection.
 
-### 3. Conformance de Formatação (`docs/conformance/formatting/`)
-Casos de teste garantindo a estabilidade e idempotência do formatador canônico `aipo fmt`.
+### 3. Formatting Conformance (`docs/conformance/formatting/`)
+Idempotency and layout test cases verifying the canonical formatter `aipo fmt`.

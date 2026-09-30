@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/zoe/guide/custom-components.md"
 sourceBlob: "7acf67560ba619bb048b70775d5ae03bc46756fc"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/zoe/guide/custom-components.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `7acf67560ba619bb048b70775d5ae03bc46756fc`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `7acf67560ba619bb048b70775d5ae03bc46756fc`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Criando Componentes Customizados
 

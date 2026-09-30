@@ -6,13 +6,13 @@ category: development
 locale: pt-BR
 sourcePath: "docs/evidence/P00-G14-runtime-contract-enforcement.md"
 sourceBlob: "a197815f3b88252d84e907f2beb5515c75f942ff"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
 ::: info Cópia estática
 Copiado de `docs/evidence/P00-G14-runtime-contract-enforcement.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `a197815f3b88252d84e907f2beb5515c75f942ff`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+Fixado na revisão `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `a197815f3b88252d84e907f2beb5515c75f942ff`.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Evidence — P00-G14 / Runtime Contract Enforcement
 

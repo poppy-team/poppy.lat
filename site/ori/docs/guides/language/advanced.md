@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/language/advanced.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
 Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `a1b0cc2f291db9883114b3e0e81ccd878b7f1471`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Recursos avançados da linguagem
 

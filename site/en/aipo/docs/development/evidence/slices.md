@@ -4,47 +4,47 @@ description: "Aipo — Slices"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/evidence/slices.md"
+sourcePath: "docs/en/evidence/slices.md"
 sourceBlob: "2ea758c4036a0b8922b36bd7e54ec92a77bcf3d3"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/evidence/slices.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `2ea758c4036a0b8922b36bd7e54ec92a77bcf3d3`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/evidence/slices.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `2ea758c4036a0b8922b36bd7e54ec92a77bcf3d3`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Registro Histórico de Slices
+# Historical Slice Register
 
-Cada fatia vertical (*vertical slice*) e meta de implementação no Aipo é concluída somente após a validação de evidências automatizadas e o registro de um relatório formal em `docs/evidence/`.
+Every vertical slice and milestone in Aipo is completed only after automated evidence passes and a formal certification report is recorded in `docs/evidence/`.
 
 ---
 
-## Histórico Consolidado de Slices
+## Consolidated Milestone History
 
-### Fase P00: MVP Foundation & Fechamento de Contratos
-- **P00-G01 a P00-G08**: Workspace, Lexer, Parser, HIR, SEMA, Core IR, Bytecode, VM e Modelo de Erros.
-- **P00-G09**: Crate `aipo-runtime` e primeira biblioteca padrão (*MVP subset*).
-- **P00-G10**: Fechamento do pipeline ponta a ponta (Syntax $\rightarrow$ IR $\rightarrow$ Bytecode $\rightarrow$ VM $\rightarrow$ CLI).
-- **P00-G11**: Utilitário CLI e formatador de código canônico.
-- **P00-G12**: Portão de qualidade e conformidade do MVP.
-- **P00-G13**: Hooks de construção `init()` e tipo `Bytes`.
-- **P00-G14**: Imposição de invariantes em mutações estáveis e rollback transacional via journal em `attempt`.
-- **P00-G15**: Contratos estáticos em `interface`, conformidade estrutural em chamadas dinâmicas e normalização NFC.
-- **P00-G16**: Revisão final de encerramento da Wave 1 com gauntlet 100% verde (13/13, 11/11, 3/3, 146/146).
+### Phase P00: MVP Foundation & Contracts Closure
+- **P00-G01 through P00-G08**: Workspace setup, Lexer, Parser, HIR, SEMA, Core IR, Bytecode, VM, and Diagnostic Fault Model.
+- **P00-G09**: `aipo-runtime` crate and first standard library (*MVP subset*).
+- **P00-G10**: End-to-end pipeline integration (Syntax $\rightarrow$ IR $\rightarrow$ Bytecode $\rightarrow$ VM $\rightarrow$ CLI).
+- **P00-G11**: Unified CLI utility and canonical code formatter.
+- **P00-G12**: MVP quality and conformance verification gate.
+- **P00-G13**: `init()` construction hooks and native `Bytes` type.
+- **P00-G14**: Invariant enforcement on stable mutations and journaled rollback inside `attempt`.
+- **P00-G15**: Static `interface` contracts, structural dynamic dispatch conformance, and Unicode NFC normalization.
+- **P00-G16**: Wave 1 exit review with 100% green gauntlet (13/13, 11/11, 3/3, 146/146).
 
-### Fase P01: Paridade JavaScript & Deep Quality Gauntlet
-- **P01-G01**: Emissor `aipo-js`, runtime shim versionado, Source Maps e 100% de paridade diferencial VM ↔ Node.js.
-- **P01-G02**: Suíte profunda de fuzzing (libFuzzer), testes de propriedade (proptest) e auditoria de supply chain (`cargo deny`).
+### Phase P01: JavaScript Parity & Deep Quality Gauntlet
+- **P01-G01**: `aipo-js` compiler, versioned runtime shim, Source Maps V3, and 100% differential parity VM ↔ Node.js.
+- **P01-G02**: Deep fuzzing suite (libFuzzer), property-based testing (proptest), and supply-chain auditing (`cargo deny`).
 
-### Fase P02: Wave 3 — Tipos Ricos & Async
-- **P02-G01**: `Set` com ordem de inserção, `Sequence` lazy e serialização LE/BE em `Bytes`.
-- **P02-G02**: Combinadores assíncronos (`task.*`) e scheduler cooperativo com tempo virtual determinístico.
-- **P02-G03**: Sintaxe `async fn`, bloco `await do ... end`, diagnósticos semânticos e detecção de ciclos de espera.
+### Phase P02: Wave 3 — Rich Types & Async
+- **P02-G01**: Insertion-ordered `Set`, lazy `Sequence`, and endian-aware `Bytes` binary packing.
+- **P02-G02**: Async task combinators (`task.*`) and cooperative scheduler with deterministic virtual time.
+- **P02-G03**: `async fn` syntax, sequential `await do ... end`, semantic diagnostics, and task dependency cycle detection.
 
-### Fase P03: Wave 4 — Host ABI & Poppy Engine
-- **P03-G01**: Crate `aipo-host`, Host Schema (AHS), permissões deny-by-default, handles geracionais e prevenção de escape de escopo.
-- **P03-G02**: Crate `aipo-poppy`, módulo `poppy`, buffer de comandos e simulação headless determinística com semente.
+### Phase P03: Wave 4 — Host ABI & Poppy Engine
+- **P03-G01**: `aipo-host` crate, Host Schema (AHS), deny-by-default capabilities, generational handles, and scope escape prevention.
+- **P03-G02**: `aipo-poppy` crate, `poppy` module, transactional command buffers, and seeded deterministic headless simulation.
 
-### Fase P04: Wave 5 — Gestor de Pacotes Hermético
-- **P04-G01 a P04-G11**: Sistema de pacotes, manifesto `aipo.toml`, lockfiles determinísticos, dependências GitHub pinadas por commit SHA, cache local atômico com verificação SHA-256 e ferramentas de auditoria (`verify`) e poda (`prune`).
+### Phase P04: Wave 5 — Hermetic Package Manager
+- **P04-G01 through P04-G11**: Hermetic packaging system, `aipo.toml` manifest, deterministic lockfiles, commit SHA-pinned GitHub dependencies, content-addressable local cache with SHA-256 verification, and cache maintenance tools (`verify`, `prune`).

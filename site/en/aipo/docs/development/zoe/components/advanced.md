@@ -4,29 +4,29 @@ description: "Aipo — Advanced"
 project: aipo
 category: development
 locale: en
-sourcePath: "docs/zoe/components/advanced.md"
+sourcePath: "docs/en/zoe/components/advanced.md"
 sourceBlob: "a3790ac24bbe546c863cc712e3f6d93c9481429a"
-revision: "3a5ce6737d42ae75470f7798680ebc95b3ac761c"
+revision: "7d51026653301c3048a41e2cf4026e3429c3a3b9"
 license: "MIT"
 ---
-::: info Cópia estática
-Copiado de `docs/zoe/components/advanced.md` em [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
-Fixado na revisão `3a5ce6737d42ae75470f7798680ebc95b3ac761c`, blob `a3790ac24bbe546c863cc712e3f6d93c9481429a`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+::: info Static copy
+Copied from `docs/en/zoe/components/advanced.md` in [https://github.com/poppy-team/aipo-lang](https://github.com/poppy-team/aipo-lang) (MIT).
+Pinned to revision `7d51026653301c3048a41e2cf4026e3429c3a3b9`, blob `a3790ac24bbe546c863cc712e3f6d93c9481429a`.
+The source repository remains canonical; this copy is refreshed through a sync pull request, not live.
 :::
-# Componentes Avançados
+# Advanced Widgets
 
-Widgets especializados de alta complexidade para ferramentas profissionais, editores e IDEs.
+Specialized, high-complexity widgets tailored for developer tooling and IDE applications.
 
 ---
 
 ## `code_editor`
 
-Editor de código de alta performance projetado para scripts in-game, consoles de debug e ferramentas de desenvolvimento:
-- **Gutter com Numeração Lateral**: Largura dinâmica calculada com base na contagem de linhas.
-- **Realce Sintático Nativo de Aipo**: Tokenização automática de palavras-chave (`fn`, `let`, `var`, `if`, `while`), tipos (`Int`, `String`), strings, comentários e números.
-- **Cursor e Linha Ativa**: Destaque translúcido na linha selecionada e barra de cursor vertical.
-- **Culling Vertical**: Linhas fora da área visível são descartadas da renderização para manter 60 FPS estável.
+High-performance virtualized code editor:
+- **Gutter with Line Numbers**: Dynamically measured based on line count.
+- **Aipo Syntax Highlighting**: Automatic tokenization of keywords, types, strings, comments, and numeric literals.
+- **Blinking Cursor & Active Line Highlight**: Visual emphasis on the active row.
+- **Vertical Culling**: Unrendered lines outside viewport bounds are culled to ensure 60 FPS performance.
 
 ```aipo
 let script = "fn update(dt) {\n    let speed = 120.0\n    player.x += speed * dt\n}"
@@ -36,8 +36,7 @@ zoe.code_editor({
     "cursor_line": 2,
     "cursor_col": 14,
     "width": "100%",
-    "height": 260.0,
-    "show_gutter": true
+    "height": 260.0
 })
 ```
 
@@ -45,44 +44,44 @@ zoe.code_editor({
 
 ## `node_graph`
 
-Canvas infinito para grafos visuais (shaders de nós, árvores de diálogo e blueprints lógicas):
-- **Cabos em Curvas de Bézier**: Conexões desenhadas com fragment shaders em GPU (`host_draw_bezier`) com brilho (*glow*) e suavização contínua.
-- **Cartões de Nós Táteis**: Cabeçalho de destaque com cores semânticas, bordas arredondadas e sombras de contato.
-- **Portas de Soquete Coloridas**: Indicadores circulares de tipo (float, vetores, texturas, fluxo).
+Infinite visual canvas for shader graphs, dialogue trees, and blueprint logic:
+- **Bézier Connection Cables**: GPU-rendered cables with glow and smoothstep anti-aliasing via `host_draw_bezier`.
+- **Tactile Node Cards**: Rounded borders, top color accents, and contact drop shadows.
+- **Color-Coded Sockets**: Semantic circular ports for floats, vectors, colors, and textures.
 
 ```aipo
-let nos = [
+let nodes = [
     {
-        "id": "textura",
-        "title": "Textura 2D",
+        "id": "tex",
+        "title": "Texture 2D",
         "x": 40.0,
         "y": 60.0,
         "color": zoe.color.blue,
         "outputs": [{ "name": "RGBA", "color": zoe.color.yellow }]
     },
     {
-        "id": "saida",
+        "id": "out",
         "title": "Fragment Shader",
         "x": 320.0,
         "y": 80.0,
         "color": zoe.color.green,
-        "inputs": [{ "name": "Cor Final", "color": zoe.color.yellow }]
+        "inputs": [{ "name": "Final Color", "color": zoe.color.yellow }]
     }
 ]
 
-let conexoes = [
+let connections = [
     {
-        "from_node": "textura",
+        "from_node": "tex",
         "from_socket": "RGBA",
-        "to_node": "saida",
-        "to_socket": "Cor Final",
+        "to_node": "out",
+        "to_socket": "Final Color",
         "color": zoe.color.yellow
     }
 ]
 
 zoe.node_graph({
-    "nodes": nos,
-    "connections": conexoes,
+    "nodes": nodes,
+    "connections": connections,
     "width": "100%",
     "height": 400.0
 })
@@ -90,21 +89,21 @@ zoe.node_graph({
 
 ---
 
-## `modal_dialog` e `open_modal`
+## `modal_dialog` and `open_modal`
 
-Diálogos modais elevados com escurecimento de fundo (*scrim backdrop*), botão de fechamento e ações customizáveis:
+Elevated dialog cards with backdrop scrims and action buttons:
 
 ```aipo
-fn abrir_confirmacao() {
-    let corpo = zoe.label("Deseja exportar a cena atual?", { "font_size": 13.0 })
+fn show_confirm() {
+    let body = zoe.label("Export current scene?", { "font_size": 13.0 })
     
-    zoe.open_modal("Exportar Projeto", [corpo], fn() {
-        print("Exportação confirmada!")
+    zoe.open_modal("Export Project", [body], fn() {
+        print("Export confirmed!")
     }, none, {
         "width": 380.0,
         "height": 180.0,
-        "confirm_text": "Exportar",
-        "cancel_text": "Cancelar"
+        "confirm_text": "Export",
+        "cancel_text": "Cancel"
     })
 }
 ```

@@ -12,7 +12,7 @@ license: "MIT"
 ::: info Cópia estática
 Copiado de `docs/guides/cli-reference.pt-BR.md` em [https://github.com/poppy-team/ori-lang](https://github.com/poppy-team/ori-lang) (MIT).
 Fixado na revisão `42e1817227fbc96e8e4a4a85fac78b3fec0a0e0f`, blob `74251452b8b97874816e8bcc7cbae9f251f78ae0`.
-O repositório de origem permanece canônico; esta cópia não é atualizada automaticamente.
+O repositório de origem permanece canônico; esta cópia é atualizada por um pull request de sincronização, não em tempo real.
 :::
 # Referência da CLI
 
