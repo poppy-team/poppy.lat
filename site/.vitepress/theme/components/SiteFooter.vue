@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
+import ThemeToggle from './ThemeToggle.vue';
 
 /**
  * The locale is optional so the shell can render the footer without threading a
@@ -36,11 +37,13 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
         <p class="site-footer__description">{{ copy.footerDescription }}</p>
       </div>
       <nav class="site-footer__links" :aria-label="copy.navigationLabel">
+        <a :href="activeLocale === 'en' ? '/en/learn/' : '/aprender/'">{{ copy.navigation.learn }}</a>
         <a :href="`${root}/#projects`">{{ copy.navigation.projects }}</a>
         <a :href="`${root}/blog/`">{{ copy.navigation.blog }}</a>
         <a href="https://github.com/poppy-team">{{ copy.githubLabel }}</a>
         <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
       </nav>
+      <ThemeToggle />
       <small class="site-footer__legal">© 2026 Poppy Team</small>
     </div>
   </footer>

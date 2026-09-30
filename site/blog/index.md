@@ -1,6 +1,6 @@
 ---
 layout: blog-index
-title: "Caderno"
+title: "Blog"
 locale: pt-BR
 ---
 

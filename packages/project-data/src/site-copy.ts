@@ -31,7 +31,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       projects: 'Projetos',
       docs: 'Documentação',
       learn: 'Aprender',
-      blog: 'Caderno',
+      blog: 'Blog',
       contact: 'Contato',
     },
     languageLabel: 'Ler em inglês',

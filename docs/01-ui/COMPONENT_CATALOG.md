@@ -18,8 +18,8 @@
 | `project-page` | `/projects/<slug>/` | Propósito, princípios, exemplo estático e a lista de páginas de documentação do projeto |
 | `docs-landing` | `/docs/<slug>/` | Identificação do projeto e suas páginas, agrupadas por categoria |
 | `docs-category` | `/docs/<slug>/<categoria>/` | Índice de uma categoria e navegação para as outras categorias que têm páginas |
-| `blog-index` | `/blog/` e `/en/blog/` | Índice do caderno |
-| `article` | `/blog/<slug>/` | Nota do caderno com data e descrição |
+| `blog-index` | `/blog/` e `/en/blog/` | Índice do blog |
+| `article` | `/blog/<slug>/` | Nota do blog com data e descrição |
 | `not-found` | `/not-found/` | Página de erro, publicada também como `404.html` |
 
 O tema nativo do VitePress cobre a navegação lateral, a busca local, a tabela de
@@ -39,7 +39,7 @@ própria e mais de um uso.
 | `code-plate` | Amostra de código estática com rótulo e linguagem |
 | `docs-card` | Ligação para uma página de documentação, com título e descrição |
 | `docs-landing` | Seção de documentação de um projeto |
-| `journal-page` / `article-page` | Caderno e nota individual |
+| `journal-page` / `article-page` | Blog e nota individual |
 | `site-header` / `site-footer` | Chrome do site |
 
 ## Regras

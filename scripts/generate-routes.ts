@@ -130,7 +130,7 @@ for (const locale of ['pt-BR', 'en'] as const) {
     [
       '---',
       'layout: blog-index',
-      `title: ${JSON.stringify(locale === 'en' ? 'Journal' : 'Caderno')}`,
+      `title: ${JSON.stringify(locale === 'en' ? 'Journal' : 'Blog')}`,
       `locale: ${languageTag}`,
       '---',
       '',
