@@ -21,6 +21,7 @@ const pages = [
   '/aprender/regras',
   '/en/learn/',
   '/conta/entrar',
+  '/gestao',
   '/ori/docs/',
   '/aipo/docs/guides/getting-started/first-program',
   '/not-found/',

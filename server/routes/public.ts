@@ -1,9 +1,10 @@
-import { and, asc, eq, inArray } from 'drizzle-orm';
+import { and, asc, eq, sql } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { deps, requireUser, type AppEnv } from '../context.ts';
 import * as t from '../db/schema.ts';
 import { HttpError } from '../lib/http.ts';
 import { loadProfile, type ProfileView } from '../lib/profile.ts';
+import { effectiveRole } from '../lib/role-sql.ts';
 
 export function publicRoutes() {
   const app = new Hono<AppEnv>();
@@ -36,7 +37,7 @@ export function publicRoutes() {
       .select({ userId: t.profiles.userId })
       .from(t.profiles)
       .innerJoin(t.user, eq(t.user.id, t.profiles.userId))
-      .where(and(eq(t.profiles.isPublic, true), inArray(t.user.role, ['contributor', 'admin'])))
+      .where(and(eq(t.profiles.isPublic, true), sql`${sql.raw(effectiveRole('user'))} IN ('contributor', 'creator', 'admin')`))
       .orderBy(asc(t.profiles.createdAt), asc(t.profiles.handle));
     const members: ProfileView[] = [];
 

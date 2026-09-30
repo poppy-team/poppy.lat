@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
-import { accountsEnabled, api, ApiError, isStaff, shortDateTime, type CommentView } from './api';
+import { accountsEnabled, api, ApiError, badgeOf, isStaff, shortDateTime, type CommentView, type Role } from './api';
 import RoleBadge from './RoleBadge.vue';
 import { loadRenderer } from './render-markdown';
 import { me, sessionStatus, startSession } from './session';
@@ -21,7 +21,7 @@ interface Report {
 
 interface PersonState {
   handle: string;
-  role: 'student' | 'contributor' | 'admin';
+  role: Role;
   banned: boolean;
   mutedUntil: string | null;
 }
@@ -273,7 +273,7 @@ async function act(kind: 'mute' | 'unmute' | 'photo' | 'ban' | 'unban' | 'role')
         <div v-if="person" class="acct-card">
           <p>
             <strong>@{{ person.handle }}</strong>
-            <RoleBadge :badge="person.role === 'student' ? 'student' : 'contributor'" />
+            <RoleBadge :badge="badgeOf(person.role)" />
             <span v-if="person.role === 'admin'" class="acct-muted">(admin)</span>
             <span v-if="person.banned" class="comment__tag comment__tag--warn">Banido</span>
             <span v-if="person.mutedUntil" class="comment__tag comment__tag--warn">
@@ -316,6 +316,7 @@ async function act(kind: 'mute' | 'unmute' | 'photo' | 'ban' | 'unban' | 'role')
               <select v-model="action.role">
                 <option value="student">Aluno</option>
                 <option value="contributor">Contribuidor</option>
+                <option value="creator">Criador</option>
                 <option value="admin">Admin</option>
               </select>
             </label>

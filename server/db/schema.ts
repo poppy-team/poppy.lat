@@ -211,6 +211,20 @@ export const lessonProgress = sqliteTable(
   (table) => [primaryKey({ columns: [table.userId, table.lessonId] })],
 );
 
+/** Extra permissions besides the base role. Today only "creator" (see migration 007). */
+export const userGrants = sqliteTable(
+  'user_grants',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    capability: text('capability').notNull(),
+    grantedBy: text('granted_by'),
+    createdAt: text('created_at').notNull().default(now),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.capability] })],
+);
+
 export const notificationState = sqliteTable(
   'notification_state',
   {

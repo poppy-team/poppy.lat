@@ -27,6 +27,7 @@ import ProfilePage from './accounts/ProfilePage.vue';
 import ProfileEditPage from './accounts/ProfileEditPage.vue';
 import NotesPage from './accounts/NotesPage.vue';
 import ModerationPage from './accounts/ModerationPage.vue';
+import GestaoPage from './accounts/GestaoPage.vue';
 import TeamPage from './accounts/TeamPage.vue';
 import SiteChrome from './components/SiteChrome.vue';
 import LanguageSwitch from './components/LanguageSwitch.vue';
@@ -148,6 +149,7 @@ export default {
     app.component('NotesPage', NotesPage);
     app.component('ModerationPage', ModerationPage);
     app.component('TeamPage', TeamPage);
+    app.component('GestaoPage', GestaoPage);
     rememberCodeTabs();
     rememberCodeWrap();
     registerServiceWorker();

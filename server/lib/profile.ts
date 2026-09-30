@@ -1,8 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import type { Db } from '../db/client.ts';
 import * as t from '../db/schema.ts';
-import { badgeFor, type Role } from './can.ts';
+import { badgeFor, type Badge, type Role } from './can.ts';
 import { iso } from './http.ts';
+import { effectiveRole } from './role-sql.ts';
 import { isLinkService, linkHref, linkLabel, type LinkService, linkServices } from './links.ts';
 
 export interface LinkView {
@@ -18,7 +19,7 @@ export interface ProfileView {
   handle: string;
   name: string;
   bio: string;
-  badge: 'student' | 'contributor';
+  badge: Badge;
   isPublic: boolean;
   showInRankings: boolean;
   memberSince: string | null;
@@ -34,7 +35,7 @@ export async function loadProfile(db: Db, userId: string, viewer: { loggedIn: bo
   const [row] = await db
     .select({
       name: t.user.name,
-      role: t.user.role,
+      role: sql<string>`${sql.raw(effectiveRole('user'))}`,
       handle: t.profiles.handle,
       bio: t.profiles.bio,
       isPublic: t.profiles.isPublic,

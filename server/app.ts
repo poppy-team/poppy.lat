@@ -1,3 +1,4 @@
+import { roles } from './lib/can.ts';
 import { createHmac } from 'node:crypto';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
@@ -92,7 +93,11 @@ export function createApp(parts: AppParts, register: (app: Hono<AppEnv>) => void
     if (result) {
       const { user, session } = result;
       const banned = Boolean(user.banned) && (!user.banExpires || new Date(user.banExpires).getTime() > Date.now());
-      const role = user.role === 'admin' || user.role === 'contributor' ? user.role : 'student';
+      const base = roles.find((entry) => entry === user.role) ?? 'student';
+      const creator =
+        base === 'student' &&
+        (await parts.client.execute({ sql: `SELECT 1 FROM user_grants WHERE user_id = ? AND capability = 'creator'`, args: [user.id] })).rows.length > 0;
+      const role = creator ? 'creator' : base;
 
       if (!banned) {
         c.set('user', {

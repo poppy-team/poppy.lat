@@ -82,7 +82,7 @@ export interface ProfileView {
   handle: string;
   name: string;
   bio: string;
-  badge: 'student' | 'contributor';
+  badge: Badge;
   isPublic: boolean;
   showInRankings: boolean;
   memberSince: string | null;
@@ -91,14 +91,28 @@ export interface ProfileView {
 }
 
 export interface Me {
-  user: { id: string; name: string; email: string; role: 'student' | 'contributor' | 'admin' };
+  user: { id: string; name: string; email: string; role: Role };
   profile: ProfileView;
 }
 
-export const badgeLabel = { student: 'Aluno', contributor: 'Contribuidor' } as const;
+export type Role = 'student' | 'contributor' | 'creator' | 'admin';
+export type Badge = 'student' | 'contributor' | 'creator';
 
+export const roleLabel: Record<Role, string> = { student: 'Aluno', contributor: 'Contribuidor', creator: 'Criador', admin: 'Admin' };
+export const badgeLabel: Record<Badge, string> = { student: 'Aluno', contributor: 'Contribuidor', creator: 'Criador' };
+
+/** Moderators: contributors and admins. Creators write content but do not moderate. */
 export function isStaff(me: Me | null): boolean {
   return me?.user.role === 'contributor' || me?.user.role === 'admin';
+}
+
+/** Anyone who may enter the management panel (what they see inside depends on the role). */
+export function canEnterPanel(me: Me | null): boolean {
+  return Boolean(me) && me?.user.role !== 'student';
+}
+
+export function badgeOf(role: Role): Badge {
+  return role === 'student' ? 'student' : role === 'creator' ? 'creator' : 'contributor';
 }
 
 /** "12 de março de 2026", in the reader's language settings. */
@@ -117,7 +131,7 @@ export interface CommentView {
   targetType: string;
   targetId: string;
   parentId: string | null;
-  author: { handle: string; name: string; badge: 'student' | 'contributor'; profilePublic: boolean; photoUrl: string | null } | null;
+  author: { handle: string; name: string; badge: Badge; profilePublic: boolean; photoUrl: string | null } | null;
   bodyMd: string | null;
   status: 'visible' | 'hidden_by_moderator' | 'deleted_by_author';
   hiddenReason: string | null;

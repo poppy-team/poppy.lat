@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { badgeLabel } from './api';
+import { badgeLabel, type Badge } from './api';
 
-/** "Aluno" or "Contribuidor". The role decides it; nobody picks their own. */
-defineProps<{ badge: 'student' | 'contributor' }>();
+/** "Aluno", "Contribuidor" or "Criador". The role decides it; nobody picks their own. */
+defineProps<{ badge: Badge }>();
 </script>
 
 <template>

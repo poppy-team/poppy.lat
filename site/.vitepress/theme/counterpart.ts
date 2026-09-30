@@ -85,7 +85,7 @@ export function useCounterpart() {
     }
 
     // The team page is written in Portuguese only.
-    if (/^\/?equipe\/?$/u.test(stripped)) {
+    if (/^\/?(equipe|gestao)\/?$/u.test(stripped)) {
       return '/en/';
     }
 

@@ -10,34 +10,40 @@ import { createTestDb } from '../../server/db/client.ts';
 const me = (role: Role): Actor => ({ id: 'me', role });
 
 describe('quem pode o quê', () => {
-  // ✔ = pode, ✘ = não pode. As colunas são: visitante, aluno, contribuidor, admin.
-  const matrix: [Action, boolean, boolean, boolean, boolean][] = [
-    ['comment:read', true, true, true, true],
-    ['comment:create', false, true, true, true],
-    ['comment:react', false, true, true, true],
-    ['comment:report', false, true, true, true],
-    ['comment:hide', false, false, true, true],
-    ['comment:restore', false, false, true, true],
-    ['comment:pin', false, false, true, true],
-    ['comment:official', false, false, true, true],
-    ['report:resolve', false, false, true, true],
-    ['user:mute', false, false, true, true],
-    ['photo:remove-other', false, false, true, true],
-    ['user:ban', false, false, false, true],
-    ['user:role', false, false, false, true],
-    ['comment:purge', false, false, false, true],
-    ['log:read', false, false, false, true],
+  // As colunas são: visitante, aluno, contribuidor, criador, admin.
+  const matrix: [Action, boolean, boolean, boolean, boolean, boolean][] = [
+    ['comment:read', true, true, true, true, true],
+    ['comment:create', false, true, true, true, true],
+    ['comment:react', false, true, true, true, true],
+    ['comment:report', false, true, true, true, true],
+    ['comment:hide', false, false, true, false, true],
+    ['comment:restore', false, false, true, false, true],
+    ['comment:pin', false, false, true, false, true],
+    ['comment:official', false, false, true, false, true],
+    ['report:resolve', false, false, true, false, true],
+    ['user:mute', false, false, true, false, true],
+    ['photo:remove-other', false, false, true, false, true],
+    ['panel:access', false, false, true, true, true],
+    ['content:draft', false, false, false, true, true],
+    ['content:publish', false, false, false, false, true],
+    ['content:edit-any', false, false, false, false, true],
+    ['user:list', false, false, false, false, true],
+    ['user:ban', false, false, false, false, true],
+    ['user:role', false, false, false, false, true],
+    ['comment:purge', false, false, false, false, true],
+    ['log:read', false, false, false, false, true],
   ];
 
-  it.each(matrix)('%s', (action, visitor, student, contributor, admin) => {
+  it.each(matrix)('%s', (action, visitor, student, contributor, creator, admin) => {
     expect(can(null, action)).toBe(visitor);
     expect(can(me('student'), action)).toBe(student);
     expect(can(me('contributor'), action)).toBe(contributor);
+    expect(can(me('creator'), action)).toBe(creator);
     expect(can(me('admin'), action)).toBe(admin);
   });
 
   it.each(['comment:edit-own', 'comment:delete-own', 'notes:own', 'profile:own'] as const)('%s só vale para o que é da própria pessoa', (action) => {
-    for (const role of ['student', 'contributor', 'admin'] as const) {
+    for (const role of ['student', 'contributor', 'creator', 'admin'] as const) {
       expect(can(me(role), action, { ownerId: 'me' })).toBe(true);
       expect(can(me(role), action, { ownerId: 'other' }), `${role} em dado alheio`).toBe(false);
       expect(can(me(role), action), `${role} sem dono`).toBe(false);
@@ -55,6 +61,11 @@ describe('quem pode o quê', () => {
     expect(outranks('admin', 'contributor')).toBe(true);
     expect(outranks('contributor', 'student')).toBe(true);
     expect(outranks('contributor', 'contributor')).toBe(false);
+    expect(outranks('contributor', 'creator')).toBe(false);
+    expect(outranks('creator', 'contributor')).toBe(false);
+    expect(outranks('creator', 'student')).toBe(true);
+    expect(outranks('admin', 'creator')).toBe(true);
+    expect(badgeFor('creator')).toBe('creator');
     expect(outranks('admin', 'admin')).toBe(false);
     expect(badgeFor('student')).toBe('student');
     expect(badgeFor('contributor')).toBe('contributor');
