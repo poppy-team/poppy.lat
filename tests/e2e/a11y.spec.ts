@@ -68,3 +68,50 @@ test.describe('acessibilidade (axe), celular', () => {
     });
   }
 });
+
+for (const palette of ['tokyo-night', 'gruvbox', 'nord']) {
+  for (const scheme of ['light', 'dark'] as const) {
+    test.describe(`acessibilidade (axe), paleta ${palette}, tema ${scheme}`, () => {
+      test.use({ colorScheme: scheme });
+
+      for (const path of ['/', '/aprender/', '/aprender/pensar-em-codigo/primeiro-programa/ola', '/blog/um-arquivo-com-origem', '/ori/docs/']) {
+        test(`${path} nao tem violacoes`, async ({ page }) => {
+          await page.addInitScript((id) => localStorage.setItem('poppy.palette', id), palette);
+          await page.goto(path);
+          await page.waitForLoadState('load');
+          await page.waitForTimeout(500);
+
+          expect(await page.evaluate(() => document.documentElement.dataset.palette)).toBe(palette);
+          expect(await violations(page)).toEqual([]);
+        });
+      }
+    });
+  }
+}
+
+test.describe('paleta de cores', () => {
+  test('a escolha no rodape vale para o site e fica salva', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('radio', { name: /Nord/u }).first().check({ force: true });
+
+    expect(await page.evaluate(() => document.documentElement.dataset.palette)).toBe('nord');
+
+    await page.reload();
+
+    expect(await page.evaluate(() => document.documentElement.dataset.palette)).toBe('nord');
+    await page.getByRole('radio', { name: /Poppy/u }).first().check({ force: true });
+
+    expect(await page.evaluate(() => document.documentElement.dataset.palette ?? 'poppy')).toBe('poppy');
+  });
+
+  test('a logo nunca e invertida: no tema escuro fica sobre uma placa clara', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto('/');
+
+    const logo = page.locator('.site-header .wordmark__logo--light').first();
+
+    await expect(logo).toBeVisible();
+    await expect(page.locator('.site-header .wordmark__logo--dark').first()).toBeHidden();
+    expect(await logo.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(241, 237, 223)');
+  });
+});

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCourseState } from '../course-state';
+import PalettePicker from './PalettePicker.vue';
 import ThemeToggle from './ThemeToggle.vue';
 
 /**
@@ -128,6 +129,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick));
       <fieldset>
         <legend>Aparência</legend>
         <ThemeToggle />
+        <PalettePicker name="palette-reading" />
       </fieldset>
 
       <p class="reading-tools__note">

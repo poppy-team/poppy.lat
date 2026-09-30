@@ -38,6 +38,8 @@
   --rule-strong: #b5b0a1;
   --accent: var(--color-accent);
   --accent-ink: var(--color-accent-deep);
+  /* Code blocks: a touch lighter than the page in light themes, darker in dark ones, so the syntax colours keep their contrast. */
+  --code-bg: var(--surface-raised);
 
   /* Typography: one serif for display, one sans for reading, one mono. */
   --font-display: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
@@ -84,18 +86,21 @@
 .dark {
   color-scheme: dark;
 
-  --surface: #1b1e1b;
-  --surface-raised: #232723;
-  --surface-sunken: #161916;
-  --text: #f1eddf;
-  --text-soft: #c3c6bb;
-  --text-muted: #9a9f95;
-  --rule: #363c36;
-  --rule-strong: #4a514a;
-  --accent: #e08a74;
-  --accent-ink: #eea08c;
-  --feature-plane: #26332c;
-  --feature-ink: #a9c4b3;
+  /* Softer than black: a green-tinted charcoal in three layers (page, cards, wells),
+     text that is warm off-white instead of full white so long reading glares less. */
+  --surface: #1d211d;
+  --surface-raised: #262b26;
+  --surface-sunken: #181b18;
+  --code-bg: var(--surface-sunken);
+  --text: #e9e5d8;
+  --text-soft: #bec2b6;
+  --text-muted: #949b90;
+  --rule: #343a35;
+  --rule-strong: #4b524c;
+  --accent: #e58f78;
+  --accent-ink: #f0a590;
+  --feature-plane: #25322a;
+  --feature-ink: #b3ccbc;
 }
 
 /*

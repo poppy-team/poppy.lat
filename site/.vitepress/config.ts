@@ -294,6 +294,12 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/apple-touch-icon.png' }],
     // Installable as an app: the manifest, the colour of the window frame, and
     // the names iPhone and iPad use, since they read them from tags.
+    // The saved palette is applied before the first paint, so pages never flash the wrong colours.
+    [
+      'script',
+      {},
+      "try{var p=localStorage.getItem('poppy.palette');if(/^(tokyo-night|gruvbox|nord)$/.test(p))document.documentElement.setAttribute('data-palette',p)}catch(e){}",
+    ],
     ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
     ['meta', { name: 'theme-color', content: '#f1eddf', media: '(prefers-color-scheme: light)' }],
     ['meta', { name: 'theme-color', content: '#1b1e1b', media: '(prefers-color-scheme: dark)' }],

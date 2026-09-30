@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { siteCopy, type Locale } from '@poppy/project-data';
 import InstallApp from './InstallApp.vue';
+import PalettePicker from './PalettePicker.vue';
 import ThemeToggle from './ThemeToggle.vue';
 
 /**
@@ -45,7 +46,10 @@ const root = computed(() => (activeLocale.value === 'en' ? '/en' : ''));
         <a href="https://github.com/poppy-team">{{ copy.githubLabel }}</a>
         <a href="mailto:mail@poppy.lat">{{ copy.emailLabel }}</a>
       </nav>
-      <ThemeToggle />
+      <div class="site-footer__look">
+        <ThemeToggle />
+        <PalettePicker name="palette-footer" />
+      </div>
       <InstallApp />
       <small class="site-footer__legal">© 2026 Poppy Team</small>
     </div>

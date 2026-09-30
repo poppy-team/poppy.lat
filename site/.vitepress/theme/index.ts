@@ -20,6 +20,7 @@ import NotFound from './layouts/NotFound.vue';
 import CoursesLanding from './layouts/CoursesLanding.vue';
 import { rememberCodeTabs, rememberCodeWrap } from './course-state';
 import { registerServiceWorker } from './app-install';
+import { initPalette } from './palette';
 import { watchVitepressAccessibility } from './vitepress-a11y';
 import LoginPage from './accounts/LoginPage.vue';
 import ProfilePage from './accounts/ProfilePage.vue';
@@ -37,6 +38,7 @@ import '@fontsource-variable/jetbrains-mono/index.css';
 import '@fontsource/atkinson-hyperlegible/400.css';
 import '@fontsource/atkinson-hyperlegible/700.css';
 import './tokens.css';
+import './palettes.css';
 import './custom.css';
 import './courses.css';
 import './lessons.css';
@@ -149,6 +151,7 @@ export default {
     rememberCodeTabs();
     rememberCodeWrap();
     registerServiceWorker();
+    initPalette();
 
     if (typeof document !== 'undefined') {
       if (document.readyState === 'loading') {

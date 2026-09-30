@@ -32,7 +32,7 @@
   --vp-sidebar-bg-color: var(--surface);
   --vp-nav-bg-color: var(--surface);
   --vp-local-nav-bg-color: var(--surface);
-  --vp-code-block-bg: var(--surface-raised);
+  --vp-code-block-bg: var(--code-bg);
   --vp-code-bg: var(--surface-sunken);
   --vp-code-color: var(--text);
   --vp-code-font-size: 0.85em;
@@ -63,6 +63,10 @@ html[data-project]:not([data-project='']) {
 
 .vp-doc span[style*='--shiki-dark:#6A737D'] {
   --shiki-dark: #959fa9 !important;
+}
+
+.vp-doc span[style*='--shiki-light:#22863A'] {
+  --shiki-light: #1b6e2f !important;
 }
 
 .vp-doc span[style*='--shiki-light:#E36209'] {
@@ -100,13 +104,20 @@ body {
   outline: none;
 }
 
-.wordmark__logo--dark,
-.dark .wordmark__logo--light {
+/*
+ * The logo was drawn for light backgrounds, so it is never inverted. On a dark
+ * theme the same drawing sits on a small paper-coloured plate; the plate is
+ * padding and a background, so the logo itself keeps its exact colours.
+ */
+.wordmark__logo--dark {
   display: none;
 }
 
-.dark .wordmark__logo--dark {
-  display: inline-block;
+.dark .wordmark__logo--light {
+  box-sizing: content-box;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--color-paper);
 }
 
 /* ---------------------------------------------------------- primitives -- */
@@ -2158,4 +2169,120 @@ html[data-page='documentation'] .site-header {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+
+/* --------------------------------------------------------------------------
+   Palette picker (footer and reading panel).
+   -------------------------------------------------------------------------- */
+
+.site-footer__look {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.palette-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 24rem;
+  margin-top: 0.6rem;
+}
+
+.palette-picker__option {
+  position: relative;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.palette-picker__option:hover {
+  border-color: var(--text);
+}
+
+.palette-picker__option:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-raised));
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.palette-picker__option:has(input:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.palette-picker__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.palette-picker__swatch {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  width: 2.25rem;
+  height: 1.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+}
+
+.palette-picker__half {
+  position: relative;
+  flex: 1;
+  background: var(--p-bg);
+}
+
+.palette-picker__half::before,
+.palette-picker__half::after {
+  position: absolute;
+  content: '';
+}
+
+.palette-picker__half::before {
+  inset: 0.35rem auto auto 0.2rem;
+  width: 0.5rem;
+  height: 0.12rem;
+  border-radius: 2px;
+  background: var(--p-fg);
+}
+
+.palette-picker__half::after {
+  inset: auto 0.2rem 0.25rem auto;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--p-accent);
+}
+
+.palette-picker__text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.palette-picker__name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.palette-picker__hint {
+  color: var(--text-soft);
+  font-size: var(--text-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .palette-picker__option {
+    transition: none;
+  }
 }
